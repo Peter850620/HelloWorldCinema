@@ -54,14 +54,16 @@
 	});
 </script>
 <style type="text/css">
+.main{
 body {
 	margin: 1rem 12rem 2rem 12rem;
-}
+}}
 </style>
 </head>
 <body>
 <%@ include file="../management.jsp" %>
 
+<div class="main">
 <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
 		 <div align="center"> <h2>所有餐點資料</h2>
 		 <h3><a class="navbar-brand" href="<%=request.getContextPath()%>/back_end/food/select_page.jsp"><img src="<%=request.getContextPath()%>/images/back1.gif">回查詢頁${success}</a></h3></div>
@@ -100,13 +102,13 @@ body {
 			<td>${Food.foodPrice}</td>
 			<td>${Food.foodStatus}</td> 
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back_end/food/food.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/food/food.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="foodId" value="${Food.foodId}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back_end/food/food.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/food/food.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除" disabled> 備註:控管刪除是否可點選依據?
 			     <input type="hidden" name="foodId" value="${Food.foodId}">
 			     <input type="hidden" name="action" value="delete"></FORM>
@@ -115,6 +117,7 @@ body {
 	</c:forEach>
   </tbody>
 </table>
+</div>
 </body>
-<script src="<%=request.getContextPath()%>/back_end/food.js"></script>
+<script src="<%=request.getContextPath()%>/back_end/food/food.js"></script>
 </html>

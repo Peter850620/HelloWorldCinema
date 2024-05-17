@@ -95,7 +95,7 @@
 
 
                     <div class="side">
-                        <a class="items" href="">
+                        <a class="items" href="http://localhost:8081/HelloWorldCinema/back_end/showtimeInfo/listAllShowtimeInfo.jsp">
                             <span class="itemstooltip">場次管理</span>
                         </a>
                         <a class="items" href="">
