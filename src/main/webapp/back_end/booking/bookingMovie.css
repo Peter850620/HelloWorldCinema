@@ -1,0 +1,162 @@
+       .showtimes {
+            font-family: Arial, sans-serif;
+            margin: 20px auto;
+            max-width: 800px;
+            margin-left:340px;
+        }
+
+        .title {
+            color:white;
+            font-size: 24px;
+        }
+
+        .search {
+            margin-bottom: 20px;
+        }
+
+        .btn_search {
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .font_red {
+            color: #ff0000;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 900px;
+        }
+
+        .movie_info {
+            display: flex;
+            align-items: center;
+                width: 900px;
+        }
+
+        .movie_deatils {
+            margin-left: 50px;
+            padding-left: 20px;
+            height:200px;
+            margin-top:40px;
+        }
+
+        .movie_info img {
+            width: 200px;
+            height: 270px;
+            margin-right: 0px;
+        }
+
+        .movie_title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .movie_title_en {
+            font-style: italic;
+            color: #777;
+        }
+
+        .movie_data {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .movie_data li {
+            margin-bottom: 5px;
+            color: #555;
+            width:210px;
+        }
+
+        .movie_level {
+            font-size: 14px;
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+
+        .font_blue {
+            color: #007bff;
+        }
+
+        .movie_times {
+            text-align: center;
+            margin-left: 50px;
+            width: 100%;
+        }
+
+        .movie_session {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .room {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .btn_time {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: 40px;
+        }
+
+        .btn_time li {
+            margin: 15px;
+            display: inline-block;
+            margin-right: 10px;
+            width: 30%;
+            margin-bottom:3px;
+            /* Set the width to 20% so that 5 items fit in one row */
+        }
+
+       /* 按鈕樣式 */
+input[type="submit"] {
+    background-color: #1b7ef4; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+
+input[type="submit"]:hover {
+    background-color: #0a4285; /* Darker green */
+}
+
+/* 按鈕按下時的樣式 */
+input[type="submit"]:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+
+        #selectDate {
+            width: 300px;
+            padding: 10px;
+            font-size: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .row {
+            display: flex;
+        }

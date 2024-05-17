@@ -54,10 +54,10 @@
                                 <a href="">票價說明</a>
                             </li>
                             <li class="nav__submenu-item">
-                                <a href="<%=request.getContextPath()%>/movie/movieCommingSoon.jsp">即將上映</a>
+                                <a href="<%=request.getContextPath()%>/front_end/movie/movieCommingSoon.jsp">即將上映</a>
                             </li>
                             <li class="nav__submenu-item">
-                                <a href="<%=request.getContextPath()%>/movie/movieNowShowing.jsp">現正熱映</a>
+                                <a href="<%=request.getContextPath()%>/front_end/movie/movieNowShowing.jsp">現正熱映</a>
                             </li>
                         </ul>
                     </li>
