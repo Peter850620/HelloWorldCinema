@@ -15,5 +15,9 @@ public interface TicketDAO {
 	public Ticket getById(Integer tkId);
 	public List<Ticket> getByName(String tkName);
 	public List<Ticket> getByStatus(String tkStatus);
+	
+
+
+
 
 }

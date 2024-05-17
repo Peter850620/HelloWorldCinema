@@ -1,0 +1,100 @@
+
+
+form {
+	margin: 20px auto;
+	padding: 20px;
+	width: 55%;
+	border-radius: 25px;
+	justify-content: center;
+	padding: 100px;
+	background-color: rgb(0 0 0/ 60%);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	left: 150px;
+	border: 2px solid white;
+	margin-left:400px;
+	font-size: 25px;
+	color:white;
+	
+}
+
+input[type="text"], input[type="date"], select {
+	width: calc(100% - 15px);
+	margin-bottom: 10px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	 color: white;
+}
+
+
+
+input[type="submit"] ,#listAll{
+  background-color: grey;
+  border-radius: 15px;
+  background-color: rgba(162, 161, 167, 0.5);
+  font-size: 30px;
+  width: 150px;
+  margin-top:10px;
+  cursor:pointer;
+  transition-duration: 0.5s;
+  color: white;
+}
+
+input[type="submit"]:hover ,#listAll:hover{
+	background-color: rgba(87, 87, 89, 0.8);
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+li {
+	color: red;
+	margin-bottom: 5px;
+}
+
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-left:10px;
+  font-size: 15px;
+  padding-bottom: 0px;
+  background-color: rgba(162, 161, 167, 0.5);
+  border: 1px solid #caced1;
+  border-radius: 5px;
+  color: #ffff;
+  cursor: pointer;
+ 
+  height:42px;
+}
+
+input {
+  width: 150px;
+  font-size: 15px;
+  border-radius: 5px;
+  background-color: rgba(162, 161, 167, 0.5);
+  color: #ffff;
+}  
+
+
+
+
+
+button {
+  background-color: grey;
+  border-radius: 25px;
+  background-color: rgba(162, 161, 167, 0.5);
+  font-size: 20px;
+  width: 90px;
+
+  transition-duration: 0.5s;
+  color: white;
+}
+
+button:hover {
+  background-color: rgba(87, 87, 89, 0.8);
+}
+

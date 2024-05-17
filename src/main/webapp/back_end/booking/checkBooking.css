@@ -1,0 +1,87 @@
+body{
+	
+	display:block !important;
+}
+  .container-main {
+    max-width: 1050px;
+    min-width:1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left:250px;
+    margin-top:100px;
+  }
+  
+  h1.booking {
+    text-align: center;
+    color:black;
+    margin-bottom:10px;
+    
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  
+ td.norecord {
+    text-align: center !important;
+}
+
+
+
+input[type="checkbox"] {
+    transform: scale(2); /* 缩放为原来的两倍 */
+    margin-left:20px;
+    background-color: darkblue;
+}
+
+input[type="checkbox"]:checked {
+	
+	background-color:#0b0b6d;
+}
+
+
+
+.btn {
+	
+	margin-top:30px;
+	padding: 8px 16px;
+	font-size: 16px;
+	background-color: #61bdd3;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.btn:hover {
+	background-color: #0056b3;
+}
