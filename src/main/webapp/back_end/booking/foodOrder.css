@@ -1,0 +1,208 @@
+body{
+    background-color: #E3E7E8;
+    font-family: system-ui;
+}
+.container{
+    width: 600px;
+    margin: auto;
+    transition: 0.5s;
+}
+header{
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    margin-top: 50px;
+}
+header .shopping{
+    position: relative;
+    text-align: right;
+    padding-top:20px ;
+}
+header .shopping img{
+    width: 40px;
+}
+header .shopping span{
+    background: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: absolute;
+    top: -5px;
+    left: 80%;
+    padding: 9px 15px;
+}
+
+header >h1{ margin-top:40px;
+COLOR:white;
+z-index: 1;
+}
+.list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 20px;
+    row-gap: 20px;
+    margin-top: 50px;
+    position: relative;
+    right:5px;
+   
+}
+.list .item{
+    text-align: center;
+    background-color: #DCE0E1;
+    padding: 20px;
+    box-shadow: 0 50px 50px #757676;
+    letter-spacing: 1px;
+   
+}
+.list .item img{
+    width: 90%;
+    height: 430px;
+    object-fit: cover;
+}
+.list .item .title{
+    font-weight: 600;
+}
+.list .item .price{
+    margin: 10px;
+}
+.list .item button{
+    background-color: #1C1F25;
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+
+  
+}
+
+.list .item button:hover{
+
+    background-color: #E8BC0E;
+
+}
+.card{
+    position: fixed;
+    top:0;
+    left: 100%;
+    width: 350px;
+    background-color: #453E3B;
+    height: 100vh;
+    transition: 0.5s;
+}
+.active .card{
+    left: calc(100% - 350px);
+}
+.active .container{
+   transform: translateX(-6px);
+}
+.card h1{
+    color: #E8BC0E;
+    font-weight: 100;
+    margin: 0;
+    padding: 0 20px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+.card .checkOut{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+}
+.card .checkOut div{
+    background-color: #E8BC0E;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+.card .checkOut div:nth-child(2){
+    background-color: #1C1F25;
+    color: #fff;
+}
+
+.listCard{
+
+    padding: 0;
+}
+.listCard li{
+    display: grid;
+    grid-template-columns: 100px repeat(3, 1fr);
+    color: #fff;
+    row-gap: 10px;
+
+    position: relative;
+}
+.listCard li div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+
+}
+.listCard li img{
+    width: 90%;
+}
+.listCard li button{
+    background-color: #fff5;
+    border: none;
+    width:20px;
+    height:30px;
+    font-size:20px;
+}
+.listCard .count{
+    margin: 0 10px;
+}
+
+i.bx-cart{
+font-size: 3rem;
+color:white;
+z-index:1;
+
+}
+
+
+
+
+
+.payforcart {
+   
+    color:white; /* 文本顏色 */
+    background-color: #22224c;
+    transition: all 0.3s ease; 
+    font-weight: bold; 
+    cursor: pointer; /* 鼠標懸停時顯示指針 */
+    height:70px;
+    width:175px;
+}
+
+.payforcart:hover {
+    background-color: #fcfcfa; /* 懸停時的背景顏色 */
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); /* 懸停時添加陰影效果 */
+    color: #1C1F25;
+}
+
+.payforcart:active {
+    transform: translateY(1px); /* 按下時按鈕稍微向下移動 */
+    box-shadow: none; /* 移除陰影效果 */
+}
+
+div.all_area{
+
+    background-color: rgb(0 0 0/ 60%);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    height: 100%;
+
+    width:670px;
+
+    margin-left: 300px;
+}
+
+
