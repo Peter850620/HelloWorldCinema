@@ -1,17 +1,22 @@
 package com.dao;
 
-import java.sql.Date;
 import java.util.List;
-
+import java.util.Date;
 import com.entity.Movie;
 import com.entity.Screen;
 import com.entity.ShowtimeInfo;
 
 public interface ShowtimeInfoDAO {
-	public void insert(ShowtimeInfo showtimeinfo);
-	public void update(ShowtimeInfo showtimeinfo);
-	public void delete(Integer showtimeId);
-    public ShowtimeInfo findByPrimaryKey(Integer showtimeId);
+	
+    public ShowtimeInfo getshowtimeId(Integer showtimeId);
+    
+	public List<ShowtimeInfo> getAll();
+	
+	public List<Date> getPlaydatesById(Integer movieId);
+    
+    public List<ShowtimeInfo> getShowtimeByPlaydate(Integer movieId, Date playdate);
+    
     public List<ShowtimeInfo> getDate(Screen screen, Date[] playdate, Movie movie);	
-    public List<ShowtimeInfo> getAll();	
+    
+
 }
