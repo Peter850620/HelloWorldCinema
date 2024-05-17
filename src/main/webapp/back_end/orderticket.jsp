@@ -62,11 +62,11 @@ show=showtimeInfoDAO.getshowtimeId(showid);
 
 <!-- 主要css -->
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/back_end/orderticket/css/orderStore.css" />
+	href="<%=request.getContextPath()%>/back_end/orderTicket/css/orderStore.css" />
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/back_end/orderticket/css/index.css" />
+	href="<%=request.getContextPath()%>/back_end/orderTicket/css/index.css" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/back_end/orderticket/css/order.css" />
+	href="<%=request.getContextPath()%>/back_end/orderTicket/css/order.css" />
 </head>
 
 
@@ -319,7 +319,7 @@ show=showtimeInfoDAO.getshowtimeId(showid);
 	
 </body>
 <!-- 主要js -->
-	<script src="<%=request.getContextPath()%>/back_end/orderticket/js/index.js"></script>
-	<script src="<%=request.getContextPath()%>/back_end/orderticket/js/orderStore.js"></script>
-	<script src="<%=request.getContextPath()%>/back_end/orderticket/js/order.js"></script>
+	<script src="<%=request.getContextPath()%>/back_end/orderTicket/js/index.js"></script>
+	<script src="<%=request.getContextPath()%>/back_end/orderTicket/js/orderStore.js"></script>
+	<script src="<%=request.getContextPath()%>/back_end/orderTicket/js/order.js"></script>
 </html>
