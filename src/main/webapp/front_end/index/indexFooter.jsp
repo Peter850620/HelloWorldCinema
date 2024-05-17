@@ -59,7 +59,7 @@
     
     
 
-    <script src="<%=request.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front_end/index/js/jquery-3.4.1.min.js"></script>
     
 
     
