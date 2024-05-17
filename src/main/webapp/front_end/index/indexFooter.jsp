@@ -28,7 +28,7 @@
                 <div class="footer-col">
                     <h4 class="neon2">電影評論區</h4>
                     <ul>
-                        <li><a href="#">影評查詢</a></li>
+                        <li><a href="<%= request.getContextPath() %>/front/review.do?action=getMovie&movie=1">影評查詢</a></li>
                         <li><a href="#">電影分類</a></li>
                         <li><a href="#">排行榜</a></li>
                     </ul>
@@ -59,7 +59,7 @@
     
     
 
-    <script src="<%=request.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front_end/index/js/jquery-3.4.1.min.js"></script>
     
 
     

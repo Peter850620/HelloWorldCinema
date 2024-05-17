@@ -79,7 +79,7 @@
                         <a class="items" href="">
                             <span class="itemstooltip">帳號停權/復權</span>
                         </a>
-                        <a class="items" href="">
+                        <a class="items" href="<%= request.getContextPath() %>/back/message.do?action=getAll">
                             <span class="itemstooltip">個人公告</span>
                         </a>
                     </div>
@@ -116,10 +116,10 @@
                         <a class="items" href="">
                             <span class="itemstooltip">電影資訊管理</span>
                         </a>
-                        <a class="items" href="">
+                        <a class="items" href="<%= request.getContextPath() %>/back/review.do?action=getAll">
                             <span class="itemstooltip">討論區管理</span>
                         </a>
-                        <a class="items" href="">
+                        <a class="items" href="<%= request.getContextPath() %>/back/homeAnn.do?action=getAll">
                             <span class="itemstooltip">最新消息管理</span>
                         </a>
 

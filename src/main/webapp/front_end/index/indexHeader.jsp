@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>世界影城 HelloWorld Cinema</title>
-    <link rel="icon" href="<%=request.getContextPath()%>/resources/images/icon.ico" type="image/x-icon">
+    <link rel="icon" href="<%=request.getContextPath()%>/front_end/index/img/icon.ico" type="image/x-icon">
 
     <meta name="description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
     <meta name="keywords" content="世界、電影、世界影城、HelloWorld Cinema" />
@@ -31,7 +31,7 @@
     
     
     <!-- 主要css -->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front_end/index/css/index.css" />
     
 </head>
 <body>
@@ -48,7 +48,7 @@
                         <a href=""><h4 class="neon2">影城資訊</h4></a>
                         <ul class="nav__submenu">
                             <li class="nav__submenu-item">
-                                <a href="">最新資訊</a>
+                                <a href="<%=request.getContextPath()%>/front/homeAnn.do?action=getAll">最新資訊</a>
                             </li>
                             <li class="nav__submenu-item">
                                 <a href="">票價說明</a>
