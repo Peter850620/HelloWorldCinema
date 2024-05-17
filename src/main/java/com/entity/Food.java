@@ -102,7 +102,4 @@ public class Food {
 				+ ", food_status=" + foodStatus  + "]";
 	}
 	
-	
-	
-	
 }
