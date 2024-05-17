@@ -2,7 +2,6 @@ package com.dao;
 
 import java.util.List;
 
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -26,17 +25,20 @@ public class MovieDAOImpl implements MovieDAO {
 
 	@Override
 	public List<Movie> getAll() {
-
 		List<Movie> list = getSession().createQuery("FROM Movie", Movie.class).list();
-
 		return list;
 	}
-
+//	單一電影資訊
 	@Override
 	public Movie getByMovieId(Integer movieId) {
-
 		return getSession().get(Movie.class, movieId);
-		 
+	}
+
+//	電影資訊列表
+	@Override
+	public List<Movie> getByStatus(String movieStatus) {
+		return getSession().createQuery("FROM Movie WHERE movieStatus = :status", Movie.class)
+				.setParameter("status", movieStatus).list();
 	}
 
 	public static void main(String[] args) {
