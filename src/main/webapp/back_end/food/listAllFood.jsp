@@ -102,13 +102,13 @@ body {
 			<td>${Food.foodPrice}</td>
 			<td>${Food.foodStatus}</td> 
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back_end/food/food.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/food/food.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="foodId" value="${Food.foodId}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back_end/food/food.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/food/food.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除" disabled> 備註:控管刪除是否可點選依據?
 			     <input type="hidden" name="foodId" value="${Food.foodId}">
 			     <input type="hidden" name="action" value="delete"></FORM>

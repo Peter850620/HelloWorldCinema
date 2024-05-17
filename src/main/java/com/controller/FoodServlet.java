@@ -46,7 +46,7 @@ public class FoodServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/food/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/food/select_page.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -58,7 +58,7 @@ public class FoodServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/food/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/food/select_page.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -87,7 +87,7 @@ public class FoodServlet extends HttpServlet {
 			String param = "?foodId=" + food.getFoodId() + "&foodName=" + food.getFoodName() + "&foodDetails="
 					+ food.getFoodDetails() + "&foodPic=" + food.getFoodPic() + "&foodPrice=" + food.getFoodPrice()
 					+ "&foodStatus=" + food.getFoodStatus();
-			String url = "/back-end/food/update_food_input.jsp" + param;
+			String url = "/back_end/food/update_food_input.jsp" + param;
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
 		}
@@ -138,7 +138,7 @@ public class FoodServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				errorMsgs.put("Exception", "修改資料失敗:---------------");
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/food/update_food_input.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/food/update_food_input.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
@@ -150,7 +150,7 @@ public class FoodServlet extends HttpServlet {
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("success", "- (修改成功)");
 			req.setAttribute("Food", food); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/back-end/food/listOneFood.jsp";
+			String url = "/back_end/food/listOneFood.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -198,7 +198,7 @@ public class FoodServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/food/addFood.jsp");
+						.getRequestDispatcher("/back_end/food/addFood.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -209,7 +209,7 @@ public class FoodServlet extends HttpServlet {
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			req.setAttribute("success", "- (新增成功)");
-			String url = "/back-end/food/listAllFood.jsp";
+			String url = "/back_end/food/listAllFood.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}
@@ -229,7 +229,7 @@ public class FoodServlet extends HttpServlet {
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
 				req.setAttribute("success", "- (刪除成功)");
-				String url = "/back-end/emp/listAllEmp.jsp";
+				String url = "/back_end/emp/listAllEmp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 		}	

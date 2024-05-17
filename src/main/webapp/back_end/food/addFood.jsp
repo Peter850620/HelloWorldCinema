@@ -181,7 +181,7 @@ button:hover {
 					<%-- 可以不修改圖片 <span  id ="upFiles.errors" class="error">${errorMsgs.upFiles}</span> --%>
 					<div id="blob_holder">
 						<img
-							src="<%=request.getContextPath()%>/back_end/food/DBGifReader?foodId=${param.foodId}"
+							src="<%=request.getContextPath()%>/food/DBGifReader?foodId=${param.foodId}"
 							width="100px">
 					</div>
 				</div>
