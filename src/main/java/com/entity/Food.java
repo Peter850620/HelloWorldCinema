@@ -21,8 +21,8 @@ public class Food {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer foodId;
 
-	@OneToMany(mappedBy = "food")
-	private Set<FoodItem> fooditems;
+//	@OneToMany(mappedBy = "food")
+//	private Set<FoodItem> fooditems;
 
 	@Column(name = "food_name", nullable = false)
 	private String foodName;
@@ -87,13 +87,13 @@ public class Food {
 		this.foodStatus = foodStatus;
 	}
 
-	public Set<FoodItem> getFoods() {
-		return fooditems;
-	}
-
-	public void setFoods(Set<FoodItem> fooditems) {
-		this.fooditems = fooditems;
-	}
+//	public Set<FoodItem> getFoods() {
+//		return fooditems;
+//	}
+//
+//	public void setFoods(Set<FoodItem> fooditems) {
+//		this.fooditems = fooditems;
+//	}
 
 
 	@Override
