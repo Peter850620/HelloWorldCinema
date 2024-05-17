@@ -46,10 +46,9 @@
 </head>
 <body>
 
-<%@ include file="../management.jsp" %>
 <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
 		 <div align="center"> <h2>餐點資料修改</h2>
-		 <h3><a class="navbar-brand" href="<%=request.getContextPath()%>/back_end/food/select_page.jsp"><img src="<%=request.getContextPath()%>/resources/images/back1.gif">回查詢頁</a></h3></div>
+		 <h3><a class="navbar-brand" href="<%=request.getContextPath()%>/back-end/food/select_page.jsp"><img src="<%=request.getContextPath()%>/resources/images/back1.gif">回查詢頁</a></h3></div>
 </nav>
 
 	<div align="center">
