@@ -5,6 +5,7 @@
 <%@page import="java.util.*"%>
 <%@page import="com.dao.*"%>
 <%@page import="com.entity.*"%>
+<%@page import="com.service.*"%>
 <%
 FoodDAOImpl foodDAO = new FoodDAOImpl();
 List<Food> foodList = foodDAO.getAll();
@@ -25,6 +26,11 @@ if(showIdObj!=null){
 			}
 ShowtimeInfo show=null;
 show=showtimeInfoDAO.getshowtimeId(showid);
+
+
+memBookingService membookingService=new memBookingService();
+
+
 
 %>
 <!DOCTYPE html>
@@ -245,7 +251,7 @@ show=showtimeInfoDAO.getshowtimeId(showid);
 									<button id="ks" class="keep-shopping">繼續購物</button>
 								</td>
 								<td>
-									<button id="checkout">下一步</button>
+									<button type="submit" id="checkout">下一步</button>
 								</td>
 							</tr>
 						</tbody>
@@ -314,7 +320,7 @@ show=showtimeInfoDAO.getshowtimeId(showid);
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/food/js/jquery-3.4.1.min.js"></script>
+		src="<%=request.getContextPath()%>/back_end/orderTicket/js/jquery-3.4.1.min.js"></script>
 
 	
 </body>
