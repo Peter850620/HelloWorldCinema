@@ -1,0 +1,107 @@
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* .container.forms{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #021e6d;
+    column-gap: 30px;
+} */
+h1{
+    color: #043d6f;
+}
+.form{
+    background-color: #ffffff;
+    margin: 100px auto;
+    padding: 40px;
+    width: 70%;
+    min-width: 350px;
+    max-width: 750px;
+    border-radius: 6px;
+}
+
+form{
+    margin-top: 30px;
+}
+.form .field{
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 6px;
+}
+.field input,
+.field input.submit,
+.field select{
+    height: 50px;
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    border-radius: 6px;
+}
+.field input,
+.field select{
+    outline: none;
+    padding: 0 15px;
+    border: 1px solid#CACACA;
+}
+.field input:focus{
+    border-bottom-width: 2px;
+}
+input.invalid {
+    background-color: #ffdddd;
+  }
+button.eye{
+    position: relative;
+    float: right;
+    margin-top: -32px;
+    margin-right: 10px;
+
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background: none;
+  }
+.eye-icon{
+
+    width: 20px;
+    height: 20px;
+    vertical-align: -0.125em;
+}
+.field input.submit{
+    color: #fff;
+    background-color: #12528a;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.field input.submit:hover{
+    background-color: #3270a6;
+    outline: thick double #32a1ce;
+}
+.form-link{
+    text-align: center;
+    margin-top: 10px;
+}
+.form-link span,
+.form-link a{
+    font-size: 14px;
+    font-weight: 400;
+    color: #232836;
+}
+.form a{
+    color: #12528a;
+    text-decoration: none;
+}
+.form-content a:hover{
+    text-decoration: underline;
+}
+
+div.errorMsgs li, div.successMsgs li{
+    color: red;
+}

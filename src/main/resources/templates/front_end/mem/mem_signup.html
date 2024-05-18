@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>世界影城 HelloWorld Cinema</title>
+    <link rel="icon" href="./../../static/front_end/img/icon.ico" type="image/x-icon">
+
+    <meta name="description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
+    <meta name="keywords" content="世界、電影、世界影城、HelloWorld Cinema" />
+    <meta name="robots" content="Index,follow">
+    <meta property="og:title" content="世界影城" />
+    <meta property="og:image" content=".img/bk.jpg" />
+    <meta property="og:site_name" content="世界影城網站" />
+    <meta property="og:url" content="https://www.ambassador.com.tw" />
+    <meta property="og:description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務" />
+    <!-- RWD -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <!-- 底部footer -->
+    <link rel="stylesheet" type="text/css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css}">
+   <!-- 主要css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/front_end/css/index.css}" href="../../../static/front_end/css/index.css" />
+
+    <link rel="stylesheet" th:href="@{/front_end/mem/mem_sign_up.css}" href="../../../static/front_end/mem/mem_sign_up.css">
+</head>
+<body>
+
+    <!-- 載入動畫 -->
+    <canvas></canvas>
+
+
+    <!-- 選單 -->
+    <header th:replace="~{/front_end/index :: header}"></header>
+    <br>
+    <!-- ========================以下區域可放置其他內容======================== -->
+
+
+
+    <section class="container forms">
+        <form th:action="@{/mem/memSignUp}" method="post" th:object="${mem}" enctype="multipart/form-data"  id="regForm">
+            <h1>會員註冊</h1>
+            <div class="errorMsgs" th:if="${errorMsgs}">
+                <ul>
+                    <li th:each="errors : ${errorMsgs}" th:text="${errors.defaultMessage}"></li>
+                </ul>
+            </div>
+            <!-- <div class="errorMsgs" th:if="${errorMsg}">
+                <ul>
+                    <li th:each="error : ${errorMsg}" th:text="${error}"></li>
+                </ul>
+            </div> -->
+            <div class="errorMsgs2" >
+                <ul>
+                    <li id="Error" class="error"></li>
+                </ul>
+            </div>
+          
+            
+            <!-- One "tab" for each step in the form: -->
+            <div class="tab">
+                <p><label>姓名：<input type="text" name="memName" th:field="*{memName}" size="45"/></label></p>
+                <p><label>性別：
+                    <select size="1" name="memGender" th:field="*{memGender}">
+                        <option value="M"  th:value="${'M'}" >男</option>
+                        <option value="F"  th:value="${'F'}">女</option>
+                    </select>   
+                </label></p>
+                <p><label>生日：<input type="date" name="memBirthday" th:field="*{memBirthday}" size="45"/></label></p>
+            </div>
+            
+            <div class="tab">
+                <p><label>帳號：<input type="text" name="memAcount" th:field="*{memAcount}" size="45" id="memAccount1"/></label></p>
+                <p>
+                    <label>密碼：<input type="password" name="memPassword" th:field="*{memPassword}" size="45" id="ps1"/></label>
+                    <button class="eye" type="button" onclick="eyeSwitch(0)"><img id="eye1" class="eye" th:src="@{/front_end/mem/img/eye.svg}"></button>
+                </p>
+                <p>
+                    <label>確認密碼：<input type="password" class="password" id="ps2" /></label>  
+                    <button class="eye" type="button" onclick="eyeSwitch(1)"><img id="eye2" class="eye" th:src="@{/front_end/mem/img/eye.svg}" ></button>                
+                </p>
+
+            </div>
+            
+            <div class="tab">
+            <p><label>信箱：<input type="text" name="memEmail" th:field="*{memEmail}" size="45" id="memEmail1"/></label></p>
+            <p><label>地址：<input type="text" name="memAddr" th:field="*{memAddr}" size="45"/></label></p>
+            <p><label>手機：<input type="text" name="memMobile"  th:field="*{memMobile}" size="45" maxlength="10"/></label></p>
+            </div>
+            
+            <input type="hidden" name="memStatus"  th:field="*{memStatus}" th:value="${'未驗證'}" size="45" />
+            
+            <div style="overflow:auto;">
+            <div>
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)">←</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)"  >→</button>
+            </div>
+            </div>
+            
+            <!-- Circles which indicates the steps of the form: -->
+            <div style="text-align:center;margin-top:40px;">
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            </div>
+            
+            
+        </form>
+    </section>
+
+        <!-- ========================以上區域可放置其他內容======================== -->
+    <br>
+    <footer th:replace="~{/front_end/index :: footer}"></footer>
+
+    
+    <script src="./../../static/front_end/js/jquery-3.4.1.min.js"></script>
+    <!-- 主要js -->
+    <script th:src="@{/front_end/js/index.js}" src="../../static/front_end/js/index.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script th:src="@{/front_end/mem/mem_signup.js}" src="../../../static/front_end/mem/mem_signup.js"></script>
+</body>
+</html>

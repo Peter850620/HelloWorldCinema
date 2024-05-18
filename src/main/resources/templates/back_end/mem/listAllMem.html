@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>世界影城</title>
+
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link th:href="@{https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css}" rel='stylesheet'>
+        <link rel="stylesheet" type="text/css"  th:href="@{/back_end/management.css}" href="../../../static/back_end/management.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" type="text/css" th:href="@{/back_end/rental/listAllRental.css}" href="../../../static/back_end/rental/listAllRental.css">
+
+
+	</head>
+
+
+
+
+	<body>
+        <aside th:replace="~{/back_end/management :: content}"></aside>
+		
+        <main>
+
+			<div class="container">
+				<table id="table-1" border="1">
+					<h1>會員資料</h1>
+					<a th:href="@{/mem/select}">回首頁</a>
+                    <!-- <h4><label th:text="${success}"></label></h4> -->
+				
+					<tr>
+						<th>項次</th>
+						<th>會員編號</th>
+						<th>會員帳號</th>
+						<th>會員姓名</th>
+						<th>性別</th>
+						<th>生日</th>
+						<th>信箱</th>
+						<th>地址</th>
+						<th>手機</th>
+						<th>狀態</th>
+						<th>修改</th>
+					</tr>
+
+					<tr th:each="mem : ${AllMemListData}">
+						<td th:text="${memStat.count}"></td>
+						<td th:text="${mem.memId}"></td>
+						<td th:text="${mem.memAcount}"></td>
+						<td th:text="${mem.memName}"></td>
+						<td th:text="${mem.memGender}"></td>
+						<td th:text="${mem.memBirthday}"></td>
+						<td th:text="${mem.memEmail}"></td>
+						<td th:text="${mem.memAddr}"></td>
+						<td th:text="${mem.memMobile}"></td>
+						<td th:text="${mem.memStatus}"></td>
+						<td>
+							<form method="post" th:action="@{/mem/getOne_For_Update}" th:object="${mem}">
+								<input type="submit" value="修改">
+								<input type="hidden" name="memId" th:value="${mem.memId}">
+							</form>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</main>
+		<script th:src="@{/back_end/js/management.js}"></script>
+
+
+	</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>世界影城 HelloWorld Cinema</title>
+    <link rel="icon" href="./../../static/front_end/img/icon.ico" type="image/x-icon">
+
+    <meta name="description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
+    <meta name="keywords" content="世界、電影、世界影城、HelloWorld Cinema" />
+    <meta name="robots" content="Index,follow">
+    <meta property="og:title" content="世界影城" />
+    <meta property="og:image" content=".img/bk.jpg" />
+    <meta property="og:site_name" content="世界影城網站" />
+    <meta property="og:url" content="https://www.ambassador.com.tw" />
+    <meta property="og:description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務" />
+    <!-- RWD -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <!-- 底部footer -->
+    <link rel="stylesheet" type="text/css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css}">
+   <!-- 主要css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/front_end/css/index.css}" href="../../../static/front_end/css/index.css" />
+
+    <link rel="stylesheet" th:href="@{/front_end/mem/mem_login.css}" href="../../../static/front_end/mem/mem_login.css">
+</head>
+<body>
+
+    <!-- 載入動畫 -->
+    <canvas></canvas>
+
+
+    <!-- 選單 -->
+    <header th:replace="~{/front_end/index :: header}"></header>
+    <br>
+<!-- ========================以下區域可放置其他內容======================== -->
+
+
+    <section class="container forms">
+        <div class="form login">
+        	
+            <div class="form-content">
+                <h1>信箱驗證</h1>
+                
+            
+                <div class="errorMsgs" th:if="${errorMsgs}">
+                     <ul>
+                         <li th:each="error : ${errorMsgs}" th:text="${error}"></li>
+                     </ul>
+                </div>
+
+
+                <form method="post" th:action="@{/mem/sendVCode}" enctype="multipart/form-data">
+                    <p th:text="${memEmail}" style="text-align: center;"></p>
+                    <input type="submit" class="submitV" name="action" value="寄送驗證碼" >
+                    <input type="hidden" name="memEmail" th:value="${memEmail}">
+
+                </form>
+
+                <form method="post" th:action="@{/mem/VerifyCode}" enctype="multipart/form-data">
+                    
+                    <div class="field input-field">
+                        <div class="field button-field">
+                            <input type="hidden" name="memEmail" th:value="${memEmail}">
+                            <input type="text" placeholder="輸入驗證碼" class="input" name="inputCode">
+                        </div>
+                    </div>
+
+                    <div class="field button-field">
+                        <input type="submit" class="submit" name="action" value="確認送出">
+                    </div>
+                </form>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+ 
+<!-- ========================以上區域可放置其他內容======================== -->
+<br>
+<footer th:replace="~{/front_end/index :: footer}"></footer>
+
+<script th:src="@{/front_end/js/jquery-3.4.1.min.js}"></script>
+<!-- 主要js -->
+<script th:src="@{/front_end/js/index.js}" src="../../../static/front_end/js/index.js"></script>
+
+<!-- ========================================================================== -->
+ 
+
+</body>
+
+</html>

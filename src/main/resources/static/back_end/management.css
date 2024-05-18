@@ -1,0 +1,321 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+.user-img {
+
+  width: 50px;
+  border-radius: 100%;
+  border: 1px solid #eee;
+  margin-top: 0px;
+  margin-left: 8px;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  display: flex;
+  background-color: #0d1f38;
+  background-image: url("../back_end/img/bk.jpg");
+  background-repeat: no-repeat;
+  background-size: 101%;
+  background-attachment: fixed;
+  color: white;
+ background-size: cover;
+
+ background-position: center -100px;
+
+}
+
+
+
+.sidebar {
+
+
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 80px;
+  background-color:#0d1f38;
+  padding: 0.4rem 0.8rem;
+  transition: all 0.5s ease;
+  position: fixed;
+
+
+
+
+
+
+}
+
+
+.sidebar.active~.main {
+  left: 170px;
+
+  width: calc(100% - 170px);
+
+}
+
+.sidebar.sidebar.active {
+
+  width: 170px;
+}
+
+.sidebar #btn {
+  position: absolute;
+  color: #fff;
+  top: .4rem;
+  left: 50%;
+  font-size: 1.2rem;
+  line-height: 50px;
+  transform: translateX(-50%);
+
+  cursor: pointer;
+}
+
+.sidebar.active #btn {
+  left: 90%;
+
+}
+
+.sidebar .top .logo {
+  color: white;
+  display: flex;
+  height: 50px;
+  width: 100%;
+  align-items: center;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.sidebar.active .top .logo {
+  opacity: 1;
+  margin-bottom: 7px;
+}
+
+.top .logo i {
+  font-size: 2rem;
+  margin-right: 5px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  /* margin: 10px 0px 10px 0px; */
+
+}
+
+.user p {
+  color: white;
+  opacity: 1;
+  margin-left: 1rem;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.sidebar p {
+  opacity: 0;
+}
+
+.sidebar.active p {
+  opacity: 1;
+}
+
+
+.sidebar ul li {
+  list-style-type: none;
+  position: relative;
+  height: 50px;
+  width: 90%;
+  margin: 0.8rem auto;
+  line-height: 50px;
+  /*裡面白字高度*/
+  display: inline;
+
+}
+
+.sidebar ul li a {
+  /*sidebar 展開時候裡面的字*/
+  color: white;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 0.8rem;
+  height: 50px;
+  margin-top: 5px;
+  margin-left: 10px;
+  
+  font-weight: bold;
+  overflow: hidden;
+
+
+}
+
+.sidebar.active ul li a:hover {
+  background-color: #fff;
+  color: #0d1f38;
+  font-weight: bold;
+  width: 143px;
+  
+}
+
+/*未展開時滑過ICON*/
+.sidebar ul li a i:hover{
+  background-color: #fff;
+  color: #0d1f38;
+  
+}
+
+/*改ICON 跟白框*/
+.sidebar ul li a i {
+  min-width: 50px;
+  text-align: center;
+  height: 50px;
+  border-radius: 12px;
+  line-height: 50px;
+  font-size: 24px;
+
+}
+
+.sidebar .nav-item {
+  opacity: 0;
+  height: 50px;
+  position: relative;
+
+}
+
+.sidebar.active .nav-item {
+  opacity: 1;
+  height: 50px;
+
+}
+
+
+.sidebar ul li .tooltip {
+  position: absolute;
+  left: 69px;
+  /*白色框距離藍色邊*/
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.2);
+  border-radius: .6rem;
+  padding: 0.4rem 1.2rem;
+  line-height: 1rem;
+  z-index: 20;
+  opacity: 0;
+  /* writing-mode: horizontal-tb; /* Force horizontal rendering */
+  font-weight: bold;
+  display: flex;
+  border: 2px solid white !important;
+
+}
+
+
+
+
+/* 
+/* 滑鼠滑過去Icon時字要顯現 */
+.sidebar ul li>a:hover+.tooltip {
+  opacity: 1;
+  color: rgb(0, 6, 6);
+  background-color: #fcf8f8;
+  writing-mode: horizontal-tb;
+  display: inline-block;
+  writing-mode: horizontal-tb;
+  width: 110px;
+  height: 50px;
+  line-height: 35px;
+  /*  改變sidebar 字體置中*/
+}
+
+
+
+
+
+/* //展開時底層文字消失 */
+
+.sidebar.active ul li .tooltip {
+  display: none !important;
+}
+
+.main {
+  margin-left: 300px;
+  color: #fff;
+
+}
+
+
+/* .nav-item {
+  display: inline;
+} */
+
+a.items {
+
+/*展開時滑過大細項旁邊的小 items*/
+  top: 30px !important;
+  transform: translateY(-50%);
+  box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0, 0.2);
+  border-radius: .6rem;
+  padding: 0px;
+  line-height: 1rem;
+  z-index: 20px;
+  opacity: 1;
+
+  font-weight: bold;
+
+  margin-top: 0px !important;
+  justify-content:center;
+  margin-left: 10px!important;
+  width: 143px;
+ 
+
+
+
+}
+
+div.side {
+  display: flex;
+  flex-direction: column;
+  /* 讓向目垂直排列 */
+  position: absolute;
+  top: 26px;
+  /*離上面近一點*/
+  left: 48px;
+  /* 保持在父元素的左邊 */
+  display: none;
+  transition: opacity 0.3s ease;
+  /* 添加效果 */
+  margin-left: 100px;
+  width: 120px;
+  /*小細項的寬度*/
+
+
+}
+
+
+/* when the sidebar is active, the little itmes will show whenever hover the a tag*/
+.sidebar.active ul li:hover .side {
+  display: flex;
+
+
+}
+
+.sidebar.active li {
+  position: relative;
+}
+
+
+#xxx{
+	margin-left:280px;
+}
+
+
+

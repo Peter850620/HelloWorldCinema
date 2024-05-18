@@ -1,0 +1,63 @@
+main {
+    padding: 100px; 
+    margin-top: 20px; 
+    color: #fff; 
+    /* transition: left 0.5s ease;  */
+    box-sizing: content-box;
+    position: relative; 
+    left: 200px; 
+    width: calc(50vw + 120px);
+    border-radius: 6px;
+    background-color: rgba(47, 34, 70, 0.8);
+  }
+  
+  aside:has(.sidebar.active)~main{
+    left: 320px;
+    width: 50vw;
+  }
+  
+  
+  
+  table a {
+    color: rgba(175, 154, 244, 0.991); 
+    text-decoration: none; 
+    margin-right: 30px;
+  }
+  
+  a:hover {
+    text-decoration: underline; 
+  }
+  
+  div.row{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  
+  }
+  .submit{
+    background-color: #fff;
+    height: 40px;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .submit:hover{ 
+    outline: thick double #ffffff;
+  }
+.errorMsgs{
+    color: #ff0000;
+}
+
+.submit1{
+    background-color: #fff;
+    width: 60px;
+    height: 25px;
+    font: bold 15px;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+}

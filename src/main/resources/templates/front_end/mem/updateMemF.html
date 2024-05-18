@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>世界影城 HelloWorld Cinema</title>
+    <link rel="icon" href="./../../static/front_end/img/icon.ico" type="image/x-icon">
+
+    <meta name="description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
+    <meta name="keywords" content="世界、電影、世界影城、HelloWorld Cinema" />
+    <meta name="robots" content="Index,follow">
+    <meta property="og:title" content="世界影城" />
+    <meta property="og:image" content=".img/bk.jpg" />
+    <meta property="og:site_name" content="世界影城網站" />
+    <meta property="og:url" content="https://www.ambassador.com.tw" />
+    <meta property="og:description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務" />
+    <!-- RWD -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <!-- 底部footer -->
+    <link rel="stylesheet" type="text/css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css}">
+   <!-- 主要css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/front_end/css/index.css}" href="../../../static/front_end/css/index.css" />
+
+
+    <link rel="stylesheet" th:href="@{/front_end/mem/updateMemF.css}" href="../../../static/front_end/mem/updateMemF.css">
+</head>
+<body>
+
+    <!-- 載入動畫 -->
+    <canvas></canvas>
+
+
+    <!-- 選單 -->
+    <header th:replace="~{/front_end/index :: header}"></header>
+    <br>
+<!-- ========================以下區域可放置其他內容======================== -->
+
+
+    <section class="container forms">
+        <div class="form login">
+        	
+            <div class="form-content">
+                <h1>會員資訊管理</h1>
+                
+                <form method="post" th:action="@{updateF}"  th:object="${mem}" enctype="multipart/form-data">
+                   <!-- 錯誤列表 -->
+                   <div class="errorMsgs" th:if="${errorMsgs}">
+                        <ul>
+                            <li th:each="errors : ${errorMsgs}" th:text="${errors.defaultMessage}"></li>
+                        </ul>
+                    </div>
+                    <div class="errorMsgs" th:if="${errorMsg}">
+                        <ul>
+                            <li th:each="error : ${errorMsg}" th:text="${error}"></li>
+                        </ul>
+                    </div>
+                    <div class="successMsgs" th:if="${successMsgs}">
+                        <ul>
+                            <li th:each="success : ${successMsgs}" th:text="${success}"></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="field input-field">
+                        <!-- <label for="" >會員編號：</label> -->
+                        <input type="hidden" th:field="*{memId}" readonly />
+                    </div>
+
+                    <div class="field input-field">
+                        <label for="" >會員帳號：</label>
+                        <input type="text" name="memAccount" th:field="*{memAcount}" size="45" readonly/>
+                    </div>
+
+                    <div class="field input-field">
+                        <label for="" >會員密碼：</label>
+                        <input type="text" name="memPassword" th:field="*{memPassword}" size="45" />
+                        <!-- <button class="eye" type="button" onclick="eyeSwitch()"><img class="eye-icon" id="eye1" th:src="@{/front_end/mem/img/eye.svg}" ></button> -->
+                    </div>
+
+                    <div class="field input-field">
+                        <label for="" >會員姓名：</label>
+                        <input type="text" name="memName" th:field="*{memName}" size="45" />
+                    </div>
+
+                    <div class="field input-field">
+                        <label for="" >性別：</label>
+                        <select size="1" name="memGender" th:field="*{memGender}">
+                            <option value="M" th:selected="${mem.memGender == 'M'}" >男</option>
+                            <option value="F" th:selected="${mem.memGender == 'F'}" >女</option>
+                        </select>
+                    </div>
+
+                    <div class="field input-field">
+                        <label for="" >生日：</label>
+                        <input type="date" name="memBirthday" th:field="*{memBirthday}" size="45"/>
+                    </div>
+
+                    <div class="field input-field">
+                        <label for="" >會員信箱：</label>
+                        <input type="text" name="memEmail" th:field="*{memEmail}" size="45"/>
+                    </div>
+
+                    <div class="field input-field">
+                        <label for="" >會員地址：</label>
+                        <input type="text" name="memAddr" th:field="*{memAddr}" size="45"/>
+                    </div>
+
+                    <div class="field input-field">
+                        <label for="" >會員手機：</label>
+                        <input type="text" name="memMobile"  th:field="*{memMobile}" size="45" maxlength="10"/>
+                    </div>
+
+                    <input type="hidden" name="memStatus" th:field="*{memStatus}" />
+				
+
+
+
+                    <div class="field button-field">
+                        <input type="submit" class="submit" name="action" value="確認修改">
+                    </div>
+                </form>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+ 
+<!-- ========================以上區域可放置其他內容======================== -->
+<br>
+<footer th:replace="~{/front_end/index :: footer}"></footer>
+
+<script th:src="@{/front_end/js/jquery-3.4.1.min.js}"></script>
+<!-- 主要js -->
+<script th:src="@{/front_end/js/index.js}" src="../../../static/front_end/js/index.js"></script>
+
+
+<!-- ========================================================================== -->
+<script>
+    function eyeSwitch() {
+        if((document.getElementById("ps1").type) ==="password"){
+            document.getElementById("ps1").type ="text";
+            document.getElementById("eye1").src = "/front_end/mem/img/eye-slash.svg";
+           
+        }else{
+            document.getElementById("ps1").type ="password";
+            document.getElementById("eye1").src = "/front_end/mem/img/eye.svg";
+        }
+    }
+
+
+
+    window.onload = function() {
+        var inputs = document.querySelectorAll(".field.input-field input");
+        var form = document.querySelector("form");
+
+        form.addEventListener("submit", function(e) {
+            var isValid = true;
+            inputs.forEach(function(input) {
+                if (input.value.trim() === "") {
+                    input.classList.add("invalid");
+                    isValid = false;
+                } else {
+                    input.classList.remove("invalid");
+                }
+            });
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+
+        inputs.forEach(function(input) {
+            input.addEventListener("focus", function(e) {          
+                // console.log(this);
+                // console.log(e.target);
+                this.classList.remove('invalid');
+                
+            });
+        });
+    };
+
+</script>
+
+</body>
+
+</html>

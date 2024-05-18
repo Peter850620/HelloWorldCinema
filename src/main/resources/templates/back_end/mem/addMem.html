@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>世界影城</title>
+    
+        <link th:href="@{https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css}" rel='stylesheet'>
+        <link rel="stylesheet" type="text/css"  th:href="@{/back_end/management.css}" href="../../../static/back_end/management.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" type="text/css" th:href="@{/back_end/mem/addMem.css}" href="../../../static/back_end/mem/addMem.css">
+
+
+    </head>
+	<body>
+
+        <aside th:replace="~{/back_end/management :: content}"></aside>
+
+		<main>
+		
+            <h1>會員管理</h1>
+            <h3>新增會員</h3>
+            <h4><a th:href="@{/mem/select}">回首頁</a></h4>
+            <br>
+
+
+			<h3>資料新增:</h3>
+
+			<!-- 錯誤表列  -->
+            
+            <div class="errorMsgs" th:if="${errorMsgs}">
+                <ul>
+                    <li th:each="errors : ${errorMsgs}" th:text="${errors.defaultMessage}"></li>
+                </ul>
+            </div>
+            <div class="errorMsgs" th:if="${errorMsg}">
+                <ul>
+                    <li th:each="error : ${errorMsg}" th:text="${error}"></li>
+                </ul>
+            </div>
+      
+
+			<form th:action="@{insert}" method="post" th:object="${mem}" enctype="multipart/form-data" name="form1">
+                <table>
+                    <!-- <tr>
+                        <td>會員編號：</td>
+                        <td>
+                            <input type="hidden" th:field="*{memId}"  />
+                        </td>
+                    </tr> -->
+                    <tr>
+                        <td>會員帳號：</td>
+                        <td><input type="text" name="memAccount" th:field="*{memAcount}" size="45"/></td>
+                    </tr>
+                    <tr>
+                        <td>會員密碼：</td>
+                        <td><input type="text" name="memPassword" th:field="*{memPassword}" size="45"/></td>
+                    </tr>
+                    <tr>
+                        <td>會員姓名：</td>
+                        <td><input type="text" name="memName" th:field="*{memName}" size="45"/></td>
+                    </tr>
+                    <tr>
+                        <td>性別：</td>
+                        <td>
+                            <select size="1" name="memGender" th:field="*{memGender}">
+                                <option value="M"  th:value="${'M'}" >男</option>
+                                <option value="F"  th:value="${'F'}">女</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>生日：</td>
+                        <td><input type="date" name="memBirthday" th:field="*{memBirthday}" size="45"/></td>
+                    </tr>
+                    <tr>
+                        <td>會員信箱：</td>
+                        <td><input type="text" name="memEmail" th:field="*{memEmail}" size="45"/></td>
+                    </tr>
+                    <tr>
+                        <td>會員地址:</td>
+                        <td><input type="text" name="memAddr" th:field="*{memAddr}" size="45"/></td>
+                    </tr>
+                    <tr>
+                        <td>會員手機：</td>
+                        <td><input type="text" name="memMobile"  th:field="*{memMobile}" size="45" maxlength="10"/></td>
+                    </tr>
+                    <tr>
+                        <td>會員狀態：</td>
+                        <td>
+                            <select name="memStatus" th:field="*{memStatus}" size="1">
+                                <option th:value="${'已驗證'}">已驗證</option>
+                                <option th:value="${'未驗證'}">未驗證</option>
+                                <option th:value="${'已註銷'}">已註銷</option>
+                                <option th:value="${'已停權'}">已停權</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+				<br>
+				
+				<input type="submit" value="送出新增">
+			</form>
+		</main>
+
+		<script th:src="@{/back_end/js/management.js}"></script>
+	</body>
+
+
+
+
+</html>

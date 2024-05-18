@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>世界影城 HelloWorld Cinema</title>
+    <link rel="icon" href="./../../static/front_end/img/icon.ico" type="image/x-icon">
+
+    <meta name="description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
+    <meta name="keywords" content="世界、電影、世界影城、HelloWorld Cinema" />
+    <meta name="robots" content="Index,follow">
+    <meta property="og:title" content="世界影城" />
+    <meta property="og:image" content=".img/bk.jpg" />
+    <meta property="og:site_name" content="世界影城網站" />
+    <meta property="og:url" content="https://www.ambassador.com.tw" />
+    <meta property="og:description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務" />
+    <!-- RWD -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <!-- 底部footer -->
+    <link rel="stylesheet" type="text/css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css}">
+   <!-- 主要css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/front_end/css/index.css}" href="../../../static/front_end/css/index.css" />
+
+    <link rel="stylesheet" th:href="@{/front_end/rental/ListAllRentalOrder.css}" href="../../../static/front_end/rental/ListAllRentalOrder.css">
+
+</head>
+<body>
+    <canvas></canvas>
+    <header th:replace="~{/front_end/index :: header}"></header>
+    <br>
+<!-- ========================以下區域可放置其他內容======================== -->
+
+
+    <section class="container forms">
+        <div class="form ">
+            <div class="errorMsgs" th:if="${errorMsgs}">
+                <ul>
+                    <li th:each="errors : ${errorMsgs}" th:text="${errors}"></li>
+                </ul>
+            </div>
+            <div class="form-content">
+                <div th:if="${AllRentalOrderListData}">
+                    <table id="table-1" border="1">
+                        <h1>可租借場地資訊</h1>
+                        <div class="field input-field">
+                            <p>以下時段已被租借</p>
+                            <!-- <a th:href="@{/mem/memIndexF}">回會員專區</a> -->
+                        </div>
+ 
+                        <tr>
+                            <!-- <th>表單編號</th> -->
+                            <!-- <th>會員編號</th> -->
+                            <th>影廳編號</th>
+                            <th>租借日期</th>
+                            <th>預計開始時間</th>
+                            <th>預計結束時間</th>
+                            <!-- <th>申請理由</th> -->
+                            <!-- <th>審核狀態</th> -->
+                            <!-- <th>申請日期</th> -->
+                            <!-- <th>影廳價格</th>
+                            <th>付款方式</th>
+                            <th>付款狀態</th>
+                            <th>押金</th>
+                            <th>押金歸還</th>
+                            <th>合計</th> -->
+                            <!-- <th>員工編號</th> -->
+                            <!-- <th>修改</th> -->
+                        </tr>
+                        <tr th:each="rentalOrder : ${AllRentalOrderListData}">
+                            <!-- <td th:text="${rentalOrder.rentalId}"></td> -->
+                            <!-- <td th:text="${rentalOrder.mem.memId}"></td> -->
+                            <td th:text="${rentalOrder.screen.screenId}"></td>
+                            <td th:text="${#dates.format(rentalOrder.rentalDate, 'yyyy-MM-dd')}"></td>
+                            <td th:text="${#dates.format(rentalOrder.startTime, 'HH:mm:ss')}"></td>
+                            <td th:text="${#dates.format(rentalOrder.endTime, 'HH:mm:ss')}"></td>
+                            <!-- <td th:text="${rentalOrder.reason}"></td>
+                            <td th:text="${rentalOrder.result}"></td>
+                            <td th:text="${#dates.format(rentalOrder.applyDate, 'yyyy-MM-dd')}"></td>
+                            <td th:text="${rentalOrder.price}"></td>
+                            <td th:text="${rentalOrder.paymentType}"></td>
+                            <td th:text="${rentalOrder.paymentStatus}"></td>
+                            <td th:text="${rentalOrder.deposit}"></td>
+                            <td th:text="${rentalOrder.depositRefund}"></td>
+                            <td th:text="${rentalOrder.total}"></td> -->
+                            <!-- <td th:text="${rentalOrder.emp.empId}"></td> -->
+                            <!-- <td>
+                                <form method="post" th:action="@{/rental/getOne_For_Update}" th:object="${rentalOrder}">
+                                    <input type="submit" value="修改">
+                                    <input type="hidden" name="rentalId" th:value="${rental.rentalId}">
+                                </form>
+                            </td> -->
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+
+    </section>
+
+ 
+<!-- ========================以上區域可放置其他內容======================== -->
+<br>
+<footer th:replace="~{/front_end/index :: footer}"></footer>
+
+<script src="./../../static/front_end/js/jquery-3.4.1.min.js"></script>
+<!-- 主要js -->
+<script th:src="@{/front_end/js/index.js}" src="../../static/front_end/js/index.js"></script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

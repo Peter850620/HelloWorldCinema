@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>世界影城</title>
+    
+        <link th:href="@{https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css}" rel='stylesheet'>
+        <link rel="stylesheet" type="text/css"  th:href="@{/back_end/management.css}" href="../../../static/back_end/management.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" type="text/css" th:href="@{/back_end/mem/select.css}" href="../../../static/back_end/mem/select.css">
+
+
+    </head>
+    <body >
+
+        <aside th:replace="~{/back_end/management :: content}"></aside>
+
+        <main>
+                <h1>會員管理</h1>
+
+                <table>
+                    <tr>
+                        <td> 
+                            <a th:href="@{/mem/listAllMem}">所有會員</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/mem/get_SuspendedMem}">帳號停權／復權</a>
+                        </td>
+                    </tr>
+                </table>
+               
+                <br><br>
+                <h3>會員資料查詢</h3>
+
+                    
+                <form method="post" th:action="@{/mem/getOne_For_Display}">
+                    <h4>選擇會員編號：
+                    <select name="memId">
+                         <option th:each="mem : ${AllMemListData}" th:value="${mem.memId}" th:text="${mem.memId}"></option>
+                    </select>
+                    <input class="submit1" type="submit" value="送出"></h4>
+                </form><br><hr><br>    
+               
+                <h4>萬用複合查詢：</h4>
+                <div class="errorMsgs" th:if="${errorMsgs}">
+                    <ul>
+                        <li th:each="error : ${errorMsgs}" th:text="${error}"></li>
+                    </ul>
+                </div>
+                <br>
+                <form method="post" th:action="@{/mem/listMems_ByCompositeQuery}">
+
+                   
+
+                    <div class="row">
+                        <label for="memId">輸入會員編號(例如：240001)： </label>  
+                        <input type="text" name="memId" maxlength="6" minlength="6">
+                    </div>
+                    <br>
+                    <div class="row">
+                        <label for="memName">輸入會員姓名： </label>  
+                        <input type="text" name="memName" >
+                    </div>   
+                    <br>
+                    <div class="row">
+                        <label for="memMobile">輸入會員手機： </label>  
+                        <input type="text" name="memMobile" maxlength="10" >
+                    </div>   
+                    <br>
+                    <div class="row">
+                        <label for="memStatus">選擇狀態：</label>  
+                        <select name="memStatus">
+                            <option value="">選擇狀態</option>
+                            <option value="已驗證" >已驗證</option>
+                            <option value="未驗證" >未驗證</option>
+                            <option value="已註銷" >已註銷</option>
+                            <option value="已停權" >已停權</option>
+                        </select>
+                    </div>   
+                    <br>    
+                    <br>
+                    <div class="row">
+                        <input type="submit" class="submit" value="送出">
+                    </div>
+                    
+                </form>
+
+                
+                <br>
+                <hr>
+                <h3>新增會員？？？？</h3>
+            
+            <ul>
+            <li><a th:href="@{addMem}">Add</a>新會員！？</li>
+            </ul>
+        </main>   
+    
+        <script th:src="@{/back_end/js/management.js}"></script>
+    </body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>場地租借</title>
+    
+        <link th:href="@{https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css}" rel='stylesheet'>
+        <link rel="stylesheet" type="text/css"  th:href="@{/back_end/management.css}" href="../../../static/back_end/management.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" type="text/css" th:href="@{/back_end/rental/update_rental.css}" href="../../../static/back_end/rental/update_rental.css">
+    </head>
+
+	<body>
+        <aside th:replace="~{/back_end/management :: content}"></aside>
+
+
+		<main>
+            <h1>場地租借</h1>
+			<h3>租借訂單修改</h3>
+			<h4><a th:href="@{/rental/select}">回首頁</a></h4><br><br>
+
+
+            
+            <div class="errorMsgs" th:if="${errorMsgs}">
+                <ul>
+                    <li th:each="errors : ${errorMsgs}" th:text="${errors.defaultMessage}"></li>
+                </ul>
+            </div>
+            <div class="errorMsgs" th:if="${errorMsg}">
+                <ul>
+                    <li th:each="error : ${errorMsg}" th:text="${error}"></li>
+                </ul>
+            </div>
+
+
+			<form th:action="@{update}" method="post" th:object="${rentalOrder}">
+                <table>
+                    <tr>
+                        <td>表單編號：<font color=red><b>*</b></font></td>
+                        <td><input type="text" th:field="*{rentalId}" readonly /></td>
+                    </tr>
+                    <tr>
+                        <td>會員編號：<font color=red><b>*</b></font></td>
+                        <td><input type="text" name="mem.memId" th:field="*{mem.memId}" size="45" readonly/></td>
+                    </tr>
+                    <tr>
+                        <td>影廳編號：</td>
+                        <td>
+                            <select size="1" name="screen.screenId" th:field="*{screen.screenId}" id="screenId">
+                                <option value="A廳" th:selected="${result == 'A廳'}" >A廳</option>
+                                <option value="B廳" th:selected="${result == 'B廳'}" >B廳</option>
+                                <option value="C廳" th:selected="${result == 'C廳'}" >C廳</option>
+                                <option value="D廳" th:selected="${result == 'D廳'}" >D廳</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>租借日期：</td>
+                        <td><input type="date" name="rentalDate" th:field="*{rentalDate}" size="45"/></td>
+                    </tr>
+                    <tr>
+                        <td>預計開始時間：</td>
+                        <td><input type="time" name="startTime" th:field="*{startTime}" size="45" step="1" pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}"/></td>
+                    </tr>
+                    <tr>
+                        <td>預計結束時間：</td>
+                        <td><input type="time" name="endTime" th:field="*{endTime}" size="45" step="1" pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}"/></td>
+                    </tr>
+                    <tr>
+                        <td>申請理由：</td>
+                        <td><input type="text" name="reason" th:field="*{reason}" size="45"/></td>
+                    </tr>
+                    <tr>
+                        <td>審核狀態：</td>
+                        <td>
+                            <select size="1" name="result" th:field="*{result}">
+                                <option value="審核中" th:selected="${result == '審核中'}" >審核中</option>
+                                <option value="通過" th:selected="${result == '通過'}" >通過</option>
+                                <option value="未通過" th:selected="${result == '未通過'}" >未通過</option>
+                                <option value="取消訂單" th:selected="${result == '取消訂單'}" >取消訂單</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>申請日期：<font color=red><b>*</b></font></td>
+                        <td><input type="date" name="applyDate" th:field="*{applyDate}" size="45" readonly/></td>
+                    </tr>
+                    <tr>
+                        <td>影廳價格：<font color=red><b>*</b></font></td>
+                        <td><input type="text" name="price" th:field="*{price}" size="45" id="price" readonly/></td>
+                    </tr>
+                    <tr>
+                        <td>押金：<font color=red><b>*</b></font></td>
+                        <td><input type="text" name="deposit" th:field="*{deposit}" size="45" id="deposit" readonly/></td>
+                    </tr>
+                    <tr>
+                        <td>合計：<font color=red><b>*</b></font></td>
+                        <td><input type="text" name="total" th:field="*{total}" size="45" id="total" readonly/></td>
+                    </tr>
+                    <tr>
+                        <td>付款方式：</td>
+                        <td>
+                            <select size="1" name="paymentType" th:field="*{paymentType}">
+                                <option value="線上付款" th:selected="${result == '線上付款'}" >線上付款</option>
+                                <option value="匯款" th:selected="${result == '匯款'}" >匯款</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>付款狀態：</td>
+                        <td>
+                            <select size="1" name="paymentStatus" th:field="*{paymentStatus}">
+                                <option value="未付" th:selected="${result == '未付'}" >未付</option>
+                                <option value="已付" th:selected="${result == '已付'}" >已付</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>押金歸還：</td>
+                        <td>
+                            <select size="1"name="depositRefund" th:field="*{depositRefund}">
+                                <option value="未退" th:selected="${result == '未退'}" >未退</option>
+                                <option value="已退" th:selected="${result == '已退'}" >已退</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td>員工編號：</td>
+                        <td><input type="text" name="empId" th:field="*{empId}" size="45" readonly/></td>
+                    </tr> -->
+                </table>
+                <br>
+                <input type="submit" value="送出修改">
+            </form>
+            
+		</main>
+
+        <script th:src="@{/back_end/js/management.js}"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script th:src="@{/back_end/rental/update_rental.js}" src="../../../static/back_end/rental/update_rental.js"></script>
+	</body>
+
+
+</html>

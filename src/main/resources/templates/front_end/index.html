@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>世界影城 HelloWorld Cinema</title>
+    <link rel="icon" href="./../../static/front_end/img/icon.ico" type="image/x-icon">
+
+    <meta name="description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
+    <meta name="keywords" content="世界、電影、世界影城、HelloWorld Cinema" />
+    <meta name="robots" content="Index,follow">
+    <meta property="og:title" content="世界影城" />
+    <meta property="og:image" content=".img/bk.jpg" />
+    <meta property="og:site_name" content="世界影城網站" />
+    <meta property="og:url" content="https://www.ambassador.com.tw" />
+    <meta property="og:description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務" />
+    <!-- RWD -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    
+    
+    
+    
+    <!-- 底部footer -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    
+    
+    
+    <!-- 主要css -->
+    <link rel="stylesheet" type="text/css" href="../../static/front_end/css/index.css" />
+</head>
+<body>
+
+    <!-- 載入動畫 -->
+    <canvas></canvas>
+
+
+    <!-- 選單 -->
+    <div th:fragment="header">
+        <header class="header">
+            <div id="box" class="logo">
+                <h1 class="neon"><a href=" th:href=@{/front_end/index}"><span class="logo_el">H</span>ello<span class="logo_el">W</span>orld <span class="logo_el">C</span>inema</a></h1>
+            </div>
+            <div id="box">
+                <nav class="nav">
+                    <ul class="nav_menu">
+                        <li class="nav__menu-item">
+                            <a href=""><h4 class="neon2">影城資訊</h4></a>
+                            <ul class="nav__submenu">
+                                <li class="nav__submenu-item">
+                                    <a href="">最新資訊</a>
+                                </li>
+                                <li class="nav__submenu-item">
+                                    <a href="">票價說明</a>
+                                </li>
+                                <li class="nav__submenu-item">
+                                    <a href="">即將上映</a>
+                                </li>
+                                <li class="nav__submenu-item">
+                                    <a href="">現正熱映</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav__menu-item">
+                            <a href=""><h4 class="neon2">線上訂票</h4></a>
+                            <ul class="nav__submenu">
+                                <li class="nav__submenu-item">
+                                    <a href=""></a>
+                                </li>
+    
+                            </ul>
+                        
+                        </li>
+                        <li class="nav__menu-item">
+                            <a href=""><h4 class="neon2">周邊商城</h4></a>
+                            <ul class="nav__submenu">
+                                <li class="nav__submenu-item">
+                                    <a href=""></a>
+                                </li>
+    
+                            </ul>
+                        </li>
+                        <li class="nav__menu-item">
+                            <a href=""><h4 class="neon2">場地租借</h4></a>
+                            <ul class="nav__submenu">
+                                <li class="nav__submenu-item">
+                                    <a href="">場地租借須知</a>
+                                </li>
+                                <li class="nav__submenu-item">
+                                    <a th:href=@{/rental/listAllRentalOrderF}>可租借場地資訊</a>
+                                </li>
+                                <li class="nav__submenu-item">
+                                    <a th:href=@{/rental/f/addRentalOrder}>租借表單填寫</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- <li class="nav__menu-item">
+                            <a href=""><h4 class="neon2">Log In</h4></a>
+                            <ul class="nav__submenu">
+                                <li class="nav__submenu-item">
+                                    <a href=""></a>
+                                </li>
+    
+                            </ul>
+                        </li> -->
+
+                        <li class="nav__menu-item" th:if="${session.loginSuccess != null}">
+                            <a href=""><h4 class="neon2" th:text="${#strings.substring(session.loginSuccess.memName, 0, 3)}" ></h4></a>
+                            <ul class="nav__submenu">
+                                <li class="nav__submenu-item">
+                                    <a th:href="@{/mem/memIndexF}">會員專區</a>
+                                </li>
+                                <li class="nav__submenu-item">
+                                    <a th:href="@{/mem/logout}">Log Out</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav__menu-item" th:unless="${session.loginSuccess != null}">
+                            <a th:href="@{/mem/login}"><h4 class="neon2" >Log In</h4></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            
+        </header>
+    </div>
+
+
+<br>
+<!-- ========================以下區域可放置其他內容======================== -->
+
+
+
+
+
+
+<!-- ========================以上區域可放置其他內容======================== -->
+<br>
+
+
+
+
+
+    <!-- 底部footer -->
+    <div th:fragment="footer">
+        <footer class="footer">
+            <div class="titleCont">
+                <h1 class="main-title" id="main-title">
+                        "You must not be afraid to dream a little bigger, darling."
+                </h1>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col">
+                        <h4 class="neon2">關於我們</h4>
+                        <ul>
+                            <li><a href="#">影城簡介</a></li>
+                            <li><a href="#">影城交通</a></li>
+                            <li><a href="#">影城設備</a></li>
+                            <li><a href="#">注意事項</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4 class="neon2">電影評論區</h4>
+                        <ul>
+                            <li><a href="#">影評查詢</a></li>
+                            <li><a href="#">電影分類</a></li>
+                            <li><a href="#">排行榜</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4 class="neon2">客服中心</h4>
+                        <ul>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">真人聊天室</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4 class="neon2">follow us</h4>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <p class="copy_right">Copyright © 2024 CIA101G4. All rights reserved.</p>
+            </div>
+       </footer>
+    </div>
+
+
+
+    
+
+
+    <script src="./../../static/front_end/js/jquery-3.4.1.min.js"></script>
+    
+    <!-- 主要js -->
+    <script src="../../static/front_end/js/index.js"></script>
+    
+</body>
+</html>

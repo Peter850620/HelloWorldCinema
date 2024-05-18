@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員專區</title>
+    <!-- ======================== -->
+
+    <meta name="description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
+    <meta name="keywords" content="世界、電影、世界影城、HelloWorld Cinema" />
+    <meta name="robots" content="Index,follow">
+    <meta property="og:title" content="世界影城" />
+    <meta property="og:image" content=".img/bk.jpg" />
+    <meta property="og:site_name" content="世界影城網站" />
+    <meta property="og:url" content="https://www.ambassador.com.tw" />
+    <meta property="og:description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務" />
+    <!-- RWD -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    
+    
+    
+    
+    <!-- 底部footer -->
+    <link rel="stylesheet" type="text/css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css}">
+    
+    
+    
+    <!-- 主要css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/front_end/css/index.css}" href="../../../static/front_end/css/index.css" />
+
+
+    <link rel="stylesheet" th:href="@{/front_end/mem/updateMemF.css}" href="../../../static/front_end/mem/mem_index.css">
+</head>
+<body>
+
+    <!-- 載入動畫 -->
+    <canvas></canvas>
+
+
+    <!-- 選單 -->
+    <header th:replace="~{/front_end/index :: header}"></header>
+    <br>
+
+<!-- ========================以下區域可放置其他內容======================== -->
+
+
+    <section class="container forms">
+        <div class="form login">
+        	
+            <div class="form-content">
+                <h1>場地租借須知</h1>
+                
+                <h3>租借流程</h3>
+                    
+                <div class="field input-field">
+                    <a th:href="@{/mem/memUpdateF}">個人資訊管理</a>
+                </div>
+
+                <div class="field input-field">
+                    <a th:href="@{/rental/f/RentalOrder_For_M}">場地租借資訊</a>
+                </div>
+                    
+                
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+ 
+<!-- ========================以上區域可放置其他內容======================== -->
+<br>
+<footer th:replace="~{/front_end/index :: footer}"></footer>
+
+<script src="./../../static/front_end/js/jquery-3.4.1.min.js"></script>
+<!-- 主要js -->
+<script th:src="@{/front_end/js/index.js}" src="../../static/front_end/js/index.js"></script>
+
+
+
+
+<!-- ========================================================================== -->
+
+
+</body>
+
+</html>

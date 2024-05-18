@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>場地租借</title>
+    
+        <link th:href="@{https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css}" rel='stylesheet'>
+        <link rel="stylesheet" type="text/css"  th:href="@{/back_end/management.css}" href="../../../static/back_end/management.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" type="text/css" th:href="@{/back_end/rental/selectRentalOrder.css}" href="../../../static/back_end/rental/selectRentalOrder.css">
+
+
+    </head>
+    <body >
+
+        <aside th:replace="~{/back_end/management :: content}"></aside>
+        
+        <main>
+            <h1>場地租借</h1>
+
+            <table>
+                <tr>
+                    <td> 
+                        <!-- <a href='${pageContext.request.contextPath}/back_end/rental/rental.do?action=getAll'>所有訂單</a> -->
+                        <a th:href="@{/rental/listAllRentalOrder}">所有訂單</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/rental/get_RentalOrder_For_Review}">租借訂單審核</a>
+                    </td>
+                </tr>
+            </table>
+
+
+            <br><br>
+            <h3>場地租借訂單查詢</h3>
+
+            <form method="post" th:action="@{/rental/getOne_For_Display}">
+                <h4>選擇訂單編號：
+                <select name="rentalId">
+                     <option th:each="rental : ${AllRentalOrderListData}" th:value="${rental.rentalId}" th:text="${rental.rentalId}"></option>
+                </select>
+                <input class="submit1" type="submit" value="送出"></h4>
+            </form><br><hr><br>    
+           
+            <h4>萬用複合查詢：</h4>
+            <div class="errorMsgs" th:if="${errorMsgs}">
+                <ul>
+                    <li th:each="error : ${errorMsgs}" th:text="${error}"></li>
+                </ul>
+            </div>
+            <br>
+            <form method="post" th:action="@{/rental/listRentalOrders_ByCompositeQuery}">
+
+               
+
+                <div class="row">
+                    <label for="rentalId">輸入訂單編號(例如：50000001)： </label>  
+                    <input type="text" name="rentalId" maxlength="8" minlength="8">
+                </div>
+                <br>
+                <div class="row">
+                    <label for="screenId">租借影廳：</label>  
+                    <select name="screenId">
+                        <option value="">選取影廳</option>
+                        <option value="A廳">A廳</option>
+                        <option value="B廳">B廳</option>
+                        <option value="C廳">C廳</option>
+                        <option value="D廳">D廳</option>
+                    </select>
+                </div> 
+                <br>
+                <div class="row">
+                    <label for="memAcount">會員帳號：</label>  
+                    <input type="text" name="memAcount">
+                </div>
+                <br>  
+                <div class="row">
+
+                    <label >租借日期間範圍：</label>
+                    <input type="date" name="startdate"> ～ <input type="date" name="enddate">
+                </div>  
+                <br>
+                <div class="row">
+                    <input type="submit" class="submit" value="送出">
+                </div>
+                
+            </form>
+
+            
+        </main>   
+    
+    
+        <script th:src="@{/back_end/js/management.js}"></script>
+
+    </body>
+</html>

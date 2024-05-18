@@ -1,0 +1,125 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* .container.form{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #021e6d;
+  column-gap: 30px;
+} */
+h1{
+  color: #043d6f;
+}
+/* Style the form */
+#regForm {
+  background-color: #ffffff;
+  margin: 100px auto;
+  padding: 40px ;
+  width: 70%;
+  min-width: 350px;
+  max-width: 750px;
+  border-radius: 6px;
+}
+
+/* Style the input fields */
+input,select {
+  padding: 0 15px;
+  height: 50px;
+  width: 100%;
+  font-size: 16px;
+  box-sizing: border-box; 
+  border: 1px solid #CACACA;
+  border-radius: 6px;
+  outline: none;
+}
+
+input:focus{
+  border: 1px solid #CACACA;
+  border-bottom-width: 2px;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: none;
+  opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #04AA6D;
+}
+
+#prevBtn, #nextBtn{
+  border: none;
+  cursor: pointer;
+  background-color: #12528a;
+  color: #fff;
+  font-size: 25px;
+  margin-top: 15px;
+  border-radius: 10px;
+  height: 50px;
+  width: 48%;
+  position: static;
+}
+#prevBtn:hover, #nextBtn:hover{
+  background-color: #3270a6;
+}
+
+#prevBtnn{
+  margin-right: 2%;
+}
+#nextBtnn{
+  margin-left: 2%;
+}
+/* ******** */
+button.eye{
+  position: relative;
+  float: right;
+  margin-top: -32px;
+  margin-right: 10px;
+
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  background-color: inherit;
+}
+img.eye {
+  width: 20px;
+  height: 20px;
+  vertical-align: -0.125em;
+}
+h1{
+  margin-bottom: 30px;
+}
+.errorMsgs, .error, .passError{
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
