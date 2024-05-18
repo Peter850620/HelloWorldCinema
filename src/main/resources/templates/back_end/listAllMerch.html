@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+        <head th:insert="~{/included-fragment}"></head>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
+    <script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
+
+    <!-- ●● jquery datatables 設定 -->
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "lengthMenu": [3 ,5, 10, 20, 50, 100],
+                "searching": true,  //搜尋功能, 預設是開啟
+                "paging": true,     //分頁功能, 預設是開啟
+                "ordering": true,   //排序功能, 預設是開啟
+                "language": {
+                    "processing": "處理中...",
+                    "loadingRecords": "載入中...",
+                    "lengthMenu": "顯示 _MENU_ 筆結果",
+                    "zeroRecords": "沒有符合的結果",
+                    "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+                    "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+                    "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+                    "infoPostFix": "",
+                    "search": "搜尋:",
+                    "paginate": {
+                        "first": "第一頁",
+                        "previous": "上一頁",
+                        "next": "下一頁",
+                        "last": "最後一頁"
+                    },
+                    "aria": {
+                        "sortAscending":  ": 升冪排列",
+                        "sortDescending": ": 降冪排列"
+                    }
+                }
+            });
+        });
+    </script>
+    <style type="text/css">
+        body {
+            margin: 1rem 12rem 12rem 12rem;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top justify-content-center">
+    <div align="center"> <h2>周邊商品 - listAllMerch.html</h2>
+        <h3><a class="navbar-brand" th:href="@{select_page_merch}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
+</nav>
+
+<table id="example" class="display" style="width: 100%">
+    <thead >
+    <tr style="background-color:dodgerblue">
+        <th>商品編號</th>
+<!--        <th>品項</th>-->
+        <th>商品名稱</th>
+        <th>商品圖片</th>
+        <th>商品資訊</th>
+        <!--        <th>職務編號</th>-->
+        <th>價格</th>
+        <th>狀態</th>
+        <th>狀態</th>
+        <th>修改</th>
+        <th>刪除</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <th:block th:each="merch : ${merchListData}">
+        <tr>
+            <td th:text="${merch.merchId}"></td>
+<!--            <td th:text="${merch.merchItems}"></td>-->
+            <td th:text="${merch.merchName}"></td>
+            <td th:text="${merch.merchImg}"></td>
+            <td th:text="${merch.merchInfo}"></td>
+            <!--            <td th:text="${empVO.jobVO}"></td>-->
+            <td th:text="${merch.merchPrice}"></td>
+            <td th:text="${merch.merchStatus}">
+            <td>
+                <form method="post" action="/merch/toggleMerchStatus" style="margin-bottom: 0px;">
+                    <input type="hidden" name="merchId" th:value="${merch.merchId}">
+<!--                    <input name="merchStatus" value="下架">-->
+                    <button type="submit">上/下架</button>
+                </form>
+            </td>
+
+
+
+            <!--            <td><img th:src="@{/emp/DBGifReader} + '?empno=' + ${empVO.empno}" width="100px"></td>-->
+<!--            <td th:text="${empVO.jobVO.jobId} + '-[' + ${empVO.jobVO.title} + ']'"></td>-->
+            <td>
+                <form method="post" th:action="@{listAllMerch}" style="margin-bottom: 0px;">
+                    <input type="submit" value="修改">
+                    <input type="hidden" name="merchId" th:value="${merch.merchId}"></form>
+
+            </td>
+            <td>
+                <form method="post" th:action="@{../merch/deleteMerch}" style="margin-bottom: 0px;">
+                    <input type="submit" value="刪除">
+                    <input type="hidden" name="merch" th:value="${merch.merchId}"></form>
+
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+
+</body>
+</html>
