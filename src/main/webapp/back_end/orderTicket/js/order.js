@@ -18,3 +18,7 @@ window.onload = function () {
             });
         });
     };
+    
+    function submitForm() {
+        document.getElementById('showtimeForm').submit();  // 觸發表單提交
+    }

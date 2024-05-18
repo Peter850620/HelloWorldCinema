@@ -94,7 +94,15 @@ public class ShowtimeInfoServlet_13 extends HttpServlet{
         }
 
         
-     
+     // 從請求中獲取影廳ID
+     		String screenId = req.getParameter("screenId");
+
+     		// 進行相關的處理，比如查詢這個影廳的座位配置、顯示時間等
+     		// 這裡僅為了示範，我們將screenId作為參數添加到重定向的URL中
+     		String redirectUrl = "/orderTicket.jsp?screenId=" + screenId;
+
+     		// 重定向到一個新的JSP頁面，這個頁面將顯示選擇的影廳詳細信息
+     		res.sendRedirect(redirectUrl);
 
 	}
 	
