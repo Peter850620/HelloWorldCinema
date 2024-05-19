@@ -4,7 +4,6 @@ package com.service;
 import com.dao.MerchRepository;
 import com.entity.Merch;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
