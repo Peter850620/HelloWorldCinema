@@ -63,7 +63,7 @@ public class BookingController extends HttpServlet {
 			Integer bookingNo = Integer.valueOf(req.getParameter("bookingNo"));
 			Booking booking = dao.getOneBooking(bookingNo);
 			req.setAttribute("myBooking", booking);
-			url = "/templates/front_end/booking/orderItem.jsp";
+			url = "/front_end/booking/orderItem.jsp";
 			successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 			break;
@@ -101,7 +101,7 @@ public class BookingController extends HttpServlet {
          
 			Booking updatedBooking = bookingService.getOneBooking(cancelBookingNo);
 			req.setAttribute("myBooking", updatedBooking);
-			url = "/templates/front_end/booking/orderItem.jsp";
+			url = "/front_end/booking/orderItem.jsp";
 			successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 			break;
@@ -122,7 +122,7 @@ public class BookingController extends HttpServlet {
             req.setAttribute("bookings", bookings);
 			req.setAttribute("currentPage", currentPage);
 			
-			url = "/templates/front_end/booking/booking.jsp";
+			url = "/front_end/booking/booking.jsp";
 			successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 			break;

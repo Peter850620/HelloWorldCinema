@@ -41,7 +41,7 @@ public class MovieServlet_13 extends HttpServlet{
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 		req.setAttribute("movie", movie);
-		String url = "/templates/front_end/movie/singleMovie.jsp";
+		String url = "/front_end/movie/singleMovie.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url);
 		successView.forward(req, res);
 	}
@@ -59,7 +59,7 @@ public class MovieServlet_13 extends HttpServlet{
         req.setAttribute("nowShowingMovies", nowShowingMovies);
 
         // 轉發到相應的 JSP 文件中顯示結果
-        String url = "/templates/front_end/movie/movieNowShowing.jsp";
+        String url = "/front_end/movie/movieNowShowing.jsp";
         RequestDispatcher dispatcher = req.getRequestDispatcher(url);
         dispatcher.forward(req, res);
     }
@@ -75,7 +75,7 @@ public class MovieServlet_13 extends HttpServlet{
         req.setAttribute("CommingSoonMovies", CommingSoonMovies);
 
         // 轉發到相應的 JSP 文件中顯示結果
-        String url = "/templates/front_end/movie/movieCommingSoon.jsp";
+        String url = "/front_end/movie/movieCommingSoon.jsp";
         RequestDispatcher dispatcher = req.getRequestDispatcher(url);
         dispatcher.forward(req, res);
     }
