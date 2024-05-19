@@ -121,22 +121,27 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
-	// 處理下一步按鈕的點擊事件
-	checkoutButton.addEventListener('click', function() {
-		var screenUrl = '<%=request.getContextPath()%>/select_seats.jsp?screenId=<%=show.getScreen().getScreenId()%>';
-		updateCart(); // 確保最新的購物車總計被計算和顯示
-		if (ticketcart.items.length === 0) {
-			alert('至少選一張票');
-		} else {
-			localStorage.setItem('cart', JSON.stringify(cart));
-			localStorage.setItem('ticketcart', JSON.stringify(ticketcart));
-			localStorage.setItem('subtotal', subtotalElement.textContent); // 將 subtotal 也存儲在 localStorage
-			window.location.href = screenUrl;  // 替換為您的選座位頁面 URL
+	document.addEventListener('DOMContentLoaded', function() {
+		var checkoutButton = document.getElementById('checkout');
+		if (checkoutButton) {
+			checkoutButton.addEventListener('click', function() {
+				updateCart(); // 確保最新的購物車總計被計算和顯示
+				if (ticketcart.items.length === 0) {
+					alert('至少選一張票');
+				} else {
+					// 存儲資料到 sessionStorage
+					sessionStorage.setItem('cart', JSON.stringify(cart));
+					sessionStorage.setItem('ticketcart', JSON.stringify(ticketcart));
+					sessionStorage.setItem('subtotal', subtotalElement.textContent); // 將 subtotal 也存儲在 sessionStorage
+
+					// 提交表單
+					document.getElementById('showtimeForm').submit();
+				}
+			});
 		}
-		
-		
 	});
-	
+
+
 
 });
 

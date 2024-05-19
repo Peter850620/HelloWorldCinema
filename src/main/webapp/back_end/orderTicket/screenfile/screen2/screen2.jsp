@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>世界影城 HelloWorld Cinema</title>
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen2/screen2.css">
@@ -46,13 +46,6 @@
 
 					<li class="seat"><input type="checkbox" id="A05"
 						data-status="Y" /> <label for="A05">A05</label></li>
-					<li class="seat"><input type="checkbox" id="A06"
-						data-status="Y" /> <label for="A06">A06</label></li>
-
-					<li class="seat"><input type="checkbox" id="A07"
-						data-status="Y" /> <label for="A07">A07</label></li>
-					<li class="seat"><input type="checkbox" id="A08"
-						data-status="Y" /> <label for="A08">A08</label></li>
 				</ol>
 			</li>
 
@@ -68,13 +61,6 @@
 						data-status="Y" /> <label for="B04">B04</label></li>
 					<li class="seat"><input type="checkbox" id="B05"
 						data-status="Y" /> <label for="B05">B05</label></li>
-					<li class="seat"><input type="checkbox" id="B06"
-						data-status="Y" /> <label for="B06">B06</label></li>
-
-					<li class="seat"><input type="checkbox" id="B07"
-						data-status="Y" /> <label for="B07">B07</label></li>
-					<li class="seat"><input type="checkbox" id="B08"
-						data-status="Y" /> <label for="B08">B08</label></li>
 				</ol>
 			</li>
 			<li class="row row--3">
@@ -89,13 +75,6 @@
 						data-status="Y" /> <label for="C04">C04</label></li>
 					<li class="seat"><input type="checkbox" id="C05"
 						data-status="Y" /> <label for="C05">C05</label></li>
-					<li class="seat"><input type="checkbox" id="C06"
-						data-status="Y" /> <label for="C06">C06</label></li>
-
-					<li class="seat"><input type="checkbox" id="C07"
-						data-status="Y" /> <label for="C07">C07</label></li>
-					<li class="seat"><input type="checkbox" id="C08"
-						data-status="Y" /> <label for="C08">C08</label></li>
 				</ol>
 			</li>
 			<li class="row row--4">
@@ -110,13 +89,6 @@
 						data-status="Y" /> <label for="D04">D04</label></li>
 					<li class="seat"><input type="checkbox" id="D05"
 						data-status="Y" /> <label for="D05">D05</label></li>
-					<li class="seat"><input type="checkbox" id="D06"
-						data-status="Y" /> <label for="D06">D06</label></li>
-
-					<li class="seat"><input type="checkbox" id="D07"
-						data-status="Y" /> <label for="D07">D07</label></li>
-					<li class="seat"><input type="checkbox" id="D08"
-						data-status="Y" /> <label for="D08">D08</label></li>
 				</ol>
 			</li>
 			<li class="row row--5">
@@ -131,13 +103,6 @@
 						data-status="Y" /> <label for="E04">E04</label></li>
 					<li class="seat"><input type="checkbox" id="E05"
 						data-status="Y" /> <label for="E05">E05</label></li>
-					<li class="seat"><input type="checkbox" id="E06"
-						data-status="Y" /> <label for="E06">E06</label></li>
-
-					<li class="seat"><input type="checkbox" id="E07"
-						data-status="Y" /> <label for="E07">E07</label></li>
-					<li class="seat"><input type="checkbox" id="E08"
-						data-status="Y" /> <label for="E08">E08</label></li>
 				</ol>
 			</li>
 			<li class="row row--6">
@@ -152,13 +117,6 @@
 						data-status="Y" /> <label for="F04">F04</label></li>
 					<li class="seat"><input type="checkbox" id="F05"
 						data-status="Y" /> <label for="F05">F05</label></li>
-					<li class="seat"><input type="checkbox" id="F06"
-						data-status="Y" /> <label for="F06">F06</label></li>
-
-					<li class="seat"><input type="checkbox" id="F07"
-						data-status="Y" /> <label for="F07">F07</label></li>
-					<li class="seat"><input type="checkbox" id="F08"
-						data-status="Y" /> <label for="F08">F08</label></li>
 				</ol>
 			</li>
 			<li class="row row--7">
@@ -173,13 +131,6 @@
 						data-status="Y" /> <label for="G04">G04</label></li>
 					<li class="seat"><input type="checkbox" id="G05"
 						data-status="Y" /> <label for="G05">G05</label></li>
-					<li class="seat"><input type="checkbox" id="G06"
-						data-status="Y" /> <label for="G06">G06</label></li>
-
-					<li class="seat"><input type="checkbox" id="G07"
-						data-status="Y" /> <label for="G07">G07</label></li>
-					<li class="seat"><input type="checkbox" id="G08"
-						data-status="Y" /> <label for="G08">G08</label></li>
 				</ol>
 			</li>
 			<li class="row row--8">
@@ -194,13 +145,6 @@
 						data-status="Y" /> <label for="H04">H04</label></li>
 					<li class="seat"><input type="checkbox" id="H05"
 						data-status="Y" /> <label for="H05">H05</label></li>
-					<li class="seat"><input type="checkbox" id="H06"
-						data-status="Y" /> <label for="H06">H06</label></li>
-
-					<li class="seat"><input type="checkbox" id="H07"
-						data-status="Y" /> <label for="H07">H07</label></li>
-					<li class="seat"><input type="checkbox" id="H08"
-						data-status="Y" /> <label for="H08">H08</label></li>
 				</ol>
 			</li>
 

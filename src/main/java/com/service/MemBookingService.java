@@ -36,7 +36,7 @@ import com.entity.ShowtimeInfo;
 import com.entity.Ticket;
 
 
-public class memBookingService {
+public class MemBookingService {
 	
 	private BookingDAO bookingdao;
 	private FoodItemDAO foodItemdao;
@@ -47,7 +47,7 @@ public class memBookingService {
 	private ScreenDAO screendao;
 	private TicketDAO ticketao;
 	
-	public memBookingService() {
+	public MemBookingService() {
 		
 		bookingdao=new BookingDAOImpl();
 		foodItemdao=new FoodItemIDAOmpl();
@@ -165,25 +165,25 @@ public class memBookingService {
 		String url="";
 		switch (screenId) {
 		case "A廳": 
-			url="/back_end/screen/screen1.jsp";
+			url="/back_end/orderTicket/screenfile/screen1/screen1.jsp";
 			return url;
 		
 			
 		case "B廳":
 			
-			url="/back_end/screen/screen2.jsp";
+			url="/back_end/orderTicket/screenfile/screen2/screen2.jsp";
 			return url;
 			
 			
 		case "C廳":
 			
-			url="/back_end/screen/screen3.jsp";
+			url="/HelloWorldCinema/back_end/orderTicket/screenfile/screen3/screen3.jsp";
 			return url;
 		
 			
           case "D廳":
 			
-			url="/back_end/screen/screen4.jsp";
+			url="/back_end/orderTicket/screenfile/screen4/screen4.jsp";
 			return url;
 			
 		}

@@ -15,19 +15,21 @@ TicketDAOImpl ticketDAO = new TicketDAOImpl();
 List<Ticket> ticketList = ticketDAO.getAll();
 pageContext.setAttribute("ticketList", ticketList);
 
-ShowtimeInfoDAOImpl showtimeInfoDAO = new ShowtimeInfoDAOImpl();
-Object showIdObj = request.getAttribute("showtimeId");
-
-Integer showid = null;
-if (showIdObj != null) {
-	showid = (Integer) showIdObj;
-} else {
-	showid = 6;
+//優先從 session 獲取 showId
+Integer showId = (Integer) session.getAttribute("showtimeId");
+if (showId == null) {
+	// 如果 session 中沒有，則嘗試從 request 獲取
+	Object showIdObj = request.getAttribute("showtimeId");
+	if (showIdObj != null) {
+		showId = (Integer) showIdObj;
+	} else {
+		// 如果都沒有，設置默認值
+		showId = 6;
+	}
 }
-ShowtimeInfo show = null;
-show = showtimeInfoDAO.getshowtimeId(showid);
 
-memBookingService membookingService = new memBookingService();
+ShowtimeInfoDAOImpl showtimeInfoDAO = new ShowtimeInfoDAOImpl();
+ShowtimeInfo show = showtimeInfoDAO.getById(showId);
 %>
 <!DOCTYPE html>
 <html>
@@ -248,13 +250,13 @@ memBookingService membookingService = new memBookingService();
 								<td>
 									<button id="ks" class="keep-shopping">繼續購物</button>
 								</td>
-								<form id="showtimeForm" action="nextStep" method="post">
+								<form id="showtimeForm" action="<%=show.getScreen().getScreenId()%>" method="post">
 									<input type="hidden" name="screenId"
 										value="<%=show.getScreen().getScreenId()%>">
-									<td>
-										<button onclick="submitForm()" id="checkout">下一步</button>
-									</td>
+									<button type="submit" id="checkout">下一步</button>
 								</form>
+								<!-- 注意將button的type設為button以防自動提交 -->
+								
 							</tr>
 						</tbody>
 					</table>
@@ -262,14 +264,7 @@ memBookingService membookingService = new memBookingService();
 			</div>
 		</div>
 	</div>
-	<!-- 假設這是你的表單 -->
-	<form id="showtimeForm" action="nextStep" method="post">
-		<input type="hidden" name="screenId"
-			value="<%=show.getScreen().getScreenId()%>">
-		<td>
-			<button onclick="submitForm()" id="checkout">下一步</button>
-		</td>
-	</form>
+	
 
 	<!-- ========================以上區域可放置其他內容======================== -->
 	<br>

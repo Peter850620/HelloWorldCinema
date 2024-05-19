@@ -11,7 +11,7 @@
 <title>世界影城 HelloWorld Cinema</title>
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen1/screen1.css">
+	href="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen4/screen4.css">
 <style>
 </style>
 </head>
@@ -20,7 +20,6 @@
 
 
 <body>
-
 	<title>seat booking</title>
 	<div class="theatre">
 		<div class="screen-side">
@@ -203,50 +202,258 @@
 						data-status="Y" /> <label for="H08">H08</label></li>
 				</ol>
 			</li>
-<button id="nextButton">下一步</button>
-		</ol>
+
+
+			<li class="row aisle">
+				<ol class="aisle" type="aisle">
+					<pre class="aisleletter">                                                     </pre>
+				</ol>
+			<li class="row row--9">
+				<ol class="seats" type="I">
+
+
+
+					<li class="seat"><input type="checkbox" id="I01"
+						data-status="Y" /> <label for="I01">I01</label></li>
+					<li class="seat"><input type="checkbox" id="I02"
+						data-status="Y" /> <label for="I02">I02</label></li>
+					<li class="seat"><input type="checkbox" id="I03"
+						data-status="Y" /> <label for="I03">I03</label></li>
+
+					<li class="seat"><input type="checkbox" id="I04"
+						data-status="Y" /> <label for="I04">I04</label></li>
+
+					<li class="seat"><input type="checkbox" id="I05"
+						data-status="Y" /> <label for="I05">I05</label></li>
+					<li class="seat"><input type="checkbox" id="I06"
+						data-status="Y" /> <label for="I06">I06</label></li>
+
+					<li class="seat"><input type="checkbox" id="I07"
+						data-status="Y" /> <label for="I07">I07</label></li>
+					<li class="seat"><input type="checkbox" id="I08"
+						data-status="Y" /> <label for="I08">I08</label></li>
+				</ol>
+			</li>
+			<li class="row row--10">
+				<ol class="seats" type="J">
+
+
+
+					<li class="seat"><input type="checkbox" id="J01"
+						data-status="Y" /> <label for="J01">J01</label></li>
+					<li class="seat"><input type="checkbox" id="J02"
+						data-status="Y" /> <label for="J02">J02</label></li>
+					<li class="seat"><input type="checkbox" id="J03"
+						data-status="Y" /> <label for="J03">J03</label></li>
+
+					<li class="seat"><input type="checkbox" id="J04"
+						data-status="Y" /> <label for="J04">J04</label></li>
+
+					<li class="seat"><input type="checkbox" id="J05"
+						data-status="Y" /> <label for="J05">J05</label></li>
+					<li class="seat"><input type="checkbox" id="J06"
+						data-status="Y" /> <label for="J06">J06</label></li>
+
+					<li class="seat"><input type="checkbox" id="J07"
+						data-status="Y" /> <label for="J07">J07</label></li>
+					<li class="seat"><input type="checkbox" id="J08"
+						data-status="Y" /> <label for="J08">J08</label></li>
+				</ol>
+			</li>
+			<li class="row row--11">
+				<ol class="seats" type="K">
+
+
+
+					<li class="seat"><input type="checkbox" id="K01"
+						data-status="Y" /> <label for="K01">K01</label></li>
+					<li class="seat"><input type="checkbox" id="K02"
+						data-status="Y" /> <label for="K02">K02</label></li>
+					<li class="seat"><input type="checkbox" id="K03"
+						data-status="Y" /> <label for="K03">K03</label></li>
+
+					<li class="seat"><input type="checkbox" id="K04"
+						data-status="Y" /> <label for="K04">K04</label></li>
+
+					<li class="seat"><input type="checkbox" id="K05"
+						data-status="Y" /> <label for="K05">K05</label></li>
+					<li class="seat"><input type="checkbox" id="K06"
+						data-status="Y" /> <label for="K06">K06</label></li>
+
+					<li class="seat"><input type="checkbox" id="K07"
+						data-status="Y" /> <label for="K07">K07</label></li>
+					<li class="seat"><input type="checkbox" id="K08"
+						data-status="Y" /> <label for="K08">K08</label></li>
+				</ol>
+			</li>
+			<li class="row row--12">
+				<ol class="seats" type="L">
+
+
+
+					<li class="seat"><input type="checkbox" id="L01"
+						data-status="Y" /> <label for="L01">L01</label></li>
+					<li class="seat"><input type="checkbox" id="L02"
+						data-status="Y" /> <label for="L02">L02</label></li>
+					<li class="seat"><input type="checkbox" id="L03"
+						data-status="Y" /> <label for="L03">L03</label></li>
+
+					<li class="seat"><input type="checkbox" id="L04"
+						data-status="Y" /> <label for="L04">L04</label></li>
+
+					<li class="seat"><input type="checkbox" id="L05"
+						data-status="Y" /> <label for="L05">L05</label></li>
+					<li class="seat"><input type="checkbox" id="L06"
+						data-status="Y" /> <label for="L06">L06</label></li>
+
+					<li class="seat"><input type="checkbox" id="L07"
+						data-status="Y" /> <label for="L07">L07</label></li>
+					<li class="seat"><input type="checkbox" id="L08"
+						data-status="Y" /> <label for="L08">L08</label></li>
+				</ol>
+			</li>
+			<li class="row row--13">
+				<ol class="seats" type="M">
+
+
+
+					<li class="seat"><input type="checkbox" id="M01"
+						data-status="Y" /> <label for="M01">M01</label></li>
+					<li class="seat"><input type="checkbox" id="M02"
+						data-status="Y" /> <label for="M02">M02</label></li>
+					<li class="seat"><input type="checkbox" id="M03"
+						data-status="Y" /> <label for="M03">M03</label></li>
+
+					<li class="seat"><input type="checkbox" id="M04"
+						data-status="Y" /> <label for="M04">M04</label></li>
+
+					<li class="seat"><input type="checkbox" id="M05"
+						data-status="Y" /> <label for="M05">M05</label></li>
+					<li class="seat"><input type="checkbox" id="M06"
+						data-status="Y" /> <label for="M06">M06</label></li>
+
+					<li class="seat"><input type="checkbox" id="M07"
+						data-status="Y" /> <label for="M07">M07</label></li>
+					<li class="seat"><input type="checkbox" id="M08"
+						data-status="Y" /> <label for="M08">M08</label></li>
+				</ol>
+			</li>
+			<li class="row row--14">
+				<ol class="seats" type="N">
+
+
+
+					<li class="seat"><input type="checkbox" id="N01"
+						data-status="Y" /> <label for="N01">N01</label></li>
+					<li class="seat"><input type="checkbox" id="N02"
+						data-status="Y" /> <label for="N02">N02</label></li>
+					<li class="seat"><input type="checkbox" id="N03"
+						data-status="Y" /> <label for="N03">N03</label></li>
+
+					<li class="seat"><input type="checkbox" id="N04"
+						data-status="Y" /> <label for="N04">N04</label></li>
+
+					<li class="seat"><input type="checkbox" id="N05"
+						data-status="Y" /> <label for="N05">N05</label></li>
+					<li class="seat"><input type="checkbox" id="N06"
+						data-status="Y" /> <label for="N06">N06</label></li>
+
+					<li class="seat"><input type="checkbox" id="N07"
+						data-status="Y" /> <label for="N07">N07</label></li>
+					<li class="seat"><input type="checkbox" id="N08"
+						data-status="Y" /> <label for="N08">N08</label></li>
+				</ol>
+			</li>
+			<li class="row row--15">
+				<ol class="seats" type="O">
+
+
+
+					<li class="seat"><input type="checkbox" id="O01"
+						data-status="Y" /> <label for="O01">O01</label></li>
+					<li class="seat"><input type="checkbox" id="O02"
+						data-status="Y" /> <label for="O02">O02</label></li>
+					<li class="seat"><input type="checkbox" id="O03"
+						data-status="Y" /> <label for="O03">O03</label></li>
+
+					<li class="seat"><input type="checkbox" id="O04"
+						data-status="Y" /> <label for="O04">O04</label></li>
+
+					<li class="seat"><input type="checkbox" id="O05"
+						data-status="Y" /> <label for="O05">O05</label></li>
+					<li class="seat"><input type="checkbox" id="O06"
+						data-status="Y" /> <label for="O06">O06</label></li>
+
+					<li class="seat"><input type="checkbox" id="O07"
+						data-status="Y" /> <label for="O07">O07</label></li>
+					<li class="seat"><input type="checkbox" id="O08"
+						data-status="Y" /> <label for="O08">O08</label></li>
+				</ol>
+			</li>
+			<li class="row row--16">
+				<ol class="seats" type="P">
+
+
+
+					<li class="seat"><input type="checkbox" id="P01"
+						data-status="Y" /> <label for="P01">P01</label></li>
+					<li class="seat"><input type="checkbox" id="P02"
+						data-status="Y" /> <label for="P02">P02</label></li>
+					<li class="seat"><input type="checkbox" id="P03"
+						data-status="Y" /> <label for="P03">P03</label></li>
+
+					<li class="seat"><input type="checkbox" id="P04"
+						data-status="Y" /> <label for="P04">P04</label></li>
+
+					<li class="seat"><input type="checkbox" id="P05"
+						data-status="Y" /> <label for="P05">P05</label></li>
+					<li class="seat"><input type="checkbox" id="P06"
+						data-status="Y" /> <label for="P06">P06</label></li>
+
+					<li class="seat"><input type="checkbox" id="P07"
+						data-status="Y" /> <label for="P07">P07</label></li>
+					<li class="seat"><input type="checkbox" id="P08"
+						data-status="Y" /> <label for="P08">P08</label></li>
+				</ol>
+			</li>
+
 
 		</ol>
+
+		</li>
+
 		<div class="exit exit--back"></div>
 
 		<div class="sub">
+
 			<ul class="pay">
-				<li class="total">選取:
-					<p id="selectedCount">0</p>
+
+				<li class="total">已選取:
+					<p id="selectedCount">0<p>張</p></p>
 				</li>
-				<li class="price">總額:
-					<p id="totalPrice">0</p>
+				<li class="total">需選取數量:
+					<p id="selectedCount">0<p>張</p></p>
 				</li>
-				<!-- 其他价格项 -->
 			</ul>
+			<div class="arrow1">
+				<a href="#"> <span class="left"></span>
+				</a>
+			</div>
+
+			<div class="arrow2">
+				<a href="#"> <span class="right"></span>
+				</a>
+			</div>
+
 		</div>
-
-		<script>
-			// 获取选取数量和价格项
-			var selectedCount = parseInt(document
-					.getElementById('selectedCount').textContent);
-			var prices = document.querySelectorAll('.price p');
-
-			// 计算总额
-			var total = 0;
-			for (var i = 0; i < prices.length; i++) {
-				total += parseInt(prices[i].textContent);
-			}
-
-			// 计算乘法总和
-			var multiplicationTotal = selectedCount * total;
-
-			// 输出结果
-			var totalPriceElement = document.getElementById('totalPrice');
-			totalPriceElement.textContent = multiplicationTotal;
-		</script>
 	</div>
 
 
 
 
+
 	<script
-		src="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen1/screen1.js">
+		src="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen4/screen4.js">
 		
 	</script>
 
