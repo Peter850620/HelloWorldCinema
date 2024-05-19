@@ -18,11 +18,11 @@ import java.util.List;
 public class MerchController {
 
     @Autowired
-    MerchService merchService10;
+    MerchService merchService;
 
     @GetMapping("/merchId/{id}")
     public String showProductPage(@PathVariable Integer id, Model model) {
-        Merch merch = merchService10.getbyMerchId(id);
+        Merch merch = merchService.getbyMerchId(id);
         model.addAttribute("merch", merch);
         return "front_end/TestSingleMerch"; // 返回單獨商品頁面的HTML文件名
     }
@@ -40,13 +40,13 @@ public class MerchController {
     @PostMapping("/toggleMerchStatus")
     public String toggleMerchStatus(@Valid Merch merchVo) {
 
-        Merch merch = merchService10.getbyMerchId(merchVo.getMerchId());
+        Merch merch = merchService.getbyMerchId(merchVo.getMerchId());
         String text = "上架";
         if (merch.getMerchStatus().equals("上架")) {
             text = "下架";
         }
         merch.setMerchStatus(text);
-        merchService10.updateMerch(merch);
+        merchService.updateMerch(merch);
         return "redirect:/merch/listAllMerch";
     }
 
@@ -61,8 +61,8 @@ public class MerchController {
 
     @PostMapping("/insertMerch")
     public String insert(@Valid Merch merch, Model model) {
-        merchService10.addMerch(merch);
-        List<Merch> list = merchService10.getAll();
+        merchService.addMerch(merch);
+        List<Merch> list = merchService.getAll();
         model.addAttribute("merchListDate", list);
         model.addAttribute("success", "修改成功");
         return "back_end/listAllMerch";
@@ -71,7 +71,7 @@ public class MerchController {
 
     @PostMapping("/getbyMerchId")
     public String getbyMerchId(@RequestParam("merchId") Integer merchId, Model model) {
-        Merch merch = merchService10.getbyMerchId(merchId);
+        Merch merch = merchService.getbyMerchId(merchId);
         model.addAttribute("Merch", merch);
         return "front_end/TestSingleMerch";
 
@@ -80,17 +80,17 @@ public class MerchController {
     @PostMapping("/updateMerch")
     public String updateMerch(@Valid Merch merch, Model model) {
 
-        merchService10.updateMerch(merch);
+        merchService.updateMerch(merch);
         model.addAttribute("success", "修改成功");
-        merch = merchService10.getbyMerchId(Integer.valueOf(merch.getMerchId()));
+        merch = merchService.getbyMerchId(Integer.valueOf(merch.getMerchId()));
         return "getbyMerchId";
 
     }
 
     @PostMapping("/deleteMerch")
     public String deleteMerch(@RequestParam("merchId") Integer merchId, Model model) {
-        merchService10.deleteMerch(merchId);
-        List<Merch> list = merchService10.getAll();
+        merchService.deleteMerch(merchId);
+        List<Merch> list = merchService.getAll();
         model.addAttribute("merchListDate", list);
         model.addAttribute("success", "刪除成功");
         return "back_end/listAllMerch";
@@ -100,7 +100,7 @@ public class MerchController {
 
     @GetMapping("/listAllMerch")
     public String listAllMerch(Model model) {
-        List<Merch> merchList = merchService10.getAll();
+        List<Merch> merchList = merchService.getAll();
         model.addAttribute("merchListData", merchList);
         return "back_end/listAllMerch";
     }
@@ -108,13 +108,13 @@ public class MerchController {
     @ModelAttribute("merchListData")  // for select_page.html 第97 109行用 // for listAllEmp.html 第85行用
     protected List<Merch> referenceListData(Model model) {
 
-        List<Merch> list = merchService10.getAll();
+        List<Merch> list = merchService.getAll();
         return list;
     }
 
     @PostMapping("/getbyMerchStatus")
     public String MerchStatus(Model model){
-        List<Merch> merchlist = merchService10.getbyMerchStatus("上架");
+        List<Merch> merchlist = merchService.getbyMerchStatus("上架");
         model.addAttribute("merchStatusList",merchlist);
         return "front_end/TestMerchStore";
     }
