@@ -1,45 +1,52 @@
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="back_end/management.html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>員工資料管理 - select_page.html</title>
 
-<!--    <head th:insert="~{included-fragment}"></head> &lt;!&ndash; 使用included-fragment.html網頁的全部 &ndash;&gt;-->
+    <!--    <head th:insert="~{included-fragment}"></head> &lt;!&ndash; 使用included-fragment.html網頁的全部 &ndash;&gt;-->
     <style type="text/css">
 
         button {
             padding: 5px;
         }
+
         form {
             display: table;
         }
+
         form div {
             display: table-row;
         }
+
         label, input, span, select {
             display: table-cell;
             margin: 2px;
             text-align: left;
         }
+
         input[type=text], input[type=password], select, textarea {
             width: 200px;
             margin: 2px;
         }
+
         form div div {
             display: table-cell;
         }
+
         .center {
             margin-left: auto;
             margin-right: auto;
         }
+
         span {
             display: inline-block;
             width: 150px;
             text-align: left;
             font-weight: bold;
         }
+
         div.a {
             display: inline-block;
             width: 50%;
@@ -48,6 +55,7 @@
             border: 0px solid blue;
             background-color: white;
         }
+
         div.b {
             position: absolute;
             bottom: 1%;
@@ -60,99 +68,94 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top justify-content-center">
-    <div align="center"> <h2>員工資料管理 - select_page.html</h2>
-        <h3><a class="navbar-brand" th:href="@{/}"><img th:src="@{/images/back1.gif}">回index.html</a></h3></div>
-</nav>
+<div th:fragment="content">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top justify-content-center">
+        <div align="center"><h2>員工資料管理 - select_page.html</h2>
+            <h3><a class="navbar-brand" th:href="@{/}"><img th:src="@{/images/back1.gif}">回index.html</a></h3></div>
+    </nav>
 
-<h4><span>資料查詢:</span></h4>
-<!-- 錯誤表列 -->
-<div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div><br>
-<div class="a">
-    <ul>
-        <li><h5><a href="/emp/listAllEmp">List</a> all Emps. <br><br></h5></li>
+    <h4><span>資料查詢:</span></h4>
+    <!-- 錯誤表列 -->
+    <div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
+    <br>
+    <div class="a">
+        <ul>
+            <li><h5><a href="/emp/listAllEmp">List</a> all Emps. <br><br></h5></li>
+            <li>
+                <form method="post" th:action="@{getOne_For_Display}">
+                    輸入員工編號:
+                    <input type="text" name="empId" th:value="${param.empId}">
+                    <input type="submit" value="送出"> (輸入如7001)
+                </form>
+                <br>
+            </li>
+            <li>
+                <form method="post" th:action="@{getOne_For_Display}">
+                    選擇員工編號:
+                    <select name="empId">
+                        <option th:each="emp : ${empListData}" th:value="${emp.empId}" th:text="${emp.empId}"/>
+                    </select>
+                    <input type="submit" value="送出">
+                </form>
+                <br>
+            </li>
+            <li>
+                <form method="post" th:action="@{getOne_For_Display}">
+                    選擇員工姓名:
+                    <select name="empId">
+                        <option th:each="emp : ${empListData}" th:value="${emp.empId}" th:text="${emp.empName}"/>
+                    </select>
+                    <input type="submit" value="送出">
+                </form>
+                <br>
+            </li>
+            <!--  萬用複合查詢-以下欄位-可隨意增減 -->
+            <li>
+                <form method="post" th:action="@{listEmps_ByCompositeQuery}">
+                    <font color=blue>萬用複合查詢:</font><br>
+                    輸入員工編號:
+                    <input type="text" name="empId" value="7xxx"><br>
 
-        <li>
-            <form method="post" th:action="@{getOne_For_Display}">
-                輸入員工編號:
-                <input type="text" name="empId" th:value="${param.empId}" >
-                <input type="submit" value="送出"> (輸入如7001)
-            </form><br>
-        </li>
+                    輸入員工姓名:
+                    <input type="text" name="empName" value="KING"><br>
+
+                    輸入員工職位:
+                    <input type="text" name="job" value="1主管"><br>
+
+                    選擇職稱:
+                    <select name="job">
+                        <option value="職稱">
+                        <option th:each="job : ${jobListData}" th:value="${job.jobId}" th:text="${job.title}"/>
+                    </select><br>
+                    雇用日期:
+                    <input name="hireDate" type="date">
+                    <input type="submit" value="送出">
+                </form>
+            </li>
+        </ul>
+        <h4><span>員工管理</span></h4>
+        <ul>
+            <li><h5><a href="/emp/addEmp">Add</a> a new Emp.</h5></li>
+        </ul>
+    </div>
+
+    <!-- 旗標getOne_For_Display見EmpnoController.java的第74行 -->
 
 
+    <div class="b" th:if="${getOne_For_Display}">
+        <!--使用listOneEmp.html網頁的listOneEmp-div片段--> <!-- 見listOneEmp.html的第35行的th:fragment="listOneEmp-div" -->
+        <!-- 使用th:replace也可 -->
+        <!--        <div th:insert="~{listOneEmp :: listOneEmp-div}" th:with="emp=${emp}"></div>-->
 
-
-        <li><form method="post" th:action="@{getOne_For_Display}">
-            選擇員工編號:
-            <select name="empId">
-                <option th:each="emp : ${empListData}" th:value="${emp.empId}" th:text="${emp.empId}" />
-            </select>
-            <input type="submit" value="送出">
-        </form><br>
-        </li>
-
-
-
-
-        <li><form method="post" th:action="@{getOne_For_Display}">
-            選擇員工姓名:
-            <select name="empId">
-                <option th:each="emp : ${empListData}" th:value="${emp.empId}" th:text="${emp.empName}" />
-            </select>
-            <input type="submit" value="送出">
-        </form><br>
-        </li>
-
-
-
-
-        <!--  萬用複合查詢-以下欄位-可隨意增減 -->
-
-        <li>
-            <form method="post" th:action="@{listEmps_ByCompositeQuery}">
-                <font color=blue>萬用複合查詢:</font><br>
-                輸入員工編號:
-                <input type="text" name="empId" value="7xxx"><br>
-
-                輸入員工姓名:
-                <input type="text" name="empName" value="KING"><br>
-
-                輸入員工職位:
-                <input type="text" name="job" value="1主管"><br>
-
-                選擇職稱:
-                <select th:field="*{job.jobId}">
-                    <option value="職稱">
-                    <option th:each="job : ${jobListData}" th:value="${job.jobId}" th:text="${job.title}" />
-                </select><br>
-
-
-
-                雇用日期:
-                <input name="hireDate" type="date">
-
-                <input type="submit" value="送出">
-
-            </form>
-        </li>
-    </ul>
-
-    <h4><span>員工管理</span></h4>
-    <ul>
-        <li><h5><a href="/emp/addEmp">Add</a> a new Emp.</h5></li>
-    </ul>
+        <h3><span>查詢結果 :</span></h3>
+        <span>員工編號:</span><span th:text="${emp.empId}">[EmpId]</span><br/>
+        <span>員工姓名:</span><span th:text="${emp.empName}">[EmpName]</span><br/>
+        <span>職位:</span><span th:text="${emp.job.title}"></span><br/>
+        <span>雇用日期:</span><span th:text="${emp.hireDate}"></span><br/>
+        <span>密碼:</span><span th:text="${emp.empPassword}"></span><br/>
+        <span>電子信箱:</span><span th:text="${emp.empEmail}"></span><br/>
+        <span>狀態:</span><span th:text="${emp.empStatus}"></span><br/>
+    </div>
 </div>
-
-<!-- 旗標getOne_For_Display見EmpnoController.java的第74行 -->
-
-<span th:text="${getOne_For_Display}"></span>
-
-<div class="b" th:if="${getOne_For_Display}">
-    <!--使用listOneEmp.html網頁的listOneEmp-div片段--> <!-- 見listOneEmp.html的第35行的th:fragment="listOneEmp-div" --> <!-- 使用th:replace也可 -->
-    <div th:insert="~{listOneEmp :: listOneEmp-div}" th:with="emp=${emp}"></div>
-
-</div>
-
 </body>
 </html>

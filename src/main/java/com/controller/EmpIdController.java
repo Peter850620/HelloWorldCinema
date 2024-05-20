@@ -51,12 +51,11 @@ public class EmpIdController {
             ModelMap model) {
 
         /***************************2.開始查詢資料*********************************************/
-//		EmpService empSvc = new EmpService();
         Emp emp = empService.getbyId(Integer.valueOf(empId));
 
         List<Emp> list = empService.getAll();
         model.addAttribute("empListData", list);     // for select_page.html 第97 109行用
-        model.addAttribute("jobVO", new Job());  // for select_page.html 第133行用
+//        model.addAttribute("job", new Job());  // for select_page.html 第133行用
         List<Job> list2 = jobService.getAll();
         model.addAttribute("jobListData",list2);    // for select_page.html 第135行用
 
@@ -67,7 +66,7 @@ public class EmpIdController {
 
         /***************************3.查詢完成,準備轉交(Send the Success view)*****************/
         model.addAttribute("emp", emp);
-        model.addAttribute("getOne_For_Display", "true"); // 旗標getOne_For_Display見select_page.html的第156行 -->
+        model.addAttribute("getOne_For_Display", true); // 旗標getOne_For_Display見select_page.html的第156行 -->
 
 //		return "back-end/emp/listOneEmp";  // 查詢完成後轉交listOneEmp.html
         return "back_end/emp/select_page"; // 查詢完成後轉交select_page.html由其第158行insert listOneEmp.html內的th:fragment="listOneEmp-div

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="back_end/management.html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -40,7 +40,7 @@
     </style>
 </head>
 <body>
-
+<div th:fragment="content">
 <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-center">
     <div align="center"> <h2>員工資料新增 - addEmp.html</h2>
         <h3><a class="navbar-brand" th:href="@{select_page.html}"><img th:src="@{/images/back1.gif}">回查詢頁</a></h3></div>
@@ -118,7 +118,7 @@
     </form>
 
 </div>
-
+</div>
 
 <!-- JavaScript part -->
 <script type="text/javascript">
