@@ -8,44 +8,28 @@
     <title>世界影城 HelloWorld Cinema</title>
     <link rel="icon" href="../../../../../../../Users/Chu/Desktop/frontend_html/img/logo%20(3).ico" type="image/x-icon">
 
-    <meta name="description"
-          content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
-    <meta name="keywords" content="世界、電影、世界影城、HelloWorld Cinema"/>
+    <meta name="description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
+    <meta name="keywords" content="世界、電影、世界影城、HelloWorld Cinema" />
     <meta name="robots" content="Index,follow">
-    <meta property="og:title" content="世界影城"/>
-    <meta property="og:image" content=".img/bk.jpg"/>
-    <meta property="og:site_name" content="世界影城網站"/>
-    <meta property="og:url" content="https://www.ambassador.com.tw"/>
-    <meta property="og:description"
-          content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務"/>
+    <meta property="og:title" content="世界影城" />
+    <meta property="og:image" content=".img/bk.jpg" />
+    <meta property="og:site_name" content="世界影城網站" />
+    <meta property="og:url" content="https://www.ambassador.com.tw" />
+    <meta property="og:description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務" />
     <!-- RWD -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
+
+
     <!-- 底部footer -->
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
 
 
     <!-- 主要css -->
-    <link rel="stylesheet" type="text/css" th:href="@{/front_end/index/css/index.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/front_end/merchStore/css/merchStore.css}"/>
-
-    <style>
-
-        .horizontal-products {
-            display: flex; /* 使用 flex 布局 */
-            flex-wrap: nowrap; /* 不换行 */
-            justify-content: center;
-        }
-
-        .products {
-            /* 设置商品卡片的样式，例如宽度、边距等 */
-            width: 200px;
-            margin-right: 20px;
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/front_end/index/css/index.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/front_end/merchStore/css/singleMerch.css}" />
 </head>
 <body>
 
@@ -56,8 +40,7 @@
 <!-- 選單 -->
 <header class="header">
     <div id="box" class="logo">
-        <h1 class="neon"><a href="index.html"><span class="logo_el">H</span>ello<span class="logo_el">W</span>orld <span
-                class="logo_el">C</span>inema</a></h1>
+        <h1 class="neon"><a href="../index.html"><span class="logo_el">H</span>ello<span class="logo_el">W</span>orld <span class="logo_el">C</span>inema</a></h1>
     </div>
     <div id="">
         <nav class="nav">
@@ -90,7 +73,7 @@
 
                 </li>
                 <li class="nav__menu-item">
-                    <a href="TestMerchStore.html"><h4 class="neon2">周邊商城</h4></a>
+                    <a href="merchStore.html"><h4 class="neon2">周邊商城</h4></a>
                     <ul class="nav__submenu">
                         <li class="nav__submenu-item">
                             <a href=""></a>
@@ -132,28 +115,85 @@
 <!-- ========================以下區域可放置其他內容======================== -->
 
 
-<div>
-    <h2>周邊商城</h2>
-
+<div id="cart-logo" class="cart-logo" data-totalitems="0">
     <button id='cart-button' class="trigger cart-button-style">Show Cart</button>
-
-
-    <div id="shop" class="horizontal-products" >
-
-
-        <div class="products" th:each="merch : ${merchListData}">
-            <a th:href="@{/merch/merchId/{id}(id=${merch.merchId})}">
-                <img class="product-image" th:src="${merch.merchImg}">
-            <p class="product-name"><span th:text="${merch.merchName}"></span></p>
-            <p class="product-price">售價:$<span th:text="${merch.merchPrice}"></span></p>
-            <button class="add-to-cart" id='test'>ADD TO CART</button>
-            </a>
-        </div>
-
-    </div>
-
-
+    <i class="fas fa-shopping-cart"></i>
 </div>
+<div class = "card-wrapper">
+    <div class = "card">
+        <!-- card left -->
+        <div class = "product-imgs">
+            <div class = "img-display">
+                <div class = "img-showcase">
+                    <img src = "../../../../../../../Users/Chu/Desktop/frontend_html/img/merch5.jpg" alt = "shoe image">
+                    <img src = "../../../../../../../Users/Chu/Desktop/frontend_html/img/merch5-1.jpg" alt = "shoe image">
+                    <img src = "../../../../../../../Users/Chu/Desktop/frontend_html/img/merch5-2.jpg" alt = "shoe image">
+                    <img src = "../../../../../../../Users/Chu/Desktop/frontend_html/img/merch5-3.jpg" alt = "shoe image">
+                </div>
+            </div>
+            <div class = "img-select">
+                <div class = "img-item">
+                    <a href = "#" data-id = "1">
+                        <img src = "../../../../../../../Users/Chu/Desktop/frontend_html/img/merch5.jpg" alt = "shoe image">
+                    </a>
+                </div>
+                <div class = "img-item">
+                    <a href = "#" data-id = "2">
+                        <img src = "../../../../../../../Users/Chu/Desktop/frontend_html/img/merch5-1.jpg" alt = "shoe image">
+                    </a>
+                </div>
+                <div class = "img-item">
+                    <a href = "#" data-id = "3">
+                        <img src = "../../../../../../../Users/Chu/Desktop/frontend_html/img/merch5-2.jpg" alt = "shoe image">
+                    </a>
+                </div>
+                <div class = "img-item">
+                    <a href = "#" data-id = "4">
+                        <img src = "../../../../../../../Users/Chu/Desktop/frontend_html/img/merch5-3.jpg" alt = "shoe image">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- card right -->
+        <div class = "product-content">
+            <h2 class = "product-title" th:text="${merch.merchName}"></h2>
+
+            <div class = "product-detail" >
+                <h2>商品介紹: </h2>
+                <p><span th:text="${merch.merchInfo}">
+
+                </span>
+                </p>
+
+                <ul>
+                    <li>宅配配送區域: <span>台澎金馬</span></li>
+                    <li>宅配運費: <span>視距離而定，貨到付款</span></li>
+                </ul>
+            </div>
+
+            <div class = "product-price">
+                <p class = "price" >Price: <span th:text="${merch.merchPrice}"></span></p>
+            </div>
+
+
+
+            <!-- 加入購物車按鈕 -->
+            <div class="page-wrapper">
+                <input type = "number" min = "0" value = "1">
+                <button id="addtocart">
+                    加入購物車
+                    <span class="cart-item"></span>
+                </button>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<!-- 查看購物車 -->
 <div id='cart-wrapper' class="slider close">
     <div id='cart'>
         <div id="cart-products-wrapper">
@@ -163,8 +203,8 @@
                 <th class="quantity-col">數量</th>
                 <th class="price-col">價格</th>
                 <th class="updated-price-col">小計</th>
-
-                <th class="remove-col">移除</th>
+                <th class="update-col">Update</th>
+                <th class="remove-col">Remove</th>
                 </thead>
                 <tbody id="cart-table-body"></tbody>
             </table>
@@ -176,12 +216,20 @@
             <table>
                 <tbody>
                 <tr id='subtotal-wrappper'>
-                    <td id="subtotal-label">合計:</td>
+                    <td id="subtotal-label">小計:</td>
                     <td id="subtotal">0.00</td>
                 </tr>
 
+                <tr id='total-wrapper'>
+                    <td id="total-label">總計:</td>
+                    <td id="total">0.00</td>
+                </tr>
 
                 <tr id="promo-checkout">
+                    <td id="promo-wrapper">
+                        <input id="promo" placeholder="Input Promo Code">
+                        <button id="apply-promo">Apply Promo</button>
+                    </td>
 
                     <td>
                         <button id="checkout">結帳</button>
@@ -200,6 +248,9 @@
 
 <!-- ========================以上區域可放置其他內容======================== -->
 <br>
+
+
+
 
 
 <!-- 底部footer -->
@@ -249,11 +300,17 @@
 </footer>
 
 
+
+
+
+
 <script th:src="@{/front_end/jquery-3.4.1.min.js}"></script>
 
 <!-- 主要js -->
 <script th:src="@{/front_end/index/js/index.js}"></script>
-<script th:src="@{/front_end/merchStore/js/merchStore.js}"></script>
+<script th:src="@{/front_end/merchStore/js/singleMerch.js}"></script>
+<!-- 查看購物車 -->
+<script src="merchStore.html"></script>
 
 </body>
 </html>
