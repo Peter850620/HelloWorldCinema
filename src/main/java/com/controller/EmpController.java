@@ -7,10 +7,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.service.EmpService;
 import com.service.JobService;
+import com.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,6 +33,8 @@ public class EmpController {
 
     @Autowired
     JobService jobService;
+    @Autowired
+    private PermissionService permissionService;
 
 
     @GetMapping("toLogin")
@@ -40,9 +44,10 @@ public class EmpController {
 
     @PostMapping("/doLogin")
     public String login(@RequestParam(name = "username") Integer empId, @RequestParam(name = "password") String empPassword, Model model, HttpServletResponse response) throws IOException {
-
-        if (empService.login(empId, empPassword)) {
-            Cookie loginInfo = new Cookie("loginAlready", "true");
+        Emp loginedEmp = empService.login(empId, empPassword);
+        if (!ObjectUtils.isEmpty(loginedEmp)) {
+            String funIdsString = permissionService.getPermissionsByJobId(loginedEmp.getJob().getJobId());
+            Cookie loginInfo = new Cookie("loginAlready", funIdsString);
             loginInfo.setPath("/");
             response.addCookie(loginInfo);
             return "redirect:/emp/index";
@@ -52,7 +57,7 @@ public class EmpController {
 
     @GetMapping("index")
     public String index() {
-        return "management";
+        return "back_end/management";
     }
 
     @PostMapping("/addEmp")
@@ -87,14 +92,6 @@ public class EmpController {
         return "back_end/emp/listAllEmp";
 
     }
-
-//    @PostMapping("/getbyId")
-//    public String getbyId(@RequestParam("empId") Integer empId, Model model) {
-//
-//        EmpVO empVO = empService.getbyId(Integer.valueOf(empId));
-//        model.addAttribute("EmpVO", empVO);
-//        return "updateEmp";
-//    }
 
     @PostMapping("getOne_For_Update")
     public String getOne_For_Update(@RequestParam("empId") String empId, ModelMap model) {
@@ -132,30 +129,12 @@ public class EmpController {
         model.addAttribute("success", "刪除成功");
         return "back_end/emp/listAllEmp";
     }
-
-//    @PostMapping("HUComposite")
-//    public String listAllEmp(HttpServletRequest req, Model model) {
-//        Map<String, String[]> map = req.getParameterMap();
-//        List<EmpVO> list = empService.getAll();
-//        model.addAttribute("empListData", list); // for listAllEmp.html 第85行用
-//        return "listAllEmp";
-//    }
-
-    /*
-     * 第一種作法 Method used to populate the List Data in view. 如 :
-     * <form:select path="deptno" id="deptno" items="${deptListData}" itemValue="deptno" itemLabel="dname" />
-     */
     @ModelAttribute("jobListData")
     protected List<Job> referenceListData() {
         // DeptService deptSvc = new DeptService();
         List<Job> list = jobService.getAll();
         return list;
     }
-
-    /*
-     * 【 第二種作法 】 Method used to populate the Map Data in view. 如 :
-     * <form:select path="deptno" id="deptno" items="${depMapData}" />
-     */
     @ModelAttribute("jobMapData") //
     protected Map<Integer, String> referenceMapData() {
         Map<Integer, String> map = new LinkedHashMap<Integer, String>();
@@ -165,22 +144,6 @@ public class EmpController {
         map.put(4, "客服人員");
         return map;
     }
-
-    // 去除BindingResult中某個欄位的FieldError紀錄
-//    public BindingResult removeFieldError(EmpVO empVO, BindingResult result, String removedFieldname) {
-//        List<FieldError> errorsListToKeep = result.getFieldErrors().stream()
-//                .filter(fieldname -> !fieldname.getField().equals(removedFieldname))
-//                .collect(Collectors.toList());
-//        result = new BeanPropertyBindingResult(empVO, "empVO");
-//        for (FieldError fieldError : errorsListToKeep) {
-//            result.addError(fieldError);
-//        }
-//        return result;
-//    }
-
-    /*
-     * This method will be called on select_page.html form submission, handling POST request
-     */
     @PostMapping("listEmps_ByCompositeQuery")
     public String listAllEmp(HttpServletRequest req, Model model) {
         Map<String, String[]> map = req.getParameterMap();
@@ -249,7 +212,7 @@ public class EmpController {
         List<Job> jobList = jobService.getAll();
         model.addAttribute("empListData", empList);
         model.addAttribute("jobListData", jobList); // 添加jobListData到模型中
-        model.addAttribute("getOne_For_Display","false");
+        model.addAttribute("getOne_For_Display",false);
         return "back_end/emp/select_page";
     }
 

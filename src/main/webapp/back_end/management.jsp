@@ -17,7 +17,6 @@
 
 <body>
 
-
     <div class="sidebar-container" id="sidebar-container">
         <div class="sidebar">
             <div class="top">
@@ -210,13 +209,6 @@
             </ul>
         </div>
     </div>
-
-
-    
-
-
-
-
 
 </body>
 <script src="<%=request.getContextPath() %>/back_end/management.js">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="back_end/management.html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -48,7 +48,7 @@
     </style>
 </head>
 <body>
-
+<div th:fragment="content">
 <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top justify-content-center">
     <div align="center"> <h2>周邊商品 - listAllMerch.html</h2>
         <h3><a class="navbar-brand" th:href="@{select_page_merch}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
@@ -110,6 +110,6 @@
     </th:block>
     </tbody>
 </table>
-
+</div>
 </body>
 </html>

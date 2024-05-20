@@ -23,7 +23,7 @@ public class EmpService {
 
     @Autowired
     EmpRepository empRepository;
-//    @Autowired
+    //    @Autowired
 //    SessionFactory sessionFactory;
     @Autowired
     MailUtil mailUtil;
@@ -60,22 +60,14 @@ public class EmpService {
 //
 //    }
 
-    public boolean login(Integer empId, String empPassword) {
+    public Emp login(Integer empId, String empPassword) {
         Optional<Emp> optionalEmp = empRepository.findById(empId);
-
+        Emp emp = null;
         if (optionalEmp.isPresent()) {
-            Emp emp = optionalEmp.get();
 
-            if (empPassword.equals(emp.getEmpPassword())) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-
+            emp = optionalEmp.get();
         }
-
+        return emp;
     }
 
     public String resetPassword(Integer empId, String email) throws JsonProcessingException, UnsupportedEncodingException {

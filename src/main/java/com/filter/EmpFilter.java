@@ -23,11 +23,6 @@ public class EmpFilter implements HandlerInterceptor {
             loginAlready = Arrays.stream(cookies).filter(cookie -> "loginAlready".equals(cookie.getName())).findFirst();
         }
         List<String> list = Arrays.stream(ignoreUrls).toList();
-//        boolean b = list.stream().anyMatch(url -> url.equals(request.getRequestURI()));
-
-//        if (b){
-//            return true;
-//        }
         for (String url :ignoreUrls){
             boolean equals = url.equals(request.getRequestURI());
             if (equals){
