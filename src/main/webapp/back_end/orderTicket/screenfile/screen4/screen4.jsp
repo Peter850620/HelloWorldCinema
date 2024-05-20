@@ -453,7 +453,7 @@
 
 
 	<script
-		src="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen4/screen4.js">
+		src="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen.js">
 		
 	</script>
 

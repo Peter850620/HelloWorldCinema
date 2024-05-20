@@ -42,49 +42,65 @@ public class MemBookingController extends HttpServlet {
 
 	private BookingDAOImpl dao;
 
-	
 	private FoodItemIDAOmpl daoFoodItem;
-	private MemBookingService membookingService;
-	private ShowtimeInfoDAOImpl showtimeInfoDAO;
+	private MemBookingService memBookingService;
+	private ShowtimeInfoDAOImpl show;
+	private ShowtimeInfo showtimeInfo;
 
 	@Override
 	public void init() throws ServletException {
 		dao = new BookingDAOImpl();
-		daoFoodItem=new FoodItemIDAOmpl();
-		membookingService=new MemBookingService();
+		daoFoodItem = new FoodItemIDAOmpl();
+		memBookingService = new MemBookingService();
+		show = new ShowtimeInfoDAOImpl();
 	}
 
 	@Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        Integer showId = (Integer) session.getAttribute("showtimeId");
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        if (showId == null) {
-            showId = 6;  // Default value if not found
-        }
+		 req.setCharacterEncoding("UTF-8");
+	        String action = req.getParameter("action");
 
-        ShowtimeInfoDAOImpl showtimeInfoDAO = new ShowtimeInfoDAOImpl();
-        ShowtimeInfo show = showtimeInfoDAO.getById(showId);
+	        if ("processScreen".equals(action)) {
+	            String screenId = req.getParameter("screenId");
+	            System.out.println(screenId);
+	            String url = memBookingService.findRightScreenId(Integer.parseInt(screenId)); // 适当调整服务层的方法来接收String类型的screenId
 
-        if (show != null) {
-        	req.setAttribute("show", show);
-        } else {
-        	req.setAttribute("error", "未能找到相應的影廳資訊。");
-        	req.getRequestDispatcher("/errorPage.jsp").forward(req, res);
-            return;
-        }
+	            if (url != null) {
+	                RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+	                dispatcher.forward(req, res);
+	            } else {
+	                res.sendRedirect("errorPage.jsp"); // 如果URL为空或处理失败，跳转到错误页面
+	            }
+	        }
+	}
 
-        req.getRequestDispatcher("/orderTicket.jsp").forward(req, res);
-    }
+//        HttpSession session = req.getSession();
+//        Integer showId = (Integer) session.getAttribute("showtimeId");
+//
+//        if (showId == null) {
+//            showId = 6;  // Default value if not found
+//        }
+//
+//        ShowtimeInfoDAOImpl showtimeInfoDAO = new ShowtimeInfoDAOImpl();
+//        ShowtimeInfo show = showtimeInfoDAO.getById(showId);
+//
+//        if (show != null) {
+//        	req.setAttribute("show", show);
+//        } else {
+//        	req.setAttribute("error", "未能找到相應的影廳資訊。");
+//        	req.getRequestDispatcher("/errorPage.jsp").forward(req, res);
+//            return;
+//        }
+//        
+//	    String redirectUrl = membookingService.findRightScreenId(showId);  // 使用showId調用方法獲得正確的URL
+//	    System.out.println("redirectUrl ==========" + redirectUrl);
+//	    res.sendRedirect(redirectUrl);  // 使用重定向而不是轉發
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		doGet(req, res);
-		
-		
-		
-		
-		
+
 	}
 
 }

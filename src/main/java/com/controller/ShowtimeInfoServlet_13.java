@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.entity.ShowtimeInfo;
-import com.service.*;
+import com.service.MerchItemService;
 import com.service.MovieService_13;
 import com.service.ShowtimeInfoService_13;
 
@@ -43,25 +43,8 @@ public class ShowtimeInfoServlet_13 extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		Integer showId = (Integer) req.getSession().getAttribute("showtimeId");
-		if (showId == null) {
-		    try {
-		        showId = Integer.parseInt(req.getParameter("showId"));
-		    } catch (NumberFormatException e) {
-		        res.getWriter().println("無效的影廳ID。");
-		        return;
-		    }
-		}
-
-		MemBookingService memBookingService = new MemBookingService();
-		String redirectUrl = memBookingService.findRightScreenId(showId);
-
-		if (redirectUrl != null && !redirectUrl.isEmpty()) {
-		    res.sendRedirect(redirectUrl);
-		} else {
-		    // 如果找不到正確的影廳URL，則提供一個合理的後備處理。
-		    res.getWriter().println("未能找到相應的影廳資訊。");
-		}
+	
+	
 
 			
 		// 取得電影播放日期
@@ -111,12 +94,9 @@ public class ShowtimeInfoServlet_13 extends HttpServlet{
         }
 
         
-
-     		
-     		
+     
 
 	}
-	
 	
 	
 	

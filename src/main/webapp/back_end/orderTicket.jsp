@@ -28,8 +28,8 @@ if (showId == null) {
 	}
 }
 
-ShowtimeInfoDAOImpl showtimeInfoDAO = new ShowtimeInfoDAOImpl();
-ShowtimeInfo show = showtimeInfoDAO.getById(showId);
+ShowtimeInfoDAOImpl showtimeInfoDAOImpl = new ShowtimeInfoDAOImpl();
+ShowtimeInfo show = showtimeInfoDAOImpl.getById(showId);
 %>
 <!DOCTYPE html>
 <html>
@@ -250,13 +250,17 @@ ShowtimeInfo show = showtimeInfoDAO.getById(showId);
 								<td>
 									<button id="ks" class="keep-shopping">繼續購物</button>
 								</td>
-								<form id="showtimeForm" action="<%=show.getScreen().getScreenId()%>" method="post">
-									<input type="hidden" name="screenId"
-										value="<%=show.getScreen().getScreenId()%>">
+								<form id="showtimeForm"
+									action="<%=request.getContextPath()%>/MemBookingController"
+									method="post">
+									<input type="hidden" name="action" value="findScreen">
+									<input type="hidden" name="screenId" value="<%=show.getScreen().getScreenId()%>">
 									<button type="submit" id="checkout">下一步</button>
 								</form>
+
+
 								<!-- 注意將button的type設為button以防自動提交 -->
-								
+
 							</tr>
 						</tbody>
 					</table>
@@ -264,7 +268,7 @@ ShowtimeInfo show = showtimeInfoDAO.getById(showId);
 			</div>
 		</div>
 	</div>
-	
+
 
 	<!-- ========================以上區域可放置其他內容======================== -->
 	<br>

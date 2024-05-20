@@ -20,9 +20,9 @@ function generateSeatString() {
     return seatString;
 }
 
-function saveToLocalStorage() {
+function saveToSessionStorage() {
     const seatString = generateSeatString();
-    localStorage.setItem('seatSelection', seatString); // 存儲到LocalStorage
+    sessionStorage.setItem('seatSelection', seatString); // 存儲到SessionStorage
     console.log('Saved seats: ', seatString);
 }
 
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     const nextButton = document.getElementById('nextButton');
-    nextButton.addEventListener('click', saveToLocalStorage); // 點擊時保存座位狀態
+    nextButton.addEventListener('click', saveToSessionStorage); // 點擊時保存座位狀態
 });
 
 function fetchSeatsStatus() {

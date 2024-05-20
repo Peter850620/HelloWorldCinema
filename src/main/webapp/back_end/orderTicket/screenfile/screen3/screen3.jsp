@@ -235,7 +235,7 @@
 
 
 	<script
-		src="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen3/screen3.js">
+		src="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen.js">
 		
 	</script>
 

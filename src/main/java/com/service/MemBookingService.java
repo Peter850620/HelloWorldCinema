@@ -166,25 +166,25 @@ public class MemBookingService {
 		switch (screenId) {
 		case "A廳": 
 			url="/back_end/orderTicket/screenfile/screen1/screen1.jsp";
-			return url;
+			break;
 		
 			
 		case "B廳":
 			
 			url="/back_end/orderTicket/screenfile/screen2/screen2.jsp";
-			return url;
+			break;
 			
 			
 		case "C廳":
 			
-			url="/HelloWorldCinema/back_end/orderTicket/screenfile/screen3/screen3.jsp";
-			return url;
+			url="/back_end/orderTicket/screenfile/screen3/screen3.jsp";
+			break;
 		
 			
           case "D廳":
 			
 			url="/back_end/orderTicket/screenfile/screen4/screen4.jsp";
-			return url;
+			break;
 			
 		}
 		

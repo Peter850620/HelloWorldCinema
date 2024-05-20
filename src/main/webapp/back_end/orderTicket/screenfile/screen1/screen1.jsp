@@ -221,32 +221,14 @@
 			</ul>
 		</div>
 
-		<script>
-			// 获取选取数量和价格项
-			var selectedCount = parseInt(document
-					.getElementById('selectedCount').textContent);
-			var prices = document.querySelectorAll('.price p');
-
-			// 计算总额
-			var total = 0;
-			for (var i = 0; i < prices.length; i++) {
-				total += parseInt(prices[i].textContent);
-			}
-
-			// 计算乘法总和
-			var multiplicationTotal = selectedCount * total;
-
-			// 输出结果
-			var totalPriceElement = document.getElementById('totalPrice');
-			totalPriceElement.textContent = multiplicationTotal;
-		</script>
+		
 	</div>
 
 
 
 
 	<script
-		src="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen1/screen1.js">
+		src="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen.js">
 		
 	</script>
 
