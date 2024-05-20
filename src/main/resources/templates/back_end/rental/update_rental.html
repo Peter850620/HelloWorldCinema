@@ -14,7 +14,7 @@
     </head>
 
 	<body>
-        <aside th:replace="~{/back_end/management :: content}"></aside>
+        <aside th:replace="~{/back_end/mem/management :: content}"></aside>
 
 
 		<main>
@@ -127,10 +127,10 @@
                             </select>
                         </td>
                     </tr>
-                    <!-- <tr>
+                    <tr>
                         <td>員工編號：</td>
-                        <td><input type="text" name="empId" th:field="*{empId}" size="45" readonly/></td>
-                    </tr> -->
+                        <td><input type="text" name="empId" th:field="*{empId}" size="45" /></td>
+                    </tr>
                 </table>
                 <br>
                 <input type="submit" value="送出修改">

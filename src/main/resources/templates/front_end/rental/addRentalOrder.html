@@ -27,7 +27,7 @@
 </head>
 
 	<body>
-        <header th:replace="~{/front_end/index :: header}"></header>
+        <header th:replace="~{/front_end/mem/index :: header}"></header>
         <br>
 
 
@@ -57,7 +57,7 @@
                     
                     <div class="field input-field">
                         <label for="" >會員編號：</label>
-                        <input type="text" name="mem.memId" th:field="*{mem.memId}" size="45"/>
+                        <input type="text" name="mem.memId" th:field="*{mem.memId}" readonly size="45"/>
                     </div>
 
                     <div class="field input-field">
@@ -129,13 +129,43 @@
 
 
         <br>
-        <footer th:replace="~{/front_end/index :: footer}"></footer>
+        <footer th:replace="~{/front_end/mem/index :: footer}"></footer>
 
         <script th:src="@{/front_end/js/jquery-3.4.1.min.js}"></script>
         <!-- 主要js -->
         <script th:src="@{/front_end/js/index.js}" src="../../../static/front_end/js/index.js"></script>
         <script th:src="@{/back_end/rental/update_rental.js}" src="../../../static/back_end/rental/update_rental.js"></script>
-       
+       <script>
+        
+        window.onload = function() {
+            var inputs = document.querySelectorAll(".field.input-field input");
+            var form = document.querySelector("form");
+
+            form.addEventListener("submit", function(e) {
+                var isValid = true;
+                inputs.forEach(function(input) {
+                    if (input.value.trim() === "") {
+                        input.classList.add("invalid");
+                        isValid = false;
+                    } else {
+                        input.classList.remove("invalid");
+                    }
+                });
+                if (!isValid) {
+                    e.preventDefault();
+                }
+            });
+
+            inputs.forEach(function(input) {
+                input.addEventListener("focus", function(e) {          
+                    // console.log(this);
+                    // console.log(e.target);
+                    this.classList.remove('invalid');
+                    
+                });
+            });
+        };
+       </script>
        
 	</body>
 

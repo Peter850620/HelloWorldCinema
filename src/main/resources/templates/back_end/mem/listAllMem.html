@@ -10,7 +10,7 @@
         <link rel="stylesheet" type="text/css"  th:href="@{/back_end/management.css}" href="../../../static/back_end/management.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <link rel="stylesheet" type="text/css" th:href="@{/back_end/rental/listAllRental.css}" href="../../../static/back_end/rental/listAllRental.css">
+        <link rel="stylesheet" type="text/css" th:href="@{/back_end/mem/listOneMem.css}" href="../../../static/back_end/mem/listOneMem.css">
 
 
 	</head>
@@ -19,7 +19,7 @@
 
 
 	<body>
-        <aside th:replace="~{/back_end/management :: content}"></aside>
+        <aside th:replace="~{/back_end/mem/management :: content}"></aside>
 		
         <main>
 
@@ -56,7 +56,7 @@
 						<td th:text="${mem.memStatus}"></td>
 						<td>
 							<form method="post" th:action="@{/mem/getOne_For_Update}" th:object="${mem}">
-								<input type="submit" value="修改">
+								<button type="submit" value="修改">修改</button>
 								<input type="hidden" name="memId" th:value="${mem.memId}">
 							</form>
 						</td>
