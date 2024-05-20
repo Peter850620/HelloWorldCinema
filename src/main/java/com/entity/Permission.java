@@ -30,7 +30,7 @@ import javax.persistence.Table;
             this.jobId = key.getJobId();
         }
 
-        static class CompositeDetail implements Serializable {
+        public static class CompositeDetail implements Serializable {
             private static final long serialVersionUID = 1L;
 
             private Integer funcId;
