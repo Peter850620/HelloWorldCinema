@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>世界影城 HelloWorld Cinema</title>
+    <link rel="icon" href="../../../../../../../Users/Chu/Desktop/frontend_html/img/logo%20(3).ico" type="image/x-icon">
+
+    <meta name="description"
+          content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
+    <meta name="keywords" content="世界、電影、世界影城、HelloWorld Cinema"/>
+    <meta name="robots" content="Index,follow">
+    <meta property="og:title" content="世界影城"/>
+    <meta property="og:image" content=".img/bk.jpg"/>
+    <meta property="og:site_name" content="世界影城網站"/>
+    <meta property="og:url" content="https://www.ambassador.com.tw"/>
+    <meta property="og:description"
+          content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務"/>
+    <!-- RWD -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+    <!-- 底部footer -->
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
+    <!-- 主要css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/front_end/index/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/front_end/merchStore/css/merchStore.css}"/>
+
+    <style>
+
+        .horizontal-products {
+            display: flex; /* 使用 flex 布局 */
+            flex-wrap: nowrap; /* 不换行 */
+            justify-content: center;
+        }
+
+        .products {
+            /* 设置商品卡片的样式，例如宽度、边距等 */
+            width: 200px;
+            margin-right: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- 載入動畫 -->
+<canvas></canvas>
+
+
+<!-- 選單 -->
+<header class="header">
+    <div id="box" class="logo">
+        <h1 class="neon"><a href="index.html"><span class="logo_el">H</span>ello<span class="logo_el">W</span>orld <span
+                class="logo_el">C</span>inema</a></h1>
+    </div>
+    <div id="">
+        <nav class="nav">
+            <ul class="nav_menu">
+                <li class="nav__menu-item">
+                    <a href=""><h4 class="neon2">影城資訊</h4></a>
+                    <ul class="nav__submenu">
+                        <li class="nav__submenu-item">
+                            <a href="">最新資訊</a>
+                        </li>
+                        <li class="nav__submenu-item">
+                            <a href="">票價說明</a>
+                        </li>
+                        <li class="nav__submenu-item">
+                            <a href="movieCommingSoon.html">即將上映</a>
+                        </li>
+                        <li class="nav__submenu-item">
+                            <a href="movieNowShowing.html">現正熱映</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav__menu-item">
+                    <a href=""><h4 class="neon2">線上訂票</h4></a>
+                    <ul class="nav__submenu">
+                        <li class="nav__submenu-item">
+                            <a href=""></a>
+                        </li>
+
+                    </ul>
+
+                </li>
+                <li class="nav__menu-item">
+                    <a href="TestMerchStore.html"><h4 class="neon2">周邊商城</h4></a>
+                    <ul class="nav__submenu">
+                        <li class="nav__submenu-item">
+                            <a href=""></a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav__menu-item">
+                    <a href=""><h4 class="neon2">場地租借</h4></a>
+                    <ul class="nav__submenu">
+                        <li class="nav__submenu-item">
+                            <a href="">場地租借須知</a>
+                        </li>
+                        <li class="nav__submenu-item">
+                            <a href="">可租借場地資訊</a>
+                        </li>
+                        <li class="nav__submenu-item">
+                            <a href="">租借表單填寫</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav__menu-item">
+                    <a href=""><h4 class="neon2">Log In</h4></a>
+                    <ul class="nav__submenu">
+                        <li class="nav__submenu-item">
+                            <a href=""></a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</header>
+
+
+<br>
+<!-- ========================以下區域可放置其他內容======================== -->
+
+
+<div>
+    <h2>周邊商城</h2>
+
+    <button id='cart-button' class="trigger cart-button-style">Show Cart</button>
+
+
+    <div id="shop" class="horizontal-products" >
+
+
+        <div class="products" th:each="merch : ${merchListData}">
+            <a th:href="@{/merch/merchId/{id}(id=${merch.merchId})}">
+                <img class="product-image" th:src="${merch.merchImg}">
+            <p class="product-name"><span th:text="${merch.merchName}"></span></p>
+            <p class="product-price">售價:$<span th:text="${merch.merchPrice}"></span></p>
+            <button class="add-to-cart" id='test'>ADD TO CART</button>
+            </a>
+        </div>
+
+    </div>
+
+
+</div>
+<div id='cart-wrapper' class="slider close">
+    <div id='cart'>
+        <div id="cart-products-wrapper">
+            <table id="cart-table">
+                <thead id="cart-table-header">
+                <th class="name-col">商品名稱</th>
+                <th class="quantity-col">數量</th>
+                <th class="price-col">價格</th>
+                <th class="updated-price-col">小計</th>
+
+                <th class="remove-col">移除</th>
+                </thead>
+                <tbody id="cart-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id='amount-controls'>
+        <div id="cart-amount-wrapper">
+            <table>
+                <tbody>
+                <tr id='subtotal-wrappper'>
+                    <td id="subtotal-label">合計:</td>
+                    <td id="subtotal">0.00</td>
+                </tr>
+
+
+                <tr id="promo-checkout">
+
+                    <td>
+                        <button id="checkout">結帳</button>
+                    </td>
+
+                    <td>
+                        <button id="ks" class="keep-shopping">繼續購物</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- ========================以上區域可放置其他內容======================== -->
+<br>
+
+
+<!-- 底部footer -->
+<footer class="footer">
+    <div class="titleCont">
+        <h1 class="main-title" id="main-title">
+            "You must not be afraid to dream a little bigger, darling."
+        </h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="footer-col">
+                <h4 class="neon2">關於我們</h4>
+                <ul>
+                    <li><a href="#">影城簡介</a></li>
+                    <li><a href="#">影城交通</a></li>
+                    <li><a href="#">影城設備</a></li>
+                    <li><a href="#">注意事項</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="neon2">電影評論區</h4>
+                <ul>
+                    <li><a href="#">影評查詢</a></li>
+                    <li><a href="#">電影分類</a></li>
+                    <li><a href="#">排行榜</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="neon2">客服中心</h4>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">真人聊天室</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="neon2">follow us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script th:src="@{/front_end/jquery-3.4.1.min.js}"></script>
+
+<!-- 主要js -->
+<script th:src="@{/front_end/index/js/index.js}"></script>
+<script th:src="@{/front_end/merchStore/js/merchStore.js}"></script>
+
+</body>
+</html>
