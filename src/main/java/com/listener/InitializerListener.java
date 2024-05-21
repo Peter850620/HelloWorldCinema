@@ -21,9 +21,9 @@ public class InitializerListener implements ServletContextListener {
 		System.out.println("context started");
 		HibernateUtil.getSessionFactory();
 		
-		MessageDAOImpl msgDAO = new MessageDAOImpl();
-		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-		scheduler.scheduleAtFixedRate(msgDAO::scheduleMessage, 0, 1, TimeUnit.MINUTES);
+//		MessageDAOImpl msgDAO = new MessageDAOImpl();
+//		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+//		scheduler.scheduleAtFixedRate(msgDAO::scheduleMessage, 0, 1, TimeUnit.MINUTES);
 	}
 
 	@Override
@@ -31,16 +31,16 @@ public class InitializerListener implements ServletContextListener {
 		System.out.println("context ended");
 		HibernateUtil.shutdown();
 		
-		if (scheduler != null) {
-            scheduler.shutdownNow();
-            try {
-                if (!scheduler.awaitTermination(60, TimeUnit.SECONDS)) {
-                    scheduler.shutdownNow();
-                }
-            } catch (InterruptedException e) {
-                scheduler.shutdownNow();
-            }
-        }
-        System.out.println("通知排程器已停止");
+//		if (scheduler != null) {
+//            scheduler.shutdownNow();
+//            try {
+//                if (!scheduler.awaitTermination(60, TimeUnit.SECONDS)) {
+//                    scheduler.shutdownNow();
+//                }
+//            } catch (InterruptedException e) {
+//                scheduler.shutdownNow();
+//            }
+//        }
+//        System.out.println("通知排程器已停止");
 	}
 }
