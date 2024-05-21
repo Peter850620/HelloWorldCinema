@@ -203,7 +203,6 @@
 						data-status="Y" /> <label for="H08">H08</label></li>
 				</ol>
 			</li>
-<button id="nextButton">下一步</button>
 		</ol>
 
 		</ol>
@@ -217,11 +216,12 @@
 				<li class="price">總額:
 					<p id="totalPrice">0</p>
 				</li>
+				<button id="nextButton">下一步</button>
 				<!-- 其他价格项 -->
 			</ul>
 		</div>
 
-		
+
 	</div>
 
 

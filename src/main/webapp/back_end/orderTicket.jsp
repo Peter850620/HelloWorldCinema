@@ -254,7 +254,7 @@ ShowtimeInfo show = showtimeInfoDAOImpl.getById(showId);
 									action="<%=request.getContextPath()%>/MemBookingController"
 									method="post">
 									<input type="hidden" name="action" value="findScreen">
-									<input type="hidden" name="screenId" value="<%=show.getScreen().getScreenId()%>">
+									<input type="hidden" name="screenId" value="<%=show.getShowtimeId()	%>">
 									<button type="submit" id="checkout">下一步</button>
 								</form>
 

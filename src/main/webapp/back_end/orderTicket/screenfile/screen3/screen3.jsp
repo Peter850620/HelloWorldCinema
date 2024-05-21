@@ -217,6 +217,7 @@
 				<li class="price">總額:
 					<p></p>
 				</li>
+				<button id="nextButton">下一步</button>
 			</ul>
 			<div class="arrow1">
 				<a href="#"> <span class="left"></span>

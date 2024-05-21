@@ -61,7 +61,7 @@ public class MemBookingController extends HttpServlet {
 		 req.setCharacterEncoding("UTF-8");
 	        String action = req.getParameter("action");
 
-	        if ("processScreen".equals(action)) {
+	        if ("findScreen".equals(action)) {
 	            String screenId = req.getParameter("screenId");
 	            System.out.println(screenId);
 	            String url = memBookingService.findRightScreenId(Integer.parseInt(screenId)); // 适当调整服务层的方法来接收String类型的screenId
