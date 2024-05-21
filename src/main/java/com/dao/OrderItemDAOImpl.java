@@ -44,6 +44,41 @@ public class OrderItemDAOImpl implements OrderItemDAO {
 		
 		
 	}
+	
+	
+	public String qrUpdateSeats(String seatNo,Integer bookingNo) {
+	    // 獲取 OrderItem 實體
+		String hql = "FROM OrderItem WHERE seatNo = :seatNo AND booking.bookingNo = :bookingNo";
+		Query<OrderItem> query = getSession().createQuery(hql, OrderItem.class)
+		.setParameter("seatNo", seatNo)
+	    .setParameter("bookingNo", bookingNo);
+		OrderItem orderItem = query.uniqueResult();
+		
+		
+		 if (orderItem == null) {
+		        return "Error: OrderItem not found.";
+		    }
+		 
+		String currentStatus=orderItem.getEntryStatus();
+		
+		
+		if(currentStatus.equals("未使用")) {
+		
+		orderItem.setEntryStatus("已使用");
+		
+		  getSession().update(orderItem);
+		  
+		  return "ok";
+		}else{
+			
+			return "Declined! Please check with the counter.";
+			
+		}
+		
+		
+	
+}
+	
 }
 
 
