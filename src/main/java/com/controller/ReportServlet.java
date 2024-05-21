@@ -121,18 +121,7 @@ public class ReportServlet extends HttpServlet {
 		RequestDispatcher successView = req.getRequestDispatcher(url); 
 		successView.forward(req, res);
 		}
-		
-		if ("loadContent".equals(action)) {
-			 String rptStatus = req.getParameter("rptStatus");
-           if ("通過".equals(rptStatus)) {
-           	req.getRequestDispatcher("/back_end/message/addMessage.jsp").forward(req, res);
-           } else if ("未通過".equals(rptStatus)) {
-           	req.getRequestDispatcher("/back_end/message/addMessage.jsp").forward(req, res);
-           }
-       } else {
-       	throw new ServletException("Invalid action parameter.");
-       }
-		
+
 	}
 
 }

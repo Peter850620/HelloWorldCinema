@@ -25,4 +25,6 @@ public interface MessageDAO {
 	List<Message> getAll(int currentPage);
 	
 	long getTotal();
+	
+	void scheduleMessage();
 }

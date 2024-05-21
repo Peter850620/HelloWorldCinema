@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
@@ -126,7 +127,6 @@ public class ReviewDAOImpl implements ReviewDAO {
 				if ("endreviewDate".equals(row.getKey())) {
 					if (!map.containsKey("startreviewDate"))
 						predicates.add(builder.lessThanOrEqualTo(root.get("reviewDate"), Timestamp.valueOf(row.getValue())));
-
 				}
 				
 				if ("reviewStatus".equals(row.getKey())) {

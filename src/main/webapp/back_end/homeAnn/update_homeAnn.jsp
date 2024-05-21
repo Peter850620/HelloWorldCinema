@@ -4,18 +4,9 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>世界影城</title>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/management.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 	<style>
 
-		
-		 form {
+		 .xxx {
 			margin: 20px auto;
 			padding: 20px;
 			width: 110%;
@@ -29,7 +20,6 @@
 			margin-left: 80px;
 			font-size: 25px;
 			color:white;
-			
 		}
 		
 		
@@ -68,6 +58,40 @@
 		
 		.title{
 			text-align: left;
+			position: relative;
+			display: flex; 
+		    align-items: center; 
+		    margin-bottom: 15px;
+		    border:0px ; 
+		    font-weight: bold;
+		}
+		
+		.title label {
+		    margin-right: 10px;
+    		min-width: 150px;  
+		}
+		
+		.title textarea{
+			width: 500px; 
+			height: 200px; 
+			resize: vertical;
+			font-size: 16px;
+		}
+		
+		.title input[type="text"] {
+		    width: 300px; 
+		    height: 30px; 
+		    font-size: 16px;
+		}
+		
+		.title select{
+			width: 80px;
+			height: 35px;
+			font-size: 16px;
+		}
+		
+		a{
+			color: white;
 		}
 
 	</style>
@@ -78,42 +102,36 @@
 <body>
 <%@ include file="../management.jsp" %>
 
-	<!-- ====================這是main==================== -->
-	<div id="xxx">
-		<div class="main" id="main">
-			<div align="center">		
-				<form action="<%= request.getContextPath() %>/back/homeAnn.do" method="post" id="myForm">
-					<a href="<%= request.getContextPath() %>/management.jsp">回主頁</a>
-					<h3><b>所有欄位皆為必填欄位</b></h3>
-					<div class="title">
+	<div class="xxx" id="xxx">
+		<div class="mainIndex" id="mainIndex">
+			<form action="<%= request.getContextPath() %>/back/homeAnn.do" method="post" id="myForm">
+				<a href="<%= request.getContextPath() %>/back_end/management.jsp">回主頁</a>
+				<h3><b>所有欄位皆為必填欄位</b></h3>
+				<div class="title">
 					<label for="annId">公告編號:</label>
-					<input id ="annId" name="annId" type="text" value="${param.annId}" style="border:0px ; font-weight: bold;" readonly />
-					</div>
-					
-					<!-- 用js將timestamp型態轉換 -->
-					<div class="title">
-					<label for="annTime">公告日期:</label>
-					<input id ="annTime" class="timeItem" name="annTime" type="text" value="${param.annTime}" style="border:0px ; font-weight: bold;" readonly />
-					</div>
-					
-					<div class="title">
-					<label for="annTitle">公告標題:</label>
-					<input id ="annTitle" name="annTitle" type="text" value="${param.annTitle}"  style="border:0px ; font-weight: bold;"/>
-					</div>
-					
-					<div class="title">
-					<label for="annDetail">公告內容:</label>
-					<textarea id ="annDetail" name="annDetail" style="border:0px ; font-weight: bold; width: 300px; height: 100px; resize: vertical;">${param.annDetail}</textarea>
-					</div>
+					<input id ="annId" name="annId" type="text" value="${param.annId}" readonly />
+				</div>
 
-					<div class="title">
-						<div></div>
-						<input  type="hidden" name="action" value="update">
-						<button type="submit" id="submit"> 送出修改 </button>
-						<div></div>
-					</div>
-				</form>
-			</div>
+				<div class="title">
+					<label for="annTime">公告日期:</label>
+					<input id ="annTime" class="timeItem" name="annTime" type="text" value="${param.annTime}" readonly />
+				</div>
+				
+				<div class="title">
+					<label for="annTitle">公告標題:</label>
+					<input id ="annTitle" name="annTitle" type="text" value="${param.annTitle}"/>
+				</div>
+				
+				<div class="title">
+					<label for="annDetail">公告內容:</label>
+					<textarea id ="annDetail" name="annDetail">${param.annDetail}</textarea>
+				</div>
+
+				<div class="title">
+					<input  type="hidden" name="action" value="update">
+					<button type="submit" id="submit"> 送出修改 </button>
+				</div>
+			</form>
 		</div>
 	</div>
     

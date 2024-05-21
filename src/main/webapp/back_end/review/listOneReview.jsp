@@ -12,41 +12,71 @@
 <style type="text/css">
 	
 	.main{
-		background-color: white;
+		margin: 20px auto;
+		padding: 20px;
+		width: 100%;
+		border-radius: 25px;
+		justify-content: center;
+		padding: 100px;
+		background-color: rgb(0 0 0/ 60%);
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		left: 150px;
+		border: 2px solid white;
+		margin-left: 0px;
+		font-size: 25px;
+		color:white;
+	}
+	
+	.nav_head{
+		margin-left: 50px;
+	}
+	
+	a{
+		color:white;
 	}
 	
 	.container{
-		width: 50%; 
-	    margin-left: 500px;
+		width: 100%; 
+	    margin-left: 50px;
 		text-align: left;
+		align: center;
 	}
 	
-    span, textarea {
+    span{
 		display: inline-block;
-		width: 150px;
+		width: 300px;
 		text-align: left;
 		font-weight: bold;
+		margin-bottom: 15px;
 	}
 	
+	textarea{
+		border:0px ; 
+		font-weight: bold;
+		font-size: 16px; 
+		width: 500px; 
+		height: 200px; 
+		resize: vertical;
+	}
 	
 </style>
 </head>
 <body onload="formatTime()">
 <%@ include file="../management.jsp" %>
 <div class="main">
-	<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-		 <div align="center"> <h2>單一評論資料 - listOneReview.jsp</h2>
-		 <h3><a class="navbar-brand" href="<%= request.getContextPath() %>/back/review.do?action=getAll">回查詢頁${success}</a></h3></div>
-</nav>
+	<nav class="nav_head">
+		 <div> <h2>單一評論資料</h2>
+		 <h3><a href="<%= request.getContextPath() %>/back/review.do?action=getAll">回查詢頁</a></h3></div>
+	</nav>
 
-	<div align="center" class="container">
-		<h3><span>查詢結果 :</span></h3>
+	<div class="container">
 		<span>評論編號:</span><span>${review.reviewId}</span><br/>
 		<span>會員編號:</span><span>${review.mem.memId}</span><br/>
 		<span>電影編號:</span><span>${review.movie.movieId}</span><br/>
-		<span>評論內容:</span><textarea style="border:0px ; font-weight: bold; width: 300px; height: 100px; resize: vertical;" readonly>${review.reviewDetails}</textarea><br/>
-		<span>評論日期:</span><span class="timeItem" style="width: 300px;">${review.reviewDate}</span><br/>
+		<span>評論日期:</span><span class="timeItem">${review.reviewDate}</span><br/>
 		<span>狀態:</span><span>${review.reviewStatus}</span><br/>
+		<span>評論內容:</span><br/>
+		<textarea readonly>${review.reviewDetails}</textarea><br/>
 	</div>
 </div>
 

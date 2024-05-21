@@ -17,6 +17,8 @@ import javax.servlet.http.HttpSession;
 import com.entity.Mem;
 import com.entity.Movie;
 import com.entity.Review;
+import com.service.MovieService;
+import com.service.MovieService_13;
 import com.service.ReviewService;
 import com.service.ReviewServiceImpl;
 
@@ -25,10 +27,14 @@ public class ReviewFrontServlet extends HttpServlet {
 
 	// 一個 servlet 實體對應一個 service 實體
 		private ReviewService reviewService;
-
+		private MovieService movieService;
+		private MovieService_13 movieService_13;
+		
 		@Override
 		public void init() throws ServletException {
 			reviewService = new ReviewServiceImpl();
+			movieService = new MovieService();
+			movieService_13 = new MovieService_13();
 		}
 		
 		public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -50,9 +56,10 @@ public class ReviewFrontServlet extends HttpServlet {
 				Movie movie = new Movie();
 				movie.setMovieId(movieId);
 				List<Review> reviewList = reviewService.getByMovie(movie);
-
-				req.setAttribute("reviewList", reviewList);
+				Movie oneMovie = movieService.findMoviebyId(movieId);
 				
+				req.setAttribute("reviewList", reviewList);
+				req.setAttribute("oneMovie", oneMovie);
 				String url = "/front_end/review/listReviewByMovie.jsp";   
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -82,18 +89,31 @@ public class ReviewFrontServlet extends HttpServlet {
 				successView.forward(req, res);
 			}
 			
-//				
-//				if ("compositeQuery".equals(action)) { 
-//					Map<String, String[]> map = req.getParameterMap();
+				
+//			if ("compositeQuery".equals(action)) { 
+//				String movieStatus = req.getParameter("movieStatus");
+//					
+//				if (movieStatus != null) {
+//					switch(movieStatus) {
+//					case "即將上映":
+//						List<Movie> movieList1 = movieService_13.getSoonMovies(movieStatus);
+//						req.setAttribute("movieList", movieList1);
+//						break;
+//					case "熱映中":
+//						List<Movie> movieList2 = movieService_13.getNowMovies(movieStatus);
+//						req.setAttribute("movieList", movieList2);
+//						break;
+//					case "已下檔":
 //						
-//					if (map != null) {
-//						List<Review> reviewList = reviewService.getByCompositeQuery(map);
-//						req.setAttribute("reviewList", reviewList);
 //					}
-//					String url = "/review/select_page.jsp";   
-//					RequestDispatcher successView = req.getRequestDispatcher(url);
-//					successView.forward(req, res);
-//				}	
+//					List<Review> reviewList = movieService_13.getMovieByCompositeQuery(map);
+//					req.setAttribute("reviewList", reviewList);
+//				}
+//				
+//				String url = "/back_end/review/select_page.jsp";   
+//				RequestDispatcher successView = req.getRequestDispatcher(url);
+//				successView.forward(req, res);
+//			}	
 				
 			if ("getUpdate".equals(action)) { 
 				Integer reviewId = Integer.parseInt(req.getParameter("reviewId"));
@@ -155,8 +175,7 @@ public class ReviewFrontServlet extends HttpServlet {
 //					HttpSession session = req.getSession();
 //					Integer memId = (Integer) session.getAttribute("mem");
 //					Integer memId = Integer.valueOf(req.getParameter("mem"));
-//					Integer movieId = (Integer) session.getAttribute("movie");
-//					Integer movieId = Integer.parseInt(req.getParameter("movie"));
+				Integer movieId = Integer.parseInt(req.getParameter("movie"));
 				String reviewDetails = req.getParameter("reviewDetails").trim();
 				String reviewDetailsReg = "^.{2,500}$";
 				if (reviewDetails == null || reviewDetails.trim().length() == 0) {
@@ -180,7 +199,7 @@ public class ReviewFrontServlet extends HttpServlet {
 				review.setMem(mem);
 				
 				Movie movie = new Movie();
-				movie.setMovieId(1);
+				movie.setMovieId(movieId);
 				review.setMovie(movie);
 				
 				Timestamp reviewDate = new Timestamp(System.currentTimeMillis());
@@ -190,7 +209,16 @@ public class ReviewFrontServlet extends HttpServlet {
 				reviewService.addReview(review);
 				
 				req.setAttribute("success", "- (新增成功)");
-				String url = "/front-end/review/listReviewByMovie.jsp";
+				String url = "/front_end/review/listReviewByMovie.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			}
+			
+			if ("loadMovie".equals(action)) {
+				List<Movie> movieList = movieService.findAllmovies();
+
+				req.setAttribute("movieList", movieList);
+				String url = "/front_end/review/reviewFront.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}

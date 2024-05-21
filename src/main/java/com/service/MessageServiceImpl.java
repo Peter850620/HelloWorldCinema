@@ -2,20 +2,20 @@ package com.service;
 
 import static com.util.Constants.PAGE_MAX_RESULT;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import com.dao.MessageDAO;
+import com.dao.MessageDAOImpl;
 import com.entity.Mem;
 import com.entity.Message;
 import com.entity.Report;
-import com.dao.MessageDAO;
-import com.dao.MessageDAOImpl;
-
-import com.util.HibernateUtil;
 
 public class MessageServiceImpl implements MessageService {
 
@@ -25,6 +25,8 @@ public class MessageServiceImpl implements MessageService {
 	public MessageServiceImpl() {
 		dao = new MessageDAOImpl();
 	}
+	
+	
 
 	@Override
 	public void addMessage(Message message) {
@@ -97,4 +99,33 @@ public class MessageServiceImpl implements MessageService {
 					: (total / PAGE_MAX_RESULT + 1));
 			return pageQty;
 	}
+	
+	@Override
+    public void scheduleMessage() {
+//        try (Session session = getSessionFactory().getCurrentSession()) {
+//            Transaction tx = session.beginTransaction();
+//            try {
+//    
+//                
+//
+//                // 檢查檢舉
+//                List<Report> reports = session.createQuery("FROM report WHERE rptDate > :lastCheckedTime")
+//                        .setParameter("lastCheckedTime", lastCheckedTime)
+//                        .list();
+//                for (Report report : reports) {
+//                    createNotification(session, (Integer) report[1], "您的檢舉已提交。");
+//                }
+//
+//               
+//
+//                lastCheckedTime = LocalDateTime.now();
+//                tx.commit();
+//            } catch (Exception e) {
+//                if (tx != null) {
+//                    tx.rollback();
+//                }
+//                e.printStackTrace();
+//            }
+//        }
+    }
 }

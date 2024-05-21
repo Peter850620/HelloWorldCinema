@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.entity.Mem;
 import com.entity.Movie;
 import com.entity.Review;
+import com.service.MovieService;
 import com.service.ReviewService;
 import com.service.ReviewServiceImpl;
 
@@ -132,8 +133,8 @@ public class ReviewController extends HttpServlet {
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			Integer memId = Integer.valueOf(req.getParameter("mem"));
-			Integer movieId = Integer.valueOf(req.getParameter("movie"));
+			Integer memId = Integer.parseInt(req.getParameter("mem"));
+			Integer movieId = Integer.parseInt(req.getParameter("movie"));
 			String reviewDetails = req.getParameter("reviewDetails").trim();
 			String reviewDetailsReg = "^.{2,500}$";
 			if (reviewDetails == null || reviewDetails.trim().length() == 0) {
@@ -172,7 +173,8 @@ public class ReviewController extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-
+		
+		
 	}
 
 }

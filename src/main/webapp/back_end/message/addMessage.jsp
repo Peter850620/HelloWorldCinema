@@ -4,19 +4,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>世界影城</title>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/management.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<style>
 		form {
 			margin: 20px auto;
 			padding: 20px;
-			width: 110%;
+			width: 100%;
 			border-radius: 25px;
 			justify-content: center;
 			padding: 100px;
@@ -24,14 +17,11 @@
 			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 			left: 150px;
 			border: 2px solid white;
-			margin-left: 80px;
+			margin-left: 0px;
 			font-size: 25px;
 			color:white;
-			
 		}
-		
-		
-		
+
 		button {
 		  background-color: grey;
 		  border-radius: 25px;
@@ -66,6 +56,34 @@
 		
 		.title{
 			text-align: left;
+			position: relative;
+			display: flex; 
+		    align-items: center; 
+		    margin-bottom: 15px;
+		    border:0px ; 
+		    font-weight: bold;
+		}
+		
+		.title label {
+		    margin-right: 10px;
+    		min-width: 150px;  
+		}
+		
+		.title textarea{
+			width: 500px; 
+			height: 200px; 
+			resize: vertical;
+			font-size: 16px;
+		}
+		
+		.title input[type="text"] {
+		    width: 300px; 
+		    height: 30px; 
+		    font-size: 16px;
+		}
+		
+		a{
+			color: white;
 		}
 	</style>
 </head>
@@ -74,39 +92,36 @@
 
 <body>
 	<div id="xxx">
-		<div class="main" align="center">
-			<a href="<%= request.getContextPath() %>/back/message.do?action=getAll" style="color: white;">回查詢頁</a>
-			<h3><b>所有欄位皆為必填欄位</b></h3>
-			<div class="comment_body">
-		       <form action="<%= request.getContextPath() %>/back/message.do" method="post">
+		<div class="comment_body">
+	       <form action="<%= request.getContextPath() %>/back/message.do" method="post">
+	       	<a href="<%= request.getContextPath() %>/back/message.do?action=getAll">回主頁</a>
 				<div>
 					<label for="mem">會員編號:</label>
 					<input id ="mem" name="mem" type="text" value="${param.mem}" onclick="hideContent('mem.errors');" />
 					<span  id ="mem.errors" class="error">${errorMsgs.mem}<br/></span>
-					</div>
-					
-					<div>
+				</div>
+				
+				<div>
 					<label for="msgTitle">通知標題:</label>
 					<input id ="msgTitle" name="msgTitle" type="text" value="${param.msgTitle}" onclick="hideContent('msgTitle.errors');" />
 					<span  id ="msgTitle.errors" class="error">${errorMsgs.msgTitle}</span>
-					</div>
-					
-					<div>
+				</div>
+				
+				<div>
 					<label for="msgDetail">通知內容:</label>
-					<textarea id ="msgDetail" name="msgDetail" style="border:0px ; font-weight: bold; width: 300px; height: 100px; resize: vertical;">${param.msgDetail}</textarea>
+					<textarea id ="msgDetail" name="msgDetail">${param.msgDetail}</textarea>
 					<span  id ="msgDetail.errors" class="error">${errorMsgs.msgDetail}</span>
-					</div>
-	
-					<div>
-						<div></div>
-						<input  type="hidden" name="action" value="insert">
-						<input type="hidden" id ="newTime" name="msgTime" value="${param.msgTime}"/>
-						<input  type="hidden" name="msgStatus" value="未讀">
-						<button type="submit" id="submit"> 送出新增 </button>
-						<div></div>
-					</div>
-				</form>
-			</div>
+				</div>
+
+				<div>
+
+					<input  type="hidden" name="action" value="insert">
+					<input type="hidden" id ="newTime" name="msgTime" value="${param.msgTime}"/>
+					<input  type="hidden" name="msgStatus" value="未讀">
+					<button type="submit" id="submit"> 送出新增 </button>
+
+				</div>
+			</form>
 		</div>
 	</div>
     
