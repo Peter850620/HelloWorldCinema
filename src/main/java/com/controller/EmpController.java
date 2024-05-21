@@ -57,7 +57,7 @@ public class EmpController {
 
     @GetMapping("index")
     public String index() {
-        return "back_end/management";
+        return "back_end/emp/index";
     }
 
     @PostMapping("/addEmp")

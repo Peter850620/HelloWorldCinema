@@ -22,6 +22,7 @@ public class EmpFilter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = request.getCookies();
+        String contextPath = request.getContextPath();
         Optional<Cookie> loginAlready = null;
         if (!ObjectUtils.isEmpty(cookies)) {
             loginAlready = Arrays.stream(cookies).filter(cookie -> "loginAlready".equals(cookie.getName())).findFirst();
@@ -31,7 +32,7 @@ public class EmpFilter implements HandlerInterceptor {
 
         // 使用AntPathMatcher進行路徑匹配
         for (String url : ignoreUrls) {
-            if (antPathMatcher.match(url, requestURI)) {
+            if (antPathMatcher.match(contextPath + url, requestURI)) {
                 return true;
             }
         }
@@ -39,7 +40,7 @@ public class EmpFilter implements HandlerInterceptor {
         if (!ObjectUtils.isEmpty(loginAlready)) {
             return true;
         }
-        response.sendRedirect("/emp/toLogin");
+        response.sendRedirect(contextPath +"/emp/toLogin");
         return false;
     }
 }
