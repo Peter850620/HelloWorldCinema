@@ -56,22 +56,22 @@ public class ShowtimeInfoDAOImpl implements ShowtimeInfoDAO {
 	@Override
 	public List<ShowtimeInfo> getShowtimeByPlaydate(Integer movieId, Date playdate) {
 		List<ShowtimeInfo> showtimes = getSession()
-				.createQuery("FROM ShowtimeInfo WHERE movie.movieId = :movieId AND playdate = :playdate",
+				.createQuery("SELECT DISTINCT playdate FROM ShowtimeInfo WHERE movie.movieId = :movieId AND playdate >= :today",
 						ShowtimeInfo.class)
 				.setParameter("movieId", movieId).setParameter("playdate", playdate).list();
 		return showtimes;
 
 	}
-
+	
+	//	博雅實作，後台場次複合查詢(影廳、播放日期、電影)
 	@Override
-	public List<ShowtimeInfo> getDate(Screen screen, Date[] playdate, Movie movie) {
-		Query<ShowtimeInfo> query = getSession().createQuery("FROM ShowtimeInfo, screen, movie "
-				+ "WHERE screenId = :screenId AND movieId = :movieId AND playdate between :playdate1 AND :playdate2",
+	public List<ShowtimeInfo> getDate(String screenId, Date playdate, Integer movieId) {
+		Query<ShowtimeInfo> query = getSession().createQuery("FROM ShowtimeInfo "
+				+ "WHERE (screen.screenId = :screenId OR :screenId IS NULL) AND movie.movieId = :movieId AND playdate = :playdate",
 				ShowtimeInfo.class);
-		query.setParameter("screenId", screen.getScreenId());
-		query.setParameter("playdate1", playdate[0]);
-		query.setParameter("playdate2", playdate[0]);
-		query.setParameter("movieId", movie.getMovieId());
+		query.setParameter("screenId", screenId);
+		query.setParameter("playdate", playdate);
+		query.setParameter("movieId", movieId);
 		List<ShowtimeInfo> list = query.list();
 		return list;
 	}
@@ -174,5 +174,4 @@ public class ShowtimeInfoDAOImpl implements ShowtimeInfoDAO {
 
 		}
 	}
-
 }
