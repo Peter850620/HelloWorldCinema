@@ -23,17 +23,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.entity.ShowtimeInfo;
 import com.service.MerchItemService;
-import com.service.MovieService_13;
-import com.service.ShowtimeInfoService_13;
+import com.service.MovieServiceYuan;
+import com.service.ShowtimeInfoServiceYuan;
 
 @WebServlet("/showtimeInfo/showtimeInfo.do")
-public class ShowtimeInfoServlet_13 extends HttpServlet{
+public class ShowtimeInfoServletYuan extends HttpServlet{
 	
-	private ShowtimeInfoService_13 showtimeInfoService;
+	private ShowtimeInfoServiceYuan showtimeInfoService;
 	
 	@Override
 	public void init() throws ServletException{
-		showtimeInfoService = new ShowtimeInfoService_13();
+		showtimeInfoService = new ShowtimeInfoServiceYuan();
 	}
 
 	protected void doGet (HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{

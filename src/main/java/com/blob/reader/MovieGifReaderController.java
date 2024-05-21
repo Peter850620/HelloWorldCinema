@@ -1,6 +1,7 @@
 package com.blob.reader;
 
 import java.io.IOException;
+
 import java.io.InputStream;
 
 import javax.servlet.ServletException;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.service.MovieService_13;
+import com.service.MovieServiceYuan;
 
 @WebServlet("/movie/MovieGifReader")
 public class MovieGifReaderController extends HttpServlet{
@@ -23,7 +24,7 @@ public class MovieGifReaderController extends HttpServlet{
 		
 		try {
 			Integer movieId = Integer.valueOf(req.getParameter("movieId"));
-			MovieService_13 movieSvc = new MovieService_13();
+			MovieServiceYuan movieSvc = new MovieServiceYuan();
 			out.write(movieSvc.getOneMovie(movieId).getPoster());
 		}catch(Exception e) {
 			InputStream in = getServletContext().getResourceAsStream("resources/NoData/nopic.jpg");

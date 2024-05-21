@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.entity.Movie;
-import com.service.MovieService_13;
+import com.service.MovieServiceYuan;
 
 @WebServlet("/movie/movie.do")
-public class MovieServlet_13 extends HttpServlet{
+public class MovieServletYuan extends HttpServlet{
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
 			doPost(req, res);
@@ -36,7 +36,7 @@ public class MovieServlet_13 extends HttpServlet{
 		Integer movieId = Integer.valueOf(req.getParameter("movieId"));
 
 		/*************************** 2.開始查詢資料 ****************************************/
-		MovieService_13 movieSvc = new MovieService_13();
+		MovieServiceYuan movieSvc = new MovieServiceYuan();
 		Movie movie = movieSvc.getOneMovie(movieId);
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
@@ -52,7 +52,7 @@ public class MovieServlet_13 extends HttpServlet{
 	if ("getNowMovies".equals(action)) {
         // 調用 getNowMovies 方法獲取狀態為「熱映中」的電影列表
         String movieStatus = "熱映中";
-        MovieService_13 movieSvc = new MovieService_13();
+        MovieServiceYuan movieSvc = new MovieServiceYuan();
         List<Movie> nowShowingMovies = movieSvc.getNowMovies(movieStatus);
 
         // 將狀態為「熱映中」的電影列表設置到 request 的屬性中
@@ -68,7 +68,7 @@ public class MovieServlet_13 extends HttpServlet{
 	if ("getSoonMovies".equals(action)) {
         // 調用 getNowMovies 方法獲取狀態為「即將上映」的電影列表
         String movieStatus = "即將上映";
-        MovieService_13 movieSvc = new MovieService_13();
+        MovieServiceYuan movieSvc = new MovieServiceYuan();
         List<Movie> CommingSoonMovies = movieSvc.getSoonMovies(movieStatus);
 
         // 將狀態為「熱映中」的電影列表設置到 request 的屬性中

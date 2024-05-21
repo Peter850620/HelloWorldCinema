@@ -12,17 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.entity.Ticket;
-import com.service.TicketService_13;
+import com.service.TicketServiceYuan;
 
 
 @WebServlet("/ticket/ticket.do")
-public class TicketServlet_13 extends HttpServlet {
+public class TicketServletYuan extends HttpServlet {
 
-	private TicketService_13 ticketService;
+	private TicketServiceYuan ticketService;
 	
 	@Override
 	public void init() throws ServletException{
-		ticketService = new TicketService_13();
+		ticketService = new TicketServiceYuan();
 	}
 	
 	@Override
@@ -66,7 +66,7 @@ public class TicketServlet_13 extends HttpServlet {
 					}
 					
 					/***************************2.開始查詢資料*****************************************/
-					TicketService_13 ticketSvc = new TicketService_13();
+					TicketServiceYuan ticketSvc = new TicketServiceYuan();
 					Ticket ticket = ticketSvc.getById(tkId);
 					if (ticket == null) {
 						errorMsgs.add("查無此票種");
@@ -118,7 +118,7 @@ public class TicketServlet_13 extends HttpServlet {
 					}
 					
 					/***************************2.開始查詢資料*****************************************/
-					TicketService_13 ticketSvc = new TicketService_13();
+					TicketServiceYuan ticketSvc = new TicketServiceYuan();
 					List<Ticket> ticket = ticketSvc.getByName(tkName);
 					if (ticket == null) {
 						errorMsgs.add("查無此票種");
@@ -187,7 +187,7 @@ public class TicketServlet_13 extends HttpServlet {
 						}
 						
 						/***************************2.開始新增資料***************************************/
-						TicketService_13 ticketSvc = new TicketService_13();
+						TicketServiceYuan ticketSvc = new TicketServiceYuan();
 						ticket = ticketSvc.addTicket(tkName, tkInfo, tkPrice, tkStatus);
 						
 						/***************************3.新增完成,準備轉交(Send the Success view)***********/
@@ -207,7 +207,7 @@ public class TicketServlet_13 extends HttpServlet {
 						Integer tkId = Integer.valueOf(req.getParameter("tkId"));
 						
 						/***************************2.開始查詢資料****************************************/
-						TicketService_13 ticketSvc = new TicketService_13();
+						TicketServiceYuan ticketSvc = new TicketServiceYuan();
 						Ticket ticket = ticketSvc.getOneTicket(tkId);
 										
 						/***************************3.查詢完成,準備轉交(Send the Success view)************/
@@ -268,7 +268,7 @@ public class TicketServlet_13 extends HttpServlet {
 						}
 						
 						/***************************2.開始修改資料*****************************************/
-						TicketService_13 ticketSvc = new TicketService_13();
+						TicketServiceYuan ticketSvc = new TicketServiceYuan();
 						ticket = ticketSvc.updateTicket(tkId, tkName, tkInfo, tkPrice, tkStatus);
 						
 						/***************************3.修改完成,準備轉交(Send the Success view)*************/

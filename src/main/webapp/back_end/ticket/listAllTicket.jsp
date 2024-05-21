@@ -8,7 +8,9 @@
 
 
 <%
-TicketService_13 ticketSvc = new TicketService_13();
+
+TicketServiceYuan ticketSvc = new TicketServiceYuan();
+
     List<Ticket> list = ticketSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
