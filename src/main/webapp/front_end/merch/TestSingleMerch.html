@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界影城 HelloWorld Cinema</title>
+    <link rel="icon" href="../../../../../../../Users/Chu/Desktop/frontend_html/img/logo%20(3).ico" type="image/x-icon">
+    <meta name="description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
+    <meta name="keywords" content="世界、電影、世界影城、HelloWorld Cinema">
+    <meta name="robots" content="Index,follow">
+    <meta property="og:title" content="世界影城">
+    <meta property="og:image" content=".img/bk.jpg">
+    <meta property="og:site_name" content="世界影城網站">
+    <meta property="og:url" content="https://www.ambassador.com.tw">
+    <meta property="og:description" content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+    <!-- 底部footer -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <!-- 主要css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/front_end/index/css/index.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/front_end/merchStore/css/singleMerch.css}">
+</head>
+<body>
+
+<!-- 載入動畫 -->
+<canvas></canvas>
+
+<!-- 選單 -->
+<header class="header">
+    <div id="box" class="logo">
+        <h1 class="neon"><a href="index.html"><span class="logo_el">H</span>ello<span class="logo_el">W</span>orld <span class="logo_el">C</span>inema</a></h1>
+    </div>
+    <div id="">
+        <nav class="nav">
+            <ul class="nav_menu">
+                <li class="nav__menu-item">
+                    <a href=""><h4 class="neon2">影城資訊</h4></a>
+                    <ul class="nav__submenu">
+                        <li class="nav__submenu-item"><a href="">最新資訊</a></li>
+                        <li class="nav__submenu-item"><a href="">票價說明</a></li>
+                        <li class="nav__submenu-item"><a href="movieCommingSoon.html">即將上映</a></li>
+                        <li class="nav__submenu-item"><a href="movieNowShowing.html">現正熱映</a></li>
+                    </ul>
+                </li>
+                <li class="nav__menu-item">
+                    <a href=""><h4 class="neon2">線上訂票</h4></a>
+                    <ul class="nav__submenu">
+                        <li class="nav__submenu-item"><a href=""></a></li>
+                    </ul>
+                </li>
+                <li class="nav__menu-item">
+                    <a href="merchStore.html"><h4 class="neon2">周邊商城</h4></a>
+                    <ul class="nav__submenu">
+                        <li class="nav__submenu-item"><a href=""></a></li>
+                    </ul>
+                </li>
+                <li class="nav__menu-item">
+                    <a href=""><h4 class="neon2">場地租借</h4></a>
+                    <ul class="nav__submenu">
+                        <li class="nav__submenu-item"><a href="">場地租借須知</a></li>
+                        <li class="nav__submenu-item"><a href="">可租借場地資訊</a></li>
+                        <li class="nav__submenu-item"><a href="">租借表單填寫</a></li>
+                    </ul>
+                </li>
+                <li class="nav__menu-item">
+                    <a href=""><h4 class="neon2">Log In</h4></a>
+                    <ul class="nav__submenu">
+                        <li class="nav__submenu-item"><a href=""></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<br>
+<!-- ========================以下區域可放置其他內容======================== -->
+
+<button id='cart-button' class="trigger cart-button-style">查看購物車</button>
+<div class="card-wrapper">
+    <div class="card">
+        <!-- card left -->
+        <div class="product-imgs">
+            <div class="img-display">
+                <img src="../../../../../../../Users/Chu/Desktop/frontend_html/img/merch5.jpg" alt="product image"> 
+            </div>
+        </div>
+        <!-- card right -->
+        <div class="products" id="${merch.merchId}">
+            <h2 class="product-title" th:text="${merch.merchName}"></h2>
+            <div class="product-detail">
+                <h2>商品介紹: </h2>
+                <p><span th:text="${merch.merchInfo}"></span></p>
+                <ul>
+                    <li>宅配配送區域: <span>台澎金馬</span></li>
+                    <li>宅配運費: <span>視距離而定，貨到付款</span></li>
+                </ul>
+            </div>
+            <div class="product-price">
+                <p class="price">Price: <span id="merchPrice" th:text="${merch.merchPrice}"></span></p>
+            </div>
+            <!-- 加入購物車按鈕 -->
+			<div class="page-wrapper">
+			    <input id="quantityInput" type="number" min="1" value="1">
+			    <input id="productId" type="hidden" th:value="${merch.merchId}">
+			   	<button id='add-to-cart' class="add-to-cart">加入購物車</button>
+
+			</div>
+        </div>
+    </div>
+</div>
+
+<!-- 查看購物車 -->
+<div id='cart-wrapper' class="slider close">
+    <div id='cart'>
+	     <div th:if="${error}" class="alert alert-danger" role="alert">
+	        <p th:text="${error}"></p>
+	    </div>
+	    <div th:if="${success}" class="alert alert-success" role="alert">
+	        <p th:text="${success}"></p>
+	    </div>
+        <div id="cart-products-wrapper">
+        
+            <table id="cart-table">
+                <thead id="cart-table-header">
+                    <tr>
+                        <th class="name-col">商品名稱</th>
+                        <th class="quantity-col">數量</th>
+                        <th class="price-col">價格</th>
+                        <th class="updated-price-col">小計</th>
+                        <th class="remove-col">移除</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-table-body">
+					<!-- 使用 Thymeleaf 的循环语法渲染购物车中的商品 -->
+                    <tr th:each="cartItem : ${cartItems}">
+            <td class="name-col" th:text="${cartItem.merchName}"></td>
+            <td class="quantity-col" th:text="${cartItem.quantity}"></td>
+            <td class="price-col" th:text="${cartItem.price}"></td>
+            <td class="updated-price-col" th:text="${cartItem.price * cartItem.quantity}"></td>
+            <td class="remove-col">
+                <button class="remove-item" th:data-id="${cartItem.id}">移除</button>
+            </td>
+        </tr>				</tbody>
+            </table>
+        </div>
+    </div>
+    <div id='amount-controls'>
+        <div id="cart-amount-wrapper">
+            <table>
+                <tbody>
+                    <tr id='subtotal-wrapper'>
+                        <td id="subtotal-label">合計:</td>
+                        <td id="subtotal">0</td>
+                    </tr>
+                    <tr id="promo-checkout">
+                        <td><button id="checkout">結帳</button></td>
+                        <td><button id="ks" class="keep-shopping">繼續購物</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    
+    
+</div>
+
+<!-- ========================以上區域可放置其他內容======================== -->
+<br>
+
+<!-- 底部footer -->
+        <h1 class="main-title" id="main-title">"You must not be afraid to dream a little bigger, darling."</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="footer-col">
+                <h4 class="neon2">關於我們</h4>
+                <ul>
+                    <li><a href="#">影城簡介</a></li>
+                    <li><a href="#">影城交通</a></li>
+                    <li><a href="#">影城設備</a></li>
+                    <li><a href="#">注意事項</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="neon2">電影評論區</h4>
+                <ul>
+                    <li><a href="#">影評查詢</a></li>
+                    <li><a href="#">電影分類</a></li>
+                    <li><a href="#">排行榜</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="neon2">客服中心</h4>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">真人聊天室</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="neon2">follow us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- 添加jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- 商品資料加到購物車 -->
+<script th:inline="javascript">
+$(document).ready(function () {
+	$('#cart-button').click(function (e) {
+	    e.preventDefault(); // 防止預設行為
+	    $('#cart-wrapper').toggleClass('close');
+
+	});
+
+    $('.add-to-cart').click(function () {
+		var productId = /*[[${merch.merchId}]]*/'';
+        var quantity = parseInt($('#quantityInput').val());
+			var productName = /*[[${merch.merchName}]]*/'';
+        var productPrice = parseInt($('#merchPrice').text());
+
+        addToCart(productId, productName, productPrice, quantity);
+    });
+    
+    
+
+    function addToCart(productId, productName, productPrice, quantity) {
+        fetch('/cart/insert', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                merchId: productId,
+                merchName: productName,
+                merchPrice: productPrice,
+                merchQty: quantity
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('商品已加入購物車', data);
+            // Update cart table or handle response data as needed
+            updateCartTable(data);
+//            fetchCartItems(); // 调用获取购物车商品函数
+        })
+        .catch(error => console.error('添加到購物車時發生錯誤:', error));
+    }
+    
+// // 获取购物车商品函数
+//    function fetchCartItems() {
+//        var memId = 240001; // 替换为正确的memId值
+//        
+//        fetch('/cart/items?memId=' + memId, {
+//            method: 'GET',
+//            headers: {
+//                'Content-Type': 'application/json'
+//            }
+//        })
+//        .then(response => response.json())
+//        .then(data => {
+//            console.log('购物车商品:', data);
+//            updateCartTable(data);
+//        })
+//        .catch(error => console.error('获取购物车商品时发生错误:', error));
+//    }
+
+    function updateCartTable(cartItems) {
+        var cartTableBody = $('#cart-table-body');
+        cartTableBody.empty();
+
+        cartItems.forEach(function (item) {
+            var row = $('<tr>');
+            row.append($('<td>').text(item.merchName));
+            row.append($('<td>').text(item.merchQty));
+            row.append($('<td>').text(item.merchPrice));
+            row.append($('<td>').text(item.merchQty * item.merchPrice));
+            row.append($('<td>').append($('<button>').text('移除').click(function () {
+                removeFromCart(item.merchId);
+            })));
+
+            cartTableBody.append(row);
+        });
+
+        var subtotal = cartItems.reduce(function (total, item) {
+            return total + (item.merchQty * item.merchPrice);
+        }, 0);
+
+        $('#subtotal').text(subtotal.toFixed(2));
+    }
+
+    function removeFromCart(productId) {
+        fetch(`/cart/removeCart?memId=${productId}`, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('商品已從購物車中移除', data);
+            updateCartTable(data);
+        })
+        .catch(error => console.error('從購物車中移除商品時發生錯誤:', error));
+    }
+
+    $('#checkout').click(function () {
+        alert('結帳功能尚未實作。');
+    });
+
+    $('#ks').click(function () {
+    	$('.slider').toggleClass('close');
+    });
+});
+
+
+
+   
+</script>
+</body>
+</html>

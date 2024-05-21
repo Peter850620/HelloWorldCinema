@@ -239,6 +239,33 @@
 	        <version>1.18.20.0</version>
 	        <scope>provided</scope>
 	    </dependency>
+	    
+	    
+	    <!-- 購物車 Redis需要 -->
+	    <dependency>
+		   <groupId>org.springframework.boot</groupId>
+		   <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+		  </dependency>
+		  <dependency>
+		   <groupId>redis.clients</groupId>
+		   <artifactId>jedis</artifactId>
+		   <version>4.3.0</version>
+		  </dependency>
+
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-pool2</artifactId>
+		</dependency>
+		
+		
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20231013</version>
+		</dependency>
+
+	    
 	</dependencies>
 
 	<build>
