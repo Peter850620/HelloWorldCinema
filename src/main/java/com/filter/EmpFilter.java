@@ -17,7 +17,7 @@ import java.util.Optional;
 @Component
 public class EmpFilter implements HandlerInterceptor {
     String[] ignoreUrls = {"/emp/toLogin","/emp/doLogin","/emp/resetPasswordLink","/error","/front_end/**",
-            "/**/*.js", "/**/*.css", "/**/*.jpg", "/**/*.jpeg", "/**/*.png", "/**/*.gif", "/**/*.svg"};
+            "/**/*.js", "/**/*.css", "/**/*.jpg", "/**/*.jpeg", "/**/*.png", "/**/*.gif", "/**/*.svg","/**/*.ico"};
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
