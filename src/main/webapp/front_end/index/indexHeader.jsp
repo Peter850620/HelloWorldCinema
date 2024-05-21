@@ -48,7 +48,7 @@
                         <a href=""><h4 class="neon2">影城資訊</h4></a>
                         <ul class="nav__submenu">
                             <li class="nav__submenu-item">
-                                <a href="">最新資訊</a>
+                                <a href="<%=request.getContextPath()%>/front/homeAnn.do?action=getAll">最新資訊</a>
                             </li>
                             <li class="nav__submenu-item">
                                 <a href="">票價說明</a>
