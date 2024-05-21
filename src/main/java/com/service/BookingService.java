@@ -395,6 +395,15 @@ public class BookingService {
 		 return 1;
 		
 	}
+	
+	
+	
+
+	public String qrUpdateSeats(String seatNo,Integer bookingNo) {
+		
+		
+		return orderdao.qrUpdateSeats(seatNo, bookingNo);
+	}
 
 	
 
