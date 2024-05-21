@@ -133,7 +133,7 @@ public class MovieDAOImpl implements MovieDAO {
 		 hql += " And YEAR(releaseDate) = :year AND MONTH(releaseDate) = :month";
 	 }
 	 
-	 hql += " ORDER BY movieNo DESC";
+	 hql += " ORDER BY movieId DESC";
 	 org.hibernate.query.Query<Movie> query = getSession().createQuery(hql, Movie.class);
 			 
 			 if (keywords != null && !keywords.isEmpty()) {
