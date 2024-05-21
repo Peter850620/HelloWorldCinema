@@ -84,23 +84,18 @@
  	<div id="xxx">
  		<div class="item-container">
 	 		<c:forEach var="movie" items="${movieList}">
- 					<div class="item">
-				        <a href="<%= request.getContextPath() %>/front/review.do?action=getMovie&movie=${movie.movieId}">
-				        
-				          <div class="item-flip">
-				            <div class="item-inner">
-				              <img src="<%=request.getContextPath()%>/movie/MovieGifReader?movieId=${movie.movieId}"  alt="Image">
-				            </div>
-				            <div class="item-details">
-			                	<h2 class="movie-title">${movie.movieName}</h2>
-				          	</div>
-				          </div>
-				        </a>
-				      </div>
-		      	<%-- <form method="post" action="<%= request.getContextPath() %>/front/review.do"> --%>
- 				<!-- </form> -->
-		      
-		      
+				<div class="item">
+			        <a href="<%= request.getContextPath() %>/front/review.do?action=getMovie&movie=${movie.movieId}">
+			          <div class="item-flip">
+			            <div class="item-inner">
+			              <img src="<%=request.getContextPath()%>/movie/MovieGifReader?movieId=${movie.movieId}"  alt="Image">
+			            </div>
+			            <div class="item-details">
+		                	<h2 class="movie-title">${movie.movieName}</h2>
+			          	</div>
+			          </div>
+			        </a>
+			      </div>
 	      	</c:forEach>
 		      <div class="item">
 		          <div class="item-flip">
