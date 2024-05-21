@@ -61,7 +61,7 @@
     </FORM>
   </li>
 
-  <jsp:useBean id="ticketSvc" scope="page" class="com.service.TicketService_13" />
+  <jsp:useBean id="ticketSvc" scope="page" class="com.service.TicketServiceYuan" />
    
   <li>
      <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ticket/ticket.do" >

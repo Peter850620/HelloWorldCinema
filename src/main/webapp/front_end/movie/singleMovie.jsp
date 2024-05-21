@@ -10,7 +10,7 @@
 <%
 // Use movieId to fetch playdate data
     Integer movieId = Integer.valueOf(request.getParameter("movieId"));
-    ShowtimeInfoService_13 showtimeInfoSvc = new ShowtimeInfoService_13();
+    ShowtimeInfoServiceYuan showtimeInfoSvc = new ShowtimeInfoServiceYuan();
     List<Date> playdates = showtimeInfoSvc.getPlaydatesById(movieId);
     pageContext.setAttribute("playdates", playdates);
     
