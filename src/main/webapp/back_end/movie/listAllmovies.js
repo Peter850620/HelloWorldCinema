@@ -36,7 +36,7 @@ function loadMore() {
   
    
 
-	fetch("/CIA10140-Webapp/MovieController?action=loadmore&offset=" + totalLoadedDataCount, {
+	fetch("/HelloWorldCinema/MovieController?action=loadmore&offset=" + totalLoadedDataCount, {
 
 		method: 'POST', // 使用 POST 方法
 		body: formData // 將表單的值包含在請求中
