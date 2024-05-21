@@ -26,7 +26,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.entity.ShowtimeInfo;
 import com.service.*;
 
-
 @WebServlet("/showtimeInfo/showtimeInfobohan.do")
 public class ShowtimeInfoServletbohan extends HttpServlet {
 

@@ -28,7 +28,7 @@
                 <div class="footer-col">
                     <h4 class="neon2">電影評論區</h4>
                     <ul>
-                        <li><a href="#">影評查詢</a></li>
+                        <li><a href="<%= request.getContextPath() %>/front/review.do?action=loadMovie">影評查詢</a></li>
                         <li><a href="#">電影分類</a></li>
                         <li><a href="#">排行榜</a></li>
                     </ul>
