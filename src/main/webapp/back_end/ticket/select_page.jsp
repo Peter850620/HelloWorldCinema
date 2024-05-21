@@ -61,6 +61,7 @@
     </FORM>
   </li>
 
+
   <jsp:useBean id="ticketSvc" scope="page" class="com.service.TicketServiceYuan" />
    
   <li>

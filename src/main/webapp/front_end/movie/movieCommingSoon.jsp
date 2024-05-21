@@ -8,6 +8,7 @@
 
 
 <%
+
 MovieServiceYuan movieSvc = new MovieServiceYuan();
 	List<Movie> list = movieSvc.getSoonMovies("即將上映");
     pageContext.setAttribute("list",list);
