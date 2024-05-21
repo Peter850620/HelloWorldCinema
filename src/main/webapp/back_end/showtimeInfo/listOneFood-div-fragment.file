@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <style type="text/css">
 #fragment{
-	border: 2px solid white;
-	margin-left:180px;
-}
-	}
+	border: 2px solid white;}
 </style>
 
-	<div align="center" id="fragment" class="main">
+	<form align="center" id="fragment">
 		<h3><span>查詢結果 :</span></h3>
 		<span>食物編號:</span><span>${Food.foodId}</span><br/>
 		<span>食物名稱:</span><span>${Food.foodName}</span><br/>
@@ -15,4 +12,4 @@
 		<span>價格:</span><span>${Food.foodPrice}</span><br/>
 		<span>上/下架:</span><span>${Food.foodStatus}</span><br/>
 		<span>食物圖片:</span><span><img src="<%=request.getContextPath()%>/food/DBGifReader?foodId=${Food.foodId}" width="250px"></span><br/>
-	</div>
+	</form>
