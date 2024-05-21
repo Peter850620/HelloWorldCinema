@@ -1,0 +1,257 @@
+/* 電影資訊 */
+
+.single_movie{
+    margin-top: 60px;
+    margin-bottom: 100px;
+}
+
+.movie_pic{
+    width: 25%;
+    height: auto;
+    display: inline-block;
+    margin-left: 150px;
+}
+
+.movie_content{
+    display: inline-block;
+    position: absolute;
+    top: 40;
+    width: 600px;
+    margin-left: 50px;
+    padding: 5px;
+    color: white;
+    font-size: 18px;
+}
+
+.key{
+    line-height: 2;
+    color: #c1a57b;
+}
+
+span{
+    color: white;
+}
+
+p.movie_info{
+    color: white;
+    display: inline-block;
+}
+
+ul{
+    list-style: none;
+}
+
+
+
+
+/* 場次資訊 */
+.movie_screen{
+    
+    margin-left: 50px;
+    margin-bottom: 10px;
+    color: #c1a57b;
+}
+
+
+
+
+.showtime_choice{
+    margin-bottom: 200px;
+    margin-left: 50px;
+}
+
+ul.tabs {
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+    height: 32px;
+    border-bottom: 1px solid #0d1f38;
+    width: 100%;
+}
+
+#showtime_content {
+    float: left;
+    margin: 0;
+    cursor: pointer;
+    padding: 0px 21px;
+    height: 31px;
+    line-height: 31px;
+    /* border-top: 1px solid #333;
+    border-left: 1px solid #333;
+    border-bottom: 1px solid #333; */
+    background-color: #0d1f38;
+    color: #ccc;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+}
+
+#showtime_content:hover {
+    background-color: #2e78a0;
+    color: #ccc;
+}
+
+#showtime_content.active {
+    /* background-color: #fff; */
+    color: #ccc;
+    /* border-bottom: 1px solid #fff; */
+}
+
+#showtime_content:last-child {
+    border-right: 1px solid #333;
+}
+
+.tab_container {
+    /* border: 1px solid #333; */
+    border-top: none;
+    clear: both;
+    float: left;
+    width: 100%;
+    background: black;
+    overflow: auto;
+}
+
+.tab_content {
+    padding: 20px;
+    display: none;
+}
+
+#screen, #language, #showtime {
+    display: inline-block;
+    margin-right: 20px; /* 根據需要進行調整 */
+    color: white;
+}
+
+.showtime_btn {
+    display: inline-block;
+    width: 120px;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: transparent;
+    border: 2px solid #c1a57b;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.showtime_btn:hover {
+    background-color: #c1a57b; /* 匹配按鈕的背景顏色 */
+    color: white; /* 鼠標懸停時的字體顏色 */
+}
+
+
+/* 點選場次時刻確認彈跳視窗 */
+.confirm {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.6rem 3rem;
+    border: 3px solid black;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+    z-index: 7;
+  }
+  .message {
+    font-size:1.1rem;
+    margin-bottom: 1.6rem;
+    margin-top: 0;
+  }
+  .yes, .no {
+    color:inherit;
+      font-family:inherit;
+    font-size: inherit;
+    background: white;
+    padding: 0.3rem 3.4rem;
+    border: 3px solid black;
+    margin-right: 2.6rem;
+    box-shadow: 0 0 0 black;
+    transition: all 0.2s;
+  }
+  
+  .yes:last-child, .no:last-child {
+    margin: 0;
+  }
+  
+  .yes:hover, .no:hover {
+    box-shadow: 0.4rem 0.4rem 0 black;
+    transform: translate(-0.4rem, -0.4rem);
+  }
+  
+  .yes:active, .no:active {
+    box-shadow: 0 0 0 black;
+    transform: translate(0, 0);
+  }
+  
+  .options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  
+  .overlay {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.75); /* Black with opacity */
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.35s ease-in-out;
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .overlay.open {
+    opacity: 1;
+    pointer-events: inherit;
+  }
+
+
+
+/* 電影PV */
+.movie_PV{
+    margin-top: 100px;
+    margin-left: 50px;
+    margin-bottom: 10px;
+    color: #c1a57b;
+}
+
+.embed-container { 
+    position: relative;
+    padding-bottom: 56.25%;
+    
+    overflow: hidden; 
+    
+    
+    display: flex;
+    justify-content: center;
+    
+} 
+.embed-container iframe, .embed-container object, .embed-container embed { 
+    position: absolute; 
+    top: 0; 
+
+    width: 90%; 
+    height: 90%;  
+    border: 0 none; }
+
+  
