@@ -24,7 +24,7 @@ if (showId == null) {
 		showId = (Integer) showIdObj;
 	} else {
 		// 如果都沒有，設置默認值
-		showId = 6;
+		showId = 1;
 	}
 }
 

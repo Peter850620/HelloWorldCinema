@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchSeatsStatus() {
-    fetch('/api/showtime?showtimeId=1')
+    fetch('/api/showtime?showtimeId=${showtimeId}')
         .then(response => response.json())
         .then(data => {
             applySeatStatus(data.seatStatus);
@@ -73,3 +73,6 @@ function applySeatStatus(seatStatus) {
         }
     }
 }
+
+
+
