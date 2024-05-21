@@ -61,7 +61,10 @@
     </FORM>
   </li>
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> refs/heads/master
   <jsp:useBean id="ticketSvc" scope="page" class="com.service.TicketServiceYuan" />
    
   <li>

@@ -11,9 +11,7 @@
 String tkName = request.getParameter("tkName");
 
     // Use tkName to fetch merchOrder data
-
     TicketServiceYuan ticketSvc = new TicketServiceYuan();
-
     List<Ticket> list = ticketSvc.getByName(tkName);
     pageContext.setAttribute("list", list);
 %>
