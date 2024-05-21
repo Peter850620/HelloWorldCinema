@@ -1,5 +1,6 @@
 package com.dao;
 
+
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +20,8 @@ public interface ShowtimeInfoDAO {
     
     public List<ShowtimeInfo> getShowtimeByPlaydate(Integer movieId, Date playdate);
     
-    public List<ShowtimeInfo> getDate(Screen screen, Date[] playdate, Movie movie);	
+    //	博雅
+    public List<ShowtimeInfo> getDate(String screenId, Date playdate, Integer movieId);	
     
 
 	
