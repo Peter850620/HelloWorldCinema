@@ -5,6 +5,7 @@
 <%@page import="java.util.*"%>
 <%@page import="com.dao.*"%>
 <%@page import="com.entity.*"%>
+<%@page import="com.service.*"%>
 <%
 FoodDAOImpl foodDAO = new FoodDAOImpl();
 List<Food> foodList = foodDAO.getAll();
@@ -14,18 +15,21 @@ TicketDAOImpl ticketDAO = new TicketDAOImpl();
 List<Ticket> ticketList = ticketDAO.getAll();
 pageContext.setAttribute("ticketList", ticketList);
 
-ShowtimeInfoDAOImpl showtimeInfoDAO = new ShowtimeInfoDAOImpl();
-Object showIdObj=request.getAttribute("showtimeId");
+//優先從 session 獲取 showId
+Integer showId = (Integer) session.getAttribute("showtimeId");
+if (showId == null) {
+	// 如果 session 中沒有，則嘗試從 request 獲取
+	Object showIdObj = request.getAttribute("showtimeId");
+	if (showIdObj != null) {
+		showId = (Integer) showIdObj;
+	} else {
+		// 如果都沒有，設置默認值
+		showId = 1;
+	}
+}
 
-Integer showid=null;
-if(showIdObj!=null){	
-	showid=(Integer)showIdObj;
-	}else{
-		showid=6;
-			}
-ShowtimeInfo show=null;
-show=showtimeInfoDAO.getshowtimeId(showid);
-
+ShowtimeInfoDAOImpl showtimeInfoDAOImpl = new ShowtimeInfoDAOImpl();
+ShowtimeInfo show = showtimeInfoDAOImpl.getById(showId);
 %>
 <!DOCTYPE html>
 <html>
@@ -141,21 +145,23 @@ show=showtimeInfoDAO.getshowtimeId(showid);
 		<h1>線上訂票</h1>
 		<div class="listing-item mb-20 section dark-translucent-bg">
 			<div class="grid-space-0">
-				<div class="call-to-action text-center" >
+				<div class="call-to-action text-center">
 					<h2 class="title" Align="Center">選擇電影票</h2>
 					<p Align="Center">
 						選擇您希望購買的電影票張數和類型.<br> 請注意系統將自動為您保留可訂的最佳座位, 若選擇特殊票種須到櫃台確認身分
 					</p>
 
 					<br>
-			
-					<div var="showtimeInfo" >
-						<h2 Align="Center"><%=show.getMovie().getMovieName() %></h2>
-						<a href=""> <img class="moviepic" style="pointer-events: none;" src="data:image/jpeg;base64,<%=show.getMovie().getPicBase64()%>"></a>
-						<br><br>
-						<p Align="Center"><%=show.getPlaydate() %></p>
-						<p Align="Center"><%=show.getShowtime() %></p>
-						<p Align="Center"><%=show.getScreen().getScreenId() %></p>
+
+					<div var="showtimeInfo">
+						<h2 Align="Center"><%=show.getMovie().getMovieName()%></h2>
+						<a href=""> <img class="moviepic"
+							style="pointer-events: none;"
+							src="data:image/jpeg;base64,<%=show.getMovie().getPicBase64()%>"></a>
+						<br> <br>
+						<p Align="Center"><%=show.getPlaydate()%></p>
+						<p Align="Center"><%=show.getShowtime()%></p>
+						<p Align="Center"><%=show.getScreen().getScreenId()%></p>
 					</div>
 
 				</div>
@@ -201,7 +207,8 @@ show=showtimeInfoDAO.getshowtimeId(showid);
 
 			<c:forEach var="Food" items="${foodList}" varStatus="s">
 				<div class="products" id="${Food.foodId}">
-					<a href=""><img class="small-image" style="pointer-events: none;"
+					<a href=""><img class="small-image"
+						style="pointer-events: none;"
 						src="<%=request.getContextPath()%>/food/DBGifReader?foodId=${Food.foodId}"></a>
 					<p class="product-name">${Food.foodName}</p>
 					<input type="hidden" name="">
@@ -239,14 +246,22 @@ show=showtimeInfoDAO.getshowtimeId(showid);
 							</tr>
 
 
-
 							<tr id="promo-checkout">
 								<td>
 									<button id="ks" class="keep-shopping">繼續購物</button>
 								</td>
-								<td>
-									<button id="checkout">下一步</button>
-								</td>
+								<form id="showtimeForm"
+									action="<%=request.getContextPath()%>/MemBookingController"
+									method="post">
+									<input type="hidden" name="action" value="findScreen">
+									<input type="hidden" name="screenId" value="<%=show.getShowtimeId()	%>">
+									<input type="hidden" id="showId" name="showId" value="<%=show.getShowtimeId()%>">
+									<button type="submit" id="checkout">下一步</button>
+								</form>
+
+
+								<!-- 注意將button的type設為button以防自動提交 -->
+
 							</tr>
 						</tbody>
 					</table>
@@ -314,12 +329,15 @@ show=showtimeInfoDAO.getshowtimeId(showid);
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/food/js/jquery-3.4.1.min.js"></script>
+		src="<%=request.getContextPath()%>/back_end/orderTicket/js/jquery-3.4.1.min.js"></script>
 
-	
+
 </body>
 <!-- 主要js -->
-	<script src="<%=request.getContextPath()%>/back_end/orderTicket/js/index.js"></script>
-	<script src="<%=request.getContextPath()%>/back_end/orderTicket/js/orderStore.js"></script>
-	<script src="<%=request.getContextPath()%>/back_end/orderTicket/js/order.js"></script>
+<script
+	src="<%=request.getContextPath()%>/back_end/orderTicket/js/index.js"></script>
+<script
+	src="<%=request.getContextPath()%>/back_end/orderTicket/js/orderStore.js"></script>
+<script
+	src="<%=request.getContextPath()%>/back_end/orderTicket/js/order.js"></script>
 </html>
