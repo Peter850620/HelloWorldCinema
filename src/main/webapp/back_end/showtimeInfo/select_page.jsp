@@ -11,19 +11,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>餐點管理</title>
+<title>場次管理</title>
 
 
 <style type="text/css">
+.main {
+	margin-left: 220px;
+	margin-top: 100px;
 
 
-
-.main{
-
-margin-left:220px;
-margin-top:100px;
-
-	form {
+form {
 	margin: 20px auto;
 	padding: 20px;
 	width: 70%;
@@ -36,8 +33,7 @@ margin-top:100px;
 	border: 2px solid white;
 	margin-left: 10px;
 	font-size: 25px;
-	color:white;
-	
+	color: white;
 }
 
 input[type="text"], input[type="date"], select {
@@ -46,22 +42,18 @@ input[type="text"], input[type="date"], select {
 	padding: 10px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
-	 color: white;
+	color: white;
 }
 
-
-
-
 input[type="submit"] {
-  background-color: grey;
-  border-radius: 15px;
-  background-color: rgba(162, 161, 167, 0.5);
-  font-size: 30px;
-  width: 150px;
-  
-  cursor:pointer;
-  transition-duration: 0.5s;
-  color: white;
+	background-color: grey;
+	border-radius: 15px;
+	background-color: rgba(162, 161, 167, 0.5);
+	font-size: 30px;
+	width: 150px;
+	cursor: pointer;
+	transition-duration: 0.5s;
+	color: white;
 }
 
 input[type="submit"]:hover {
@@ -79,53 +71,46 @@ li {
 	margin-bottom: 5px;
 }
 
-
-
-#a{
-  font-size: 30px;
-  color: white; /* 设置背景颜色为蓝色 */
+#a {
+	font-size: 30px;
+	color: white; /* 设置背景颜色为蓝色 */
 }
 
 select {
-  appearance: none;
-  -webkit-appearance: none;
- width:calc(100% - 15px);
-  padding: 5px;
-  font-size: 20px;
-  background-color: rgba(162, 161, 167, 0.5);
-  border: 1px solid #caced1;
-  border-radius: 5px;
-  color: #ffff;
-  cursor: pointer;
-  text-align: center;
-  height:42px;
+	appearance: none;
+	-webkit-appearance: none;
+	width: calc(100% - 15px);
+	padding: 5px;
+	font-size: 20px;
+	background-color: rgba(162, 161, 167, 0.5);
+	border: 1px solid #caced1;
+	border-radius: 5px;
+	color: #ffff;
+	cursor: pointer;
+	text-align: center;
+	height: 42px;
 }
 
 input {
-  width: 150px;
-  font-size: 15px;
-  border-radius: 5px;
-  background-color: rgba(162, 161, 167, 0.5);
-  color: #ffff;
-}  
-
-
-
-
+	width: 150px;
+	font-size: 15px;
+	border-radius: 5px;
+	background-color: rgba(162, 161, 167, 0.5);
+	color: #ffff;
+}
 
 button {
-  background-color: grey;
-  border-radius: 25px;
-  background-color: rgba(162, 161, 167, 0.5);
-  font-size: 20px;
-  width: 90px;
-
-  transition-duration: 0.5s;
-  color: white;
+	background-color: grey;
+	border-radius: 25px;
+	background-color: rgba(162, 161, 167, 0.5);
+	font-size: 20px;
+	width: 90px;
+	transition-duration: 0.5s;
+	color: white;
 }
 
 button:hover {
-  background-color: rgba(87, 87, 89, 0.8);
+	background-color: rgba(87, 87, 89, 0.8);
 }
 }
 </style>
