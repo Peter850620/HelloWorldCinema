@@ -66,7 +66,7 @@ public class ShowtimeInfoDAOImpl implements ShowtimeInfoDAO {
 	@Override
 	public List<ShowtimeInfo> getDate(String screenId, Date playdate, Integer movieId) {
 		Query<ShowtimeInfo> query = getSession().createQuery("FROM ShowtimeInfo "
-				+ "WHERE (screen.screenId = :screenId OR :screenId IS NULL) AND movie.movieId = :movieId AND playdate = :playdate",
+				+ "WHERE (screen.screenId = :screenId OR :screenId IS NULL) AND movie.movieId = :movieId AND playdate = (:playdate OR :playdate IS NULL))",
 				ShowtimeInfo.class);
 		query.setParameter("screenId", screenId);
 		query.setParameter("playdate", playdate);
