@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import com.entity.Movie;
@@ -149,6 +150,19 @@ public class ShowtimeInfoDAOImpl implements ShowtimeInfoDAO {
 		   return formattedTime;
 		   
 	}
+	@Override
+	public String getSeatStatus(String showtimeId) {
+	    String seatStatus = null;
+	    Session session = HibernateUtil.getSessionFactory().getCurrentSession(); // 直接獲取當前的 Session
+	    ShowtimeInfo showtime = (ShowtimeInfo) session.createQuery("FROM ShowtimeInfo WHERE showtimeId = :showtimeId")
+	        .setParameter("showtimeId", showtimeId)
+	        .uniqueResult();
+	    if (showtime != null) {
+	        seatStatus = showtime.getSeatStatus();
+	    }
+	    return seatStatus;
+	}
+
 
 
 	public static void main(String[] args) {

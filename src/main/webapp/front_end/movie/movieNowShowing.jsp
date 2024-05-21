@@ -8,6 +8,7 @@
 
 
 <%
+
 MovieServiceYuan movieSvc = new MovieServiceYuan();
 	List<Movie> list = movieSvc.getNowMovies("熱映中");
     pageContext.setAttribute("list",list);
