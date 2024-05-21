@@ -46,13 +46,22 @@ document.addEventListener('DOMContentLoaded', function() {
     nextButton.addEventListener('click', saveToSessionStorage); // 點擊時保存座位狀態
 });
 
-function fetchSeatsStatus() {
-    fetch('/api/showtime?showtimeId=${showtimeId}')
+document.addEventListener('DOMContentLoaded', function() {
+    const showId = document.getElementById('showId');
+    fetchSeatsStatus(showId);
+    console.log(showId)
+});
+
+function fetchSeatsStatus(showId) {
+    fetch(`/api/showtime?showtimeId=${showId}`)
         .then(response => response.json())
         .then(data => {
             applySeatStatus(data.seatStatus);
         }).catch(error => console.error('Error fetching seat status:', error));
 }
+
+
+
 
 function applySeatStatus(seatStatus) {
     const seatPattern = /(\w{3})(\w)/g;

@@ -255,6 +255,7 @@ ShowtimeInfo show = showtimeInfoDAOImpl.getById(showId);
 									method="post">
 									<input type="hidden" name="action" value="findScreen">
 									<input type="hidden" name="screenId" value="<%=show.getShowtimeId()	%>">
+									<input type="hidden" id="showId" name="showId" value="<%=show.getShowtimeId()%>">
 									<button type="submit" id="checkout">下一步</button>
 								</form>
 
