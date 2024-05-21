@@ -17,7 +17,8 @@
 </head>
 
 
-
+<jsp:include page="/back_end/orderTicket/index/indexHeader.jsp"
+	flush="true" />
 
 <body>
 	<title>seat booking</title>
@@ -429,26 +430,22 @@
 			<ul class="pay">
 
 				<li class="total">已選取:
-					<p id="selectedCount">0<p>張</p></p>
+					<p id="selectedCount">0
+					<p>張</p>
 				</li>
-				<li class="total">需選取數量:
-					<p id="selectedCount">0<p>張</p></p>
+				<li class="total">需選取:
+					<p id="">0</p>
+					<p>張</p>
 				</li>
-				<button id="nextButton">下一步</button>
-			</ul>
-			<div class="arrow1">
-				<a href="#"> <span class="left"></span>
-				</a>
-			</div>
 
-			<div class="arrow2">
-				<a href="#"> <span class="right"></span>
-				</a>
+			</ul>
+			<div style="text-align: center;">
+				<button id="lastButton">上一步</button>
+				<button id="nextButton">下一步</button>
 			</div>
 
 		</div>
 	</div>
-
 
 
 
@@ -459,5 +456,6 @@
 	</script>
 
 </body>
-
+<jsp:include page="/back_end/orderTicket/index/indexFooter.jsp"
+	flush="true" />
 </html>
