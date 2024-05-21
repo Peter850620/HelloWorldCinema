@@ -2,6 +2,7 @@ package com.controller;
 
 import java.io.IOException;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,41 +46,5 @@ public class ShowtimeInfoServletbohan extends HttpServlet {
 		    String redirectUrl = memBookingService.findRightScreenId(showId);  // 使用showId調用方法獲得正確的URL
 		    res.sendRedirect(redirectUrl);  // 使用重定向而不是轉發
 		}
-
-//	private ShowtimeInfoService showtimeInfoService;
-//    private ObjectMapper objectMapper;
-//
-//    @Override
-//    public void init() throws ServletException {
-//        showtimeInfoService = new ShowtimeInfoService();
-//        objectMapper = new ObjectMapper();
-//    }
-//
-//    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-//        doPost(req, res);
-//    }
-//
-//    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-//        req.setCharacterEncoding("UTF-8");
-//        String action = req.getParameter("action");
-//        res.setContentType("application/json");
-//
-//        if ("getPlaydatesById".equals(action)) {
-//            Integer movieId = Integer.valueOf(req.getParameter("movieId"));
-//            List<Date> playdates = showtimeInfoService.getPlaydatesById(movieId);
-//            res.getWriter().write(objectMapper.writeValueAsString(playdates));
-//        } else if ("getAll_For_showtimes".equals(action)) {
-//            Integer movieId = Integer.valueOf(req.getParameter("movieId"));
-//            Date playdate = null;
-//            try {
-//                playdate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("playdate"));
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//
-//            List<ShowtimeInfo> showtimes = showtimeInfoService.getShowtimeByPlaydate(movieId, playdate);
-//            res.getWriter().write(objectMapper.writeValueAsString(showtimes));
-//        }
-//    }
 
 }
