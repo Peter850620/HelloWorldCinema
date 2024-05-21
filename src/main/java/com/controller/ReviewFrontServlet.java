@@ -18,7 +18,6 @@ import com.entity.Mem;
 import com.entity.Movie;
 import com.entity.Review;
 import com.service.MovieService;
-import com.service.MovieService_13;
 import com.service.ReviewService;
 import com.service.ReviewServiceImpl;
 
@@ -28,13 +27,13 @@ public class ReviewFrontServlet extends HttpServlet {
 	// 一個 servlet 實體對應一個 service 實體
 		private ReviewService reviewService;
 		private MovieService movieService;
-		private MovieService_13 movieService_13;
+//		private MovieService_13 movieService_13;
 		
 		@Override
 		public void init() throws ServletException {
 			reviewService = new ReviewServiceImpl();
 			movieService = new MovieService();
-			movieService_13 = new MovieService_13();
+//			movieService_13 = new MovieService_13();
 		}
 		
 		public void doGet(HttpServletRequest req, HttpServletResponse res)
