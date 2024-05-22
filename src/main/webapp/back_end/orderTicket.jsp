@@ -67,76 +67,18 @@ ShowtimeInfo show = showtimeInfoDAOImpl.getById(showId);
 <!-- 主要css -->
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/back_end/orderTicket/css/orderStore.css" />
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/back_end/orderTicket/css/index.css" />
+
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/back_end/orderTicket/css/order.css" />
 </head>
 
 
 <body>
-	<!-- 載入動畫 -->
-	<canvas></canvas>
+	
 
+	
 
-	<!-- 選單 -->
-	<header class="header">
-		<div id="box" class="logo">
-			<h1 class="neon">
-				<a href="index.html"><span class="logo_el">H</span>ello<span
-					class="logo_el">W</span>orld <span class="logo_el">C</span>inema</a>
-			</h1>
-		</div>
-		<div id="box">
-			<nav class="nav">
-				<ul class="nav_menu">
-					<li class="nav__menu-item"><a href="">
-							<h4 class="neon2">影城資訊</h4>
-					</a>
-						<ul class="nav__submenu">
-							<li class="nav__submenu-item"><a href="">最新資訊</a></li>
-							<li class="nav__submenu-item"><a href="">票價說明</a></li>
-							<li class="nav__submenu-item"><a
-								href="movieCommingSoon.html">即將上映</a></li>
-							<li class="nav__submenu-item"><a href="movieNowShowing.html">現正熱映</a>
-							</li>
-						</ul></li>
-					<li class="nav__menu-item"><a href="">
-							<h4 class="neon2">線上訂票</h4>
-					</a>
-						<ul class="nav__submenu">
-							<li class="nav__submenu-item"><a href=""></a></li>
-
-						</ul></li>
-					<li class="nav__menu-item"><a href="merchStore.html">
-							<h4 class="neon2">周邊商城</h4>
-					</a>
-						<ul class="nav__submenu">
-							<li class="nav__submenu-item"><a href=""></a></li>
-
-						</ul></li>
-					<li class="nav__menu-item"><a href="">
-							<h4 class="neon2">場地租借</h4>
-					</a>
-						<ul class="nav__submenu">
-							<li class="nav__submenu-item"><a href="">場地租借須知</a></li>
-							<li class="nav__submenu-item"><a href="">可租借場地資訊</a></li>
-							<li class="nav__submenu-item"><a href="">租借表單填寫</a></li>
-						</ul></li>
-					<li class="nav__menu-item"><a href="">
-							<h4 class="neon2">Log In</h4>
-					</a>
-						<ul class="nav__submenu">
-							<li class="nav__submenu-item"><a href=""></a></li>
-
-						</ul></li>
-				</ul>
-			</nav>
-		</div>
-
-	</header>
-
-
+<jsp:include page="/front_end/index/indexHeader.jsp" flush="true" />    
 	<br>
 	<!-- ========================以下區域可放置其他內容======================== -->
 
@@ -271,57 +213,11 @@ ShowtimeInfo show = showtimeInfoDAOImpl.getById(showId);
 	</div>
 
 
+
 	<!-- ========================以上區域可放置其他內容======================== -->
 	<br>
 
-
-
-
-
-	<!-- 底部footer -->
-	<footer class="footer">
-		<div class="titleCont">
-			<h1 class="main-title" id="main-title">"You must not be afraid
-				to dream a little bigger, darling."</h1>
-		</div>
-		<div class="container">
-			<div class="row">
-				<div class="footer-col">
-					<h4 class="neon2">關於我們</h4>
-					<ul>
-						<li><a href="#">影城簡介</a></li>
-						<li><a href="#">影城交通</a></li>
-						<li><a href="#">影城設備</a></li>
-						<li><a href="#">注意事項</a></li>
-					</ul>
-				</div>
-				<div class="footer-col">
-					<h4 class="neon2">電影評論區</h4>
-					<ul>
-						<li><a href="#">影評查詢</a></li>
-						<li><a href="#">電影分類</a></li>
-						<li><a href="#">排行榜</a></li>
-					</ul>
-				</div>
-				<div class="footer-col">
-					<h4 class="neon2">客服中心</h4>
-					<ul>
-						<li><a href="#">FAQ</a></li>
-						<li><a href="#">真人聊天室</a></li>
-					</ul>
-				</div>
-				<div class="footer-col">
-					<h4 class="neon2">follow us</h4>
-					<div class="social-links">
-						<a href="#"><i class="fab fa-facebook-f"></i></a> <a href="#"><i
-							class="fab fa-twitter"></i></a> <a href="#"><i
-							class="fab fa-instagram"></i></a> <a href="#"><i
-							class="fab fa-linkedin-in"></i></a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
+<jsp:include page="/front_end/index/indexFooter.jsp" flush="true" />  
 
 
 

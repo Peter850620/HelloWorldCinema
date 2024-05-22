@@ -197,11 +197,7 @@ ol {
 
 }
 
-ul.pay{
-  list-style: none;
-  padding-left: 40%;
 
-}
 
 
 
@@ -296,4 +292,24 @@ a:hover .left:after, a:hover .top:after, a:hover .right:after {
   margin-top: 10px;
   margin-left: 5px; /* Adjust the margin between li and p */
   margin-bottom: 7px;
+}
+
+#nextButton:hover, #lastButton:hover{
+    background: #62ff8e;
+    color: white;
+}
+
+#nextButton, #lastButton {
+    border-style: none;
+    width: 10em;
+    padding: 1em 1em;
+    background: #7762ff;
+    color: white;
+    transition: background .5s;
+    border-radius: 4px;
+}
+
+ul.pay {
+    list-style: none;
+    padding: 0 6.5EM;
 }

@@ -194,7 +194,7 @@ body{
 	margin:auto;
   /* text-align: center; */
 }
-.row{
+.row1{
 	display: flex;
 	flex-wrap: wrap;
 
@@ -212,8 +212,6 @@ ul{
 .footer{
   height: 350;
   padding: 10px 0;
-
-  display: block;
 }
 .footer-col{
   height: 350px ;
@@ -286,6 +284,11 @@ ul{
 }
 }
 
+.copy_right{
+  margin-left: 420px;
+  /* margin-bottom: 50px; */
+  color:#2e78a0;
+}
 
 
 
