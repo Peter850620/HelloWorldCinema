@@ -4,11 +4,7 @@
 <html lang="en">
 <head>
 	<style>
-		.xxx{
-			background-color: white;
-		}
-		
-		/* 全局樣式 */
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -16,8 +12,7 @@
             padding: 0;
         }
 
-        /* 容器樣式 */
-        .container {
+        .xxx {
             max-width: 800px;
             margin: 50px auto;
             background-color: #fff;
@@ -26,14 +21,12 @@
             border-radius: 8px;
         }
 
-        /* 標題樣式 */
         h3 {
             color: #333;
             margin-bottom: 20px;
             text-align: center;
         }
 
-        /* 表單元素樣式 */
         .title {
             margin-bottom: 20px;
         }
@@ -44,13 +37,24 @@
             margin-bottom: 5px;
         }
 
-        .title input, .title select, .title textarea {
+        .title input, .title select {
             width: calc(100% - 20px);
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 16px;
+        }
+        
+        .title textarea {
+        	width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            height: 200px;
+            resize: none;
         }
 
         .title input[readonly], .title textarea[readonly] {
@@ -62,7 +66,6 @@
             font-size: 12px;
         }
 
-        /* 按鈕樣式 */
         .form-actions {
             text-align: center;
         }
@@ -81,7 +84,6 @@
             background-color: #0056b3;
         }
 
-        /* 鏈接樣式 */
         a {
             display: inline-block;
             margin-bottom: 20px;
@@ -99,7 +101,7 @@
 <body>
 <%@ include file="../index/indexHeader.jsp" %>
 <!-- ========================以下區域可放置其他內容======================== -->
-<div id="xxx">
+<div class="xxx" id="xxx">
 	<form action="<%= request.getContextPath() %>/front/review.do" method="post" id="myForm">
 		<a href="<%= request.getContextPath() %>/front/review.do?action=getMem&mem=1">回主頁</a>
 		<h3><b>所有欄位皆為必填欄位</b></h3>
@@ -140,7 +142,7 @@
 		<span  id ="reviewDetails.errors" class="error">${errorMsgs.reviewDetails}</span>
 		</div>
 		
-		<div class="title">
+		<div class="form-actions">
 			<div></div>
 			<input  type="hidden" name="action" value="update">
 			<input type="hidden" name="reviewDate" value="${param.reviewDate}" id="newTime">
