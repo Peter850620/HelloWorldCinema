@@ -18,7 +18,8 @@
 </style>
 </head>
 
-
+<jsp:include page="/back_end/orderTicket/index/indexHeader.jsp"
+	flush="true" />
 
 
 <body>
@@ -212,15 +213,19 @@
 
 		<div class="sub">
 			<ul class="pay">
-				<li class="total">選取:
-					<p id="selectedCount">0</p>
+				<li class="total">已選取:
+					<p id="selectedCount">0
+					<p>張</p>
 				</li>
-				<li class="price">總額:
-					<p id="totalPrice">0</p>
+				<li class="total">需選取:
+					<p id="">0</p>
+					<p>張</p>
 				</li>
-				<button id="nextButton">下一步</button>
-				<!-- 其他价格项 -->
 			</ul>
+			<div style="text-align: center;">
+				<button id="lastButton">上一步</button>
+				<button id="nextButton">下一步</button>
+			</div>
 		</div>
 
 
@@ -233,5 +238,6 @@
 	</script>
 
 </body>
-
+<jsp:include page="/back_end/orderTicket/index/indexFooter.jsp"
+	flush="true" />
 </html>
