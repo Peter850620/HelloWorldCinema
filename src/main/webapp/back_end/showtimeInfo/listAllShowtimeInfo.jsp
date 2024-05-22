@@ -3,10 +3,16 @@
 <%@page import="java.util.*"%>
 <%@page import="com.service.ShowtimeInfoServicePeter"%>
 <%@page import="com.entity.ShowtimeInfo"%>
+<%@page import="java.sql.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%
-ShowtimeInfoServicePeter showtimeInfoSvc = new ShowtimeInfoServicePeter();
+	ShowtimeInfoServicePeter showtimeInfoSvc = new ShowtimeInfoServicePeter();
     List<ShowtimeInfo> list = showtimeInfoSvc.getAll(); 
     if(request.getAttribute("showtimeInfoListDataPart")==null) pageContext.setAttribute("showtimeInfoListData",list);
+    
+    Date currentDate = new java.sql.Date(System.currentTimeMillis());
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String formattedDateString = sdf.format(currentDate);
 %>
 <!DOCTYPE html>
 <html>
@@ -75,7 +81,7 @@ ShowtimeInfoServicePeter showtimeInfoSvc = new ShowtimeInfoServicePeter();
         
 		<form method="post" action="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do">
 			<a>播放日期:</a>
-			<input type="date" name="playdate">
+			<input type="date" value=<%=formattedDateString%> name="playdate">
 			<a>影廳:</a>
 			<select size="1" name=screenId>
 			    		<option value="NULL">全部</option>
@@ -86,8 +92,9 @@ ShowtimeInfoServicePeter showtimeInfoSvc = new ShowtimeInfoServicePeter();
 			
 			<a>電影名稱:</a>
 			<select size="1" name="movieId">
+			    		<option value="NULL">==全部==</option>
 			    <c:forEach var="Movie"  items="${MovieSvc.findAllmovies()}">
-			    		<option value="${Movie.getMovieId()}">${Movie.getMovieName()}</option>
+			    		<option value="${Movie.getMovieId()}">${Movie.getMovieId()}: ${Movie.getMovieName()}</option>
 				</c:forEach>    
 			</select>
 

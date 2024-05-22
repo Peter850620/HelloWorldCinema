@@ -31,15 +31,22 @@ public class ShowtimeInfoServletPeter extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 **********************/
-			String screenId = String.valueOf(req.getParameter("screenId"));
-			Date playdate = Date.valueOf(req.getParameter("playdate"));
-			Integer movieId = Integer.valueOf(req.getParameter("movieId"));
+			String screenId = null;
+			Date playdate = null;
+			Integer movieId = null;
 			
-			//字串NULL，轉換為實際的 NULL 值
-			Date currentDate = new java.sql.Date(System.currentTimeMillis());
-			screenId = "NULL".equals(screenId) ? null : screenId;
-			playdate = "NULL".equals(playdate) ? currentDate : playdate;
-			
+			String TEST = req.getParameter("playdate");
+			System.out.println(TEST);
+			//非NULL值
+			if (!("NULL".equals(req.getParameter("screenId")))) {
+				screenId = String.valueOf(req.getParameter("screenId"));
+			}
+			if (!((req.getParameter("playdate")).isEmpty())) {
+				playdate = Date.valueOf(req.getParameter("playdate"));
+			}
+			if (!("NULL".equals(req.getParameter("movieId")))) {
+				movieId = Integer.valueOf(req.getParameter("movieId"));
+			}
 
 			/*************************** 2.開始查詢資料 ****************************************/
 			ShowtimeInfoServicePeter showtimeInfoSvc = new ShowtimeInfoServicePeter();
