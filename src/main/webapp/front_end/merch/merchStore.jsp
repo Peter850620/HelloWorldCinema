@@ -37,8 +37,8 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
         <div id="shop" class="horizontal-products">
             <c:forEach var="merch" items="${list}">
                 <div class="products">
-                    <a href="<c:url value='/merch/merchId/${merch.merchId}'/>">
-                        <img class="product-image" src="${merch.merchImg}" alt="商品圖片">
+                    <a href="<%=request.getContextPath()%>/merch/merch.do?action=getOneMerch&merchId=${merch.merchId}">
+                        <img class="product-image" src="<%=request.getContextPath()%>/merch/MerchGifReader?merchId=${merch.merchId}" alt="Image">
                         <p class="product-name"><span>${merch.merchName}</span></p>
                         <p class="product-price">售價:$<span>${merch.merchPrice}</span></p>
                     </a>
@@ -63,7 +63,17 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
                     </tr>
                 </thead>
                 <tbody id="cart-table-body">
-
+					<c:forEach var="item" items="${cartItems}">
+				         <tr>
+				           <td>${item.merchName}</td>
+				           <td>${item.merchQty}</td>
+				           <td>${item.merchPrice}</td>
+				           <td>${item.merchQty * item.merchPrice}</td>
+				           <td>
+				             <button class="remove-item" data-id="${item.merchId}">移除</button>
+				           </td>
+				          </tr>
+				     </c:forEach>
 				</tbody>
             </table>
         </div>
@@ -74,7 +84,7 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
                 <tbody>
                     <tr id='subtotal-wrapper'>
                         <td id="subtotal-label">合計:</td>
-                        <td id="subtotal">0</td>
+                        <td id="subtotal">${cartTotal}</td>
                     </tr>
                     <tr id="promo-checkout">
                         <td><button id="checkout">結帳</button></td>
@@ -86,16 +96,111 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
     </div>
 
 
+
 <!-- ========================以上區域可放置其他內容======================== -->
+     
 
-<jsp:include page="/front_end/index/indexFooter.jsp" flush="true" />  
-
-
-    
-    <!-- 電影瀏覽 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js" integrity="sha512-DZqqY3PiOvTP9HkjIWgjO6ouCbq+dxqWoJZ/Q+zPYNHmlnI2dQnbJ5bxAHpAMw+LXRm4D72EIRXzvcHQtE8/VQ==" crossorigin="anonymous"></script>
-
-
-    
+  
+    <!-- 主要js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- 添加jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+	<!-- 商品資料加到購物車 -->
+	<script>
+	$(document).ready(function () {
+		$('#cart-button').click(function (e) {
+		    e.preventDefault(); // 防止預設行為
+		    $('#cart-wrapper').toggleClass('close');
+	
+		});
+	
+	    $('.add-to-cart').click(function () {
+	    	var memId = $('#memId').val();
+			var productId = "${merch.merchId}";
+	        var quantity = parseInt($('#quantityInput').val());
+			var productName = "${merch.merchName}";
+	        var productPrice = parseInt($('#merchPrice').text());
+	
+	        addToCart(memId, productId, productName, productPrice, quantity);
+	    });
+	    
+	    
+	
+	    function addToCart(memId, productId, productName, productPrice, quantity) {
+	    	fetch('cart/insert',{
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json'
+	            },
+	            body: JSON.stringify({
+	            	memId: memId,
+	                merchId: productId,
+	                merchName: productName,
+	                merchPrice: productPrice,
+	                merchQty: quantity
+	            })
+	        })
+	        .then(response => response.json())
+	        .then(data => {
+	            console.log('商品已加入購物車', data);
+	            // Update cart table or handle response data as needed
+	            updateCartTable(data);
+	//            fetchCartItems(); // 调用获取购物车商品函数
+	        })
+	        .catch(error => console.error('添加到購物車時發生錯誤:', error));
+	    }
+	
+	
+	    function updateCartTable(cartItem) {
+	        var cartTableBody = $('#cart-table-body');
+	        cartTableBody.empty();
+	
+	        cartItems.forEach(function (item) {
+	            var row = $('<tr>');
+	            row.append($('<td>').text(item.merchName));
+	            row.append($('<td>').text(item.merchQty));
+	            row.append($('<td>').text(item.merchPrice));
+	            row.append($('<td>').text(item.merchQty * item.merchPrice));
+	            row.append($('<td>').append($('<button>').text('移除').click(function () {
+	                removeFromCart(item.merchId);
+	            })));
+	
+	            cartTableBody.append(row);
+	        });
+	
+	        var subtotal = cartItems.reduce(function (total, item) {
+	            return total + (item.merchQty * item.merchPrice);
+	        }, 0);
+	
+	        $('#subtotal').text(subtotal.toFixed(2));
+	    }
+	
+	    function removeFromCart(productId) {
+	        fetch(`/cart/removeCart?memId=${productId}`, {
+	            method: 'POST'
+	        })
+	        .then(response => response.json())
+	        .then(data => {
+	            console.log('商品已從購物車中移除', data);
+	            updateCartTable(data);
+	        })
+	        .catch(error => console.error('從購物車中移除商品時發生錯誤:', error));
+	    }
+	
+	    $('#checkout').click(function () {
+	        alert('結帳功能尚未實作。');
+	    });
+	
+	    $('#ks').click(function () {
+	    	$('.slider').toggleClass('close');
+	    });
+	});
+	
+	
+	
+	   
+	</script>
+	<jsp:include page="/front_end/index/indexFooter.jsp" flush="true" /> 
 </body>
 </html>
