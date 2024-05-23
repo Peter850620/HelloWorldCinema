@@ -10,9 +10,10 @@
     List<ShowtimeInfo> list = showtimeInfoSvc.getAll(); 
     if(request.getAttribute("showtimeInfoListDataPart")==null) pageContext.setAttribute("showtimeInfoListData",list);
     
-    Date currentDate = new java.sql.Date(System.currentTimeMillis());
+	// 系統日期
+    Date currentDate = new Date(System.currentTimeMillis());
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    String formattedDateString = sdf.format(currentDate);
+    String currentDateForString = sdf.format(currentDate);
 %>
 <!DOCTYPE html>
 <html>
@@ -64,112 +65,121 @@
 					body {
 						margin: 1rem 12rem 2rem 12rem;
 					}
+					
+					input[type="date"] {
+		    			font-weight: bold;
+					}
 				}
 			</style>
 		</head>
-	<body>
-	<%@ include file="../management.jsp" %>
+		<body>
+		<%@ include file="../management.jsp" %>
+		
+		<a href="<%=request.getContextPath()%>/back_end/food/addFood.jsp" class="btn btn-primary">新增場次</a>
+	        
+		<div class="main">
+			<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+				<div align="center"> <h2>查詢場次資料</h2>
+			</nav>
+			
+			<jsp:useBean id="MovieSvc" scope="page" class="com.service.MovieService" />
+			<jsp:useBean id="ScreenSvc" scope="page" class="com.service.ScreenServicePeter" />
+	        
+			<button type="button" class="custom-button" onclick="window.location.href='<%=request.getContextPath()%>/back_end/showtimeInfo/addMovieInfo.jsp'">新增場次</button>
+	        
+			<form method="post" action="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do">
+				<a>播放日期:</a>
+				<input type="date" value=<%=currentDateForString%> name="playdate">
+				<a>影廳:</a>
+				<select size="1" name=screenId>
+				    		<option value="NULL">全部</option>
+				    <c:forEach var="Screen"  items="${ScreenSvc.screenId}">
+				    		<option value="${Screen.getScreenId()}">${Screen.getScreenId()}</option>
+					</c:forEach>    
+				</select>
+				
+				<a>電影名稱:</a>
+				<select size="1" name="movieId">
+				    		<option value="NULL">==全部==</option>
+				    <c:forEach var="Movie"  items="${MovieSvc.findAllmovies()}">
+				    		<option value="${Movie.getMovieId()}">${Movie.getMovieId()}: ${Movie.getMovieName()}</option>
+					</c:forEach>    
+				</select>
 	
-	<div class="main">
-		<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-				 <div align="center"> <h2>查詢場次資料</h2>
-		</nav>
-		
-		<jsp:useBean id="MovieSvc" scope="page" class="com.service.MovieService" />
-		<jsp:useBean id="ScreenSvc" scope="page" class="com.service.ScreenServicePeter" />
-        
-        
-		<form method="post" action="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do">
-			<a>播放日期:</a>
-			<input type="date" value=<%=formattedDateString%> name="playdate">
-			<a>影廳:</a>
-			<select size="1" name=screenId>
-			    		<option value="NULL">全部</option>
-			    <c:forEach var="Screen"  items="${ScreenSvc.screenId}">
-			    		<option value="${Screen.getScreenId()}">${Screen.getScreenId()}</option>
-				</c:forEach>    
-			</select>
+	            <input type="hidden" name="action" value="getDate_For_Display">
+				<input type="submit" value="送出" >
+			</form>
 			
-			<a>電影名稱:</a>
-			<select size="1" name="movieId">
-			    		<option value="NULL">==全部==</option>
-			    <c:forEach var="Movie"  items="${MovieSvc.findAllmovies()}">
-			    		<option value="${Movie.getMovieId()}">${Movie.getMovieId()}: ${Movie.getMovieName()}</option>
-				</c:forEach>    
-			</select>
-
-            <input type="hidden" name="action" value="getDate_For_Display">
-			<input type="submit" value="送出" >
-		</form>
-        
-		<table id="example" class="display" style="width: 100%">
-		
-		
-		  <thead >
-			<tr style="background-color:#CCCCFF">
-				<th>計數</th>
-				<th>電影名稱</th>
-				<th>影廳</th>
-				<th>播放日期</th>
-				<th>開始撥放</th>
-				<th>結束播放</th>
-				<th>場次狀態</th>
-				<th>修改</th>
-				<th>刪除</th>
-			</tr>
-		  </thead>
-		
-		 <tbody>
-			<c:forEach var="ShowtimeInfo" items="${showtimeInfoListData}" varStatus="s">
-				<tr class="showtimeInfoStatusRow">
-		            <td>${s.count}</td>
-					<td>${ShowtimeInfo.movie.getMovieName()}</td>
-					<td>${ShowtimeInfo.playdate}</td>
-					<td>${ShowtimeInfo.screen.getScreenId()}</td>
-					<td>${ShowtimeInfo.showtime}</td>
-					<td>${ShowtimeInfo.endtime}</td>
-					<td>${ShowtimeInfo.showtimeStatus}</td> 
-					<td>
-					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do" style="margin-bottom: 0px;">
-					     <input type="submit" value="修改">
-					     <input type="hidden" name="showtimeId" value="${ShowtimeInfo.showtimeId}">
-					     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-					</td>
-					<td>
-					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do" style="margin-bottom: 0px;">
-					     <input type="submit" value="刪除" disabled>
-					     <input type="hidden" name="showtimeId" value="${ShowtimeInfo.showtimeId}">
-					     <input type="hidden" name="action" value="delete"></FORM>
-					</td>
-				</tr>
-			</c:forEach>
+	        
+	        
+			<table id="example" class="display" style="width: 100%">
 			
-			<!-- 複合查詢 -->
-			<c:forEach var="ShowtimeInfo" items="${showtimeInfoListDataPart}" varStatus="s">
-				<tr class="showtimeInfoStatusRow">
-		            <td>${s.count}</td>
-					<td>${ShowtimeInfo.movie.getMovieName()}</td>
-					<td>${ShowtimeInfo.playdate}</td>
-					<td>${ShowtimeInfo.screen.getScreenId()}</td>
-					<td>${ShowtimeInfo.showtime}</td>
-					<td>${ShowtimeInfo.endtime}</td>
-					<td>${ShowtimeInfo.showtimeStatus}</td> 
-					<td>
-					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do" style="margin-bottom: 0px;">
-					     <input type="submit" value="修改">
-					     <input type="hidden" name="showtimeId" value="${ShowtimeInfo.showtimeId}">
-					     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-					</td>
-					<td>
-					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do" style="margin-bottom: 0px;">
-					     <input type="submit" value="刪除" disabled>
-					     <input type="hidden" name="showtimeId" value="${ShowtimeInfo.showtimeId}">
-					     <input type="hidden" name="action" value="delete"></FORM>
-					</td>
+			
+			  <thead >
+				<tr style="background-color:#CCCCFF">
+					<th>計數</th>
+					<th>電影名稱</th>
+					<th>影廳</th>
+					<th>播放日期</th>
+					<th>開始撥放</th>
+					<th>結束播放</th>
+					<th>場次狀態</th>
+					<th>修改</th>
+					<th>刪除</th>
 				</tr>
-			</c:forEach>
-		  </tbody>
-		</table>
-	</div>
+			  </thead>
+			
+			 <tbody>
+				<c:forEach var="ShowtimeInfo" items="${showtimeInfoListData}" varStatus="s">
+					<tr class="showtimeInfoStatusRow">
+			            <td>${s.count}</td>
+						<td>${ShowtimeInfo.movie.getMovieName()}</td>
+						<td>${ShowtimeInfo.playdate}</td>
+						<td>${ShowtimeInfo.screen.getScreenId()}</td>
+						<td>${ShowtimeInfo.showtime}</td>
+						<td>${ShowtimeInfo.endtime}</td>
+						<td>${ShowtimeInfo.showtimeStatus}</td> 
+						<td>
+						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do" style="margin-bottom: 0px;">
+						     <input type="submit" value="修改">
+						     <input type="hidden" name="showtimeId" value="${ShowtimeInfo.showtimeId}">
+						     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+						</td>
+						<td>
+						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do" style="margin-bottom: 0px;">
+						     <input type="submit" value="刪除" disabled>
+						     <input type="hidden" name="showtimeId" value="${ShowtimeInfo.showtimeId}">
+						     <input type="hidden" name="action" value="delete"></FORM>
+						</td>
+					</tr>
+				</c:forEach>
+				
+				<!-- 複合查詢 -->
+				<c:forEach var="ShowtimeInfo" items="${showtimeInfoListDataPart}" varStatus="s">
+					<tr class="showtimeInfoStatusRow">
+			            <td>${s.count}</td>
+						<td>${ShowtimeInfo.movie.getMovieName()}</td>
+						<td>${ShowtimeInfo.playdate}</td>
+						<td>${ShowtimeInfo.screen.getScreenId()}</td>
+						<td>${ShowtimeInfo.showtime}</td>
+						<td>${ShowtimeInfo.endtime}</td>
+						<td>${ShowtimeInfo.showtimeStatus}</td> 
+						<td>
+						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do" style="margin-bottom: 0px;">
+						     <input type="submit" value="修改">
+						     <input type="hidden" name="showtimeId" value="${ShowtimeInfo.showtimeId}">
+						     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+						</td>
+						<td>
+						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do" style="margin-bottom: 0px;">
+						     <input type="submit" value="刪除" disabled>
+						     <input type="hidden" name="showtimeId" value="${ShowtimeInfo.showtimeId}">
+						     <input type="hidden" name="action" value="delete"></FORM>
+						</td>
+					</tr>
+				</c:forEach>
+			  </tbody>
+			</table>
+		</div>
 	</body>
 </html>
