@@ -65,18 +65,21 @@ public class CartServlet {
     }
 
     @GetMapping("/cartItems")
-    public String getCartItems(@RequestParam Integer memId, Model model) {
+    @ResponseBody
+    public List<Cart> getCartItems(@RequestParam Integer memId) {
+        System.out.println("Fetching cart items for memId: " + memId);
         try {
             List<Cart> cartItems = cartService.getCart(memId);
-            model.addAttribute("cartItems", cartItems);
-            System.out.println(cartItems);
-            return "front_end/merch/singleMerch";
+            System.out.println("Cart items fetched: " + cartItems);
+            return cartItems;
         } catch (Exception e) {
-            // Handle error, you can log the error here
-        	 System.out.println("Error fetching cart items: " + e.getMessage());
-            return "/front_end/merch/singleMerch"; // Return to the same page or handle the error accordingly
+            System.out.println("Error fetching cart items: " + e.getMessage());
+            return Collections.emptyList(); // Returning empty list in case of error
         }
     }
+    
+    
+
 
 
 }

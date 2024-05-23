@@ -8,6 +8,7 @@
 <%@ page import="com.service.*"%>
 
 <%Merch merch = (Merch)request.getAttribute("merch");%>
+<%Cart cart = (Cart)request.getAttribute("cart");%>
 
 
 
@@ -80,7 +81,13 @@
 					<c:forEach var="item" items="${cartItems}">
 				         <tr>
 				           <td>${item.merchName}</td>
-				           <td>${item.merchQty}</td>
+				           <td>
+				            <div class="quantity">
+				                <button class="quantity-minus" data-id="${item.merchId}" type="button">-</button>
+				                <input class="update-item" type="number" min="0" value="${item.merchQty}">
+				                <button class="quantity-plus" data-id="${item.merchId}" type="button">+</button>
+					           </div>
+					        </td>
 				           <td>${item.merchPrice}</td>
 				           <td>${item.merchQty * item.merchPrice}</td>
 				           <td>
@@ -180,24 +187,27 @@
 	    }
 
 
+
+	    
 	    function fetchCartItems() {
-	        fetch('/merch/cart/cartItems?memId=240002'),{
-	        	method: 'Get'
-	        }
-	        .then(response => {
-	            if (!response.ok) {
-	                throw new Error('Network response was not ok');
-	            }
-	            return response.json();
-	        })
-	        .then(data => {
-	            console.log('Cart items:', data);
-	            updateCartTable(data);
-	        })
-	        .catch(error => {
-	            console.error('Error fetching cart items:', error);
-	        });
-	    }
+    fetch('cart/cartItems?memId=240002', {
+        method: 'GET'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Cart items:', data);
+        updateCartTable(data);
+    })
+    .catch(error => {
+        console.error('Error fetching cart items:', error);
+    });
+}
+
 
 
 
@@ -226,7 +236,7 @@
 	    }
 
 	    function removeFromCart(productId) {
-	        fetch(`/merch/cart/removeCart?memId=${productId}`, {
+	        fetch(`cart/removeCart?memId=240002&merchId=${productId}`, {
 	            method: 'POST'
 	        })
 	        .then(response => response.json())

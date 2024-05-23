@@ -13,6 +13,10 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
     pageContext.setAttribute("list",list);
 %>
 
+<%Merch merch = (Merch)request.getAttribute("merch");%>
+<%Cart cart = (Cart)request.getAttribute("cart");%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,10 +67,17 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
                     </tr>
                 </thead>
                 <tbody id="cart-table-body">
+                <p>${cartItems.size()}</p>
 					<c:forEach var="item" items="${cartItems}">
 				         <tr>
 				           <td>${item.merchName}</td>
-				           <td>${item.merchQty}</td>
+				           <td>
+				            <div class="quantity">
+				                <button class="quantity-minus" data-id="${item.merchId}" type="button">-</button>
+				                <input class="update-item" type="number" min="0" value="${item.merchQty}">
+				                <button class="quantity-plus" data-id="${item.merchId}" type="button">+</button>
+					           </div>
+					        </td>
 				           <td>${item.merchPrice}</td>
 				           <td>${item.merchQty * item.merchPrice}</td>
 				           <td>
@@ -74,6 +85,7 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 				           </td>
 				          </tr>
 				     </c:forEach>
+				     
 				</tbody>
             </table>
         </div>
@@ -109,53 +121,90 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 	<!-- 商品資料加到購物車 -->
 	<script>
 	$(document).ready(function () {
-		$('#cart-button').click(function (e) {
-		    e.preventDefault(); // 防止預設行為
-		    $('#cart-wrapper').toggleClass('close');
-	
-		});
-	
+	    $('#cart-button').click(function (e) {
+	        e.preventDefault(); // 防止預設行為
+	        $('#cart-wrapper').toggleClass('close');
+
+	        // 在點擊購物車按鈕時，重新載入購物車內容
+	        fetchCartItems(); // 假設這是一個獲取購物車內容的函數
+
+	    });
+
 	    $('.add-to-cart').click(function () {
-	    	var memId = $('#memId').val();
-			var productId = "${merch.merchId}";
+	        var memId = $('#memId').val();
+	        var productId = "${merch.merchId}";
 	        var quantity = parseInt($('#quantityInput').val());
-			var productName = "${merch.merchName}";
+	        var productName = "${merch.merchName}";
 	        var productPrice = parseInt($('#merchPrice').text());
-	
+
 	        addToCart(memId, productId, productName, productPrice, quantity);
 	    });
-	    
-	    
-	
+
+
+
 	    function addToCart(memId, productId, productName, productPrice, quantity) {
-	    	fetch('cart/insert',{
+	        fetch('cart/insert',{
 	            method: 'POST',
 	            headers: {
 	                'Content-Type': 'application/json'
 	            },
 	            body: JSON.stringify({
-	            	memId: memId,
+	                memId: memId,
 	                merchId: productId,
 	                merchName: productName,
 	                merchPrice: productPrice,
 	                merchQty: quantity
 	            })
 	        })
-	        .then(response => response.json())
-	        .then(data => {
-	            console.log('商品已加入購物車', data);
-	            // Update cart table or handle response data as needed
-	            updateCartTable(data);
-	//            fetchCartItems(); // 调用获取购物车商品函数
+	        .then(response => {
+	            if (!response.ok) {
+	                throw new Error('Network response was not ok');
+	            }
+	            return response.text(); // Assuming the response is a plain text
 	        })
-	        .catch(error => console.error('添加到購物車時發生錯誤:', error));
+	        .then(data => {
+	            console.log('Response from server:', data);
+	            // Handle success or error response here
+	            // 在點擊購物車按鈕時，重新載入購物車內容
+	        	fetchCartItems(); // 假設這是一個獲取購物車內容的函數
+	        })
+	        .catch(error => {
+	            console.error('Error adding to cart:', error);
+	            // Handle error here
+	        });
+
+	        
 	    }
-	
-	
-	    function updateCartTable(cartItem) {
+
+
+
+	    
+	    function fetchCartItems() {
+    fetch('cart/cartItems?memId=240002', {
+        method: 'GET'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Cart items:', data);
+        updateCartTable(data);
+    })
+    .catch(error => {
+        console.error('Error fetching cart items:', error);
+    });
+}
+
+
+
+
+	    function updateCartTable(cartItems) {
 	        var cartTableBody = $('#cart-table-body');
 	        cartTableBody.empty();
-	
+
 	        cartItems.forEach(function (item) {
 	            var row = $('<tr>');
 	            row.append($('<td>').text(item.merchName));
@@ -165,37 +214,38 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 	            row.append($('<td>').append($('<button>').text('移除').click(function () {
 	                removeFromCart(item.merchId);
 	            })));
-	
+
 	            cartTableBody.append(row);
 	        });
-	
+
 	        var subtotal = cartItems.reduce(function (total, item) {
 	            return total + (item.merchQty * item.merchPrice);
 	        }, 0);
-	
+
 	        $('#subtotal').text(subtotal.toFixed(2));
 	    }
-	
+
 	    function removeFromCart(productId) {
-	        fetch(`/cart/removeCart?memId=${productId}`, {
+	        fetch(`cart/removeCart?memId=240002&merchId=${productId}`, {
 	            method: 'POST'
 	        })
 	        .then(response => response.json())
 	        .then(data => {
 	            console.log('商品已從購物車中移除', data);
-	            updateCartTable(data);
+	            fetchCartItems(); // 假設這是一個獲取購物車內容的函數
 	        })
 	        .catch(error => console.error('從購物車中移除商品時發生錯誤:', error));
 	    }
-	
+
 	    $('#checkout').click(function () {
 	        alert('結帳功能尚未實作。');
 	    });
-	
+
 	    $('#ks').click(function () {
-	    	$('.slider').toggleClass('close');
+	        $('.slider').toggleClass('close');
 	    });
 	});
+
 	
 	
 	
