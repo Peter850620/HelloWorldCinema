@@ -36,7 +36,19 @@ public class OrderItem {
 	@Column(name = "entry_status")
 	private String entryStatus;
 	
+	@Column(name = "qrcode",columnDefinition = "MEDIUMBLOB")
+	private byte[] qrcode;
 	
+	
+	
+	
+	
+	public byte[] getQrcode() {
+		return qrcode;
+	}
+	public void setQrcode(byte[] qrcode) {
+		this.qrcode = qrcode;
+	}
 	
 	
 	
