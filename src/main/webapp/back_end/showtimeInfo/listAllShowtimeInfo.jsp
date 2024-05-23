@@ -62,14 +62,15 @@
 		
 			<style type="text/css">
 				.main{
-					body {
-						margin: 1rem 12rem 2rem 12rem;
-					}
-					
-					input[type="date"] {
-		    			font-weight: bold;
-					}
+				  margin-top:100px;
+				  font-size:20px;
+				  background-color: rgb(0 0 0/ 60%);
+	              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	
+>>>>>>> refs/heads/master
 				}
+				
+				
 			</style>
 		</head>
 		<body>

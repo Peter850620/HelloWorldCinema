@@ -90,7 +90,7 @@ window.onload = function() {
 function initApp() {
 	movies.forEach((value, key) => {
 		let newForm = document.createElement('form');
-		newForm.setAttribute('action','/CIA10140-Webapp/MovieController');  //注意無法動態路徑屆時要改
+		newForm.setAttribute('action','/HelloWorldCinema/MovieController');  //注意無法動態路徑屆時要改
 		newForm.setAttribute('method', 'post');
        
 		newForm.innerHTML = `
@@ -120,7 +120,7 @@ function initApp() {
                             <div>
                                 <ul class="btn_time">
                                     <li>
-                                        <input type="submit" name="startTime" value="moredetails">
+                                        <input type="submit" name="startTime" value="查看詳情">
                                     </li>
                                 </ul>
                             </div>

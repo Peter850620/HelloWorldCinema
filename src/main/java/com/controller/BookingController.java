@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -28,7 +29,13 @@ import com.entity.OrderItem;
 import com.entity.Screen;
 import com.entity.ShowtimeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.service.BookingService;
+
 
 @WebServlet("/BookingController")
 public class BookingController extends HttpServlet {
@@ -50,11 +57,17 @@ public class BookingController extends HttpServlet {
 		daoFoodItem=new FoodItemIDAOmpl();
 		bookingService=new BookingService();
 	}
+	
+	private static final String BASE_URL = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeServlet";
+   
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		String url = "";
+		
+		
+
 		RequestDispatcher successView;
 
 		switch (action) {
@@ -232,7 +245,7 @@ public class BookingController extends HttpServlet {
 	    		         item.setSeatNo(seatNo);
 	    		         item.setEntryStatus("未使用");
 	    		         item.setTicket(bookingService.findTicket(ticketId));
-	    		         System.out.println(ticketId);
+	    		        
 	    		         item.setBooking(bookingSuccess);
 	    		         orderItems.add(item);
 	    		         
@@ -242,6 +255,7 @@ public class BookingController extends HttpServlet {
 
 	    	bookingSuccess.setOrderItem(orderItems);
 	    	
+	    
 	    	
 	    	
 	    	//找食物
@@ -269,7 +283,31 @@ public class BookingController extends HttpServlet {
 	    	if (!foodItems.isEmpty()) {
 	    	    bookingSuccess.setFoodItem(foodItems);
 	    	}
-	    	  bookingService.createBooking(bookingSuccess);
+	    	
+	    	
+	    	Integer newbookingNo= bookingService.createBooking(bookingSuccess);
+	    	//=================QR TEST=========================
+	    	try {
+	       
+	    		List<OrderItem> seats=bookingService.findSeatByBookingNo(newbookingNo);
+	    		for(OrderItem orderItem:seats) {
+	    			
+	    		String currentSeat=orderItem.getSeatNo();
+	    		System.out.println("目前座位"+currentSeat);
+	    		  // 生成 QR Code要導到的路徑
+	            String qrText = String.format("%s?bookingNo=%s&showId=%s&seatNo=%s", BASE_URL, newbookingNo, show.getShowtimeId(), currentSeat);
+	            byte[] qrCodeImage = generateQRCodeImage(qrText, 350, 350);
+	          
+	            orderItem.setQrcode(qrCodeImage);
+	            
+	            System.out.println("QR Code generated successfully for" + currentSeat );
+	    		}
+	            
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    
+	    	
 	   
 	    	  
 	    	  url = "/back_end/booking/loading.jsp";
@@ -295,5 +333,15 @@ public class BookingController extends HttpServlet {
 		
 		
 	}
+	
+	
+	 public static byte[] generateQRCodeImage(String text, int width, int height) throws WriterException, IOException {
+	        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+	        BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
+
+	        ByteArrayOutputStream os = new ByteArrayOutputStream();
+	        MatrixToImageWriter.writeToStream(bitMatrix, "JPG", os);
+	        return os.toByteArray();
+	    }
 
 }

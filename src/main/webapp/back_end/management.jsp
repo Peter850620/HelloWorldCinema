@@ -41,7 +41,7 @@
 
             <ul>
                 <li>
-                    <a href="">
+                    <a href="<%=request.getContextPath() %>/back_end/booking/bookingMovie.jsp">
                         <i class="bx bxs-grid-alt"></i>
                         <span class="nav-item">售票管理
 
@@ -52,10 +52,10 @@
                     <span class="tooltip">售票管理</span>
 
                     <div class="side">
-                        <a class="items" href="">
+                        <a class="items" href="<%=request.getContextPath() %>/back_end/booking/bookingSearch.jsp">
                             <span class="itemstooltip">查詢電影訂單</span>
                         </a>
-                        <a class="items" href="">
+                        <a class="items" href="<%=request.getContextPath() %>/back_end/booking/bookingMovie.jsp">
                             <span class="itemstooltip">現場畫位</span>
                         </a>
                         <a class="items" href="">
@@ -94,7 +94,7 @@
 
 
                     <div class="side">
-                        <a class="items" href="http://localhost:8081/HelloWorldCinema/back_end/showtimeInfo/listAllShowtimeInfo.jsp">
+                        <a class="items" href="<%= request.getContextPath() %>/back_end/showtimeInfo/listAllShowtimeInfo.jsp">
                             <span class="itemstooltip">場次管理</span>
                         </a>
                         <a class="items" href="">
@@ -112,7 +112,7 @@
 
 
                     <div class="side">
-                        <a class="items" href="">
+                        <a class="items" href="<%= request.getContextPath() %>/back_end/movie/listAllMovie.jsp">
                             <span class="itemstooltip">電影資訊管理</span>
                         </a>
                         <a class="items" href="<%= request.getContextPath() %>/back/review.do?action=getAll">
@@ -133,8 +133,8 @@
                     <span class="tooltip">商城管理</span>
 
                     <div class="side">
-                        <a class="items" href="http://localhost:8081/HelloWorldCinema/back_end/food/select_page.jsp">
-                            <span class="itemstooltip">餐影管理</span>
+                        <a class="items" href="<%= request.getContextPath() %>/back_end/food/select_page.jsp">
+                            <span class="itemstooltip">餐飲管理</span>
                         </a>
                         <a class="items" href="">
                             <span class="itemstooltip">周邊管理</span>

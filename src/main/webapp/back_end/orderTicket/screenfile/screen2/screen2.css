@@ -204,11 +204,7 @@
   
   }
   
-  ul.pay{
-    list-style: none;
-    padding-left: 40%;
-  
-  }
+ 
   
   
   
@@ -299,8 +295,34 @@
     align-items: center; /* Align items vertically */
 }
 
+.pay .needpick  {
+  display: flex; /* Set display to flex */
+  align-items: center; /* Align items vertically */
+}
+
 .pay .total p {
     margin-top: 10px;
     margin-left: 5px; /* Adjust the margin between li and p */
     margin-bottom: 7px;
 }
+
+#nextButton:hover, #lastButton:hover{
+    background: #62ff8e;
+    color: white;
+}
+
+#nextButton, #lastButton {
+    border-style: none;
+    width: 10em;
+    padding: 1em 1em;
+    background: #7762ff;
+    color: white;
+    transition: background .5s;
+    border-radius: 4px;
+}
+
+ul.pay {
+    list-style: none;
+    padding: 0 6.5EM;
+}
+

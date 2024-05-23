@@ -17,7 +17,8 @@
 </head>
 
 
-
+<jsp:include page="/back_end/orderTicket/index/indexHeader.jsp"
+	flush="true" />
 
 <body>
 	<title>seat booking</title>
@@ -364,91 +365,25 @@
 						data-status="Y" /> <label for="N08">N08</label></li>
 				</ol>
 			</li>
-			<li class="row row--15">
-				<ol class="seats" type="O">
-
-
-
-					<li class="seat"><input type="checkbox" id="O01"
-						data-status="Y" /> <label for="O01">O01</label></li>
-					<li class="seat"><input type="checkbox" id="O02"
-						data-status="Y" /> <label for="O02">O02</label></li>
-					<li class="seat"><input type="checkbox" id="O03"
-						data-status="Y" /> <label for="O03">O03</label></li>
-
-					<li class="seat"><input type="checkbox" id="O04"
-						data-status="Y" /> <label for="O04">O04</label></li>
-
-					<li class="seat"><input type="checkbox" id="O05"
-						data-status="Y" /> <label for="O05">O05</label></li>
-					<li class="seat"><input type="checkbox" id="O06"
-						data-status="Y" /> <label for="O06">O06</label></li>
-
-					<li class="seat"><input type="checkbox" id="O07"
-						data-status="Y" /> <label for="O07">O07</label></li>
-					<li class="seat"><input type="checkbox" id="O08"
-						data-status="Y" /> <label for="O08">O08</label></li>
-				</ol>
-			</li>
-			<li class="row row--16">
-				<ol class="seats" type="P">
-
-
-
-					<li class="seat"><input type="checkbox" id="P01"
-						data-status="Y" /> <label for="P01">P01</label></li>
-					<li class="seat"><input type="checkbox" id="P02"
-						data-status="Y" /> <label for="P02">P02</label></li>
-					<li class="seat"><input type="checkbox" id="P03"
-						data-status="Y" /> <label for="P03">P03</label></li>
-
-					<li class="seat"><input type="checkbox" id="P04"
-						data-status="Y" /> <label for="P04">P04</label></li>
-
-					<li class="seat"><input type="checkbox" id="P05"
-						data-status="Y" /> <label for="P05">P05</label></li>
-					<li class="seat"><input type="checkbox" id="P06"
-						data-status="Y" /> <label for="P06">P06</label></li>
-
-					<li class="seat"><input type="checkbox" id="P07"
-						data-status="Y" /> <label for="P07">P07</label></li>
-					<li class="seat"><input type="checkbox" id="P08"
-						data-status="Y" /> <label for="P08">P08</label></li>
-				</ol>
-			</li>
-
-
 		</ol>
-
-		</li>
 
 		<div class="exit exit--back"></div>
 
 		<div class="sub">
-
 			<ul class="pay">
-
-				<li class="total">已選取:
-					<p id="selectedCount">0<p>張</p></p>
+				<li class="needpick">已選取:<p id="selectedCount">&#20;0&#20;</p><p>張</p>
 				</li>
-				<li class="total">需選取數量:
-					<p id="selectedCount">0<p>張</p></p>
+				<li class="total">需選取:<p id="totalCount"></p><p>張</p>
 				</li>
-				<button id="nextButton">下一步</button>
 			</ul>
-			<div class="arrow1">
-				<a href="#"> <span class="left"></span>
-				</a>
+			<div style="text-align: center;">
+				<button id="lastButton">上一步</button>
+				<button id="nextButton">下一步</button>
 			</div>
-
-			<div class="arrow2">
-				<a href="#"> <span class="right"></span>
-				</a>
-			</div>
-
 		</div>
-	</div>
 
+		
+	</div>
 
 
 
@@ -459,5 +394,6 @@
 	</script>
 
 </body>
-
+<jsp:include page="/back_end/orderTicket/index/indexFooter.jsp"
+	flush="true" />
 </html>

@@ -2,7 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@page import="com.dao.*"%>
+<%@page import="com.entity.*"%>
+<%@page import="com.service.*"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,11 +20,12 @@
 </style>
 </head>
 
-
+<jsp:include page="/back_end/orderTicket/index/indexHeader.jsp"
+	flush="true" />
 
 
 <body>
-
+	<input type="hidden" id="showId" name="showId" value="">
 	<title>seat booking</title>
 	<div class="theatre">
 		<div class="screen-side">
@@ -184,43 +187,22 @@
 						data-status="Y" /> <label for="G08">G08</label></li>
 				</ol>
 			</li>
-			<li class="row row--8">
-				<ol class="seats" type="H">
-					<li class="seat"><input type="checkbox" id="H01"
-						data-status="Y" /> <label for="H01">H01</label></li>
-					<li class="seat"><input type="checkbox" id="H02"
-						data-status="Y" /> <label for="H02">H02</label></li>
-					<li class="seat"><input type="checkbox" id="H03"
-						data-status="Y" /> <label for="H03">H03</label></li>
-					<li class="seat"><input type="checkbox" id="H04"
-						data-status="Y" /> <label for="H04">H04</label></li>
-					<li class="seat"><input type="checkbox" id="H05"
-						data-status="Y" /> <label for="H05">H05</label></li>
-					<li class="seat"><input type="checkbox" id="H06"
-						data-status="Y" /> <label for="H06">H06</label></li>
 
-					<li class="seat"><input type="checkbox" id="H07"
-						data-status="Y" /> <label for="H07">H07</label></li>
-					<li class="seat"><input type="checkbox" id="H08"
-						data-status="Y" /> <label for="H08">H08</label></li>
-				</ol>
-			</li>
-		</ol>
 
 		</ol>
 		<div class="exit exit--back"></div>
 
 		<div class="sub">
 			<ul class="pay">
-				<li class="total">選取:
-					<p id="selectedCount">0</p>
+				<li class="needpick">已選取:<p id="selectedCount">&#20;0&#20;</p><p>張</p>
 				</li>
-				<li class="price">總額:
-					<p id="totalPrice">0</p>
+				<li class="total">需選取:<p id="totalCount"></p><p>張</p>
 				</li>
-				<button id="nextButton">下一步</button>
-				<!-- 其他价格项 -->
 			</ul>
+			<div style="text-align: center;">
+				<button id="lastButton">上一步</button>
+				<button id="nextButton">下一步</button>
+			</div>
 		</div>
 
 
@@ -233,5 +215,6 @@
 	</script>
 
 </body>
-
+<jsp:include page="/back_end/orderTicket/index/indexFooter.jsp"
+	flush="true" />
 </html>
