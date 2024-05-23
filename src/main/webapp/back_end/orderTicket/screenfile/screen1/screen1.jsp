@@ -201,7 +201,7 @@
 			</ul>
 			<div style="text-align: center;">
 				<button id="lastButton">上一步</button>
-				<button id="nextButton">下一步</button>
+				<button type="button" id="nextButton">下一步</button>
 			</div>
 		</div>
 
