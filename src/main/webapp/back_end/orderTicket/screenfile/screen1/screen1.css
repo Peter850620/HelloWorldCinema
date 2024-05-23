@@ -283,7 +283,7 @@ a:hover .left:after, a:hover .top:after, a:hover .right:after {
 }
 
 
-.pay .total {
+.pay .total .needpick {
   display: flex; /* Set display to flex */
   align-items: center; /* Align items vertically */
 }
