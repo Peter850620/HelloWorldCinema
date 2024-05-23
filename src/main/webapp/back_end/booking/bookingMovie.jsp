@@ -4,10 +4,10 @@
 	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.entity.*"%>
 <%@ page import="com.dao.*"%>
-
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.service.*" %>
-
 <%@ page import="java.util.Set" %>
 
 <!DOCTYPE html>
@@ -40,11 +40,14 @@
             </form>
 
            <% 
+           LocalDate today = LocalDate.now();
+           DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+           String todayStr = today.format(dateFormatter);
            List<Movie> movies=(List<Movie>)request.getAttribute("movies");
            BookingService bookingService=new BookingService();
            if(movies==null){
         	  
-        	   movies=bookingService.findMoviesShowingToday("2024-05-29");
+        	   movies=bookingService.findMoviesShowingToday(todayStr);
            }
            
            for(Movie movie:movies){

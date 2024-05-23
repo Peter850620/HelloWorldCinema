@@ -55,12 +55,13 @@ public class ShowtimeInfoDAOImpl implements ShowtimeInfoDAO {
 //	showtime
 	@Override
 	public List<ShowtimeInfo> getShowtimeByPlaydate(Integer movieId, Date playdate) {
-		List<ShowtimeInfo> showtimes = getSession()
-				.createQuery("SELECT DISTINCT playdate FROM ShowtimeInfo WHERE movie.movieId = :movieId AND playdate >= :today",
-						ShowtimeInfo.class)
-				.setParameter("movieId", movieId).setParameter("playdate", playdate).list();
-		return showtimes;
-
+	    // 修改查詢語句，返回整個 ShowtimeInfo 對象，而不是 playdate
+	    List<ShowtimeInfo> showtimes = getSession()
+	            .createQuery("FROM ShowtimeInfo WHERE movie.movieId = :movieId AND playdate >= :playdate", ShowtimeInfo.class)
+	            .setParameter("movieId", movieId)
+	            .setParameter("playdate", playdate)
+	            .list();
+	    return showtimes;
 	}
 	
 	//	博雅實作，後台場次複合查詢(影廳、播放日期、電影)
