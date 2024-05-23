@@ -1,7 +1,6 @@
 package com.service;
 
-
-import static com.util.Constants.*;
+import static com.util.Constants.PAGE_MAX_RESULT;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -31,6 +30,7 @@ import com.entity.Booking;
 import com.entity.Food;
 import com.entity.FoodItem;
 import com.entity.Movie;
+import com.entity.OrderItem;
 import com.entity.Screen;
 import com.entity.ShowtimeInfo;
 import com.entity.Ticket;
@@ -333,9 +333,10 @@ public class BookingService {
 	}
 	
 	//新增一筆訂單
-	public void createBooking(Booking booking) {
+	public Integer createBooking(Booking booking) {
 		bookingdao.insert(booking);
-	}
+		return booking.getBookingNo();
+		}
 	
 	
 	public List<FoodItem> getFoodbyBookingNo(Integer bookingNo){
@@ -396,16 +397,25 @@ public class BookingService {
 		
 	}
 	
-	
-	
-
 	public String qrUpdateSeats(String seatNo,Integer bookingNo) {
 		
 		
 		return orderdao.qrUpdateSeats(seatNo, bookingNo);
 	}
+	
+	
+	public List<OrderItem> findSeatByBookingNo(Integer bookingNo){
+		
+		return orderdao.findSeatByBookingNo(bookingNo);
+	}
 
 	
+	
+	public OrderItem qrfinddetails(Integer bookingNo,String seatNo) {
+		
+		return orderdao.qrfinddetails(seatNo, bookingNo);
+		
+	}
 
 
 }
