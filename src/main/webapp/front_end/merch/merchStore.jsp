@@ -72,12 +72,8 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 				         <tr>
 				           <td>${item.merchName}</td>
 				           <td>
-				            <div class="quantity">
-				                <button class="quantity-minus" data-id="${item.merchId}" type="button">-</button>
-				                <input class="update-item" type="number" min="0" value="${item.merchQty}">
-				                <button class="quantity-plus" data-id="${item.merchId}" type="button">+</button>
-					           </div>
-					        </td>
+						      <input class="update-qty" type="number" min="0" value="${item.merchQty}" data-id="${item.merchId}">
+						    </td>
 				           <td>${item.merchPrice}</td>
 				           <td>${item.merchQty * item.merchPrice}</td>
 				           <td>

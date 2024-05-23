@@ -140,6 +140,7 @@
 
 	    });
 
+// 	    加入商品至購物車
 	    $('.add-to-cart').click(function () {
 	        var memId = $('#memId').val();
 	        var productId = "${merch.merchId}";
@@ -188,29 +189,62 @@
 
 
 
-	    
-	    function fetchCartItems() {
-    fetch('cart/cartItems?memId=240002', {
-        method: 'GET'
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Cart items:', data);
-        updateCartTable(data);
-    })
-    .catch(error => {
-        console.error('Error fetching cart items:', error);
-    });
+// 		從購物車移除商品
+// 從購物車移除商品
+function removeFromCart(productId) {
+    // 將 productId 轉換為整數
+    var merchId = parseInt(productId);
+
+    // 確保 merchId 是有效的整數值
+    if (!Number.isNaN(merchId)) {
+        fetch(`cart/removeCart?memId=240002&merchId=${merchId}`, {
+            method: 'POST'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('商品已從購物車中移除', data);
+            console.log('Removing product with ID:', merchId);
+            fetchCartItems(); // 假設這是一個獲取購物車內容的函數
+        })
+        .catch(error => console.error('從購物車中移除商品時發生錯誤:', error.message));
+    } else {
+        console.error('Invalid merchId:', productId);
+    }
 }
 
 
 
+	    
+	    
 
+// 	    查看購物車
+	    function fetchCartItems() {
+		    fetch('cart/cartItems?memId=240002', {
+		        method: 'GET'
+		    })
+		    .then(response => {
+		        if (!response.ok) {
+		            throw new Error('Network response was not ok');
+		        }
+		        return response.json();
+		    })
+		    .then(data => {
+		        console.log('Cart items:', data);
+		        updateCartTable(data);
+		    })
+		    .catch(error => {
+		        console.error('Error fetching cart items:', error);
+		    });
+		}
+
+
+
+// 		更新購物車
 	    function updateCartTable(cartItems) {
 	        var cartTableBody = $('#cart-table-body');
 	        cartTableBody.empty();
@@ -234,18 +268,14 @@
 
 	        $('#subtotal').text(subtotal.toFixed(2));
 	    }
-
-	    function removeFromCart(productId) {
-	        fetch(`cart/removeCart?memId=240002&merchId=${productId}`, {
-	            method: 'POST'
-	        })
-	        .then(response => response.json())
-	        .then(data => {
-	            console.log('商品已從購物車中移除', data);
-	            fetchCartItems(); // 假設這是一個獲取購物車內容的函數
-	        })
-	        .catch(error => console.error('從購物車中移除商品時發生錯誤:', error));
-	    }
+	    
+	    
+	    $('.remove-item').click(function() {
+	        var merchId = $(this).data('id');
+	        removeFromCart(merchId);
+	    });
+	    
+	    
 
 	    $('#checkout').click(function () {
 	        alert('結帳功能尚未實作。');
