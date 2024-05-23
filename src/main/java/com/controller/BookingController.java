@@ -58,7 +58,7 @@ public class BookingController extends HttpServlet {
 		bookingService=new BookingService();
 	}
 	
-	private static final String BASE_URL = "http://10.1.16.53:8081/CIA10140-Webapp/QRCodeServlet";
+	private static final String BASE_URL = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeServlet";
    
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
