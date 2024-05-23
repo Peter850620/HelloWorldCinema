@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 // 執行頁面導航函數
 function redirectToHomepage() {
     setTimeout(function() {
-        window.location.href = "back_end/management.jsp";
+        window.location.href = "/HelloWorldCinema/back_end/management.jsp";    //路徑要改
     }, 1000); // 2000 毫秒為兩秒
 }
 

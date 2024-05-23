@@ -16,7 +16,7 @@
 
 <style type="text/css">
 .main {
-	margin-left: 220px;
+	margin-left: 490px !Important;
 	margin-top: 100px;
 
 
