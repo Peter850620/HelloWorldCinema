@@ -82,12 +82,10 @@
 				         <tr>
 				           <td>${item.merchName}</td>
 				           <td>
-				            <div class="quantity">
-				                <button class="quantity-minus" data-id="${item.merchId}" type="button">-</button>
-				                <input class="update-item" type="number" min="0" value="${item.merchQty}">
-				                <button class="quantity-plus" data-id="${item.merchId}" type="button">+</button>
-					           </div>
-					        </td>
+				            <button class="decrement-qty" data-id="${item.merchId}">-</button>
+				            <input class="update-qty" type="number" min="0" value="${item.merchQty}" data-id="${item.merchId}">
+				            <button class="increment-qty" data-id="${item.merchId}">+</button>
+				        </td>
 				           <td>${item.merchPrice}</td>
 				           <td>${item.merchQty * item.merchPrice}</td>
 				           <td>
@@ -190,35 +188,20 @@
 
 
 // 		從購物車移除商品
-// 從購物車移除商品
-function removeFromCart(productId) {
-    // 將 productId 轉換為整數
-    var merchId = parseInt(productId);
-
-    // 確保 merchId 是有效的整數值
-    if (!Number.isNaN(merchId)) {
-        fetch(`cart/removeCart?memId=240002&merchId=${merchId}`, {
-            method: 'POST'
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('商品已從購物車中移除', data);
-            console.log('Removing product with ID:', merchId);
-            fetchCartItems(); // 假設這是一個獲取購物車內容的函數
-        })
-        .catch(error => console.error('從購物車中移除商品時發生錯誤:', error.message));
-    } else {
-        console.error('Invalid merchId:', productId);
-    }
-}
-
-
-
+	    function removeFromCart(productId) {
+			
+	    	var merchId = parseInt(productId);
+	        fetch(`cart/removeCart?memId=240002&merchId=${merchId}`, {
+	            method: 'POST'
+	        })
+	        .then(response => response.json())
+	        .then(data => {
+	            console.log('商品已從購物車中移除', data);
+	            console.log('Removing product with ID:', productId);
+	            fetchCartItems(); // 假設這是一個獲取購物車內容的函數
+	        })
+	        .catch(error => console.error('從購物車中移除商品時發生錯誤:', error));
+	    }
 	    
 	    
 

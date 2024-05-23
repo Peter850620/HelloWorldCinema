@@ -126,6 +126,7 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 
 	    });
 
+// 	    加入商品至購物車
 	    $('.add-to-cart').click(function () {
 	        var memId = $('#memId').val();
 	        var productId = "${merch.merchId}";
@@ -174,29 +175,29 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 
 
 
-	    
+// 	    查看&顯示購物車
 	    function fetchCartItems() {
-    fetch('cart/cartItems?memId=240002', {
-        method: 'GET'
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Cart items:', data);
-        updateCartTable(data);
-    })
-    .catch(error => {
-        console.error('Error fetching cart items:', error);
-    });
-}
+			    fetch('cart/cartItems?memId=240002', {
+			        method: 'GET'
+			    })
+			    .then(response => {
+			        if (!response.ok) {
+			            throw new Error('Network response was not ok');
+			        }
+			        return response.json();
+			    })
+			    .then(data => {
+			        console.log('Cart items:', data);
+			        updateCartTable(data);
+			    })
+			    .catch(error => {
+			        console.error('Error fetching cart items:', error);
+			    });
+			}
 
 
 
-
+// 		更新購物車
 	    function updateCartTable(cartItems) {
 	        var cartTableBody = $('#cart-table-body');
 	        cartTableBody.empty();
@@ -221,6 +222,8 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 	        $('#subtotal').text(subtotal.toFixed(2));
 	    }
 
+
+// 		從購物車移除商品
 	    function removeFromCart(productId) {
 	        fetch(`cart/removeCart?memId=240002&merchId=${productId}`, {
 	            method: 'POST'
