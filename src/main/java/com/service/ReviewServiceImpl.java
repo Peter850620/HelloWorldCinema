@@ -7,15 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.hibernate.Session;
-
 import com.entity.Mem;
 import com.entity.Movie;
 import com.entity.Review;
 import com.dao.ReviewDAO;
 import com.dao.ReviewDAOImpl;
-
-import com.util.HibernateUtil;
 
 public class ReviewServiceImpl implements ReviewService {
 

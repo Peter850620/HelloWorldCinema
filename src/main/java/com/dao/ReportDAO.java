@@ -17,7 +17,9 @@ public interface ReportDAO {
 	
 	List<Report> getAll();
 	
-	List<Report> getByCompositeQuery(Map<String, String> map);
+	List<Report> getByCompositeQuery(Map<String, String> map, int currentPage);
+	
+	int getMapTotal(Map<String, String>map);
 	
 	List<Report> getAll(int currentPage);
 	

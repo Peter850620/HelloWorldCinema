@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.entity.Mem;
 import com.entity.Report;
 import com.entity.Review;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.service.ReportService;
 import com.service.ReportServiceImpl;
 
@@ -84,10 +85,14 @@ public class ReportFrontServlet extends HttpServlet {
 			}
 
 			if (!errorMsgs.isEmpty()) {
-				errorMsgs.put("Exception", "新增資料失敗:---------------");
-				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/review/listReviewByMovie.jsp");
-				failureView.forward(req, res);
-				return; // 程式中斷
+				res.setContentType("application/json");
+                res.setCharacterEncoding("UTF-8");
+                Map<String, Object> response = new LinkedHashMap<>();
+                response.put("success", false);
+                response.put("errorMessage", "檢舉失敗: " + String.join(", ", errorMsgs.values()));
+                ObjectMapper mapper = new ObjectMapper();
+                res.getWriter().write(mapper.writeValueAsString(response));
+                return; // 程式中斷
 			}
 
 			Report report = new Report();
@@ -107,11 +112,13 @@ public class ReportFrontServlet extends HttpServlet {
 			report.setRptStatus("未審核");
 			
 			reportService.addReport(report);
-			req.setAttribute("report", report);
-			req.setAttribute("success", "- (新增成功)");
-			String url = "/front_end/review/listReviewByMovie.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
+			res.setContentType("application/json");
+            res.setCharacterEncoding("UTF-8");
+            Map<String, Object> response = new LinkedHashMap<>();
+            response.put("success", true);
+            response.put("message", "檢舉成功");
+            ObjectMapper mapper = new ObjectMapper();
+            res.getWriter().write(mapper.writeValueAsString(response));
 		}
 	}
 

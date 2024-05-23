@@ -8,9 +8,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -25,7 +22,6 @@ import org.hibernate.Transaction;
 import com.entity.Mem;
 import com.entity.Message;
 import com.entity.Report;
-import com.service.MessageServiceImpl;
 import com.util.HibernateUtil;
 
 public class MessageDAOImpl implements MessageDAO {
@@ -45,16 +41,7 @@ public class MessageDAOImpl implements MessageDAO {
 
 	private static final int INITIAL_DELAY = 0;// 延遲時間設定為0秒
 	private static final int PERIOD = 1; // 週期設定為1分鐘
-//	private static LocalDateTime lastCheckedTime = LocalDateTime.now().minusMinutes(1);// 設定最近檢查時間
 	private static Timestamp lastCheckedTime = Timestamp.valueOf(LocalDateTime.now().minusMinutes(1));
-	// 啟動排程器，建立實例msgDAO，執行scheduleMessage方法
-
-//	public static void main(String[] args) {
-//		System.out.println("通知啟動vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
-//		MessageDAOImpl msgDAO = new MessageDAOImpl();
-//		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-//		scheduler.scheduleAtFixedRate(msgDAO::scheduleMessage, INITIAL_DELAY, PERIOD, TimeUnit.MINUTES);
-//	}
 
 	@Override
 	public void insert(Message message) {
@@ -85,17 +72,21 @@ public class MessageDAOImpl implements MessageDAO {
 	@Override
 	public List<Message> getByMem(Mem mem, int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("from Message where mem = :mem", Message.class).setParameter("mem", mem)
-				.setFirstResult(first).setMaxResults(PAGE_MAX_RESULT).list();
+		return getSession().createQuery("FROM Message WHERE mem = :mem ORDER BY msgTime DESC", Message.class)
+				.setParameter("mem", mem)
+				.setFirstResult(first)
+				.setMaxResults(PAGE_MAX_RESULT)
+				.list();
 	}
 
 	@Override
 	public List<Message> getAll() {
-		return getSession().createQuery("from Message", Message.class).list();
+		return getSession().createQuery("FROM Message ORDER BY msgTime DESC", Message.class).list();
 	}
 
 	@Override
-	public List<Message> getByCompositeQuery(Map<String, String> map) {
+	public List<Message> getByCompositeQuery(Map<String, String> map, int currentPage) {
+		int first = (currentPage - 1) * PAGE_MAX_RESULT;
 		if (map.size() == 0)
 			return getAll();
 
@@ -144,19 +135,74 @@ public class MessageDAOImpl implements MessageDAO {
 		criteria.orderBy(builder.asc(root.get("msgId")));
 		TypedQuery<Message> query = getSession().createQuery(criteria);
 
-		return query.getResultList();
+		return query.setFirstResult(first).setMaxResults(PAGE_MAX_RESULT).getResultList();
+	}
+	
+	@Override
+	public int getMapTotal(Map<String, String> map) {
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+		CriteriaQuery<Message> criteria = builder.createQuery(Message.class);
+		Root<Message> root = criteria.from(Message.class);
+
+		List<Predicate> predicates = new ArrayList<>();
+
+		if (map.containsKey("startMsgTime") && map.containsKey("endMsgTime"))
+			predicates.add(builder.between(root.get("msgTime"), Timestamp.valueOf(map.get("startMsgTime")),
+					Timestamp.valueOf(map.get("endMsgTime"))));
+
+		for (Map.Entry<String, String> row : map.entrySet()) {
+			if ("msgId".equals(row.getKey())) {
+				predicates.add(builder.equal(root.get("msgId"), new BigDecimal(row.getValue())));
+			}
+
+			if ("mem".equals(row.getKey())) {
+				predicates.add(builder.equal(root.get("mem"), new BigDecimal(row.getValue())));
+			}
+
+			if ("msgTitle".equals(row.getKey())) {
+				predicates.add(builder.like(root.get("msgTitle"), "%" + row.getValue() + "%"));
+			}
+
+			if ("startMsgTime".equals(row.getKey())) {
+				if (!map.containsKey("endMsgTime"))
+					predicates
+							.add(builder.greaterThanOrEqualTo(root.get("msgTime"), Timestamp.valueOf(row.getValue())));
+			}
+
+			if ("endMsgTime".equals(row.getKey())) {
+				if (!map.containsKey("startMsgTime"))
+					predicates.add(builder.lessThanOrEqualTo(root.get("msgTime"), Timestamp.valueOf(row.getValue())));
+
+			}
+
+			if ("msgStatus".equals(row.getKey())) {
+				predicates.add(builder.equal(root.get("msgStatus"), row.getValue()));
+			}
+
+		}
+
+		criteria.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+		criteria.orderBy(builder.asc(root.get("msgId")));
+		TypedQuery<Message> query = getSession().createQuery(criteria);
+
+		List<Message> resultlist = query.getResultList();
+		int total = resultlist.size();
+		int pageQty = (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
 	}
 
 	@Override
 	public List<Message> getAll(int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("from Message", Message.class).setFirstResult(first)
-				.setMaxResults(PAGE_MAX_RESULT).list();
+		return getSession().createQuery("FROM Message ORDER BY msgTime DESC", Message.class)
+				.setFirstResult(first)
+				.setMaxResults(PAGE_MAX_RESULT)
+				.list();
 	}
 
 	@Override
 	public long getTotal() {
-		return getSession().createQuery("select count(*) from Message", Long.class).uniqueResult();
+		return getSession().createQuery("SELECT count(*) FROM Message", Long.class).uniqueResult();
 	}
 
 	// 通知發送排程器
@@ -168,8 +214,7 @@ public class MessageDAOImpl implements MessageDAO {
 
 				// 檢查檢舉
 				List<Report> reports = session.createQuery("FROM Report WHERE rptDate > :lastCheckedTime", Report.class)
-						.setParameter("lastCheckedTime", lastCheckedTime)
-						.list();
+						.setParameter("lastCheckedTime", lastCheckedTime).list();
 				for (Report report : reports) {
 					Message message = new Message();
 					if (report.getRptStatus().equals("未審核")) {

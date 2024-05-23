@@ -2,17 +2,14 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<style>
-
 		 .xxx {
 			margin: 20px auto;
-			padding: 20px;
 			width: 110%;
 			border-radius: 25px;
 			justify-content: center;
-			padding: 100px;
+			padding: 50px 100px;
 			background-color: rgb(0 0 0/ 60%);
 			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 			left: 150px;
@@ -21,39 +18,34 @@
 			font-size: 25px;
 			color:white;
 		}
-		
-		
-		
+
 		button {
-		  background-color: grey;
 		  border-radius: 25px;
-		  background-color: rgba(162, 161, 167, 0.5);
+		  background-color: red;
 		  font-size: 20px;
 		  width: 90px;
-		
 		  transition-duration: 0.5s;
 		  color: white;
 		}
 		
 		button:hover {
-		  background-color: rgba(87, 87, 89, 0.8);
+		  background-color: darkred;
 		}
 		
-		
-		input[type="submit"] {
-		  background-color: grey;
-		  border-radius: 15px;
-		  background-color: rgba(162, 161, 167, 0.5);
-		  font-size: 30px;
-		  width: 150px;
-		  
-		  cursor:pointer;
-		  transition-duration: 0.5s;
-		  color: white;
+		.form_head{
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
 		}
 		
-		input[type="submit"]:hover {
-			background-color: rgba(87, 87, 89, 0.8);
+		.form_head a{
+			color: white;
+			text-align: left;
+			margin-right: 150px;
+			background-color: rgb(135, 189, 250);
+        	border: solid white;
 		}
 		
 		.title{
@@ -74,7 +66,7 @@
 		.title textarea{
 			width: 500px; 
 			height: 200px; 
-			resize: vertical;
+			resize: none;
 			font-size: 16px;
 		}
 		
@@ -85,48 +77,40 @@
 		}
 		
 		.title select{
-			width: 80px;
-			height: 35px;
+			width: 60px;
+			height: 25px;
 			font-size: 16px;
-		}
-		
-		a{
-			color: white;
 		}
 
 	</style>
 </head>
-
-
-
 <body>
 <%@ include file="../management.jsp" %>
-
 	<div class="xxx" id="xxx">
 		<div class="mainIndex" id="mainIndex">
 			<form action="<%= request.getContextPath() %>/back/homeAnn.do" method="post" id="myForm">
-				<a href="<%= request.getContextPath() %>/back_end/management.jsp">回主頁</a>
-				<h3><b>所有欄位皆為必填欄位</b></h3>
+				<div class="form_head">
+					<a href="<%= request.getContextPath() %>/back/homeAnn.do?action=getAll">回主頁</a>
+					<h3><b>公告詳細資料</b></h3>
+				</div>
 				<div class="title">
 					<label for="annId">公告編號:</label>
 					<input id ="annId" name="annId" type="text" value="${param.annId}" readonly />
 				</div>
-
 				<div class="title">
 					<label for="annTime">公告日期:</label>
 					<input id ="annTime" class="timeItem" name="annTime" type="text" value="${param.annTime}" readonly />
 				</div>
-				
 				<div class="title">
 					<label for="annTitle">公告標題:</label>
 					<input id ="annTitle" name="annTitle" type="text" value="${param.annTitle}"/>
+					<span  id ="annTitle.errors" class="error">${errorMsgs.annTitle}</span>
 				</div>
-				
 				<div class="title">
 					<label for="annDetail">公告內容:</label>
 					<textarea id ="annDetail" name="annDetail">${param.annDetail}</textarea>
+					<span  id ="annDetail.errors" class="error">${errorMsgs.annDetail}</span>
 				</div>
-
 				<div class="title">
 					<input  type="hidden" name="action" value="update">
 					<button type="submit" id="submit"> 送出修改 </button>
@@ -134,15 +118,20 @@
 			</form>
 		</div>
 	</div>
-    
-
-<script src="<%= request.getContextPath() %>/back_end/management.js"></script>
-<script src="<%= request.getContextPath() %>/js/timestampFormat.js"></script>
- 
-	
-
 <script>
-
+	function hideContent(d) {
+	    document.getElementById(d).style.display = "none";
+	}
+	document.addEventListener("DOMContentLoaded", function() {
+	    var annTimeInput = document.getElementById("annTime");
+	    var annTimeValue = annTimeInput.value;
+	    
+	    if (annTimeValue) {
+	        var date = new Date(annTimeValue);
+	        var formattedDate = date.toISOString().slice(0, 19).replace('T', ' ');
+	        annTimeInput.value = formattedDate;
+	    }
+	});	
 	
 	
 </script>

@@ -7,14 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.hibernate.Session;
-
 import com.entity.Report;
-import com.entity.Review;
 import com.dao.ReportDAO;
 import com.dao.ReportDAOImpl;
-
-import com.util.HibernateUtil;
 
 public class ReportServiceImpl implements ReportService {
 
@@ -59,7 +54,7 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public List<Report> getByCompositeQuery(Map<String, String[]> map) {
+	public List<Report> getByCompositeQuery(Map<String, String[]> map, int currentPage) {
 		Map<String, String> query = new HashMap<>();
 		// Map.Entry即代表一組key-value
 		Set<Map.Entry<String, String[]>> entry = map.entrySet();
@@ -78,8 +73,32 @@ public class ReportServiceImpl implements ReportService {
 			query.put(key, value);
 		}
 			System.out.println(query);
-			List<Report> list = dao.getByCompositeQuery(query);
+			List<Report> list = dao.getByCompositeQuery(query, currentPage);
 			return list;
+	}
+	
+	@Override
+	public int getCompositeQueryTotal(Map<String, String[]> map) {
+		Map<String, String> query = new HashMap<>();
+		// Map.Entry即代表一組key-value
+		Set<Map.Entry<String, String[]>> entry = map.entrySet();
+
+		for (Map.Entry<String, String[]> row : entry) {
+			String key = row.getKey();
+			// 因為請求參數裡包含了action，做個去除動作
+			if ("action".equals(key)) {
+				continue;
+			}
+			// 若是value為空即代表沒有查詢條件，做個去除動作
+			String value = row.getValue()[0];
+			if (value.isEmpty() || value == null) {
+				continue;
+			}
+			query.put(key, value);
+		}
+			System.out.println(query);
+			int queryTotal = dao.getMapTotal(query);
+			return queryTotal;
 	}
 
 	@Override

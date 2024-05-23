@@ -6,11 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>評論資料 - listOneReview.jsp</title>
+<title>檢舉資料</title>
 
 
 <style type="text/css">
-	
 	.xxx{
 		margin: 20px auto;
 		padding: 20px;
@@ -27,12 +26,18 @@
 		color:white;
 	}
 	
-    .nav_head{
-		margin-left: 50px;
+    .nav_head {
+		margin: 0px 0px 20px 50px;
 	}
 	
-	a{
-		color:white;
+	.form_footer {
+		margin: 20px 0px 0px 50px;
+	}
+	
+	.form_footer a{
+		background-color: rgb(135, 189, 250);
+       	border: solid white;
+       	color: white;
 	}
 	
 	.container{
@@ -65,23 +70,38 @@
 <%@ include file="../management.jsp" %>
 <div class="xxx" id="xxx">
 	<nav class="nav_head">
-		 <div align="center"> <h2>單一檢舉資料</h2>
-		 <h3><a href="<%= request.getContextPath() %>/back/report.do?action=getAll">回查詢頁${success}</a></h3></div>
+		<h2>單一檢舉資料</h2>
 	</nav>
-	
 	<div class="container">
 		<span>檢舉編號:</span><span>${param.rptId}</span><br/>
 		<span>會員編號:</span><span>${param.mem}</span><br/>
 		<span>評論編號:</span><span>${param.review}</span><br/>
-		<span>檢舉日期:</span><span class="timeItem">${param.rptDate}</span><br/>
+		<span>檢舉日期:</span><span id="timeItem" data-time="${param.rptDate}">${param.rptDate}</span><br/>
 		<span>檢舉類型:</span><span>${param.rptType}</span><br/>
 		<span>檢舉內容:</span><br/>
 		<textarea readonly>${param.rptDetail}</textarea><br/>
 		<span>狀態:</span><span>${param.rptStatus}</span><br/>
 	</div>
+	<div class="form_footer">
+		<h3><a href="<%= request.getContextPath() %>/back/report.do?action=getAll">回查詢頁${success}</a></h3>
+	</div>
 </div>
-
-
-<script src="<%= request.getContextPath() %>/js/timestampFormat.js"></script>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+	    var rptDateElement = document.getElementById("timeItem");
+	    var rptDateValue = rptDateElement.getAttribute("data-time");
+	
+	    if (rptDateValue) {
+	        var date = new Date(rptDateValue);
+	        var formattedDate = date.getFullYear() + '-' + 
+	                            String(date.getMonth() + 1).padStart(2, '0') + '-' + 
+	                            String(date.getDate()).padStart(2, '0') + ' ' + 
+	                            String(date.getHours()).padStart(2, '0') + ':' + 
+	                            String(date.getMinutes()).padStart(2, '0') + ':' + 
+	                            String(date.getSeconds()).padStart(2, '0');
+          	rptDateElement.textContent = formattedDate;	
+	    }
+	});
+</script>
 </body>
 </html>

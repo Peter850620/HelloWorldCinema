@@ -27,13 +27,11 @@ public class ReviewFrontServlet extends HttpServlet {
 	// 一個 servlet 實體對應一個 service 實體
 		private ReviewService reviewService;
 		private MovieService movieService;
-//		private MovieService_13 movieService_13;
 		
 		@Override
 		public void init() throws ServletException {
 			reviewService = new ReviewServiceImpl();
 			movieService = new MovieService();
-//			movieService_13 = new MovieService_13();
 		}
 		
 		public void doGet(HttpServletRequest req, HttpServletResponse res)

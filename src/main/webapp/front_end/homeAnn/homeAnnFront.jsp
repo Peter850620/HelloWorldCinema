@@ -4,27 +4,110 @@
 <html lang="en">
 <head>
 	<style>
-		.xxx{
-			background-color: white;
-		}
-		h1{
-			margin-left: 100px;
-		}
-		.compositequery{
-			margin-left: 100px;
-		}
-		.container{
-			margin: 0px, 100px, 0px, 100px;
-		}
-		
-		.content_article{
-			font-size: 24px;
-		}
-		
-		.page{
-			color: white;
-		}
-		
+		body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .xxx {
+            background-color: white;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            margin-left: 100px;
+            color: #333;
+        }
+
+        .compositequery {
+            margin: 20px 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .compositequery input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 60%;
+            margin-right: 10px;
+        }
+
+        .compositequery input[type="submit"],
+        .compositequery .clear {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .compositequery .clear {
+            background-color: #6c757d;
+        }
+
+        .compositequery a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        
+        .formSearch {
+        	width: 70%;
+        }
+
+        .container {
+            margin: 20px 100px;
+        }
+
+        .container-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .content_article {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .content_article time {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .content_article a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .content_article hr {
+            border: 0;
+            border-top: 1px solid #eee;
+            margin: 20px 0;
+        }
+
+        .page {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .page a {
+            text-decoration: none;
+            color: #007bff;
+            margin: 0 5px;
+        }
 	</style>
 </head>
 <body>
@@ -34,7 +117,7 @@
  	<div class="xxx" id="xxx">
  		<h1>影城公告</h1>
  		<div class="compositequery">
-			<form method="post" action="<%= request.getContextPath() %>/front/review.do" class="formSearch">
+			<form method="post" action="<%= request.getContextPath() %>/front/homeAnn.do" class="formSearch">
 				<input type="text" name="annTitle" id="annTitleInput" placeholder="公告標題" value="${annTitle}">
 				<input type="hidden" name="action" value="compositeQuery">
 				<input type="submit" value="查詢">
@@ -43,11 +126,11 @@
 			<a href="<%= request.getContextPath() %>/front/homeAnn.do?action=getAll">所有公告</a>
 		</div>
 		<div class="container">
-			<ul class="container-list">
+			<ul class="container-list" id="container-list">
 	 			<c:forEach var="homeAnn" items="${homeAnnList}">
 	 				<li>
  						<article class="content_article">
-	 						<time>${homeAnn.annTime}</time>
+	 						<time class="timeItem">${homeAnn.annTime}</time>
 							<a href="<%= request.getContextPath() %>/front/homeAnn.do?action=getHomeAnn&annId=${homeAnn.annId}">${homeAnn.annTitle}</a>
 	 						<hr>
  						</article>
@@ -77,6 +160,28 @@
     <!-- 主要js -->
     
     <script src="<%= request.getContextPath() %>/js/index.js"></script>
+    <script>
+    function clearSearch(event) {
+    	event.preventDefault();
+    	
+    	document.getElementById('annTitleInput').value = '';
+    }
     
+    document.addEventListener('DOMContentLoaded', () => {
+        const homeAnnBody = document.getElementById('container-list');
+        const items = Array.from(homeAnnBody.getElementsByTagName('li'));
+
+        items.forEach(item => {
+            const dateCell = item.querySelector('.timeItem');
+            const date = new Date(dateCell.textContent.trim());
+            dateCell.textContent = date.toISOString().slice(0, 19).replace('T', ' '); 
+            item.homeAnnTimeValue = date.getTime();
+        });
+
+        items.sort((a, b) => b.homeAnnTimeValue - a.homeAnnTimeValue); 
+
+        items.forEach(item => homeAnnBody.appendChild(item));
+    });
+    </script>
 </body>
 </html>

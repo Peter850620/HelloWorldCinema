@@ -98,7 +98,7 @@
     	<h1>個人評論</h1>
     	<br>
         <div class="review_head">
-            <a href="<%= request.getContextPath() %>/front-end/review/reviewFront.jsp">回會員中心</a>
+            <a href="<%= request.getContextPath() %>/front_end/review/reviewFront.jsp">回會員中心</a>
             <a href="<%= request.getContextPath() %>/front/review.do?action=getMem&mem=240001">所有評論</a>
         </div>
 		
@@ -113,15 +113,15 @@
 	                    <th>評論內容</th>
 	                </tr>
 	            </thead>
-	            <tbody>
+	            <tbody id="reviewBody">
 	            	<c:forEach var="review" items="${reviewList}">
 						<tr>
 							<td>${review.reviewId}</td>
-							<td>${review.movie.movieId}</td>
-							<td>${review.reviewDate}</td>
+							<td>${review.movie.movieName}</td>
+							<td class="timeItem">${review.reviewDate}</td>
 							<td>${review.reviewStatus}</td>
 							<td>
-							  <form method="post" action="<%= request.getContextPath() %>/front/review.do" class="formPost" style="margin-bottom: 0px;">
+							  <form method="post" action="<%= request.getContextPath() %>/front/review.do" class="formPost">
 							     <input type="submit" value="查看">
 							     <input type="hidden" name="reviewId" value="${review.reviewId}">
 							     <input type="hidden" name="action"	value="getUpdate">
@@ -154,6 +154,22 @@
     
     <!-- 主要js -->
     <script src="<%= request.getContextPath() %>/js/index.js"></script>
-    
+    <script>
+	    document.addEventListener('DOMContentLoaded', () => {
+	        const reviewBody = document.getElementById('reviewBody');
+	        const rows = Array.from(reviewBody.getElementsByTagName('tr'));
+
+	        rows.forEach(row => {
+	            const dateCell = row.querySelector('.timeItem');
+	            const date = new Date(dateCell.textContent.trim());
+	            dateCell.textContent = date.toISOString().slice(0, 19).replace('T', ' '); 
+	            row.reviewDateValue = date.getTime(); 
+	        });
+	
+	        rows.sort((a, b) => b.reviewDateValue - a.reviewDateValue); 
+
+	        rows.forEach(row => reviewBody.appendChild(row));
+	    });
+    </script>
 </body>
 </html>

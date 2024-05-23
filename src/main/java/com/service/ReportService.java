@@ -21,5 +21,7 @@ public interface ReportService {
 	
 	int getPageTotal();
 	
-	List<Report> getByCompositeQuery(Map<String, String[]> map);
+	List<Report> getByCompositeQuery(Map<String, String[]> map, int currentPage);
+	
+	int getCompositeQueryTotal(Map<String, String[]> map);
 }

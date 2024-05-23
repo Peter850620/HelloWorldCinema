@@ -20,7 +20,9 @@ public interface MessageDAO {
 	
 	List<Message> getAll();
 	
-	List<Message> getByCompositeQuery(Map<String, String> map);
+	List<Message> getByCompositeQuery(Map<String, String> map, int currentPage);
+	
+	int getMapTotal(Map<String, String>map);
 	
 	List<Message> getAll(int currentPage);
 	

@@ -17,9 +17,9 @@
             align-items: center;
             padding: 20px;
             background-color: #ffffff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 新增陰影 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
             margin: 20px;
-            border-radius: 10px; /* 新增圓角 */
+            border-radius: 10px; 
         }
 
         .movieImg {
@@ -31,7 +31,7 @@
             width: 250px;
             height: 300px;
             object-fit: cover;
-            border-radius: 10px; /* 新增圓角 */
+            border-radius: 10px;
         }
 
         .textIntro {
@@ -44,7 +44,7 @@
 
         .textIntro h1 {
             font-size: 28px;
-            margin-bottom: 10px; /* 調整間距 */
+            margin-bottom: 10px;
         }
 
         .textIntro span {
@@ -56,8 +56,8 @@
             padding: 20px;
             margin: 20px;
             background-color: #ffffff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 新增陰影 */
-            border-radius: 10px; /* 新增圓角 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px; 
         }
 
         .main a {
@@ -67,7 +67,7 @@
             background-color: #007BFF;
             color: #ffffff;
             text-decoration: none;
-            border-radius: 5px; /* 新增圓角 */
+            border-radius: 5px; 
             transition: background-color 0.3s;
         }
 
@@ -83,8 +83,8 @@
             background-color: #f9f9f9;
             border: 1px solid #ddd;
             padding: 20px;
-            border-radius: 10px; /* 新增圓角 */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 新增陰影 */
+            border-radius: 10px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
         }
 
         .reviewItem {
@@ -111,7 +111,7 @@
             color: white;
             border: none;
             padding: 5px 10px;
-            border-radius: 5px; /* 新增圓角 */
+            border-radius: 5px; 
             cursor: pointer;
             transition: background-color 0.3s;
         }
@@ -129,7 +129,7 @@
             color: white;
             background-color: #007BFF;
             border: none;
-            border-radius: 5px; /* 新增圓角 */
+            border-radius: 5px; 
             cursor: pointer;
             transition: background-color 0.3s;
         }
@@ -155,8 +155,8 @@
             resize: none;
             box-sizing: border-box;
             padding: 10px;
-            margin-bottom: 10px; /* 調整間距 */
-            border-radius: 5px; /* 新增圓角 */
+            margin-bottom: 10px;
+            border-radius: 5px; 
             border: 1px solid #ccc;
         }
 
@@ -173,47 +173,7 @@
         .comment input[type="submit"]:hover {
             background-color: #0056b3;
         }
-/*
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            border-radius: 10px; 
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        a {
-            color: white;
-        }
-*/
 		.modal {
 		    display: none;
 		    position: fixed;
@@ -232,15 +192,15 @@
 		    padding: 20px;
 		    border: 1px solid #888;
 		    width: 30%;
-		    border-radius: 10px; /* 新增圓角 */
-		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 新增陰影 */
-		    display: flex; /* 使用 Flexbox */
-		    flex-direction: column; /* 垂直排列 */
-		    align-items: center; /* 水平居中 */
+		    border-radius: 10px; 
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+		    display: flex; 
+		    flex-direction: column; 
+		    align-items: center;
 		}
 		
 		.close {
-		    align-self: flex-end; /* 指定位置為 Flexbox 的結尾（右上角） */
+		    align-self: flex-end;
 		    color: #aaa;
 		    font-size: 28px;
 		    font-weight: bold;
@@ -254,15 +214,21 @@
 		}
 		
 		.modal-content form {
-		    width: 100%; /* 讓表單填滿彈窗寬度 */
+		    width: 100%;
 		}
 		
 		.modal-content label,
 		.modal-content select,
-		.modal-content textarea,
 		.modal-content input[type="submit"] {
-		    width: 100%; /* 讓表單元素填滿彈窗寬度 */
-		    margin-bottom: 15px; /* 增加元素之間的垂直間距 */
+		    width: 100%;
+		    margin-bottom: 15px;
+		}
+		
+		.modal-content textarea {
+			width: 100%;
+			height: 200px;
+		    margin-bottom: 15px; 
+			resize: none;
 		}
 	</style>
 </head>
@@ -283,14 +249,12 @@
 
 	
 	<div class="main" id="main">
-	<a href="<%= request.getContextPath() %>/front/message.do?action=getMem&mem=240001">進入個人通知</a>
+		<a href="<%= request.getContextPath() %>/front/message.do?action=getMem&mem=240001">進入個人通知</a>
 		<a href="<%= request.getContextPath() %>/front/review.do?action=getMem&mem=240001">進入個人評論</a>
 		<a href="<%= request.getContextPath() %>/front_end/review/reviewFront.jsp">回主頁</a>
-		
-		
+		<a href="<%= request.getContextPath() %>/front/review.do?action=getMovie&movie=${oneMovie.movieId}">所有評論</a>
 		<div class="container">
-		
-        	<div class="reviewlist">
+        	<div class="reviewlist" id="reviewlist">
         		<c:forEach var="review" items="${reviewList}">
        				<div class="reviewItem">
 		               <span class="content_mem">${review.mem.memId}</span>
@@ -298,7 +262,7 @@
 		                   <span class="content_detail">${review.reviewDetails}</span>
 		               </article>
 		               <div class="content_footer">
-		                   <div class="editTime">${review.reviewDate}</div>
+		                   <div class="timeItem">${review.reviewDate}</div>
 		                   <div class="content_report">
 		                   	<button type="button" onclick="showReportModal(${review.reviewId})">檢舉</button>
 		                   </div>
@@ -309,29 +273,19 @@
 		            <form method="post" action="<%= request.getContextPath() %>/front/review.do?movie=${oneMovie.movieId}">
 		                <textarea name="reviewDetails" class="reviewDetails" id="reviewDetails" placeholder="留言..."></textarea>
 		                <span  id ="reviewDetails.errors" class="error">${errorMsgs.reviewDetails}</span>
-		                <!-- 測試用 -->
-		                <!-- 測試用 -->
 		                <input type="hidden" name="action" value="insert">
 		                <input type="submit">
 		            </form>
         		</div>
        		</div>
        	</div>
-           		
        <button id="showBtn">顯示更多</button>
-
-        
-	        
-		
 	</div>
 	
 	<div id="reportModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <form method="post" action="<%= request.getContextPath() %>/front/report.do">
-                <!-- <input type="hidden" name="mem" id="modalMemId"> -->
-                <!-- <input type="hidden" name="review" id="modalReviewId"> -->
-
                 <label for="rptType">檢舉類型:</label>
 				<select id="rptType" name="rptType" required>
 			        <option value="色情或裸露內容">色情或裸露內容</option>
@@ -358,48 +312,67 @@
     <script src="<%= request.getContextPath() %>/js/index.js"></script>
     <script>
     	document.addEventListener("DOMContentLoaded", function() {
-	    var itemlist = document.querySelector('.reviewlist');
-	    var items = document.querySelectorAll('.reviewItem');
-	    var numItemsToShow = 10;
-	    var numItems = items.length;
-	    var currentIndex = 0;
-	
-	    function hideItemsBeyondLimit() {
-	      for (var i = numItemsToShow; i < numItems; i++) {
-	        items[i].style.display = 'none';
-	      }
-	    }
-	
-	    function showMoreItems() {
-	      var nextIndex = currentIndex + numItemsToShow;
-	      for (var i = currentIndex; i < nextIndex && i < numItems; i++) {
-	        items[i].style.display = 'block';
-	      }
-	      currentIndex = nextIndex;
-	      if (currentIndex >= numItems) {
-	        showMoreBtn.style.display = 'none';
-	      }
-	    }
-	
-	    var showMoreBtn = document.getElementById("showBtn");
-	    showMoreBtn.addEventListener('click', function() {
-	      showMoreItems();
-	    });
-	
-	    hideItemsBeyondLimit();
-	    if (numItems > numItemsToShow) {
-	      itemlist.parentNode.appendChild(showMoreBtn);
-	    }
+		    var itemlist = document.querySelector('.reviewlist');
+		    var items = document.querySelectorAll('.reviewItem');
+		    var numItemsToShow = 10;
+		    var numItems = items.length;
+		    var currentIndex = 0;
+		
+		    function hideItemsBeyondLimit() {
+		      for (var i = numItemsToShow; i < numItems; i++) {
+		        items[i].style.display = 'none';
+		      }
+		    }
+		
+		    function showMoreItems() {
+		      var nextIndex = currentIndex + numItemsToShow;
+		      for (var i = currentIndex; i < nextIndex && i < numItems; i++) {
+		        items[i].style.display = 'block';
+		      }
+		      currentIndex = nextIndex;
+		      if (currentIndex >= numItems) {
+		        showMoreBtn.style.display = 'none';
+		      }
+		    }
+		
+		    var showMoreBtn = document.getElementById("showBtn");
+		    showMoreBtn.addEventListener('click', function() {
+		      showMoreItems();
+		    });
+		
+		    hideItemsBeyondLimit();
+		    if (numItems > numItemsToShow) {
+		      itemlist.parentNode.appendChild(showMoreBtn);
+		    }
 	  	});
+
+    	document.addEventListener("DOMContentLoaded", function() {
+    	    document.querySelector("#reportModal form").addEventListener("submit", function(event) {
+		        event.preventDefault(); 
+	
+		        var formData = new FormData(this);
+	
+		        fetch('<%= request.getContextPath() %>/front/report.do?action=insert&reviewId=1', {
+		            method: 'POST',
+		            body: formData
+		        })
+		        .then(response => response.json())
+		        .then(data => {
+		            if (data.success) {
+		                alert('檢舉成功');
+		                document.getElementById("reportModal").style.display = "none";
+		            } else {
+		                alert('檢舉失敗: ' + data.errorMessage);
+		            }
+		        })
+		        .catch(error => console.error('Error:', error));
+		    });
+    	});
 		
 		function showReportModal(reviewId) {
             var modal = document.getElementById("reportModal");
             var span = document.getElementsByClassName("close")[0];
-
-            //document.getElementById("modalMemId").value = memId;
-            //document.getElementById("modalReviewId").value = reviewId;
  			document.getElementById("reviewId").value = reviewId;
- 			
             modal.style.display = "block";
 	
             span.onclick = function() {
@@ -413,6 +386,21 @@
             }
         }
 	
+		document.addEventListener('DOMContentLoaded', () => {
+	        const reviewBody = document.getElementById('reviewlist');
+	        const rows = Array.from(reviewBody.getElementsByClassName('reviewItem'));
+
+	        rows.forEach(row => {
+	            const dateCell = row.querySelector('.timeItem');
+	            const date = new Date(dateCell.textContent.trim());
+	            dateCell.textContent = date.toISOString().slice(0, 19).replace('T', ' ');
+	            row.reviewDateValue = date.getTime();
+	        });
+
+	        rows.sort((a, b) => b.reviewDateValue - a.reviewDateValue);
+
+	        rows.forEach(row => reviewBody.appendChild(row));
+	    });
 	
 	</script>
 </body>
