@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,14 +65,16 @@ public class CartServlet {
     }
 
     @GetMapping("/cartItems")
-    @ResponseBody
-    public List<Cart> getCartItems(@RequestParam Integer memId) {
+    public String getCartItems(@RequestParam Integer memId, Model model) {
         try {
             List<Cart> cartItems = cartService.getCart(memId);
-            return cartItems;
+            model.addAttribute("cartItems", cartItems);
+            System.out.println(cartItems);
+            return "front_end/merch/singleMerch";
         } catch (Exception e) {
             // Handle error, you can log the error here
-            return Collections.emptyList(); // Return an empty list or handle the error accordingly
+        	 System.out.println("Error fetching cart items: " + e.getMessage());
+            return "/front_end/merch/singleMerch"; // Return to the same page or handle the error accordingly
         }
     }
 

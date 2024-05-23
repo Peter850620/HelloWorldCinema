@@ -76,6 +76,7 @@
                     </tr>
                 </thead>
                 <tbody id="cart-table-body">
+                <p>${cartItems.size()}</p>
 					<c:forEach var="item" items="${cartItems}">
 				         <tr>
 				           <td>${item.merchName}</td>
@@ -87,6 +88,7 @@
 				           </td>
 				          </tr>
 				     </c:forEach>
+				     
 				</tbody>
             </table>
         </div>
@@ -179,7 +181,7 @@
 
 
 	    function fetchCartItems() {
-	        fetch('/merch/cart/cartItems?memId=${memId}')
+	        fetch('/merch/cart/cartItems?memId=240002')
 	        .then(response => {
 	            if (!response.ok) {
 	                throw new Error('Network response was not ok');
@@ -197,7 +199,7 @@
 
 
 
-	    function updateCartTable(data) { // 將參數改為 cartItems
+	    function updateCartTable(cartItems) {
 	        var cartTableBody = $('#cart-table-body');
 	        cartTableBody.empty();
 
