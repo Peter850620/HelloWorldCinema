@@ -72,7 +72,7 @@
                     
                     </li>
                     <li class="nav__menu-item">
-                        <a href="merchStore.html"><h4 class="neon2">周邊商城</h4></a>
+                        <a href="<%=request.getContextPath()%>/front_end/merch/merchStore.jsp"><h4 class="neon2">周邊商城</h4></a>
                         <ul class="nav__submenu">
                             <li class="nav__submenu-item">
                                 <a href=""></a>
