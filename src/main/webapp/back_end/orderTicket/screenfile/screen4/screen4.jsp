@@ -365,63 +365,7 @@
 						data-status="Y" /> <label for="N08">N08</label></li>
 				</ol>
 			</li>
-			<li class="row row--15">
-				<ol class="seats" type="O">
-
-
-
-					<li class="seat"><input type="checkbox" id="O01"
-						data-status="Y" /> <label for="O01">O01</label></li>
-					<li class="seat"><input type="checkbox" id="O02"
-						data-status="Y" /> <label for="O02">O02</label></li>
-					<li class="seat"><input type="checkbox" id="O03"
-						data-status="Y" /> <label for="O03">O03</label></li>
-
-					<li class="seat"><input type="checkbox" id="O04"
-						data-status="Y" /> <label for="O04">O04</label></li>
-
-					<li class="seat"><input type="checkbox" id="O05"
-						data-status="Y" /> <label for="O05">O05</label></li>
-					<li class="seat"><input type="checkbox" id="O06"
-						data-status="Y" /> <label for="O06">O06</label></li>
-
-					<li class="seat"><input type="checkbox" id="O07"
-						data-status="Y" /> <label for="O07">O07</label></li>
-					<li class="seat"><input type="checkbox" id="O08"
-						data-status="Y" /> <label for="O08">O08</label></li>
-				</ol>
-			</li>
-			<li class="row row--16">
-				<ol class="seats" type="P">
-
-
-
-					<li class="seat"><input type="checkbox" id="P01"
-						data-status="Y" /> <label for="P01">P01</label></li>
-					<li class="seat"><input type="checkbox" id="P02"
-						data-status="Y" /> <label for="P02">P02</label></li>
-					<li class="seat"><input type="checkbox" id="P03"
-						data-status="Y" /> <label for="P03">P03</label></li>
-
-					<li class="seat"><input type="checkbox" id="P04"
-						data-status="Y" /> <label for="P04">P04</label></li>
-
-					<li class="seat"><input type="checkbox" id="P05"
-						data-status="Y" /> <label for="P05">P05</label></li>
-					<li class="seat"><input type="checkbox" id="P06"
-						data-status="Y" /> <label for="P06">P06</label></li>
-
-					<li class="seat"><input type="checkbox" id="P07"
-						data-status="Y" /> <label for="P07">P07</label></li>
-					<li class="seat"><input type="checkbox" id="P08"
-						data-status="Y" /> <label for="P08">P08</label></li>
-				</ol>
-			</li>
-
-
 		</ol>
-
-		</li>
 
 		<div class="exit exit--back"></div>
 

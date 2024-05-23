@@ -44,7 +44,7 @@ public interface ShowtimeInfoDAO {
 	public String starTime(Time starTime);
 	
 
-
+	
 
 
 	String getSeatStatus(String showtimeId);

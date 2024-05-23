@@ -105,48 +105,6 @@
 						data-status="Y" /> <label for="E05">E05</label></li>
 				</ol>
 			</li>
-			<li class="row row--6">
-				<ol class="seats" type="F">
-					<li class="seat"><input type="checkbox" id="F01"
-						data-status="Y" /> <label for="F01">F01</label></li>
-					<li class="seat"><input type="checkbox" id="F02"
-						data-status="Y" /> <label for="F02">F02</label></li>
-					<li class="seat"><input type="checkbox" id="F03"
-						data-status="Y" /> <label for="F03">F03</label></li>
-					<li class="seat"><input type="checkbox" id="F04"
-						data-status="Y" /> <label for="F04">F04</label></li>
-					<li class="seat"><input type="checkbox" id="F05"
-						data-status="Y" /> <label for="F05">F05</label></li>
-				</ol>
-			</li>
-			<li class="row row--7">
-				<ol class="seats" type="G">
-					<li class="seat"><input type="checkbox" id="G01"
-						data-status="Y" /> <label for="G01">G01</label></li>
-					<li class="seat"><input type="checkbox" id="G02"
-						data-status="Y" /> <label for="G02">G02</label></li>
-					<li class="seat"><input type="checkbox" id="G03"
-						data-status="Y" /> <label for="G03">G03</label></li>
-					<li class="seat"><input type="checkbox" id="G04"
-						data-status="Y" /> <label for="G04">G04</label></li>
-					<li class="seat"><input type="checkbox" id="G05"
-						data-status="Y" /> <label for="G05">G05</label></li>
-				</ol>
-			</li>
-			<li class="row row--8">
-				<ol class="seats" type="H">
-					<li class="seat"><input type="checkbox" id="H01"
-						data-status="Y" /> <label for="H01">H01</label></li>
-					<li class="seat"><input type="checkbox" id="H02"
-						data-status="Y" /> <label for="H02">H02</label></li>
-					<li class="seat"><input type="checkbox" id="H03"
-						data-status="Y" /> <label for="H03">H03</label></li>
-					<li class="seat"><input type="checkbox" id="H04"
-						data-status="Y" /> <label for="H04">H04</label></li>
-					<li class="seat"><input type="checkbox" id="H05"
-						data-status="Y" /> <label for="H05">H05</label></li>
-				</ol>
-			</li>
 
 		</ol>
 		<div class="exit exit--back"></div>
