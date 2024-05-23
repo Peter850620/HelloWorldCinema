@@ -212,7 +212,7 @@
 				
 				<div>
 					<label for="showtime">选择起始时间：</label>
-					<input type="time" id="showtime" name="showtime" value="" onclick="hideContent('showtime.errors');" >
+					<input type="time" id="showtime" name="showtime" value="" onclick="hideContent('showtime.errors');" onchange="calculateTotalTime()" >
 					<span  id ="showtime.errors" class="error">${errorMsgs.showtime}</span>
 				
 				</div>
@@ -224,6 +224,10 @@
 				</div>
 				
 				
+			    <div>
+			        <label for="additionalTime">附加清潔時間 (分鐘):</label>
+			        <input type="number" id="additionalTime" name="additionalTime" value="30" onchange="calculateTotalTime()">
+			    </div>
 				
 				<div>
 					<div></div>
@@ -232,10 +236,6 @@
 					<div></div>
 				</div>
 				
-			    <div>
-			        <label for="additionalTime">附加清潔時間 (分鐘):</label>
-			        <input type="number" id="additionalTime" name="additionalTime" value="30" onchange="calculateTotalTime()">
-			    </div>
 			</form>
 
 		</div>

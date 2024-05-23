@@ -1,6 +1,7 @@
 package com.service;
 
-import java.util.Date;
+import java.sql.Time;
+import java.sql.Date;
 import java.util.List;
 
 import com.dao.ShowtimeInfoDAO;
@@ -17,11 +18,19 @@ public class ShowtimeInfoServicePeter {
 		dao = new ShowtimeInfoDAOImpl();
 	}
 
-//	public ShowtimeInfo addfood() {
-//		ShowtimeInfo showtimeinfo = new ShowtimeInfo();
-//		
-//		showtimeinfo.setMovie(null);
-//	}
+	public ShowtimeInfo addShowtimeInfo(Screen screenId, Date playdate, Movie movieId, Time showtime, Time endtime, String seatStatus) {
+		ShowtimeInfo showtimeinfo = new ShowtimeInfo();
+
+		showtimeinfo.setScreen(screenId);
+		showtimeinfo.setPlaydate(playdate);
+		showtimeinfo.setMovie(movieId);
+		showtimeinfo.setShowtime(showtime);
+		showtimeinfo.setEndtime(endtime);
+		showtimeinfo.setSeatStatus(seatStatus);
+		dao.insert(showtimeinfo);
+		
+		return showtimeinfo;
+	}
 	
 	public List<ShowtimeInfo> getDate(String screenId, Date playdate, Integer movieId) {
 		return dao.getDate(screenId, playdate, movieId);

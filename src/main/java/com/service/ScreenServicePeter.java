@@ -16,4 +16,8 @@ public class ScreenServicePeter {
 	public List<Screen> getScreenId() {
 		return dao.getAll();
 	}
+	
+	public Screen getSeatNo(Integer screenId) {
+		return dao.findByPrimaryKey(screenId);
+	}
 }
