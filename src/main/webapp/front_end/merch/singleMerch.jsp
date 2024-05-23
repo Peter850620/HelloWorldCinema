@@ -181,7 +181,9 @@
 
 
 	    function fetchCartItems() {
-	        fetch('/merch/cart/cartItems?memId=240002')
+	        fetch('/merch/cart/cartItems?memId=240002'),{
+	        	method: 'Get'
+	        }
 	        .then(response => {
 	            if (!response.ok) {
 	                throw new Error('Network response was not ok');
