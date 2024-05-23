@@ -282,11 +282,16 @@ a:hover .left:after, a:hover .top:after, a:hover .right:after {
   transform: rotate(45deg);
 }
 
-
-.pay .total .needpick {
+.pay .total  {
   display: flex; /* Set display to flex */
   align-items: center; /* Align items vertically */
 }
+
+.pay .needpick  {
+  display: flex; /* Set display to flex */
+  align-items: center; /* Align items vertically */
+}
+
 
 .pay .total p {
   margin-top: 10px;

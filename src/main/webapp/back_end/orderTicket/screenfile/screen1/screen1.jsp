@@ -194,7 +194,7 @@
 
 		<div class="sub">
 			<ul class="pay">
-				<li class="needpick">已選取:<p id="selectedCount">0<p>張</p>
+				<li class="needpick">已選取:<p id="selectedCount">&#20;0&#20;</p><p>張</p>
 				</li>
 				<li class="total">需選取:<p id="totalCount"></p><p>張</p>
 				</li>
