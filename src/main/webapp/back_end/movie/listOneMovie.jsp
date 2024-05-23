@@ -33,7 +33,7 @@
 .movie-actions {
 	text-align: center;
 	margin-top: 20px;
-	order: -1; /* 将编辑按钮放置到第一个位置 */
+	order: -1; /* 將編輯按鈕放置第一個位置 */
 }
 
 .movie {
@@ -81,8 +81,8 @@
 .movie-value {
 	flex: 3;
 	word-wrap: break-word;
-	width: 70%; /* 调整宽度，使其能够容纳内容 */
-	overflow: auto; /* 添加溢出处理 */
+	width: 70%; 
+	overflow: auto; /* 添加溢出處裡*/
 	padding-bottom: 20px;
 }
 </style>

@@ -120,7 +120,7 @@ function initApp() {
                             <div>
                                 <ul class="btn_time">
                                     <li>
-                                        <input type="submit" name="startTime" value="moredetails">
+                                        <input type="submit" name="startTime" value="查看詳情">
                                     </li>
                                 </ul>
                             </div>
