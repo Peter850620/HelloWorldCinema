@@ -228,13 +228,13 @@
             text-align: left;
             /* 文字靠左侧显示 */
             display: -webkit-box;
-            /* 将元素设置为弹性盒子布局 */
+            /* 將元素设置為-webkit-box布局 */
             -webkit-box-orient: vertical;
-            /* 设置弹性盒子的子元素垂直排列 */
+            /* 設置元素垂直排列 */
             -webkit-line-clamp: 3;
-            /* 设置最多显示的行数 */
+            /* 設置最多顯示的行數 */
             overflow: hidden;
-            /* 隐藏超出部分 */
+            /* 隱藏超出部分 */
         }
 
         li {
@@ -325,9 +325,7 @@
 		<button id="loadMoreButton">更多结果</button>
 		
 
-		<div class="btn1" style="text-align: center;">
-			<a href="" class="btn">回首頁</a>
-		</div>
+	
 
 	</div>
 </div>

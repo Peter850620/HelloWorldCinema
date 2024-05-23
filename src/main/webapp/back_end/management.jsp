@@ -133,8 +133,8 @@
                     <span class="tooltip">商城管理</span>
 
                     <div class="side">
-                        <a class="items" href="http://localhost:8081/HelloWorldCinema/back_end/food/select_page.jsp">
-                            <span class="itemstooltip">餐影管理</span>
+                        <a class="items" href="<%= request.getContextPath() %>/back_end/food/select_page.jsp">
+                            <span class="itemstooltip">餐飲管理</span>
                         </a>
                         <a class="items" href="">
                             <span class="itemstooltip">周邊管理</span>

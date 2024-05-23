@@ -208,22 +208,17 @@
 		<div class="exit exit--back"></div>
 
 		<div class="sub">
-
 			<ul class="pay">
-
-				<li class="total">已選取:
-					<p id="selectedCount">0
-					<p>張</p>
+				<li class="needpick">已選取:<p id="selectedCount">&#20;0&#20;</p><p>張</p>
 				</li>
-				<li class="total">需選取:
-					<p id="">0</p>
-					<p>張</p>
+				<li class="total">需選取:<p id="totalCount"></p><p>張</p>
 				</li>
 			</ul>
 			<div style="text-align: center;">
 				<button id="lastButton">上一步</button>
 				<button id="nextButton">下一步</button>
 			</div>
+		
 
 		</div>
 	</div>

@@ -1,0 +1,700 @@
+/* 載入動畫 */
+canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Adjust the z-index to ensure it's below other elements */
+  /* Other styling for the canvas */
+}
+
+html, body
+{
+	background: #000;
+	/* width: 100%; */
+	height: 30%;
+}
+
+a{text-decoration:none}
+a:hover{text-decoration:none}
+
+/*-- 首頁logo --*/
+.logo h1 {
+    width: 500px;
+    color: #f0f0f0;
+    font-size: 2em;
+    padding-left: 20px;
+    display: block;
+    text-transform: uppercase;
+}
+.logo h1 a {
+    color: #FFFFFF;
+    text-decoration: none;
+    display: inline-block;
+	    line-height: 78px;
+		    font-weight: bold;
+}
+h1 span {
+       color: #2e78a0;
+    font-size: 1.5em;
+}
+
+.neon {
+  /* color: white; */
+  font-size: 60px;
+  animation: neon 1.5s ease-in-out infinite alternate;
+}
+@keyframes neon {
+  0%,
+  100% {
+    text-shadow: 0 0 20px #fff, 0 0 150px #fff,0 0 20px #fff;
+  }
+  50% {
+    text-shadow: 0 0 50px #2175db,0 0 150px #fff,0 0 20px #fff;
+    color: rgb(5, 213, 245);
+  }
+}
+/*-- //logo --*/
+
+
+
+/* Variables */
+
+  
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+  
+  #box {
+    display: inline-block;
+  }
+  
+
+
+
+
+  /* 主選單 */
+  nav ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  
+  /* Navigation Menu Styles */
+  .nav {
+    width: 482px;
+    margin: 0 auto;
+    position: absolute;
+    right: 30px;
+    color: #f0f0f0;
+  }
+  
+  .nav a {
+    color: #FFFFFF;
+    display: block;
+    padding: 0 16px;
+    line-height: inherit;
+    cursor: pointer;
+  }
+  
+  .nav__menu {
+    line-height: 45px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+  .nav__menu-item {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .nav__menu-item:hover {
+    background-color: #0d1f38; 
+  }
+
+  .nav__menu-item:hover .nav__submenu {
+    display: block;
+  }
+  
+  .nav__submenu {
+    font-weight: 300;
+    text-transform: none;
+    display: none;
+    position: absolute;
+    width: 220px;
+    background-color: #0d1f38; 
+  }
+  
+  .nav__submenu-item:hover {
+    background: #2e78a0;
+  }
+
+
+  .neon2 {
+    color: white;
+    
+    text-shadow: 0 0 50px #a64ad3,0 0 150px #fdfdfd,0 0 20px #fffeff;
+  }
+
+
+
+
+
+
+
+
+
+/* footer內容 */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+body{
+	line-height: 1.5;
+	font-family: 'Poppins', sans-serif;
+}
+*{
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+
+
+.container{
+	max-width: 1200px;
+	margin:auto;
+  /* text-align: center; */
+}
+.row{
+	display: flex;
+	flex-wrap: wrap;
+
+	  justify-content: center;
+	  align-items: center;
+	  
+	  height: 350px;
+	  background-image: url("../images/rex2.jpg");
+	  background-size: cover;
+	  background-position: top center;
+}
+ul{
+	list-style: none;
+}
+.footer{
+  height: 350;
+  padding: 10px 0;
+}
+.footer-col{
+  height: 350px ;
+   width: 25%;
+   padding: 0 15px;
+   padding-left: 45px;
+}
+.footer-col h4{
+	font-size: 18px;
+	color: #ffffff;
+	text-transform: capitalize;
+	margin-bottom: 35px;
+	font-weight: 500;
+	position: relative;
+}
+.footer-col h4::before{
+	content: '';
+	position: absolute;
+	left:0;
+	bottom: -10px;
+	background-color: #2e78a0;
+	height: 2px;
+	box-sizing: border-box;
+	width: 50px;
+}
+.footer-col ul li:not(:last-child){
+	margin-bottom: 10px;
+}
+.footer-col ul li a{
+	font-size: 16px;
+	text-transform: capitalize;
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: 300;
+	color: #bbbbbb;
+	display: block;
+	transition: all 0.3s ease;
+}
+.footer-col ul li a:hover{
+	color: #2e78a0;
+	padding-left: 8px;
+}
+.footer-col .social-links a{
+	display: inline-block;
+	height: 40px;
+	width: 40px;
+	background-color: rgba(255,255,255,0.2);
+	margin:0 10px 10px 0;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 50%;
+	color: #ffffff;
+	transition: all 0.5s ease;
+}
+.footer-col .social-links a:hover{
+	color: #24262b;
+	background-color: #ffffff;
+}
+
+/*responsive*/
+@media(max-width: 767px){
+  .footer-col{
+    width: 50%;
+    margin-bottom: 30px;
+}
+}
+@media(max-width: 574px){
+  .footer-col{
+    width: 100%;
+}
+}
+
+
+
+
+
+
+
+
+
+/*==========================主區CSS==========================*/
+
+
+
+@import
+	url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap")
+	;
+
+@import
+	url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap")
+	;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+div.container_order_item {
+	
+	width: 1000px;
+	display: grid;
+	font-family: "Staatliches", cursive;
+	background: radial-gradient(circle at 0% 0.5%, rgb(241, 241, 242) 0.1%, rgb(224, 226, 228) 100.2%);
+
+	color: black;
+	font-size: 14px;
+	letter-spacing: 0.1em;
+	border-radius: 10px;
+	margin-left: 220px;
+	margin-top: 20px;
+
+}
+
+
+
+
+.ticket {
+	margin: auto;
+	display: flex;
+	background: white;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px
+		15px 12px;
+		margin-bottom: 15px;
+		margin-top: 20px;
+		max-width:915px;
+		min-height:288px;
+		height:288px;
+}
+
+.ticket-food{
+	margin: auto;
+	display: flex;
+	background: white;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px
+		15px 12px;
+		margin-bottom: 15px;
+		margin-top: 20px;
+		max-width:915px;
+		max-height:260x;
+		height:260px;
+}
+
+.cancel{
+	
+		display:none;
+	
+}
+
+.cancel.-on{
+	display: flex;
+		height:25px;
+		margin-right:20px;
+		position:relative;
+		top:155px;
+		left:10px;
+	
+}
+
+
+
+input[type="checkbox"] {
+    width: 25px;
+    height: 25px;
+}
+
+.left {
+	display: flex;
+	
+}
+
+
+
+
+/*電影照片區*/
+.image {
+	height: 250px;
+	width: 280px;
+
+	background-size: cover;
+	background-position: center;
+	opacity: 0.85;
+	
+	
+    z-index: 0; /* Lower z-index compared to .admit-one */
+
+ }
+ 
+
+
+
+
+.left .bookingNo {
+	height: 10px;
+	width: 20px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+
+	margin-left: 235px;
+	padding: 0px;
+}
+
+.ticket-info {
+	padding: 10px 30px;
+	
+	flex-direction: column;
+	text-align: center;
+	justify-content: space-between;
+	align-items: center;
+	margin-right:30px;
+	margin-top:5px;
+}
+
+.date {
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+	padding: 5px 0;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.date span {
+	width: 100px;
+}
+
+.date span:first-child {
+	text-align: left;
+}
+
+.date span:last-child {
+	text-align: right;
+}
+
+.date .date {
+	color: #d83565;
+	font-size: 20px;
+}
+
+.movieName {
+	font-size: 28px;
+	font-family: "Noto Sans SC", Arial, sans-serif;
+	color: #d83565;
+
+}
+
+.movieName>h4 {
+	font-size: 15px;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	color: #4a437e;
+}
+
+.time {
+	padding: 10px 0;
+	color: #4a437e;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	font-weight: 700;
+}
+
+.time span {
+	font-weight: 400;
+	color: gray;
+}
+
+.left .time {
+	font-size: 16px;
+}
+
+.location {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
+	padding-top: 8px;
+	border-top: 1px solid gray;
+}
+
+.location .separator {
+	font-size: 20px;
+}
+
+.right {
+	width: 180px;
+	border-left: 1px dashed #404040;
+}
+
+.right .admit-one {
+	color: darkgray;
+	 position: absolute;
+}
+
+.right .admit-one span:nth-child(2) {
+	color: gray;
+}
+
+.admit-one {
+    position: absolute;
+    color: rgb(251, 250, 250);
+    height: 250px;
+    padding: 2 5px;
+    letter-spacing: 0.15em;
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+    writing-mode: vertical-rl;
+    direction: initial;
+    z-index: 1;
+}
+
+.right .right-info-container {
+	height: 250px;
+	padding: 10px 10px 10px 35px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.right .movieName h1 {
+	font-size: 18px;
+}
+
+.barcode {
+	height: 100px;
+}
+
+/*QRCORD位置*/
+.barcode img {
+	height: 100%;
+	margin-top: 0px;
+}
+
+.right .ticket-number {
+	color: rgb(16, 15, 15);
+	margin-top: 2px;
+}
+
+/*=================取消按鈕========================*/
+/* 16 */
+
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 10px; /* Adjust this value as needed */
+}
+
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
+              7px 7px 20px 0px rgba(0,0,0,.1),
+              4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+  margin-bottom:20px;
+}
+
+.btn-16 {
+background: linear-gradient(113.3deg, rgb(134, 209, 228) -1.8%, rgb(60, 80, 115) 86.4%);
+  line-height: 42px;
+  padding: 0;
+  border: none;
+  font-weight:bold;
+}
+.btn-16 span {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.btn-16:before,
+.btn-16:after {
+  position: absolute;
+  content: "";
+  height: 0%;
+  width: 1px;
+ box-shadow:
+   -1px -1px 20px 0px rgba(255,255,255,1),
+   -4px -4px 5px 0px rgba(255,255,255,1),
+   7px 7px 20px 0px rgba(0,0,0,.4),
+   4px 4px 5px 0px rgba(0,0,0,.3);
+}
+.btn-16:before {
+  right: 0;
+  top: 0;
+  transition: all 500ms ease;
+}
+.btn-16:after {
+  left: 0;
+  bottom: 0;
+  transition: all 500ms ease;
+}
+.btn-16:hover{
+ 
+  color:white;
+  box-shadow: none;
+}
+.btn-16:hover:before {
+  transition: all 500ms ease;
+  height: 100%;
+}
+.btn-16:hover:after {
+  transition: all 500ms ease;
+  height: 100%;
+}
+.btn-16 span:before,
+.btn-16 span:after {
+  position: absolute;
+  content: "";
+  box-shadow:
+   -1px -1px 20px 0px rgba(255,255,255,1),
+   -4px -4px 5px 0px rgba(255,255,255,1),
+   7px 7px 20px 0px rgba(0,0,0,.4),
+   4px 4px 5px 0px rgba(0,0,0,.3);
+}
+.btn-16 span:before {
+  left: 0;
+  top: 0;
+  width: 0%;
+  height: .5px;
+  transition: all 500ms ease;
+}
+.btn-16 span:after {
+  right: 0;
+  bottom: 0;
+  width: 0%;
+  height: .5px;
+  transition: all 500ms ease;
+}
+.btn-16 span:hover:before {
+  width: 100%;
+}
+.btn-16 span:hover:after {
+  width: 100%;
+}
+
+.custom-btn:first-child {
+  margin-left: 55px;
+}
+
+.cancelling {
+  margin-right: 77px; 
+}
+
+
+
+
+button.confirm{
+	
+	
+	 display:none;
+	
+
+}
+
+button.confirm.-on {
+    display: block !important;
+    margin-right: 80px !important;
+}
+
+
+
+@media (max-width: 480px) {
+    body {
+        font-size: 13px;
+        transform: scale(0.84);
+    }
+
+ 
+
+   div.container_order_item{
+   
+   margin-left:30px;
+   width:120%;
+    
+   
+   }
+   div.left{width:50%;
+   margin-left:20px;
+   
+   }
+   
+   div.ticket{
+        width: 80%;
+        transform: scale(0.54);
+        margin-left: 20px;
+        position: relative;
+        right: 180px;
+   
+   }
+   
+   
+.right {
+	  width:80%;
+
+   margin-left:200px;
+}
+   
+ 
+}
