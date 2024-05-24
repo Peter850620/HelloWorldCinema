@@ -20,7 +20,7 @@ import com.service.BookingService;
 public class QRCodeGenerator {
 	
 	//屆時要改專案名
-	private static final String BASE_URL = "http://10.1.16.53:8081/HelloWorldCinema/QRCodeServlet";  
+	private static final String BASE_URL = "http:// 10.1.16.53:8081/HelloWorldCinema/QRCodeServlet";  
     BookingService bs=new BookingService();
     
     
@@ -45,7 +45,7 @@ public class QRCodeGenerator {
                 transaction = session.beginTransaction();
                 
                 BookingService bs = new BookingService();
-                List<OrderItem> seats = bs.findSeatByBookingNo(10000008);
+                List<OrderItem> seats = bs.findSeatByBookingNo(10000010);
 
                 OrderItemDAO dao = new OrderItemDAOImpl();
 
@@ -54,7 +54,7 @@ public class QRCodeGenerator {
                     System.out.println("目前座位: " + currentSeat);
                     
                     // 生成 QR Code 要导到的路径
-                    String qrText = String.format("%s?bookingNo=%s&showId=%s&seatNo=%s", BASE_URL, "10000008", "9", currentSeat);
+                    String qrText = String.format("%s?bookingNo=%s&showId=%s&seatNo=%s", BASE_URL, "10000010", "9", currentSeat);
                     byte[] qrCodeImage = generateQRCodeImage(qrText, 350, 350);
                     
                     orderItem.setQrcode(qrCodeImage);
