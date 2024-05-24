@@ -79,9 +79,10 @@
 	
 	
 	
-	<% Integer currentPage; 
-	 Integer memId = session.getAttribute("memId") != null ? (Integer) session.getAttribute("memId") : 240005;
-	 %>
+<% 
+Integer currentPage;
+Integer memId = session.getAttribute("mem") != null ? ((Mem) session.getAttribute("mem")).getMemId() : 240005;
+%>
 
 			
 
@@ -227,15 +228,15 @@ int pageQty = totalPageObj != null ? (Integer)totalPageObj : bookingSvc.getPageT
 document.addEventListener("DOMContentLoaded", function() {
     let sorted = document.getElementById("sorted");
 
-    // 获取 sessionStorage 中存储的值
+
     let storedValue = sessionStorage.getItem("sorted");
 
-    // 如果存在存储值，则设置 select 元素的值
+
     if (storedValue) {
         sorted.value = storedValue;
     }
 
-    // 添加事件监听器，监测 select 元素的值变化
+   
     sorted.addEventListener("change", function() {
         sessionStorage.setItem("sorted", sorted.value);
         checkpage();

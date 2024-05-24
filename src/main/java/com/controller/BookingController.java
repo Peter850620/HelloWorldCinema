@@ -58,7 +58,7 @@ public class BookingController extends HttpServlet {
 		bookingService=new BookingService();
 	}
 	
-	private static final String BASE_URL = "http://10.1.16.53:8081/CIA10140-Webapp/QRCodeServlet";
+	private static final String BASE_URL = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeServlet";
    
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -293,7 +293,7 @@ public class BookingController extends HttpServlet {
 	    		for(OrderItem orderItem:seats) {
 	    			
 	    		String currentSeat=orderItem.getSeatNo();
-	    		System.out.println("目前座位"+currentSeat);
+	    		
 	    		  // 生成 QR Code要導到的路徑
 	            String qrText = String.format("%s?bookingNo=%s&showId=%s&seatNo=%s", BASE_URL, newbookingNo, show.getShowtimeId(), currentSeat);
 	            byte[] qrCodeImage = generateQRCodeImage(qrText, 350, 350);

@@ -8,7 +8,7 @@ public interface OrderItemDAO {
 	
 	
 	public int cancel(String seatNo,Integer bookingNo);
-	
+	public int update(OrderItem entity);
 	public OrderItem getKeyId(Integer tkSeq);
 	
 	public String qrUpdateSeats(String seatNo,Integer bookingNo);

@@ -10,6 +10,10 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         
+
+        
+        
+        
         <property name="hibernate.show_sql">true</property>
     
     	<property name="hibernate.hbm2ddl.auto">validate</property>
@@ -40,6 +44,7 @@
         <mapping class="com.entity.Review"/>
         <mapping class="com.entity.Report"/>
         <mapping class="com.entity.MovieFav"/>
+        <mapping class="com.entity.Cart"/>
 
     </session-factory>
 </hibernate-configuration>
