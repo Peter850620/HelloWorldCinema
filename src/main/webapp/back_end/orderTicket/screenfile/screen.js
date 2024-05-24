@@ -121,3 +121,11 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('lastButton').addEventListener('click', function() {
 	window.history.back();
 });
+
+
+
+	nextButton.addEventListener('click', function(event) {
+		event.preventDefault();  // 阻止默認提交行為
+		console.log('Default form submission prevented.');
+		window.location.href = '/checkorder.jsp';
+	});

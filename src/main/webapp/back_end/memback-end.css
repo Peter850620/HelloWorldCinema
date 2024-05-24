@@ -22,12 +22,12 @@ body {
   position: absolute;
   display: flex;
   background-color: #0d1f38;
-  background-image: url("../images/bk.jpg");
+  background-image: url("./bk.jpg");
   background-repeat: no-repeat;
   background-size: 101%;
   background-attachment: fixed;
   color: rgb(16, 15, 15);
- background-size: cover;
+  background-size: cover;
 
  background-position: center -100px;
 
@@ -39,7 +39,7 @@ body {
 
   top: 0;
   left: 0;
-  height: 100%;
+  height: 100vh;
   width: 80px;
   background-color:#0d1f38;
   padding: 0.4rem 0.8rem;
@@ -323,3 +323,19 @@ div.side {
 }
 
 
+.mainIndex a {
+	color: white;
+}
+
+
+
+.mainIndex {
+	color: white;
+	background-color: rgba(0, 0, 0, 0.5);
+	/* Optional: background for better visibility */
+	padding: 20px;
+	border-radius: 10px;
+  position: relative;
+  left: 580px;
+  bottom: -306px;
+}
