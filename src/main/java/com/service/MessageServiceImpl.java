@@ -2,20 +2,15 @@ package com.service;
 
 import static com.util.Constants.PAGE_MAX_RESULT;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import com.dao.MessageDAO;
 import com.dao.MessageDAOImpl;
 import com.entity.Mem;
 import com.entity.Message;
-import com.entity.Report;
 
 public class MessageServiceImpl implements MessageService {
 
@@ -69,7 +64,7 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public List<Message> getByCompositeQuery(Map<String, String[]> map) {
+	public List<Message> getByCompositeQuery(Map<String, String[]> map, int currentPage) {
 		Map<String, String> query = new HashMap<>();
 		// Map.Entry即代表一組key-value
 		Set<Map.Entry<String, String[]>> entry = map.entrySet();
@@ -88,8 +83,32 @@ public class MessageServiceImpl implements MessageService {
 			query.put(key, value);
 		}
 			System.out.println(query);
-			List<Message> list = dao.getByCompositeQuery(query);
+			List<Message> list = dao.getByCompositeQuery(query, currentPage);
 			return list;
+	}
+	
+	@Override
+	public int getCompositeQueryTotal(Map<String, String[]> map) {
+		Map<String, String> query = new HashMap<>();
+		// Map.Entry即代表一組key-value
+		Set<Map.Entry<String, String[]>> entry = map.entrySet();
+
+		for (Map.Entry<String, String[]> row : entry) {
+			String key = row.getKey();
+			// 因為請求參數裡包含了action，做個去除動作
+			if ("action".equals(key)) {
+				continue;
+			}
+			// 若是value為空即代表沒有查詢條件，做個去除動作
+			String value = row.getValue()[0];
+			if (value.isEmpty() || value == null) {
+				continue;
+			}
+			query.put(key, value);
+		}
+			System.out.println(query);
+			int queryTotal = dao.getMapTotal(query);
+			return queryTotal;
 	}
 
 	@Override
@@ -102,30 +121,6 @@ public class MessageServiceImpl implements MessageService {
 	
 	@Override
     public void scheduleMessage() {
-//        try (Session session = getSessionFactory().getCurrentSession()) {
-//            Transaction tx = session.beginTransaction();
-//            try {
-//    
-//                
-//
-//                // 檢查檢舉
-//                List<Report> reports = session.createQuery("FROM report WHERE rptDate > :lastCheckedTime")
-//                        .setParameter("lastCheckedTime", lastCheckedTime)
-//                        .list();
-//                for (Report report : reports) {
-//                    createNotification(session, (Integer) report[1], "您的檢舉已提交。");
-//                }
-//
-//               
-//
-//                lastCheckedTime = LocalDateTime.now();
-//                tx.commit();
-//            } catch (Exception e) {
-//                if (tx != null) {
-//                    tx.rollback();
-//                }
-//                e.printStackTrace();
-//            }
-//        }
+			dao.scheduleMessage();
     }
 }

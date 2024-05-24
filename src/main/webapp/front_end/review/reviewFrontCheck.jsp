@@ -4,11 +4,7 @@
 <html lang="en">
 <head>
 	<style>
-		.xxx{
-			background-color: white;
-		}
-		
-		/* 全局樣式 */
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -16,8 +12,7 @@
             padding: 0;
         }
 
-        /* 容器樣式 */
-        .container {
+        .xxx {
             max-width: 800px;
             margin: 50px auto;
             background-color: #fff;
@@ -26,14 +21,12 @@
             border-radius: 8px;
         }
 
-        /* 標題樣式 */
         h3 {
             color: #333;
             margin-bottom: 20px;
             text-align: center;
         }
 
-        /* 表單元素樣式 */
         .title {
             margin-bottom: 20px;
         }
@@ -44,13 +37,24 @@
             margin-bottom: 5px;
         }
 
-        .title input, .title select, .title textarea {
+        .title input, .title select {
             width: calc(100% - 20px);
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 16px;
+        }
+        
+        .title textarea {
+        	width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            height: 200px;
+            resize: none;
         }
 
         .title input[readonly], .title textarea[readonly] {
@@ -62,7 +66,6 @@
             font-size: 12px;
         }
 
-        /* 按鈕樣式 */
         .form-actions {
             text-align: center;
         }
@@ -81,7 +84,6 @@
             background-color: #0056b3;
         }
 
-        /* 鏈接樣式 */
         a {
             display: inline-block;
             margin-bottom: 20px;
@@ -99,66 +101,61 @@
 <body>
 <%@ include file="../index/indexHeader.jsp" %>
 <!-- ========================以下區域可放置其他內容======================== -->
-<div id="xxx">
+<div class="xxx" id="xxx">
 	<form action="<%= request.getContextPath() %>/front/review.do" method="post" id="myForm">
 		<a href="<%= request.getContextPath() %>/front/review.do?action=getMem&mem=1">回主頁</a>
-		<h3><b>所有欄位皆為必填欄位</b></h3>
 		<div class="title">
-		<label for="reviewId">評論編號:</label>
-		<input id ="reviewId" name="reviewId" type="text" value="${param.reviewId}" readonly />
+			<label for="reviewId">評論編號:</label>
+			<input id ="reviewId" name="reviewId" type="text" value="${param.reviewId}" readonly />
 		</div>
-		
 		<div class="title">
-		<label for="mem">會員編號:</label>
-		<input id ="mem" name="mem" type="text" value="${param.mem}" readonly />
+			<label for="mem">會員編號:</label>
+			<input id ="mem" name="mem" type="text" value="${param.mem}" readonly />
 		</div>
-		
 		<div class="title">
-		<label for="movie">電影編號:</label>
-		<input id ="movie" name="movie" type="text" value="${param.movie}" readonly />
+			<label for="movie">電影編號:</label>
+			<input id ="movie" name="movie" type="text" value="${param.movie}" readonly />
 		</div>
-
-		
-		<!-- 用js將timestamp型態轉換 -->
 		<div class="title">
-		<label for="reviewDate">評論日期:</label>
-		<input id ="reviewDate" class="timeItem" name="reviewDate" type="text" value="${param.reviewDate}" readonly />
+			<label for="reviewDate">評論日期:</label>
+			<input id ="reviewDate" name="reviewDate" type="text" value="${param.reviewDate}" readonly />
 		</div>
-		
-           <div class="title">
-		<label for="reviewStatus" class="statusLabel">評論狀態:</label>
-		<select id="reviewStatus" name="reviewStatus">
-	        <option value="顯示" ${"顯示" == param.reviewStatus ? 'selected' : ''}>顯示</option>
-	        <option value="隱藏" ${"隱藏" == param.reviewStatus ? 'selected' : ''}>隱藏</option>
-	    </select>
-		<span  id ="reviewStatus.errors" class="error">${errorMsgs.reviewStatus}</span>
+        <div class="title">
+			<label for="reviewStatus" class="statusLabel">評論狀態:</label>
+			<select id="reviewStatus" name="reviewStatus">
+		        <option value="顯示" ${"顯示" == param.reviewStatus ? 'selected' : ''}>顯示</option>
+		        <option value="隱藏" ${"隱藏" == param.reviewStatus ? 'selected' : ''}>隱藏</option>
+		    </select>
+			<span  id ="reviewStatus.errors" class="error">${errorMsgs.reviewStatus}</span>
 		</div>
-		
 		<div class="title">
-		<label for="reviewDetails">評論內容:</label>
-		<textarea id ="reviewDetails" name="reviewDetails" readonly>${param.reviewDetails}</textarea>
-		<span  id ="reviewDetails.errors" class="error">${errorMsgs.reviewDetails}</span>
+			<label for="reviewDetails">評論內容:</label>
+			<textarea id ="reviewDetails" name="reviewDetails" readonly>${param.reviewDetails}</textarea>
+			<span  id ="reviewDetails.errors" class="error">${errorMsgs.reviewDetails}</span>
 		</div>
-		
-		<div class="title">
-			<div></div>
+		<div class="form-actions">
 			<input  type="hidden" name="action" value="update">
 			<input type="hidden" name="reviewDate" value="${param.reviewDate}" id="newTime">
 			<button type="submit" id="submit"> 送出修改 </button>
-			<div></div>
 		</div>
 	</form>
 </div>
-
-
-
-
 
 <!-- ========================以上區域可放置其他內容======================== -->
 	<%@ include file="../index/indexFooter.jsp" %>
 	<!-- 主要js -->
 	<script src="<%= request.getContextPath() %>/js/index.js"></script>
-
-    <script src="<%= request.getContextPath() %>/js/timestampFormat.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+	        var reviewDateInput = document.getElementById("reviewDate");
+	        var reviewDateValue = reviewDateInput.value;
+	        
+	        if (reviewDateValue) {
+	            var date = new Date(reviewDateValue);
+	            var formattedDate = date.toISOString().slice(0, 19).replace('T', ' ');
+	            reviewDateInput.value = formattedDate;
+	        }
+	    });
+	</script>
 </body>
 </html>

@@ -5,7 +5,6 @@
 
 <head>
 	<style>
-
 		 form {
 			margin: 20px auto;
 			padding: 20px;
@@ -23,35 +22,32 @@
 		}
 
 		button {
-		  background-color: grey;
 		  border-radius: 25px;
-		  background-color: rgba(162, 161, 167, 0.5);
+		  background-color: red;
 		  font-size: 20px;
 		  width: 90px;
-		
 		  transition-duration: 0.5s;
 		  color: white;
 		}
 		
 		button:hover {
-		  background-color: rgba(87, 87, 89, 0.8);
+		  background-color: darkred;
 		}
 		
-		
-		input[type="submit"] {
-		  background-color: grey;
-		  border-radius: 15px;
-		  background-color: rgba(162, 161, 167, 0.5);
-		  font-size: 30px;
-		  width: 150px;
-		  
-		  cursor:pointer;
-		  transition-duration: 0.5s;
-		  color: white;
+		.form_head{
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
 		}
 		
-		input[type="submit"]:hover {
-			background-color: rgba(87, 87, 89, 0.8);
+		.form_head a{
+			color: white;
+			text-align: left;
+			margin-right: 150px;
+			background-color: rgb(135, 189, 250);
+        	border: solid white;
 		}
 		
 		.title{
@@ -99,41 +95,37 @@
 
 <body>
 <%@ include file="../management.jsp" %>
-
 	<div id="xxx">
 		<div class="mainIndex" id="mainIndex">		
 			<form action="<%= request.getContextPath() %>/back/report.do" method="post" id="myForm">
-				<a href="<%= request.getContextPath() %>/back/report.do?action=getAll">回主頁</a>
+				<div class="form_head">
+					<a href="<%= request.getContextPath() %>/back/report.do?action=getAll">回主頁</a>
+					<h3><b>檢舉詳細資料</b></h3>
+				</div>
 				<div class="title">
 					<label for="rptId">檢舉編號:</label>
 					<input id ="rptId" name="rptId" type="text" value="${param.rptId}" readonly />
 				</div>
-				
 				<div class="title">
 					<label for="mem">會員編號:</label>
 					<input id ="mem" name="mem" type="text" value="${param.mem}" readonly />
 				</div>
-				
 				<div class="title">
 					<label for="review">評論編號:</label>
 					<input id ="review" name="review" type="text" value="${param.review}" readonly />
 				</div>
-	 			
 				<div class="title">
 					<label for="rptDate">檢舉日期:</label>
 					<input id ="rptDate" class="timeItem" name="rptDate" type="text" value="${param.rptDate}" readonly />
 				</div>
-				
 				<div class="title">
 					<label for="rptType">檢舉類型:</label>
 					<input id ="rptType" name="rptType" type="text" value="${param.rptType}" readonly />
 				</div>
-				
 				<div class="title">
 					<label for="rptDetail">檢舉內容:</label>
 					<textarea id ="rptDetail" name="rptDetail" readonly>${param.rptDetail}</textarea>
 				</div>
-
 	            <div class="title">
 					<label for="rptStatus" class="statusLabel">檢舉狀態:</label>
 					<select id="rptStatus" name="rptStatus" onclick="hideContent('rptStatus.errors');">
@@ -150,19 +142,22 @@
 			</form>
 		</div>
 	</div>
-    
-<script src="<%= request.getContextPath() %>/js/timestampFormat.js"></script>
- 
-	
 
 <script>
-function hideContent(d) {
-    document.getElementById(d).style.display = "none";
-}
-	
-
-
-
+	function hideContent(d) {
+	    document.getElementById(d).style.display = "none";
+	}
+		
+	document.addEventListener("DOMContentLoaded", function() {
+	    var rptDateInput = document.getElementById("rptDate");
+	    var rptDateValue = rptDateInput.value;
+	    
+	    if (rptDateValue) {
+	        var date = new Date(rptDateValue);
+	        var formattedDate = date.toISOString().slice(0, 19).replace('T', ' ');
+	        rptDateInput.value = formattedDate;
+	    }
+	});	
 </script>
 
 </body>

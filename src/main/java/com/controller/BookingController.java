@@ -293,7 +293,7 @@ public class BookingController extends HttpServlet {
 	    		for(OrderItem orderItem:seats) {
 	    			
 	    		String currentSeat=orderItem.getSeatNo();
-	    		System.out.println("目前座位"+currentSeat);
+	    		
 	    		  // 生成 QR Code要導到的路徑
 	            String qrText = String.format("%s?bookingNo=%s&showId=%s&seatNo=%s", BASE_URL, newbookingNo, show.getShowtimeId(), currentSeat);
 	            byte[] qrCodeImage = generateQRCodeImage(qrText, 350, 350);

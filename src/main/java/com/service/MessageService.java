@@ -24,7 +24,9 @@ public interface MessageService {
 
 	int getPageTotal();
 
-	List<Message> getByCompositeQuery(Map<String, String[]> map);
+	List<Message> getByCompositeQuery(Map<String, String[]> map, int currentPage);
+	
+	int getCompositeQueryTotal(Map<String, String[]> map);
 	
 	void scheduleMessage();
 }

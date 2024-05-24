@@ -56,7 +56,7 @@ public class HomeAnnFrontServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-
+		
 		if ("compositeQuery".equals(action)) {
 			Map<String, String[]> map = req.getParameterMap();
 			String page = req.getParameter("page");
@@ -67,7 +67,7 @@ public class HomeAnnFrontServlet extends HttpServlet {
 			if (map != null) {
 				homeAnnPageQty = homeAnnService.getCompositeQueryTotal(map);
 			}
-
+			
 			req.getSession().setAttribute("homeAnnPageQty", homeAnnPageQty);
 			req.setAttribute("currentPage", currentPage);
 			req.setAttribute("homeAnnList", homeAnnList);
