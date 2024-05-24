@@ -219,12 +219,21 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 	            return total + (item.merchQty * item.merchPrice);
 	        }, 0);
 
-	        $('#subtotal').text(subtotal.toFixed(2));
+	        $('#subtotal').text(subtotal);
 	    }
 
 
 // 		從購物車移除商品
 	    function removeFromCart(productId) {
+	
+	    	var memId = $('#memId').val();
+	        
+	        // Ensure merchId is defined and valid
+	        if (!merchId) {
+	            console.error('merchId is undefined');
+	            return;
+	        }
+	
 	        fetch(`cart/removeCart?memId=240002&merchId=${productId}`, {
 	            method: 'POST'
 	        })

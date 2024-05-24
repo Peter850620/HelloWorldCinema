@@ -11,6 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.hibernate.Session;
 
 import com.entity.Mem;
 import com.entity.MerchOrder;
@@ -48,18 +51,27 @@ public class MerchOrderServlet extends HttpServlet{
 			req.setAttribute("errorMsgs", errorMsgs);
 		
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				Integer merchNo = Integer.valueOf(req.getParameter("merchNo"));
 				
-				Mem mem = (Mem)req.getSession().getAttribute("mem");
-				Integer memId = mem.getMemId();
 				
-				Date orderDate = null;
+			
+			HttpSession session = req.getSession(false); // 如果不存在會話，則返回 null
+			
+			    Mem mem = (Mem) session.getAttribute("mem");
+			    if (mem != null) {
+			        // 在這裡可以使用 mem 對象
+			        System.out.println("當前用戶的 memId：" + mem.getMemId());
+			        Integer memId = mem.getMemId(); // Get the memId
+			    }
+			
+	           
+
+
 				
 				String pickupOption = req.getParameter("pickupOption");
 				
 				String paymentType = req.getParameter("paymentType");
 				
-				String receiptStatus = null;
+
 				
 				Integer merchTotal = Integer.valueOf(req.getParameter("merchTotal"));
 				
@@ -93,12 +105,12 @@ public class MerchOrderServlet extends HttpServlet{
 
 
 				MerchOrder merchOrder = new MerchOrder();
-				merchOrder.setMerchNo(merchNo);
+
 				merchOrder.setMem(mem);
-				merchOrder.setOrderDate(orderDate);
+
 				merchOrder.setPickupOption(pickupOption);
 				merchOrder.setPaymentType(paymentType);
-				merchOrder.setReceiptStatus(receiptStatus);
+
 				merchOrder.setMerchTotal(merchTotal);
 				merchOrder.setRecipient(recipient);
 				merchOrder.setReceiptAddr(receiptAddr);
@@ -106,19 +118,19 @@ public class MerchOrderServlet extends HttpServlet{
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("merchOrder", merchOrder);
-					RequestDispatcher failureReq = req.getRequestDispatcher("/front_end/merchOrder/cartCheck.jsp");
+					RequestDispatcher failureReq = req.getRequestDispatcher("/front_end/merch/addMerchOrder.jsp");
 					failureReq.forward(req, res);
 					return; //程式中斷
 				}
 				
 				/***************************2.開始修改資料*****************************************/
 				MerchOrderService merchOrderSvc = new MerchOrderService();
-				merchOrder = merchOrderSvc.addMerchOrder(merchNo, mem, orderDate, pickupOption, paymentType,
-						receiptStatus, merchTotal, recipient, receiptAddr, receiptMobile);
+				merchOrder = merchOrderSvc.addMerchOrder(mem, pickupOption, paymentType,
+						 merchTotal, recipient, receiptAddr, receiptMobile);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("merchOrder", merchOrder);
-				String url = "/front_end/merchOrder/addMerchOrder.jsp";
+				String url = "/front_end/merch/MerchOrder.jsp";
 				RequestDispatcher success = req.getRequestDispatcher(url);
 				success.forward(req, res);
 		}
