@@ -8,29 +8,28 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import com.dao.MessageDAOImpl;
+import com.service.MessageServiceImpl;
 import com.util.HibernateUtil;
 
 @WebListener
 public class InitializerListener implements ServletContextListener {
 	
 	private ScheduledExecutorService scheduler;
+	private MessageServiceImpl messageServiceImpl;
 	
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		System.out.println("context started");
 		HibernateUtil.getSessionFactory();
-		
-//		MessageDAOImpl msgDAO = new MessageDAOImpl();
-//		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-//		scheduler.scheduleAtFixedRate(msgDAO::scheduleMessage, 0, 1, TimeUnit.MINUTES);
+//		messageServiceImpl = new MessageServiceImpl();
+//		ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+//		scheduler.scheduleAtFixedRate(messageServiceImpl::scheduleMessage, 0, 1, TimeUnit.MINUTES);
 	}
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		System.out.println("context ended");
 		HibernateUtil.shutdown();
-		
 //		if (scheduler != null) {
 //            scheduler.shutdownNow();
 //            try {

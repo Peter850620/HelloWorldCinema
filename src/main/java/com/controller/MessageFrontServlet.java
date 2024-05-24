@@ -29,8 +29,9 @@ public class MessageFrontServlet extends HttpServlet {
 		@Override
 		public void init() throws ServletException {
 			messageService = new MessageServiceImpl();
+			
 		}
-		
+
 		public void doGet(HttpServletRequest req, HttpServletResponse res)
 				throws ServletException, IOException {
 			doPost(req, res);

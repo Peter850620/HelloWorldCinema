@@ -12,7 +12,7 @@ public interface HomeAnnService {
 	void updateHomeAnn(HomeAnn homeAnn);
 	
 	void deleteHomeAnn(Integer annId);
-	//X
+	
 	HomeAnn getByHomeAnn(Integer annId);
 	
 	List<HomeAnn> getAll();

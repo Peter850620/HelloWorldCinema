@@ -2,13 +2,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	
 	<style>
 		form {
 			margin: 20px auto;
-			padding: 20px;
 			width: 110%;
 			border-radius: 25px;
 			justify-content: center;
@@ -20,41 +17,35 @@
 			margin-left: 80px;
 			font-size: 25px;
 			color:white;
-			
 		}
-		
-		
-		
+
 		button {
-		  background-color: grey;
 		  border-radius: 25px;
-		  background-color: rgba(162, 161, 167, 0.5);
+		  background-color: red;
 		  font-size: 20px;
 		  width: 90px;
-		
 		  transition-duration: 0.5s;
 		  color: white;
 		}
 		
 		button:hover {
-		  background-color: rgba(87, 87, 89, 0.8);
+		  background-color: darkred;
 		}
 		
-		
-		input[type="submit"] {
-		  background-color: grey;
-		  border-radius: 15px;
-		  background-color: rgba(162, 161, 167, 0.5);
-		  font-size: 30px;
-		  width: 150px;
-		  
-		  cursor:pointer;
-		  transition-duration: 0.5s;
-		  color: white;
+		.form_head{
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
 		}
 		
-		input[type="submit"]:hover {
-			background-color: rgba(87, 87, 89, 0.8);
+		.form_head a{
+			color: white;
+			text-align: left;
+			margin-right: 150px;
+			background-color: rgb(135, 189, 250);
+        	border: solid white;
 		}
 		
 		.title{
@@ -75,7 +66,7 @@
 		.title textarea{
 			width: 500px; 
 			height: 200px; 
-			resize: vertical;
+			resize: none;
 			font-size: 16px;
 		}
 		
@@ -84,49 +75,37 @@
 		    height: 30px; 
 		    font-size: 16px;
 		}
-		
-		a{
-			color: white;
-		}
 	</style>
 </head>
-
-
-
 <body>
 <%@ include file="../management.jsp" %>
-
 	<div id="xxx">
 		<div class="mainIndex">
 	       <form action="<%= request.getContextPath() %>/back/homeAnn.do" method="post">
-				<div>
+				<div class="form_head">
+					<a href="<%= request.getContextPath() %>/back/homeAnn.do?action=getAll">回主頁</a>
+				</div>
+				<div class="title">
 					<label for="annTitle">公告標題:</label>
-					<textarea id ="annTitle" name="annTitle" style="border:0px ; font-weight: bold; width: 300px; height: 100px; resize: vertical;" onclick="hideContent('annTitle.errors');">${param.annTitle}</textarea>
+					<textarea id ="annTitle" name="annTitle" onclick="hideContent('annTitle.errors');">${param.annTitle}</textarea>
 					<span  id ="annTitle.errors" class="error">${errorMsgs.annTitle}</span>
 				</div>
-				
-				<div>
+				<div class="title">
 					<label for="annDetail">公告內容:</label>
-					<textarea id ="annDetail" name="annDetail" style="border:0px ; font-weight: bold; width: 300px; height: 100px; resize: vertical;" onclick="hideContent('annDetail.errors');">${param.annDetail}</textarea>
+					<textarea id ="annDetail" name="annDetail" onclick="hideContent('annDetail.errors');">${param.annDetail}</textarea>
 					<span  id ="annDetail.errors" class="error">${errorMsgs.annDetail}</span>
 				</div>
-
-				<div>
+				<div class="title">
 					<input  type="hidden" name="action" value="insert">
 					<button type="submit" id="submit"> 送出新增 </button>
 				</div>
-				<a href="<%= request.getContextPath() %>/back/homeAnn.do?action=getAll">回查詢頁</a>
 			</form>
 		</div>
 	</div>
-    
-<script src="<%= request.getContextPath() %>/js/timestampFormat.js"></script>
-	
-
 <script>
-function hideContent(d) {
-    document.getElementById(d).style.display = "none";
-}
+	function hideContent(d) {
+	    document.getElementById(d).style.display = "none";
+	}
 </script>
 
 </body>

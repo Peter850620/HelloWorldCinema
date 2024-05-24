@@ -115,7 +115,7 @@ if (memObject instanceof Mem) {
                                 <a href="<%=request.getContextPath()%>/front_end/booking/booking.jsp">電影訂單</a>
                             </li>
                             <li class="nav__submenu-item">
-                                <a href="">個人訊息</a>
+                                <a href="<%=request.getContextPath()%>/front/message.do?action=getMem">個人訊息</a>
                             </li>
                             <li class="nav__submenu-item">
                                 <a href="">周邊訂單</a>

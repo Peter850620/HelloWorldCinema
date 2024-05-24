@@ -43,7 +43,6 @@ public class ReviewController extends HttpServlet {
 		System.out.print(action);
 
 		if ("getAll".equals(action)) {
-
 			// HttpSession session = req.getSession();
 			// Integer reviewId = (Integer) session.getAttribute("reviewId");
 			String page = req.getParameter("page");
@@ -63,7 +62,6 @@ public class ReviewController extends HttpServlet {
 		}
 
 		if ("compositeQuery".equals(action)) {
-
 			Map<String, String[]> map = req.getParameterMap();
 			String page = req.getParameter("page");
 			int currentPage = (page == null) ? 1 : Integer.parseInt(page);
