@@ -113,10 +113,11 @@
 	<script>
 	$(document).ready(function () {
 		
-		var memId = $('#memId').val();
+		var memberId = "240001";
         var productId = "${merch.merchId}";
         var productName = "${merch.merchName}";
         var productPrice = parseInt($('#merchPrice').text());
+        
 		
 	    $('#cart-button').click(function (e) {
 	        e.preventDefault(); // 防止預設行為
@@ -130,21 +131,21 @@
 // 	    加入商品至購物車
 	    $('.add-to-cart').click(function () {
 	        
-	        var quantity = parseInt($('#quantityInput').val());
+	    	var quantity = parseInt($('#quantityInput').val());
 	       
-	        addToCart(memId, productId, productName, productPrice, quantity);
+	        addToCart(memberId, productId, productName, productPrice, quantity);
 	    });
 
 
 
-	    function addToCart(memId, productId, productName, productPrice, quantity) {
+	    function addToCart(memberId, productId, productName, productPrice, quantity) {
 	        fetch('cart/insert',{
 	            method: 'POST',
 	            headers: {
 	                'Content-Type': 'application/json'
 	            },
 	            body: JSON.stringify({
-	                memId: memId,
+	                memId: memberId,
 	                merchId: productId,
 	                merchName: productName,
 	                merchPrice: productPrice,
@@ -178,7 +179,7 @@
 	 // 從購物車移除商品
 	    function removeFromCart(productId) {
 	    	
-	        fetch("cart/removeCart?memId=240001&merchId=" + productId, {
+	        fetch("cart/removeCart?memId=" + memberId + "&merchId=" + productId, {
 	            method: 'Post'
 	        })
 	        .then(response => response.json())
@@ -200,8 +201,8 @@
 
 	    
 			 // 更新購物車項目的數量
-			    function updateCartItemQty(memId, merchId, merchQty) {
-		    fetch(`cart/updateQty?memId=${memId}&merchId=${merchId}&merchQty=${merchQty}`, {
+		function updateCartItemQty(memId, merchId, newQty) {
+		    fetch("cart/updateQty?memId=" + memberId + "&merchId=" + productId + "&merchQty=" + quantity, {
 		        method: 'POST'
 		    })
 		    .then(response => {
@@ -238,7 +239,7 @@
 
 // 	    查看購物車
 	    function fetchCartItems() {
-		    fetch('cart/cartItems?memId=240001', {
+		    fetch("cart/cartItems?memId=" + memberId, {
 		        method: 'GET'
 		    })
 		    .then(response => {
@@ -284,7 +285,7 @@
 	            return total + (item.merchQty * item.merchPrice);
 	        }, 0);
 
-	        $('#subtotal').text(subtotal.toFixed(2));
+	        $('#subtotal').text(subtotal);
 	    }
 	    
 	    
@@ -294,7 +295,7 @@
 
 	    $('#checkout').click(function () {
 	        // 獲取購物車資訊
-	        fetch('cart/cartItems?memId=240001', {
+	        fetch('cart/cartItems?memId=' + memberId, {
 	            method: 'GET'
 	        })
 	        .then(response => {
@@ -309,6 +310,9 @@
 	            var cartInfo = JSON.stringify(cartItems);
 	            // 使用localStorage將購物車資訊存儲，以便在跳轉頁面時使用
 	            localStorage.setItem('cartInfo', cartInfo);
+	            // 將合計價格也存入localStorage
+	            var subtotal = $('#subtotal').text();
+	            localStorage.setItem('subtotal', subtotal);
 	            // 跳轉到結帳頁面
 	            window.location.href = '<%=request.getContextPath()%>/front_end/merch/addMerchOrder.jsp'; // 修改為實際的結帳頁面URL
 	        })
@@ -316,6 +320,7 @@
 	            console.error('Error fetching cart items:', error);
 	        });
 	    });
+
 
 
 	    $('#ks').click(function () {

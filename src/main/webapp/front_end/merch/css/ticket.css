@@ -58,3 +58,7 @@
   p{
   	color: white;
   }
+  
+  #cartItems, #subtotal{
+  color: white;
+  }

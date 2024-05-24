@@ -219,7 +219,7 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 	            return total + (item.merchQty * item.merchPrice);
 	        }, 0);
 
-	        $('#subtotal').text(subtotal.toFixed(2));
+	        $('#subtotal').text(subtotal);
 	    }
 
 

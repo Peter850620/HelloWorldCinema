@@ -40,15 +40,18 @@ public class CartServlet {
 
     @PostMapping("/updateQty")
     @ResponseBody
-    public String updateQuantity(@RequestParam("memId") Integer memId,
-                                 @RequestParam("merchId") Integer merchId,
-                                 @RequestParam("newQty") Integer merchQty) {
+    public Map<String, String> updateQuantity(@RequestParam("memId") Integer memId,@RequestParam("merchId") Integer merchId,@RequestParam("newQty") Integer merchQty) {
+    	Map<String, String> response = new HashMap<>();
         try {
             cartService.updateCartItemQuantity(memId, merchId, merchQty);
-            return "Success: Updated cart item quantity";
+            response.put("status", "Success");
+            response.put("message", "update from cart");
         } catch (Exception e) {
-            return "Error: " + e.getMessage();
+        	response.put("status", "Error");
+            response.put("message", e.getMessage());
+        
         }
+		return response;
     }
 
 
