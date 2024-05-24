@@ -150,7 +150,7 @@ public class FoodServlet extends HttpServlet {
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("success", "- (修改成功)");
 			req.setAttribute("Food", food); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/back_end/food/listOneFood.jsp";
+			String url = "/back_end/food/listAllFood.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -205,7 +205,7 @@ public class FoodServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			FoodService foodSvc = new FoodService();
-			Food food = foodSvc.addfood(foodName, foodDetails, foodPrice, foodPic, foodStatus);
+			Food food = foodSvc.addfood(foodName, foodDetails, foodPrice, foodPic, "上架");
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			req.setAttribute("success", "- (新增成功)");

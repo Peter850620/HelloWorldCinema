@@ -16,40 +16,137 @@
 
 <%@ include file="included-fragment.file" %>
 <style type="text/css">
-	
-	button {
-		padding: 5px;
+.main{	
+	body {
+		margin: 20px auto;
+		padding: 20px;
+		width: 80%;
+		border-radius: 25px;
+		justify-content: center;
+		padding: 100px;
+		background-color: rgb(0 0 0/ 60%);
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		left: 150px;
+		border: 2px solid white;
+		margin-left: 80px;
+		color:white;
 	}
 	form {
-		display: table;
+		margin: 20px auto;
+		padding: 20px;
+		width: 110%;
+		border-radius: 25px;
+		justify-content: center;
+		padding: 100px;
+		background-color: rgb(0 0 0/ 60%);
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		left: 150px;
+		border: 2px solid white;
+		margin-left: 80px;
+		font-size: 25px;
+		color:white;
+		
 	}
-	form div {
-		display: table-row;
+
+	input[type="text"], input[type="date"], select {
+		width: calc(100% - 15px);
+		margin-bottom: 10px;
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		color: white;
 	}
-	label, input, span, select {
-		display: table-cell;
-		margin: 5px;
-		text-align: left;		
+
+
+
+	input[type="submit"] {
+		background-color: grey;
+		border-radius: 15px;
+		background-color: rgba(162, 161, 167, 0.5);
+		font-size: 30px;
+		width: 150px;
+		cursor:pointer;
+		transition-duration: 0.5s;
+		color: white;
 	}
-	input[type=text], input[type=password], select, textarea {
-		width: 200px;
-		margin: 5px;
+
+	input[type="submit"]:hover {
+		background-color: rgba(87, 87, 89, 0.8);
 	}
-	form div div {
-		display: table-cell;
+
+	ul {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
 	}
-	.center {
-        margin-left: auto;
-        margin-right: auto;
-    }
+
+	li {
+		color: red;
+		margin-bottom: 5px;
+	}
+	
+	h4{
+		font-size: 30px;
+	}
+	
+	h4{
+		font-size: 30px;
+	}
+	
+	#a{
+		font-size: 30px;
+		color: white; /* 设置背景颜色为蓝色 */
+	}
+	
+	select {
+		appearance: none;
+		-webkit-appearance: none;
+		width:calc(100% - 15px);
+		padding: 5px;
+		font-size: 20px;
+	    background-color: rgba(162, 161, 167, 0.5);
+	    border: 1px solid #caced1;
+	    border-radius: 5px;
+	    color: #ffff;
+	    cursor: pointer;
+	    text-align: center;
+	    height:42px;
+	}
+	
+	input {
+		width: 150px;
+		font-size: 15px;
+		border-radius: 5px;
+		background-color: rgba(162, 161, 167, 0.5);
+		color: #ffff;
+	}  
+	
+	button {
+		background-color: grey;
+		border-radius: 25px;
+		background-color: rgba(162, 161, 167, 0.5);
+		font-size: 20px;
+		width: 90px;
+	
+		transition-duration: 0.5s;
+		color: white;
+	}
+	
+	button:hover {
+		background-color: rgba(87, 87, 89, 0.8);
+	}
+}    
 </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-		 <div align="center"> <h2>餐點資料修改</h2>
-		 <h3><a class="navbar-brand" href="<%=request.getContextPath()%>/back-end/food/select_page.jsp"><img src="<%=request.getContextPath()%>/resources/images/back1.gif">回查詢頁</a></h3></div>
-</nav>
+
+<%@ include file="../management.jsp" %>
+<div class="main">
+	<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+			 <div align="center"> <h2>餐點資料修改</h2>
+			 <h3><a class="navbar-brand" href="<%=request.getContextPath()%>/back_end/food/select_page.jsp"><img src="<%=request.getContextPath()%>/resources/images/back1.gif">回查詢頁</a></h3></div>
+	</nav>
 
 	<div align="center">
 		<h3><b>所有欄位皆為必填欄位</b></h3>
@@ -103,7 +200,7 @@
 			</div>
 		</form>
 	</div>
-
+</div>
 
 <!-- JavaScript part -->
 <script type="text/javascript">

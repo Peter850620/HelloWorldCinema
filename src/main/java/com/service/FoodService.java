@@ -31,14 +31,13 @@ public class FoodService {
 	public Food updateFood(Integer foodId, String foodName, String foodDetails, Integer foodPrice, byte[] foodPic,
 			String foodStatus) {
 
-		Food food = new Food();
+		Food food = dao.findByPrimaryKey(foodId);
 
 		food.setFoodName(foodName);
 		food.setFoodDetails(foodDetails);
 		food.setFoodPrice(foodPrice);
 		food.setFoodPic(foodPic);
 		food.setFoodStatus(foodStatus);
-		food.setFoodId(foodId);
 		dao.update(food);
 
 		return food;
