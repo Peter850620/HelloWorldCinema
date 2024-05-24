@@ -34,24 +34,41 @@ public class QRCodeServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		if (bookingNoParam != null && showId != null && seatNo != null) {
+		    Integer bookingNo = Integer.valueOf(bookingNoParam);
+		    Booking newBooking = bookingSvc.getOneBooking(bookingNo);
+		    String ableToEnter = bookingSvc.qrUpdateSeats(seatNo, bookingNo);
+		    OrderItem order = bookingSvc.qrfinddetails(bookingNo, seatNo);
 
-			Integer bookingNo = Integer.valueOf(bookingNoParam);
-			Booking newBooking = bookingSvc.getOneBooking(bookingNo);
-			String ableToEnter = bookingSvc.qrUpdateSeats(seatNo, bookingNo);
-			OrderItem order = bookingSvc.qrfinddetails(bookingNo, seatNo);
+		    // 输出HTML和内联CSS
+		    out.println("<html>");
+		    out.println("<head>");
+		    out.println("<title>Booking Details</title>");
+		    out.println("<style>");
+		    out.println(".center { text-align: center; }");
+		    out.println(".red-text { color: red; }");
+		    out.println("</style>");
+		    out.println("</head>");
+		    out.println("<body class=\"center\">"); 
 
+		    out.println("<h1>Booking Details</h1>");
 
-			out.println("訂單編號: " + bookingNoParam + "<br>");
-			out.println("電影名字: " + newBooking.getShowtimeInfo().getMovie().getMovieName()+"<br>");
+		    out.println("<div class=\"center\">"); 
+		    out.println("訂單編號: " + bookingNoParam + "<br>");
+		    out.println("電影名字: " + newBooking.getShowtimeInfo().getMovie().getMovieName() + "<br>");
 
-			out.write("預訂票種: " + order.getTicket().getTkName() + "<br>");
-			out.write("座位號碼: " + seatNo + "<br>");
+		    out.write("預訂票種: " + order.getTicket().getTkName() + "<br>");
+		    out.write("座位號碼: " + seatNo + "<br>");
 
-			out.write("入場許可: " + ableToEnter);
+		   
+		    out.write("<span class=\"red-text\">入場許可: " + ableToEnter + "</span>");
+		    out.println("</div>");
 
+		    out.println("</body>");
+		    out.println("</html>");
 		} else {
-			// 如果缺少任一參數，返回無效數據的響應
-			response.getWriter().write("Invalid QR data.");
+		    // 如果缺少任一參數，返回無效數據的響應
+		    response.getWriter().write("Invalid QR data.");
 		}
+
 	}
 }

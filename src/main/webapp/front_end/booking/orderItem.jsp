@@ -23,7 +23,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>訂單明細</title>
 
 
 <link rel="stylesheet"
@@ -126,6 +126,7 @@
 
 						</div>
 						<div class="time">
+					
 							<p>
 								<%=booking.timeformat(booking)%>
 								<span>TO</span>
@@ -151,7 +152,7 @@
 							<h4><%=booking.getShowtimeInfo().getMovie().getMovieName()%></h4>
 						</div>
 						<div class="time">
-							
+								<input type="hidden" class="date" value="<%=booking.getShowtimeInfo().getPlaydate()%>">
 							<p>
 								座位: <span>@</span><%=orderItem.getSeatNo()%>
 							</p>
@@ -164,7 +165,7 @@
 						</div>
 						<div class="barcode">
 							<img
-								src="https://external-preview.redd.it/cg8k976AV52mDvDb5jDVJABPrSZ3tpi1aXhPjgcDTbw.png?auto=webp&s=1c205ba303c1fa0370b813ea83b9e1bddb7215eb"
+								src="data:image/jpeg;base64,<%=orderItem.getPicBase64()%>"
 								alt="QR code">
 						</div>
 						<p class="ticket-number">
@@ -332,30 +333,42 @@
 
 
 	<!-- 底部footer -->
-<%@ include file="../index/indexFooter.jsp" %>
+
 
   
-    <script src="<%= request.getContextPath() %>/js/index.js"></script>
+  
 
 
 	<script src="./front_end/jq/jq.js"></script>
 
-	<script>
-		$("button.cancelorder").on("click", function() {
-			$("div.cancel").toggleClass("-on");
-			$("button.confirm").toggleClass("-on");
-			$(this).hide();
-		      $("html, body").animate({ scrollTop: 0 }, "slow");
+ <script>
+        $(document).ready(function() {
+            $("button.cancelorder").on("click", function(event) {
+                var dateString = $('input.date').val(); 
+                var currentDate = new Date();
+                var dateParts = dateString.split('-');
+                var startDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
 
-			alert("請勾選您要取消的座位或餐點並點擊確認鍵");
-		});
+           
 
-		$("button.confrim").on("click", function() {
+                if (startDate <= currentDate) {
+                    event.preventDefault(); // 阻止表單提交
+                    console.log("Preventing submission");
+                    alert("訂單已超過取消期效，無法取消。");
+                } else {
+                    $("div.cancel").toggleClass("-on");
+                    $("button.confirm").toggleClass("-on");
+                    $(this).hide();
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                    alert("請勾選您要取消的座位或餐點並點擊確認鍵");
+                }
+            });
 
-			$("button.cancelorder").show();
-
-		});
-	</script>
+            $("button.confirm").on("click", function(event) {
+                $("button.cancelorder").show();
+            });
+        });
+    </script>
 
 
 
