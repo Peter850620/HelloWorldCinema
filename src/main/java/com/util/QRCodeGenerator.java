@@ -20,7 +20,7 @@ import com.service.BookingService;
 public class QRCodeGenerator {
 	
 	//屆時要改專案名
-	private static final String BASE_URL = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeServlet";  
+	private static final String BASE_URL = "http://10.1.16.53:8081/HelloWorldCinema/QRCodeServlet";  
     BookingService bs=new BookingService();
     
     

@@ -1,5 +1,7 @@
 package com.entity;
 
+import java.util.Base64;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -84,5 +86,14 @@ public class OrderItem {
 		this.tkSeq = tkSeq;
 	}
 	
+	
+	
+	public String getPicBase64() {
+		if (qrcode != null) {
+			return Base64.getEncoder().encodeToString(qrcode);
+		} else {
+			return ""; // 或者其他默认值，视情况而定
+		}
+	}
 
 }
