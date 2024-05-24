@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +18,13 @@ import javax.servlet.http.HttpSession;
 import com.entity.Mem;
 import com.entity.Movie;
 import com.entity.Review;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.service.MovieService;
 import com.service.ReviewService;
 import com.service.ReviewServiceImpl;
 
 @WebServlet("/front/review.do")
+@MultipartConfig
 public class ReviewFrontServlet extends HttpServlet {
 
 	// 一個 servlet 實體對應一個 service 實體
@@ -48,7 +51,6 @@ public class ReviewFrontServlet extends HttpServlet {
 			System.out.print(action);
 			
 			if("getMovie".equals(action)) {
-				
 				Integer movieId = Integer.parseInt(req.getParameter("movie"));
 				Movie movie = new Movie();
 				movie.setMovieId(movieId);
@@ -64,7 +66,6 @@ public class ReviewFrontServlet extends HttpServlet {
 			
 			if ("getMem".equals(action)) { 
 				Integer memId = Integer.parseInt(req.getParameter("mem"));
-				
 //					HttpSession session = req.getSession();
 //					Integer memId = (Integer) session.getAttribute("mem");
 				
@@ -86,7 +87,6 @@ public class ReviewFrontServlet extends HttpServlet {
 				successView.forward(req, res);
 			}
 			
-				
 //			if ("compositeQuery".equals(action)) { 
 //				String movieStatus = req.getParameter("movieStatus");
 //					
@@ -128,8 +128,6 @@ public class ReviewFrontServlet extends HttpServlet {
 			}
 		
 			if ("update".equals(action)) { 
-
-
 				Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 				req.setAttribute("errorMsgs", errorMsgs);
 				
@@ -161,8 +159,6 @@ public class ReviewFrontServlet extends HttpServlet {
 				String url = "/front_end/review/personalReview.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				
-			
 			}
 		
 			if ("insert".equals(action)) { 
@@ -182,17 +178,20 @@ public class ReviewFrontServlet extends HttpServlet {
 	            }
 
 				if (!errorMsgs.isEmpty()) {
-					errorMsgs.put("Exception","新增資料失敗:---------------");
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front_end/review/listReviewByMovie.jsp");
-					failureView.forward(req, res);
-					return; //程式中斷
+					res.setContentType("application/json");
+	                res.setCharacterEncoding("UTF-8");
+	                Map<String, Object> response = new LinkedHashMap<>();
+	                response.put("success", false);
+	                response.put("errorMessage", "留言失敗: " + String.join(", ", errorMsgs.values()));
+	                ObjectMapper mapper = new ObjectMapper();
+	                res.getWriter().write(mapper.writeValueAsString(response));
+	                return; // 程式中斷
 				}
 
 				Review review = new Review();
 				
 				Mem mem = new Mem();
-				mem.setMemId(240001);
+				mem.setMemId(240002);
 				review.setMem(mem);
 				
 				Movie movie = new Movie();
@@ -205,10 +204,13 @@ public class ReviewFrontServlet extends HttpServlet {
 				review.setReviewStatus("顯示");
 				reviewService.addReview(review);
 				
-				req.setAttribute("success", "- (新增成功)");
-				String url = "/front_end/review/listReviewByMovie.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
+				res.setContentType("application/json");
+	            res.setCharacterEncoding("UTF-8");
+	            Map<String, Object> response = new LinkedHashMap<>();
+	            response.put("success", true);
+	            response.put("message", "留言成功");
+	            ObjectMapper mapper = new ObjectMapper();
+	            res.getWriter().write(mapper.writeValueAsString(response));
 			}
 			
 			if ("loadMovie".equals(action)) {
@@ -219,6 +221,5 @@ public class ReviewFrontServlet extends HttpServlet {
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}
-			
 		}
 }

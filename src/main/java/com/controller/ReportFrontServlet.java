@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.service.ReportService;
 import com.service.ReportServiceImpl;
 
 @WebServlet("/front/report.do")
+@MultipartConfig
 public class ReportFrontServlet extends HttpServlet {
 	
 	private ReportService reportService;
@@ -64,7 +66,7 @@ public class ReportFrontServlet extends HttpServlet {
 			
 //			HttpSession session = req.getSession();
 //			Integer reviewId = (Integer) session.getAttribute("review");
-			Integer reviewId = Integer.valueOf(req.getParameter("reviewId"));
+			Integer reviewId = Integer.valueOf(req.getParameter("reviewId"));	
 //			Integer memId = (Integer) session.getAttribute("mem");
 //			Integer memId = Integer.valueOf(req.getParameter("mem"));
 			
@@ -83,7 +85,7 @@ public class ReportFrontServlet extends HttpServlet {
 			} else if (!rptDetail.trim().matches(rptDetailReg)) {
 				errorMsgs.put("rptDetail", "檢舉內容: 只能是中、英文字母、數字和標點符號 , 且長度必需在2到100之間");
 			}
-
+			
 			if (!errorMsgs.isEmpty()) {
 				res.setContentType("application/json");
                 res.setCharacterEncoding("UTF-8");

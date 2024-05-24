@@ -165,7 +165,7 @@
             color: white;
             border: none;
             padding: 10px 20px;
-            border-radius: 5px; /* 新增圓角 */
+            border-radius: 5px; 
             cursor: pointer;
             transition: background-color 0.3s;
         }
@@ -270,9 +270,10 @@
 	               </div>
        			</c:forEach>
        			<div class="comment">
-		            <form method="post" action="<%= request.getContextPath() %>/front/review.do?movie=${oneMovie.movieId}">
+		            <form method="post" action="<%= request.getContextPath() %>/front/review.do" id="reviewForm">
 		                <textarea name="reviewDetails" class="reviewDetails" id="reviewDetails" placeholder="留言..."></textarea>
 		                <span  id ="reviewDetails.errors" class="error">${errorMsgs.reviewDetails}</span>
+		                <input type="hidden" name="movie" value="${oneMovie.movieId}">
 		                <input type="hidden" name="action" value="insert">
 		                <input type="submit">
 		            </form>
@@ -285,7 +286,7 @@
 	<div id="reportModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <form method="post" action="<%= request.getContextPath() %>/front/report.do">
+            <form method="post" action="<%= request.getContextPath() %>/front/report.do" id="rptForm">
                 <label for="rptType">檢舉類型:</label>
 				<select id="rptType" name="rptType" required>
 			        <option value="色情或裸露內容">色情或裸露內容</option>
@@ -346,29 +347,48 @@
 		    }
 	  	});
 
-    	document.addEventListener("DOMContentLoaded", function() {
-    	    document.querySelector("#reportModal form").addEventListener("submit", function(event) {
-		        event.preventDefault(); 
-	
-		        var formData = new FormData(this);
-	
-		        fetch('<%= request.getContextPath() %>/front/report.do?action=insert&reviewId=1', {
-		            method: 'POST',
-		            body: formData
-		        })
-		        .then(response => response.json())
-		        .then(data => {
-		            if (data.success) {
-		                alert('檢舉成功');
-		                document.getElementById("reportModal").style.display = "none";
-		            } else {
-		                alert('檢舉失敗: ' + data.errorMessage);
-		            }
-		        })
-		        .catch(error => console.error('Error:', error));
-		    });
-    	});
+   	    document.querySelector("#rptForm").addEventListener("submit", function(event) {
+   	    	event.preventDefault();
+
+	        var formData = new FormData(this);
+
+	        fetch('<%= request.getContextPath() %>/front/report.do?action=insert', {
+	            method: 'POST',
+	            body: formData
+	        })
+	        .then(response => response.json())
+	        .then(data => {
+	            if (data.success) {
+	                alert('檢舉成功');
+	                document.getElementById("reportModal").style.display = "none";
+	            } else {
+	                alert('檢舉失敗: ' + data.errorMessage);
+	            }
+	        })
+	        .catch(error => console.error('Error:', error));
+	    });
 		
+   	 	document.querySelector("#reviewForm").addEventListener("submit", function(event) {
+	    	event.preventDefault();
+
+	        var formData = new FormData(this);
+
+	        fetch('<%= request.getContextPath() %>/front/review.do?action=insert', {
+	            method: 'POST',
+	            body: formData
+	        })
+	        .then(response => response.json())
+	        .then(data => {
+	            if (data.success) {
+	                alert('留言成功');
+            		document.getElementById("reviewDetails").value = '';
+	            } else {
+	                alert('留言失敗: ' + data.errorMessage);
+	            }
+	        })
+	        .catch(error => console.error('Error:', error));
+	    });
+   	 
 		function showReportModal(reviewId) {
             var modal = document.getElementById("reportModal");
             var span = document.getElementsByClassName("close")[0];
