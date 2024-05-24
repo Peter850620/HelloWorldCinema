@@ -6,6 +6,8 @@
 <%@ page import="com.controller.*"%>
 <%@ page import="com.service.*"%>
 
+<%Mem mem = (Mem)request.getAttribute("mem");%>
+
 <%MerchOrder merchOrder = (MerchOrder)request.getAttribute("merchOrder");%>
 
 <%MerchItem merchItem = (MerchItem)request.getAttribute("merchItem");%>
@@ -19,7 +21,7 @@
 
     <!-- 主要css -->
     
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front_end/movie/css/movieInfo.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front_end/merch/css/ticket.css">
 </head>
 <body>
 
@@ -27,8 +29,10 @@
 <!-- ========================以下區域可放置其他內容======================== -->
 
 <div class="container">
-    <h1>新增票種</h1>
-    <h4><a href="<%=request.getContextPath()%>/back_end/ticket/select_page.jsp">回到票種管理</a></h4>
+
+	<h1>購物車明細</h1>
+	<br>
+    <h4><a href="<%=request.getContextPath()%>/front_end/merch/merchStore.jsp">回到上一頁</a></h4>
     
     <%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -39,8 +43,9 @@
 			</c:forEach>
 		</ul>
 	</c:if>
-	    
-    
+	<br>    
+    <div id="cartItems"></div>
+    <br>
     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/merchOrder/merchOrder.do" name="form1">
         <table>
             
@@ -62,15 +67,15 @@
             </tr>
             <tr>
                 <td>收貨人:</td>
-                <td><input type="TEXT" name="recipient" value="<%= (merchOrder==null)? "" : merchOrder.getRecipient()%>" size="35"/></td>
+                <td><input type="TEXT" name="recipient" value="<%= (mem==null)? "" : mem.getMemName()%>" size="35"/></td>
             </tr>
             <tr>
                 <td>收貨人地址:</td>
-                <td><input type="TEXT" name="receiptAddr" value="<%= (merchOrder==null)? "" : merchOrder.getReceiptAddr()%>" size="45"/></td>
+                <td><input type="TEXT" name="receiptAddr" value="<%= (mem==null)? "" : mem.getMemAddr()%>" size="45"/></td>
             </tr>
             <tr>
                 <td>收貨人電話:</td>
-                <td><input type="TEXT" name="receiptMobile" value="<%= (merchOrder==null)? "" : merchOrder.getReceiptMobile()%>" size="35"/></td>
+                <td><input type="TEXT" name="receiptMobile" value="<%= (mem==null)? "" : mem.getMemMobile()%>" size="35"/></td>
             </tr>
             
         
@@ -88,12 +93,26 @@
 
 <jsp:include page="/front_end/index/indexFooter.jsp" flush="true" />  
 
+	<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var cartItems = localStorage.getItem("cartItems");
+            if (cartItems) {
+                var parsedCartItems = JSON.parse(cartItems);
+                var cartItemsDiv = document.getElementById("cartItems");
 
-    
-   
-    
-    <!-- 主要js -->
-    <script src="<%=request.getContextPath()%>/front_end/movie/js/singleMovie.js"></script>
+                parsedCartItems.forEach(function(item, index) {
+                    var itemElement = document.createElement("div");
+                    console.log("cartItems");
+                    itemElement.innerHTML = `
+                        <p>商品名稱：${item.merchName}</p>
+                        <p>商品數量：${item.merchQty}</p>
+                        <p>商品價格：${item.merchPrice}</p>
+                    `;
+                    cartItemsDiv.appendChild(itemElement);
+                });
+            }
+        });
+    </script>
     
 </body>
 </html>

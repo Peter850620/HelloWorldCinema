@@ -1,15 +1,14 @@
 package com.controller;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,29 +38,38 @@ public class CartServlet {
     }
 
 
-    @PostMapping("/updateCart")
+    @PostMapping("/updateQty")
     @ResponseBody
-    public String update(@Valid @RequestBody Cart cartItem, BindingResult result, ModelMap model) {
-        if (result.hasErrors()) {
-            return "Error: Invalid input data";
-        }
+    public String updateQuantity(@RequestParam("memId") Integer memId,
+                                 @RequestParam("merchId") Integer merchId,
+                                 @RequestParam("newQty") Integer merchQty) {
         try {
-            cartService.updateCart(cartItem);
-            return "Success: Updated cart";
+            cartService.updateCartItemQuantity(memId, merchId, merchQty);
+            return "Success: Updated cart item quantity";
         } catch (Exception e) {
             return "Error: " + e.getMessage();
         }
     }
 
+
     @PostMapping("/removeCart")
     @ResponseBody
-    public String removeItem(@RequestParam("memId") Integer memId, @RequestParam("merchId") Integer merchId, ModelMap model) {
-        try {
-            cartService.removeItemFromCart(memId, merchId);
-            return "Success: Removed from cart";
-        } catch (Exception e) {
-            return "Error: " + e.getMessage();
+    public Map<String, String> removeItem(@RequestParam("memId") Integer memId, @RequestParam("merchId") Integer merchId) {
+        Map<String, String> response = new HashMap<>();
+        if (memId == null || merchId == null) {
+            response.put("status", "Error");
+            response.put("message", "memId and merchId are required");
+        } else {
+            try {
+                cartService.removeItemFromCart(memId, merchId);
+                response.put("status", "Success");
+                response.put("message", "Removed from cart");
+            } catch (Exception e) {
+                response.put("status", "Error");
+                response.put("message", e.getMessage());
+            }
         }
+        return response;
     }
 
     @GetMapping("/cartItems")

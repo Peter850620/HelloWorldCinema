@@ -225,6 +225,15 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 
 // 		從購物車移除商品
 	    function removeFromCart(productId) {
+	
+	    	var memId = $('#memId').val();
+	        
+	        // Ensure merchId is defined and valid
+	        if (!merchId) {
+	            console.error('merchId is undefined');
+	            return;
+	        }
+	
 	        fetch(`cart/removeCart?memId=240002&merchId=${productId}`, {
 	            method: 'POST'
 	        })

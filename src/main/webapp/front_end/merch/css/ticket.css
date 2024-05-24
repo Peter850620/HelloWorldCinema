@@ -1,0 +1,60 @@
+
+  .container {
+    width: 1300px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgb(0 0 0/ 60%);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 90px;
+  }
+  
+  h1 {
+    text-align: center;
+    color: white;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: white
+  }
+  
+  th {
+    background-color: rgb(0 0 0/ 60%);
+  }
+  
+  th:hover {
+    background-color: rgb(0 0 0/ 60%);
+  }
+  
+  a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .add{
+    margin-left: 800px;
+  }
+  
+  b {
+  	color: white;
+  }
+  
+  li{
+  	color: white;
+  }
+  
+  p{
+  	color: white;
+  }
