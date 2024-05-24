@@ -22,7 +22,7 @@
 
 <jsp:include page="../management.jsp" />
 	
-	<form action="<%= request.getContextPath() %>/MovieController"  method="post"  enctype="multipart/form-data">
+	<form action="<%= request.getContextPath() %>/MovieController"  method="post"  enctype="multipart/form-data"   onsubmit="return validateForm();">
         
 	<%
 	Movie movie = (Movie)request.getAttribute("movie");
@@ -141,9 +141,21 @@
 	    // 重組合要導向的URL
 	    var targetUrl = "/" + projectName + "/back_end/movie/listAllMovie.jsp";
 
-	    // 導向目标 URL
+	    // 導向目標 URL
 	    window.location.href = targetUrl;
 	}
+	
+	
+	 function validateForm() {
+         var releaseDate = document.getElementsByName("releaseDate")[0].value;
+         var offDate = document.getElementsByName("offDate")[0].value;
+
+         if (releaseDate && offDate && releaseDate > offDate) {
+             alert("上映日期不能晚於下檔日期");
+             return false; // 阻止表單提交
+         }
+         return true; // 允許表單提交
+     }
 	</script>
 
 </body>

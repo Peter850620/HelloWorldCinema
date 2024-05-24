@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ page import="com.entity.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,6 +36,14 @@
 </head>
 <body>
 
+
+<% 
+Object memObject = session.getAttribute("mem");
+Mem mem = null;
+if (memObject instanceof Mem) {
+    mem = (Mem) memObject; 
+}
+%>
     <!-- 選單 -->
     <header class="header">
         <div id="box" class="logo">
@@ -94,13 +102,39 @@
                             </li>
                         </ul>
                     </li>
+                    
+                     <% if (mem != null) { %>
                     <li class="nav__menu-item">
-                        <a href=""><h4 class="neon2">Log In</h4></a>
+                        <a href="#">
+                         <h4 class="neon2">
+            <%= mem.getMemName() != null ? mem.getMemName() : "Log In" %>
+                      </h4>
+                        </a>
                         <ul class="nav__submenu">
-                            <li class="nav__submenu-item">
-                                <a href=""></a>
+                             <li class="nav__submenu-item">
+                                <a href="<%=request.getContextPath()%>/front_end/booking/booking.jsp">電影訂單</a>
                             </li>
-
+                            <li class="nav__submenu-item">
+                                <a href="<%=request.getContextPath()%>/front/message.do?action=getMem">個人訊息</a>
+                            </li>
+                            <li class="nav__submenu-item">
+                                <a href="">周邊訂單</a>
+                            </li>
+                            
+                             <li class="nav__submenu-item">
+                                <a href="javascript:void(0);" onclick="logout()">登出</a>
+                            </li>
+                 <%}else{ %>
+                 
+                 <li class="nav__menu-item">
+                        <a href="<%=request.getContextPath()%>/front_end/mem/mem.jsp">
+                         <h4 class="neon2">
+                       Log In
+                      </h4>
+                        </a>
+                        <ul class="nav__submenu">
+                            
+                            <%} %>
                         </ul>
                     </li>
                 </ul>
@@ -109,6 +143,16 @@
         
     </header>
 
-
-<br>
+<script>
+        function logout() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "<%=request.getContextPath()%>/front_end/mem/logout.jsp", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    window.location.href = "<%=request.getContextPath()%>/front_end/movie/movieNowShowing.jsp";
+                }
+            };
+            xhr.send();
+        }
+    </script>
 

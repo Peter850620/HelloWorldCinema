@@ -17,6 +17,7 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.entity.Message;
 import com.entity.Report;
 
 import com.util.HibernateUtil;
@@ -67,11 +68,12 @@ public class ReportDAOImpl implements ReportDAO {
 
 	@Override
 	public List<Report> getAll() {
-		return getSession().createQuery("from Report", Report.class).list();
+		return getSession().createQuery("FROM Report ORDER BY rptDate DESC", Report.class).list();
 	}
 
 	@Override
-	public List<Report> getByCompositeQuery(Map<String, String> map) {
+	public List<Report> getByCompositeQuery(Map<String, String> map, int currentPage) {
+		int first = (currentPage - 1) * PAGE_MAX_RESULT;
 		if (map.size() == 0)
 			return getAll();
 
@@ -89,7 +91,7 @@ public class ReportDAOImpl implements ReportDAO {
 			if ("rptId".equals(row.getKey())) {
 				predicates.add(builder.equal(root.get("rptId"), new BigDecimal(row.getValue())));
 			}
-
+			
 			if ("mem".equals(row.getKey())) {
 				predicates.add(builder.equal(root.get("mem"), new BigDecimal(row.getValue())));
 			}
@@ -97,7 +99,7 @@ public class ReportDAOImpl implements ReportDAO {
 			if ("review".equals(row.getKey())) {
 				predicates.add(builder.equal(root.get("review"), new BigDecimal(row.getValue())));
 			}
-
+			
 			if ("rptType".equals(row.getKey())) {
 				predicates.add(builder.equal(root.get("rptType"), row.getValue()));
 			}
@@ -105,42 +107,103 @@ public class ReportDAOImpl implements ReportDAO {
 			if ("rptDetail".equals(row.getKey())) {
 				predicates.add(builder.equal(root.get("rptDetail"), row.getValue()));
 			}
-
+			
 			if ("startRptDate".equals(row.getKey())) {
 				if (!map.containsKey("endRptDate"))
 					predicates
 							.add(builder.greaterThanOrEqualTo(root.get("RptDate"), Timestamp.valueOf(row.getValue())));
 			}
-
+			
 			if ("endRptDate".equals(row.getKey())) {
 				if (!map.containsKey("startRptDate"))
 					predicates.add(builder.lessThanOrEqualTo(root.get("RptDate"), Timestamp.valueOf(row.getValue())));
-
 			}
 			
 			if ("rptStatus".equals(row.getKey())) {
 				predicates.add(builder.equal(root.get("rptStatus"), row.getValue()));
 			}
-
+			
 		}
 
 		criteria.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
 		criteria.orderBy(builder.asc(root.get("rptId")));
 		TypedQuery<Report> query = getSession().createQuery(criteria);
 
-		return query.getResultList();
+		return query.setFirstResult(first).setMaxResults(PAGE_MAX_RESULT).getResultList();
+	}
+	
+	@Override
+	public int getMapTotal(Map<String, String> map) {
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+		CriteriaQuery<Report> criteria = builder.createQuery(Report.class);
+		Root<Report> root = criteria.from(Report.class);
+
+		List<Predicate> predicates = new ArrayList<>();
+
+		if (map.containsKey("startRptDate") && map.containsKey("endRptDate"))
+			predicates.add(builder.between(root.get("RptDate"), Timestamp.valueOf(map.get("startRptDate")),
+					Timestamp.valueOf(map.get("endRptDate"))));
+
+		for (Map.Entry<String, String> row : map.entrySet()) {
+			if ("rptId".equals(row.getKey())) {
+				predicates.add(builder.equal(root.get("rptId"), new BigDecimal(row.getValue())));
+			}
+			
+			if ("mem".equals(row.getKey())) {
+				predicates.add(builder.equal(root.get("mem"), new BigDecimal(row.getValue())));
+			}
+			
+			if ("review".equals(row.getKey())) {
+				predicates.add(builder.equal(root.get("review"), new BigDecimal(row.getValue())));
+			}
+			
+			if ("rptType".equals(row.getKey())) {
+				predicates.add(builder.equal(root.get("rptType"), row.getValue()));
+			}
+			
+			if ("rptDetail".equals(row.getKey())) {
+				predicates.add(builder.equal(root.get("rptDetail"), row.getValue()));
+			}
+			
+			if ("startRptDate".equals(row.getKey())) {
+				if (!map.containsKey("endRptDate"))
+					predicates
+							.add(builder.greaterThanOrEqualTo(root.get("RptDate"), Timestamp.valueOf(row.getValue())));
+			}
+			
+			if ("endRptDate".equals(row.getKey())) {
+				if (!map.containsKey("startRptDate"))
+					predicates.add(builder.lessThanOrEqualTo(root.get("RptDate"), Timestamp.valueOf(row.getValue())));
+			}
+			
+			if ("rptStatus".equals(row.getKey())) {
+				predicates.add(builder.equal(root.get("rptStatus"), row.getValue()));
+			}
+			
+		}
+		
+		criteria.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+		criteria.orderBy(builder.asc(root.get("rptId")));
+		TypedQuery<Report> query = getSession().createQuery(criteria);
+
+		List<Report> resultlist = query.getResultList();
+		int total = resultlist.size();
+		int pageQty = (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
 	}
 
 	@Override
 	public List<Report> getAll(int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("from Report", Report.class).setFirstResult(first)
-				.setMaxResults(PAGE_MAX_RESULT).list();
+		return getSession().createQuery("FROM Report ORDER BY rptDate DESC", Report.class)
+				.setFirstResult(first)
+				.setMaxResults(PAGE_MAX_RESULT)
+				.list();
 	}
 
 	@Override
 	public long getTotal() {
-		return getSession().createQuery("select count(*) from Report", Long.class).uniqueResult();
+		return getSession().createQuery("SELECT count(*) FROM Report", Long.class).uniqueResult();
 	}
 
 }

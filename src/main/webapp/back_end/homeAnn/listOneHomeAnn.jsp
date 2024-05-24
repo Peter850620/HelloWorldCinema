@@ -6,11 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>評論資料 - listOneReview.jsp</title>
-
-
+<title>公告資料</title>
 <style type="text/css">
-	
 	.xxx{
 		margin: 20px auto;
 		padding: 20px;
@@ -27,12 +24,18 @@
 		color:white;
 	}
 	
-     .nav_head{
-		margin-left: 50px;
+     .nav_head {
+		margin: 0px 0px 20px 50px;
 	}
 	
-	a{
-		color:white;
+	.form_footer {
+		margin: 20px 0px 0px 50px;
+	}
+	
+	.form_footer a{
+		background-color: rgb(135, 189, 250);
+       	border: solid white;
+       	color: white;
 	}
 	
 	.container{
@@ -56,7 +59,7 @@
 		font-size: 16px; 
 		width: 500px; 
 		height: 200px; 
-		resize: vertical;
+		resize: none;
 	}
 </style>
 </head>
@@ -64,20 +67,35 @@
 <%@ include file="../management.jsp" %>
 <div class="xxx" id="xxx">
 	<nav class="nav_head">
-		 <div align="center"> <h2>單一公告資料</h2>
-		 <h3><a href="<%= request.getContextPath() %>/back/homeAnn.do?action=getAll">回查詢頁</a></h3></div>
+		 <h2>單一公告資料</h2>
 	</nav>
-	
 	<div class="container">
 		<span>公告編號:</span><span>${homeAnn.annId}</span><br/>
-		<span>公告日期:</span><span class="timeItem">${homeAnn.annTime}</span><br/>
+		<span>公告日期:</span><span id="timeItem" data-time="${homeAnn.annTime}">${homeAnn.annTime}</span><br/>
 		<span>公告標題:</span><span>${homeAnn.annTitle}</span><br/>
 		<span>公告內容:</span><br/>
 		<textarea readonly>${homeAnn.annDetail}</textarea><br/>
 	</div>
+	<div class="form_footer">
+		<h3><a href="<%= request.getContextPath() %>/back/homeAnn.do?action=getAll">回主頁</a></h3>
+	</div>
 </div>
-
-
-<script src="<%= request.getContextPath() %>/js/timestampFormat.js"></script>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+	    var annTimeElement = document.getElementById("timeItem");
+	    var annTimeValue = annTimeElement.getAttribute("data-time");
+	
+	    if (annTimeValue) {
+	        var date = new Date(annTimeValue);
+	        var formattedDate = date.getFullYear() + '-' + 
+	                            String(date.getMonth() + 1).padStart(2, '0') + '-' + 
+	                            String(date.getDate()).padStart(2, '0') + ' ' + 
+	                            String(date.getHours()).padStart(2, '0') + ':' + 
+	                            String(date.getMinutes()).padStart(2, '0') + ':' + 
+	                            String(date.getSeconds()).padStart(2, '0');
+           	annTimeElement.textContent = formattedDate;
+	    }
+	});
+</script>
 </body>
 </html>

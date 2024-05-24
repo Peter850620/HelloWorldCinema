@@ -5,32 +5,73 @@
 <head>
 
 	<style>
-        .main{
-            height: 800px;
-            background-color: aliceblue;
-            margin-left: 101.852px;
-            margin-right: 101.863px;
-        }
-        .message_container{
-            background-color: aliceblue;
+		body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
         }
 
-        .message_head{
-            margin-left: 101.853px;
-            color: blueviolet;
+        .main {
+            max-width: 1000px;
+            background-color: white;
+            margin: 50px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            height: 550px;
+        }
+
+        .message_head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .message_head a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .message_head a:hover {
+            text-decoration: underline;
         }
 
         table {
-		    border-collapse: collapse;
-		    width: 100%; 
-		    border: 2px solid white;
-		}
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            color: #007bff;
+            margin: 0 5px;
+        }
+
+        .pagination a:hover {
+            text-decoration: underline;
+        }
 		
-		th, td {
-		    border: 1px solid white;
-		    padding: 8px;
-		    text-align: left; 
-		}
     </style>
 </head>
 <body>
@@ -38,8 +79,10 @@
 <!-- ========================以下區域可放置其他內容======================== -->
 <div id="xxx">
     <div class="main" id="main">
+    	<h1>個人通知</h1>
         <div class="message_head">
-            <a href="<%= request.getContextPath() %>/front/message.do?action=getMem&mem=240001">所有評論</a>
+        	<a href="<%= request.getContextPath() %>/front_end/review/reviewFront.jsp">回會員中心</a>	<!-- 路徑要改 -->
+            <a href="<%= request.getContextPath() %>/front/message.do?action=getMem&mem=240001">所有通知</a>
         </div>
 		
 		<div class="message_container">
@@ -52,11 +95,11 @@
 	                    <th>通知標題</th>
 	                </tr>
 	            </thead>
-	            <tbody>
+	            <tbody id="messageBody">
 	            	<c:forEach var="message" items="${messageList}">
 						<tr>
 							<td>${message.msgId}</td>
-							<td>${message.msgTime}</td>
+							<td class="timeItem">${message.msgTime}</td>
 							<td>${message.msgStatus}</td>
 							<td><a href="<%= request.getContextPath() %>/front/message.do?action=getMessage&msgId=${message.msgId}">${message.msgTitle}</a></td>
 						</tr>               
@@ -90,6 +133,22 @@
     
     <!-- 主要js -->
     <script src="<%= request.getContextPath() %>/js/index.js"></script>
-    
+    <script>
+	    document.addEventListener('DOMContentLoaded', () => {
+	        const messageBody = document.getElementById('messageBody');
+	        const rows = Array.from(messageBody.getElementsByTagName('tr'));
+	
+	        rows.forEach(row => {
+	            const dateCell = row.querySelector('.timeItem');
+	            const date = new Date(dateCell.textContent.trim());
+	            dateCell.textContent = date.toISOString().slice(0, 19).replace('T', ' '); 
+	            row.msgTimeValue = date.getTime(); 
+	        });
+	
+	        rows.sort((a, b) => b.msgTimeValue - a.msgTimeValue); 
+	
+	        rows.forEach(row => messageBody.appendChild(row));
+	    });
+    </script>
 </body>
 </html>
