@@ -62,12 +62,19 @@ public class ReportServlet extends HttpServlet {
 
 		if ("compositeQuery".equals(action)) { 
 			Map<String, String[]> map = req.getParameterMap();
-				
+			String page = req.getParameter("page");
+			int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+			List<Report> reportList = reportService.getByCompositeQuery(map, currentPage);
+
+			int reportPageQty = 1;
 			if (map != null) {
-				List<Report> reportList = reportService.getByCompositeQuery(map);
-				req.setAttribute("reportList", reportList);
+				reportPageQty = reportService.getCompositeQueryTotal(map);
 			}
-			String url = "/back_end/report/select_report.jsp";   
+
+			req.getSession().setAttribute("reportPageQty", reportPageQty);
+			req.setAttribute("currentPage", currentPage);
+			req.setAttribute("reportList", reportList);
+			String url = "/back_end/report/select_report.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}	

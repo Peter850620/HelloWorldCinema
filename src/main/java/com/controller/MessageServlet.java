@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.entity.Mem;
 import com.entity.Message;
+import com.entity.Review;
 import com.service.MessageService;
 import com.service.MessageServiceImpl;
 
@@ -23,10 +24,12 @@ public class MessageServlet extends HttpServlet {
 
 	// 一個 servlet 實體對應一個 service 實體
 	private MessageService messageService;
-
+	
+	
 	@Override
 	public void init() throws ServletException {
 		messageService = new MessageServiceImpl();
+		
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -62,11 +65,18 @@ public class MessageServlet extends HttpServlet {
 
 		if ("compositeQuery".equals(action)) {
 			Map<String, String[]> map = req.getParameterMap();
-
+			String page = req.getParameter("page");
+			int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+			List<Message> messageList = messageService.getByCompositeQuery(map, currentPage);
+			
+			int messagePageQty = 1;
 			if (map != null) {
-				List<Message> messageList = messageService.getByCompositeQuery(map);
-				req.setAttribute("messageList", messageList);
+				messagePageQty = messageService.getCompositeQueryTotal(map);
 			}
+			
+			req.getSession().setAttribute("messagePageQty", messagePageQty);
+			req.setAttribute("currentPage", currentPage);
+			req.setAttribute("messageList", messageList);
 			String url = "/back_end/message/select_message.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);

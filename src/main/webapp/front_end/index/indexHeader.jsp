@@ -80,7 +80,7 @@ if (memObject instanceof Mem) {
                     
                     </li>
                     <li class="nav__menu-item">
-                        <a href="merchStore.html"><h4 class="neon2">周邊商城</h4></a>
+                        <a href="<%=request.getContextPath()%>/front_end/merch/merchStore.jsp"><h4 class="neon2">周邊商城</h4></a>
                         <ul class="nav__submenu">
                             <li class="nav__submenu-item">
                                 <a href=""></a>
@@ -115,7 +115,7 @@ if (memObject instanceof Mem) {
                                 <a href="<%=request.getContextPath()%>/front_end/booking/booking.jsp">電影訂單</a>
                             </li>
                             <li class="nav__submenu-item">
-                                <a href="">個人訊息</a>
+                                <a href="<%=request.getContextPath()%>/front/message.do?action=getMem">個人訊息</a>
                             </li>
                             <li class="nav__submenu-item">
                                 <a href="">周邊訂單</a>

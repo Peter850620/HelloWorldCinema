@@ -58,7 +58,7 @@
                         <a class="items" href="<%=request.getContextPath() %>/back_end/booking/bookingMovie.jsp">
                             <span class="itemstooltip">現場畫位</span>
                         </a>
-                        <a class="items" href="">
+                        <a class="items" href="<%= request.getContextPath() %>/back_end/merchOrder/select_page.jsp">
                             <span class="itemstooltip">周邊訂單</span>
                         </a>
                     </div>
@@ -97,7 +97,7 @@
                         <a class="items" href="<%= request.getContextPath() %>/back_end/showtimeInfo/listAllShowtimeInfo.jsp">
                             <span class="itemstooltip">場次管理</span>
                         </a>
-                        <a class="items" href="">
+                        <a class="items" href="<%= request.getContextPath() %>/back_end/ticket/select_page.jsp">
                             <span class="itemstooltip">票種管理</span>
                         </a>
 
