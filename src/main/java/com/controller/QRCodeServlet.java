@@ -38,7 +38,7 @@ public class QRCodeServlet extends HttpServlet {
 		    Booking newBooking = bookingSvc.getOneBooking(bookingNo);
 		    String ableToEnter = bookingSvc.qrUpdateSeats(seatNo, bookingNo);
 		    OrderItem order = bookingSvc.qrfinddetails(bookingNo, seatNo);
-
+    System.out.println("我是訂單"+bookingNo);       System.out.println("我是座位"+seatNo);
 		    // 输出HTML和内联CSS
 		    out.println("<html>");
 		    out.println("<head>");

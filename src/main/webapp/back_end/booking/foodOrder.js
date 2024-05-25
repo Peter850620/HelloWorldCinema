@@ -64,7 +64,7 @@ function initApp() {
             <div class="title">${value.foodName}</div>
             <div class="price">${value.foodPrice.toLocaleString()}</div>
             <input type="hidden" name="foodId" value="${value.foodId}">
-            <button onclick="addToCard(${key})">Add To Card</button>`;
+            <button onclick="addToCard(${ key})">Add To Card</button>`;
 		list.appendChild(newDiv);
 
 	if(storedTotal){
@@ -152,7 +152,7 @@ function reloadCard() {
 	})
 
 	sessionStorage.setItem("foodAndQuantity", JSON.stringify(foodAndQuantity));
-	console.log("Total Price:", totalPrice);
+	
 	let food=0;
 	if(seatTotal){
    food=totalPrice-seatTotal;
