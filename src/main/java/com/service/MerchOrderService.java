@@ -1,5 +1,6 @@
 package com.service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -20,17 +21,17 @@ public class MerchOrderService {
     }
     
 //	新增商品訂單
-	public MerchOrder addMerchOrder(Mem mem,String pickupOption, String paymentType,
-			Integer merchTotal, String recipient, String receiptAddr, String receiptMobile) {
+	public MerchOrder addMerchOrder(Mem mem, Date orderDate, String pickupOption, String paymentType,
+			String receiptStatus, Integer merchTotal, String recipient, String receiptAddr, String receiptMobile) {
 		
 		MerchOrder merchOrder = new MerchOrder();
 		
 
 		merchOrder.setMem(mem);
-
+		merchOrder.setOrderDate(new Date());
 		merchOrder.setPickupOption(pickupOption);
 		merchOrder.setPaymentType(paymentType);
-
+		merchOrder.setReceiptStatus(receiptStatus);
 		merchOrder.setMerchTotal(merchTotal);
 		merchOrder.setRecipient(recipient);
 		merchOrder.setReceiptAddr(receiptAddr);

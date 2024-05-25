@@ -27,7 +27,8 @@
 <jsp:include page="/front_end/index/indexHeader.jsp" flush="true" />  
 <!-- ========================以下區域可放置其他內容======================== -->
 
-<button id='cart-button' class="trigger cart-button-style">查看購物車</button>
+<button id='cart-button' class="trigger cart-button-style" name="action" value="getById">查看購物車</button>
+
 <div class="card-wrapper">
     <div class="card">
         <!-- card left -->
@@ -271,7 +272,7 @@
 	            qtyInput.on('input', function () {
 	                updateCartItemQty(item.merchId, parseInt($(this).val()));
 	            });
-	            row.append($('<td>').append(qtyInput));
+	            row.append($('<td>').css('width', '5px').append(qtyInput));
 	            row.append($('<td>').text(item.merchPrice));
 	            row.append($('<td>').text(item.merchQty * item.merchPrice));
 	            row.append($('<td>').append($('<button>').text('移除').click(function () {

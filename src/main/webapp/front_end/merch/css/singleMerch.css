@@ -203,19 +203,17 @@ img{
 /* 查看購物車 */
 .slider {
     position: fixed;
-    width: 100vw;
+    width: 450px; /* 侧边栏的宽度 */
     height: 100vh;
+	left: 0; /* 打开时从左侧显示 */
     top: 0;
-    overflow: hidden;
     background: white;
-    transition: all 1s;
+    transition: left 0.3s ease; /* 添加过渡效果 */
     z-index: 10;
 }
-
 .slider.close {
-  top: 100vh;
-  height: 0;
-  overflow-y: hidden; /* 隱藏內容 */
+	 left: -450px; /* 初始状态左侧隐藏 */
+	 overflow-y: hidden; /* 隱藏內容 */
 }
 
 
@@ -233,7 +231,7 @@ img{
 
 #cart {
   text-align: left;
-  margin: 3.5em 0.5em;
+  margin: 2em 0.5em;
   padding: 0.5% 1.5%;
   overflow-y: scroll;
 }
@@ -250,7 +248,7 @@ img{
 width: 40%;
 }
 .quantity-col {
-width: 5%;
+width: 3%;
 }
 .price-col {
 width: 15%;
@@ -318,14 +316,8 @@ width: 5%;
   overflow-x: auto;
 }
 
-#promo {
-  width: 10em;
-  padding: 1em 1em;
-  transition: background .5s;
-  border-radius: 4px;
-}
 
-#apply-promo, #checkout, .keep-shopping {
+#checkout, .keep-shopping {
   border-style: none;
   width: 10em;
   padding: 1em 1em;

@@ -57,60 +57,66 @@ public class MerchOrderServlet extends HttpServlet{
 			HttpSession session = req.getSession(false); // 如果不存在會話，則返回 null
 			
 			    Mem mem = (Mem) session.getAttribute("mem");
+			    if (mem == null) {
+			        errorMsgs.add("用戶尚未登入，請先登入");
+			    }
+
+			    // 確保在使用 memId 之前，mem 不為 null
+			    Integer memId = null;
 			    if (mem != null) {
-			        // 在這裡可以使用 mem 對象
-			        System.out.println("當前用戶的 memId：" + mem.getMemId());
-			        Integer memId = mem.getMemId(); // Get the memId
+			        memId = mem.getMemId(); // Get the memId
+			        System.out.println("當前用戶的 memId：" + memId);
 			    }
 			
-	           
-
-
+			    //將訂單日期設為當前時間
+			    Date orderDate = java.sql.Date.valueOf(java.time.LocalDate.now());
 				
 				String pickupOption = req.getParameter("pickupOption");
 				
 				String paymentType = req.getParameter("paymentType");
 				
-
+//				預設默認值
+				String receiptStatus = "未出貨";
 				
 				Integer merchTotal = Integer.valueOf(req.getParameter("merchTotal"));
 				
-				
 				String recipient = req.getParameter("recipient");
-				String recipientReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
-				if (recipient == null || recipient.trim().length() == 0) {
-					errorMsgs.add("收貨人姓名: 請勿空白");
-				} else if(!recipient.trim().matches(recipientReg)) {
-					errorMsgs.add("收貨人姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-	            }
-				
-				
-				String receiptAddr = req.getParameter("receiptAddr");
-				String receiptAddrReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,30}$";
-				if (receiptAddr == null || receiptAddr.trim().length() == 0) {
-					errorMsgs.add("收貨人姓名: 請勿空白");
-				} else if(!receiptAddr.trim().matches(receiptAddrReg)) {
-					errorMsgs.add("收貨人姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-	            }
-				
+			    String receiptAddr = req.getParameter("receiptAddr");
+			    String receiptMobile = req.getParameter("receiptMobile");
 
-				String receiptMobile = req.getParameter("receiptMobile");
-				String receiptMobileReg = "^[0-9]{2,10}$";
-				if (receiptMobile == null || receiptMobile.trim().length() == 0) {
-					errorMsgs.add("收貨人電話: 請勿空白");
-				} else if(!receiptMobile.trim().matches(receiptMobileReg)) {
-					errorMsgs.add("收貨人電話: 只能是數字和_ , 且長度必需在2到10之間");
-	            }
+			    // 只有當 pickupOption 為 '宅配' 時才需要檢查
+			    if ("宅配".equals(pickupOption)) {
+			        String recipientReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+			        if (recipient == null || recipient.trim().length() == 0) {
+			            errorMsgs.add("收貨人姓名: 請勿空白");
+			        } else if (!recipient.trim().matches(recipientReg)) {
+			            errorMsgs.add("收貨人姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+			        }
+
+			        String receiptAddrReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,30}$";
+			        if (receiptAddr == null || receiptAddr.trim().length() == 0) {
+			            errorMsgs.add("收貨人地址: 請勿空白");
+			        } else if (!receiptAddr.trim().matches(receiptAddrReg)) {
+			            errorMsgs.add("收貨人地址: 只能是中、英文字母、數字和_ , 且長度必需在2到30之間");
+			        }
+
+			        String receiptMobileReg = "^[0-9]{2,10}$";
+			        if (receiptMobile == null || receiptMobile.trim().length() == 0) {
+			            errorMsgs.add("收貨人電話: 請勿空白");
+			        } else if (!receiptMobile.trim().matches(receiptMobileReg)) {
+			            errorMsgs.add("收貨人電話: 只能是數字和_ , 且長度必需在2到10之間");
+			        }
+			    }
 				
 
 
 				MerchOrder merchOrder = new MerchOrder();
 
 				merchOrder.setMem(mem);
-
+				merchOrder.setOrderDate(orderDate);
 				merchOrder.setPickupOption(pickupOption);
 				merchOrder.setPaymentType(paymentType);
-
+				merchOrder.setReceiptStatus(receiptStatus);
 				merchOrder.setMerchTotal(merchTotal);
 				merchOrder.setRecipient(recipient);
 				merchOrder.setReceiptAddr(receiptAddr);
@@ -125,12 +131,12 @@ public class MerchOrderServlet extends HttpServlet{
 				
 				/***************************2.開始修改資料*****************************************/
 				MerchOrderService merchOrderSvc = new MerchOrderService();
-				merchOrder = merchOrderSvc.addMerchOrder(mem, pickupOption, paymentType,
-						 merchTotal, recipient, receiptAddr, receiptMobile);
+				merchOrder = merchOrderSvc.addMerchOrder(mem, orderDate, pickupOption, paymentType,
+						 receiptStatus, merchTotal, recipient, receiptAddr, receiptMobile);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("merchOrder", merchOrder);
-				String url = "/front_end/merch/MerchOrder.jsp";
+				String url = "/front_end/merch/merchStore.jsp";
 				RequestDispatcher success = req.getRequestDispatcher(url);
 				success.forward(req, res);
 		}
