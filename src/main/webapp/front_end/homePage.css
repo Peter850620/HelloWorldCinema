@@ -1,0 +1,93 @@
+/* 消息輪播 */
+div.your-class div.slick-slide img{
+    width: 100%;
+}
+
+div.your-class button.slick-prev{
+    left: 10px;
+    z-index: 1;
+}
+div.your-class button.slick-next{
+    right: 10px;
+    z-index: 1;
+}
+
+div.your-class ul.slick-dots{
+    bottom: 2px;
+}
+  
+
+
+
+/* 現正熱映連結 */
+:root {
+  --white: #ececec;
+  --black: #333333;
+  --yellow: #2e78a0;
+  --purple: #0d1f38;
+  --colorPrimary: var(--yellow);
+  --colorSecondary: var(--purple);
+}
+
+.btn {
+  position: relative;
+  letter-spacing: 0.25em;
+  margin: 0 auto;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  outline: none;
+  font-size: 24px;
+  color: var(--white);
+}
+
+.btn::after,
+.btn::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 50%;
+  transform: skewX(30deg);
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: -2;
+}
+
+.btn::before {
+  background-color: var(--colorPrimary);
+  top: -1rem;
+  left: 0rem;
+}
+
+.btn::after {
+  background-color: var(--colorSecondary);
+  top: 1rem;
+  left: 8rem;
+}
+
+.btn:hover::before,
+.btn:hover::after {
+  top: 0;
+  transform: skewx(0deg);
+}
+
+.btn:hover::after {
+  left: 0rem;
+}
+
+.btn:hover::before {
+  left: 8.75rem;
+}
+
+
+.container1 {
+  font-family: "Lato", sans-serif;
+  width: auto;
+  margin: auto;
+  padding-left: 500px;
+  padding-top: 50px;
+}
+
+a.btn {
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 700;
+}
