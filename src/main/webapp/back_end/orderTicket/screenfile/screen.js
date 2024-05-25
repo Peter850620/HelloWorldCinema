@@ -122,10 +122,27 @@ document.getElementById('lastButton').addEventListener('click', function() {
 	window.history.back();
 });
 
+ document.addEventListener('DOMContentLoaded', function(event) {
+            console.log('DOM fully loaded and parsed');
+            
+            // Add event listener for nextButton
+            const nextButton = document.getElementById('nextButton');
+            if (nextButton) {
+                console.log('nextButton found');
+                nextButton.addEventListener('click', function(event) {
+                    event.preventDefault();  // 阻止默認提交行為
+                    console.log('Default form submission prevented.');
+
+                    // Debug output for context path
+                    const contextPath = '<%=request.getContextPath()%>';
+                    console.log('Context path:', contextPath);
+
+                    // Set the window location
+                    window.location.href = 'http://localhost:8081/HelloWorldCinema/back_end/orderTicket/checkorder/checkorder.jsp';
+                });
+            } else {
+                console.log('nextButton not found');
+            }
+        });
 
 
-	nextButton.addEventListener('click', function(event) {
-		event.preventDefault();  // 阻止默認提交行為
-		console.log('Default form submission prevented.');
-		window.location.href = '/checkorder.jsp';
-	});
