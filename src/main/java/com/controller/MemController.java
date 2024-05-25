@@ -65,6 +65,7 @@ public class MemController extends HttpServlet {
 			if(memPassword.equals(password)) {
 				   HttpSession session = req.getSession(true);
 				   session.setAttribute("mem", mem);
+				   session.setAttribute("memId", mem.getMemId()); // 将 memId 存储到 session 中
 				url="/front_end/movie/movieCommingSoon.jsp";
 				successView = req.getRequestDispatcher(url);
 		

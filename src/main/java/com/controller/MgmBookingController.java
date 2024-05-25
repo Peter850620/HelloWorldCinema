@@ -54,19 +54,19 @@ public class MgmBookingController extends HttpServlet {
 			
 			Integer page =Integer.valueOf(pageParam);
 			String pickupOption=req.getParameter("pickupOption");
-			System.out.println(pickupOption+"第一");
+			
 			
 			
 			if(pickupOption==null||pickupOption.equals("全部")|| pickupOption.equals("null")) {pickupOption="";}
 			
 			
-			System.out.println(pickupOption+"第二");
+	
 			String noParam=req.getParameter("bookingNo");
 			if(noParam==null || noParam.isEmpty()) {
 				
 				noParam="-1";
 			}
-			Integer bookingNo=Integer.valueOf(noParam);
+			Integer bookingNo=Integer.valueOf(noParam.trim());
 	        
 			String bookingDate=req.getParameter("bookingDate");
 		

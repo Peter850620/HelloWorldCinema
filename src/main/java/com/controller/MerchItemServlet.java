@@ -72,7 +72,7 @@ public class MerchItemServlet extends HttpServlet{
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("merchItem", merchItem);
-					RequestDispatcher failureReq = req.getRequestDispatcher("/front_end/merchOrder/cartCheck.jsp");
+					RequestDispatcher failureReq = req.getRequestDispatcher("/front_end/merch/addMerchOrder.jsp");
 					failureReq.forward(req, res);
 					return; //程式中斷
 				}
@@ -83,7 +83,7 @@ public class MerchItemServlet extends HttpServlet{
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("merchOrder", merchOrder);
-				String url = "/front_end/merchOrder/addMerchOrder.jsp";
+				String url = "/front_end/merch/merchStore.jsp";
 				RequestDispatcher success = req.getRequestDispatcher(url);
 				success.forward(req, res);
 		}
