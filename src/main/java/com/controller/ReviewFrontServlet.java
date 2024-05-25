@@ -13,13 +13,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.entity.Mem;
 import com.entity.Movie;
 import com.entity.Review;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.service.MovieService;
+import com.service.MovieServiceYuan;
 import com.service.ReviewService;
 import com.service.ReviewServiceImpl;
 
@@ -30,11 +30,13 @@ public class ReviewFrontServlet extends HttpServlet {
 	// 一個 servlet 實體對應一個 service 實體
 		private ReviewService reviewService;
 		private MovieService movieService;
+		private MovieServiceYuan movieServiceYuan;
 		
 		@Override
 		public void init() throws ServletException {
 			reviewService = new ReviewServiceImpl();
 			movieService = new MovieService();
+			movieServiceYuan = new MovieServiceYuan();
 		}
 		
 		public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -87,31 +89,17 @@ public class ReviewFrontServlet extends HttpServlet {
 				successView.forward(req, res);
 			}
 			
-//			if ("compositeQuery".equals(action)) { 
-//				String movieStatus = req.getParameter("movieStatus");
-//					
-//				if (movieStatus != null) {
-//					switch(movieStatus) {
-//					case "即將上映":
-//						List<Movie> movieList1 = movieService_13.getSoonMovies(movieStatus);
-//						req.setAttribute("movieList", movieList1);
-//						break;
-//					case "熱映中":
-//						List<Movie> movieList2 = movieService_13.getNowMovies(movieStatus);
-//						req.setAttribute("movieList", movieList2);
-//						break;
-//					case "已下檔":
-//						
-//					}
-//					List<Review> reviewList = movieService_13.getMovieByCompositeQuery(map);
-//					req.setAttribute("reviewList", reviewList);
-//				}
-//				
-//				String url = "/back_end/review/select_page.jsp";   
-//				RequestDispatcher successView = req.getRequestDispatcher(url);
-//				successView.forward(req, res);
-//			}	
+			if ("compositeQuery".equals(action)) { 
+				String movieStatus = req.getParameter("movieStatus");
+
+				List<Movie> movieList = movieServiceYuan.getNowMovies(movieStatus);
+				req.setAttribute("movieList", movieList);
 				
+				String url = "/front_end/review/reviewFront.jsp";   
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			}
+			
 			if ("getUpdate".equals(action)) { 
 				Integer reviewId = Integer.parseInt(req.getParameter("reviewId"));
 				Review review = reviewService.getOneReview(reviewId);

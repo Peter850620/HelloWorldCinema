@@ -17,9 +17,8 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.entity.Message;
 import com.entity.Report;
-
+import com.entity.Review;
 import com.util.HibernateUtil;
 
 public class ReportDAOImpl implements ReportDAO {
@@ -64,6 +63,12 @@ public class ReportDAOImpl implements ReportDAO {
 	@Override
 	public Report getByReport(Integer rptId) {
 		return getSession().get(Report.class, rptId);
+	}
+	
+	@Override
+	public List<Report> getByReview(Review reviewId){
+		return getSession().createQuery("FROM Report WHERE review = :review",Report.class)
+				.setParameter("review", reviewId).list();
 	}
 
 	@Override

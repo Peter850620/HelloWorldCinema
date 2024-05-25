@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.entity.Mem;
 import com.entity.Message;
@@ -46,13 +47,13 @@ public class MessageFrontServlet extends HttpServlet {
 			System.out.print(action);
 			
 			if ("getMem".equals(action)) { 
-				Integer memId = Integer.parseInt(req.getParameter("mem"));
+//				Integer memId = Integer.parseInt(req.getParameter("mem"));
 				
-//						HttpSession session = req.getSession();
-//						Integer memId = (Integer) session.getAttribute("mem");
+				HttpSession session = req.getSession();
+				Mem mem = (Mem)session.getAttribute("mem");
 				
-				Mem mem = new Mem();
-				mem.setMemId(memId);
+//				Mem mem = new Mem();
+//				mem.setMemId(memId);
 				String page = req.getParameter("page");
 				int currentPage = (page == null) ? 1 : Integer.parseInt(page);		
 				List<Message> messageList = messageService.getByMem(mem, currentPage);

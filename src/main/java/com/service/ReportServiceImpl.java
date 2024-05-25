@@ -2,22 +2,30 @@ package com.service;
 
 import static com.util.Constants.PAGE_MAX_RESULT;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.entity.Report;
+import com.dao.MessageDAO;
+import com.dao.MessageDAOImpl;
 import com.dao.ReportDAO;
 import com.dao.ReportDAOImpl;
+import com.entity.Message;
+import com.entity.Report;
+import com.entity.Review;
+import com.websc.MessageWebSocket;
 
 public class ReportServiceImpl implements ReportService {
 
 	// 一個 service 實體對應一個 dao 實體
 	private ReportDAO dao;
+	private MessageDAO msgDao;
 
 	public ReportServiceImpl() {
 		dao = new ReportDAOImpl();
+		msgDao = new MessageDAOImpl();
 	}
 
 	@Override
@@ -28,11 +36,38 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public void updateReport(Report report) {
 			dao.update(report);
+			
+			if(report.getRptStatus().equals("通過") || report.getRptStatus().equals("未通過")) {
+				Message message = new Message();
+				message.setMem(report.getMem());
+				if(report.getRptStatus().equals("通過")) {
+					message.setMsgTitle("留言檢舉通過");
+					message.setMsgDetail("檢舉通過，不當評論已隱藏");
+					//檢舉通過需寄通知給被檢舉人
+					Message message2 = new Message();
+					message2.setMem(report.getReview().getMem());
+					message2.setMsgTitle("不當發言檢舉");
+					message2.setMsgDetail("您於" + report.getReview().getReviewDate() + "在" + report.getReview().getMovie().getMovieName() + "的發言，經由其他會員發現有不當之處，在由世界影城這邊審核後屬實，目前已將該留言隱藏。");
+					message2.setMsgTime(new Timestamp(System.currentTimeMillis()));
+					message2.setMsgStatus("未讀");
+					msgDao.insert(message2);
+					MessageWebSocket.broadcast(message2);
+				}else {
+					message.setMsgTitle("留言檢舉未通過");
+					message.setMsgDetail("檢舉通過，不當評論已隱藏");
+				}
+				message.setMsgTime(new Timestamp(System.currentTimeMillis()));
+				message.setMsgStatus("未讀");
+				msgDao.insert(message);
+				
+				MessageWebSocket.broadcast(message);
+			}
+			
 	}
 
 	@Override
 	public void deleteReport(Integer rptId) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -99,6 +134,15 @@ public class ReportServiceImpl implements ReportService {
 			System.out.println(query);
 			int queryTotal = dao.getMapTotal(query);
 			return queryTotal;
+	}
+	
+	@Override
+	public void updateRelatedReport(Review review, String rptStatus) {
+		List<Report> reports = dao.getByReview(review);
+		for(Report report : reports) {
+			report.setRptStatus(rptStatus);
+			dao.update(report);
+		}
 	}
 
 	@Override

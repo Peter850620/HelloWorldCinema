@@ -1,7 +1,6 @@
 package com.controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,15 +16,19 @@ import com.entity.Report;
 import com.entity.Review;
 import com.service.ReportService;
 import com.service.ReportServiceImpl;
+import com.service.ReviewService;
+import com.service.ReviewServiceImpl;
 
 @WebServlet("/back/report.do")
 public class ReportServlet extends HttpServlet {
 	
 	private ReportService reportService;
+	private ReviewService reviewService;
 
 	@Override
 	public void init() throws ServletException {
 		reportService = new ReportServiceImpl();
+		reviewService = new ReviewServiceImpl();
 	}
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -106,9 +109,17 @@ public class ReportServlet extends HttpServlet {
 		req.setAttribute("errorMsgs", errorMsgs);
 		
 		Integer rptId = Integer.valueOf(req.getParameter("rptId").trim());
+		Integer reviewId = Integer.valueOf(req.getParameter("review").trim());
 		String rptStatus = req.getParameter("rptStatus").trim();
 		if(rptStatus.equals("未審核")) {
 			errorMsgs.put("rptStatus", "已審核要修改檢舉狀態");
+		}
+		
+		Review review = reviewService.getOneReview(reviewId);
+		if(rptStatus.equals("通過")) {
+			review.setReviewStatus("隱藏");
+			reviewService.updateReview(review);
+			reportService.updateRelatedReport(review, rptStatus);
 		}
 		
 		if (!errorMsgs.isEmpty()) {
