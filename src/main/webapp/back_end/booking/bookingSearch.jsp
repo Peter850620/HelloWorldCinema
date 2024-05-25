@@ -68,13 +68,13 @@
 				<th>訂單編號</th>
 				<th>訂單成立日期</th>
 				<th>電影名稱</th>
-				<th>開演日期</th>
+				<th class="startdate">開演日期</th>
 				<th>時間</th>
 				<th>廳位</th>
 				<th>張數</th>
 				<th>取票方式</th>
 				<th>取票狀態</th>
-				<th>查看詳情</th>
+				<th class="moredetails">查看詳情</th>
 				
 			</tr>
 

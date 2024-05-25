@@ -65,7 +65,7 @@ public class BookingController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		String url = "";
-		
+        HttpSession session = req.getSession(true);
 		
 
 		RequestDispatcher successView;
@@ -165,7 +165,7 @@ public class BookingController extends HttpServlet {
 			 Integer showId=Integer.valueOf( req.getParameter("selectedTime"));
 			 ShowtimeInfo whichShow=bookingService.findRightShow(showId);
              String screenUrl=bookingService.findRightScreenId(showId);
-             HttpSession session = req.getSession(true);
+     
              session.removeAttribute("whichShow");
              session.setAttribute("whichShow", whichShow);
 	         url=screenUrl;
@@ -174,147 +174,117 @@ public class BookingController extends HttpServlet {
 	         break;
 	          
 	          
-	    case "bookingSuccess":
-	    	  
-	    	  String paymentType=req.getParameter("paymentType");
-	    	  String screenId=req.getParameter("screenId");
-	    	  Integer finalshowId=Integer.valueOf(req.getParameter("showId"));
-	    	  Integer total=Integer.valueOf(req.getParameter("total"));
-	          String bookingSeats=req.getParameter("seatNo");
-	          String[] seatsArray = bookingSeats.split(" ");
-	          List<Integer> eachTkId=new ArrayList<>();
-	    	  Integer tkValue;
-	    	  Map<String, Integer> tkIdValues = new HashMap<>();
+		case "bookingSuccess":
 
-	    	  for (int i = 1; i < 5; i++) {
-	    	    
-	    	      String tkId = "tkId" + i;
-	    	      
-	    	      tkIdValues.put(tkId, Integer.valueOf(req.getParameter(tkId)));
-	    	      tkValue=tkIdValues.get(tkId);
-	    	      
-	    	      for(int x =1;x<=tkValue;x++) {
-	    	    	  
-	    	    	 switch(tkId) {
-	    	    	 
-	    	    	 case "tkId1":
-	    	    		 eachTkId.add(1);
-	    	    		 break;
-	    	    	 case "tkId2":
-	    	    		 eachTkId.add(2);
-	    	    		 break;
-	    	    	 case "tkId3":
-	    	    		 eachTkId.add(3);
-	    	    		 break;
-	    	    	 case "tkId4":
-	    	    		 eachTkId.add(4);
-	    	    		 break;
-	    	    		 
-	    	    		 
-	    	    	 }
-	    	      }
-	    	     
-	    	  }
+		    String paymentType = req.getParameter("paymentType");
+		    String screenId = req.getParameter("screenId");
+		    Integer finalshowId = Integer.valueOf(req.getParameter("showId"));
+		    Integer total = Integer.valueOf(req.getParameter("total"));
+		    String bookingSeats = req.getParameter("seatNo");
+		    String[] seatsArray = bookingSeats.split(" ");
+		    List<Integer> eachTkId = new ArrayList<>();
+		    Integer tkValue;
+		    Map<String, Integer> tkIdValues = new HashMap<>();
 
-	    	 Integer quantity=eachTkId.size();
-	    	
-	    	 Date today = new Date(System.currentTimeMillis());
-	    	 Booking bookingSuccess=new Booking();
-	    	 
-	    	 bookingSuccess.setBookingDate(today);
-	    	 bookingSuccess.setBookingStatus("已取票");
-	    	 bookingSuccess.setPaymentType(paymentType);
-	    	 bookingSuccess.setPickupOption("現場票");
-	     	 bookingSuccess.setTotal(total);
-	    	 bookingSuccess.setQuantity(quantity);
-	    	 
-	    	 Screen screen=bookingService.findScreen(screenId);
-	    	 bookingSuccess.setScreen(screen);
-	    	 ShowtimeInfo show=bookingService.findRightShow(finalshowId);
-	    	 bookingSuccess.setShowtimeInfo(show);
-	   
-	
-	    	 Set<OrderItem> orderItems=new HashSet<>();
-	    	 
-	    	    //找出座位號碼:
-	    	
-	    		 for (String seatNo : seatsArray) {
-	    		     if (!eachTkId.isEmpty()) {
-	    		         int ticketId = eachTkId.remove(0); // 取出第一個票種ID並從列表中移出
-	    		         OrderItem item = new OrderItem(); // 創建新的OrderItem對象
-	    		         item.setSeatNo(seatNo);
-	    		         item.setEntryStatus("未使用");
-	    		         item.setTicket(bookingService.findTicket(ticketId));
-	    		        
-	    		         item.setBooking(bookingSuccess);
-	    		         orderItems.add(item);
-	    		         
-	    		         bookingService.bookSeats(finalshowId, seatNo);
-	    		     }
-	    		 }
+		    for (int i = 1; i < 5; i++) {
+		        String tkId = "tkId" + i;
+		        tkIdValues.put(tkId, Integer.valueOf(req.getParameter(tkId)));
+		        tkValue = tkIdValues.get(tkId);
+		        for (int x = 1; x <= tkValue; x++) {
+		            switch (tkId) {
+		                case "tkId1":
+		                    eachTkId.add(1);
+		                    break;
+		                case "tkId2":
+		                    eachTkId.add(2);
+		                    break;
+		                case "tkId3":
+		                    eachTkId.add(3);
+		                    break;
+		                case "tkId4":
+		                    eachTkId.add(4);
+		                    break;
+		            }
+		        }
+		    }
 
-	    	bookingSuccess.setOrderItem(orderItems);
-	    	
-	    
-	    	
-	    	
-	    	//找食物
-	    	Set<FoodItem> foodItems=new HashSet<>();
-	    	for(int i=0;i<7;i++) {
-	    	FoodItem foodorder=new FoodItem();
-	    	String foodParam=req.getParameter("foodId"+i);
-	    	if(foodParam==null) 
-	        break;
-	    	
-	    	Integer foodId= Integer.valueOf(foodParam );
-	    	Food food=bookingService.findOneFood(foodId);
-	    	foodorder.setFood(food);
-	    	int price=food.getFoodPrice();
-	    	Integer foodAmount= Integer.valueOf( req.getParameter("foodAmount"+i));
-	    	foodorder.setFoodAmount(foodAmount);
-	    	
-	    	int foodSubTotal=foodAmount*price;
-	    	foodorder.setFoodSubTotal(foodSubTotal);
-	    	
-	    	foodorder.setBooking(bookingSuccess);
-	    	foodItems.add(foodorder);
-	    	}
-	    	
-	    	if (!foodItems.isEmpty()) {
-	    	    bookingSuccess.setFoodItem(foodItems);
-	    	}
-	    	
-	    	
-	    	Integer newbookingNo= bookingService.createBooking(bookingSuccess);
-	    	//=================QR TEST=========================
-	    	try {
-	       
-	    		List<OrderItem> seats=bookingService.findSeatByBookingNo(newbookingNo);
-	    		for(OrderItem orderItem:seats) {
-	    			
-	    		String currentSeat=orderItem.getSeatNo();
-	    		
-	    		  // 生成 QR Code要導到的路徑
-	            String qrText = String.format("%s?bookingNo=%s&showId=%s&seatNo=%s", BASE_URL, newbookingNo, show.getShowtimeId(), currentSeat);
-	            byte[] qrCodeImage = generateQRCodeImage(qrText, 350, 350);
-	          
-	            orderItem.setQrcode(qrCodeImage);
-	            
-	            System.out.println("QR Code generated successfully for" + currentSeat );
-	    		}
-	            
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    
-	    	
-	   
-	    	  
-	    	  url = "/back_end/booking/loading.jsp";
-	          successView=req.getRequestDispatcher(url);
-	          successView.forward(req, res);
-			  break;
-			
+		    Integer quantity = eachTkId.size();
+		    Date today = new Date(System.currentTimeMillis());
+		    Booking bookingSuccess = new Booking();
+
+		    bookingSuccess.setBookingDate(today);
+		    bookingSuccess.setBookingStatus("已取票");
+		    bookingSuccess.setPaymentType(paymentType);
+		    bookingSuccess.setPickupOption("現場票");
+		    bookingSuccess.setTotal(total);
+		    bookingSuccess.setQuantity(quantity);
+
+		    Screen screen = bookingService.findScreen(screenId);
+		    bookingSuccess.setScreen(screen);
+		    ShowtimeInfo show = bookingService.findRightShow(finalshowId);
+		    bookingSuccess.setShowtimeInfo(show);
+
+		    Set<OrderItem> orderItems = new HashSet<>();
+		    for (String seatNo : seatsArray) {
+		        if (!eachTkId.isEmpty()) {
+		            int ticketId = eachTkId.remove(0);
+		            OrderItem item = new OrderItem();
+		            item.setSeatNo(seatNo);
+		            item.setEntryStatus("未使用");
+		            item.setTicket(bookingService.findTicket(ticketId));
+		            item.setBooking(bookingSuccess);
+		            orderItems.add(item);
+		            bookingService.bookSeats(finalshowId, seatNo);
+		        }
+		    }
+
+		    bookingSuccess.setOrderItem(orderItems);
+
+		    Set<FoodItem> foodItems = new HashSet<>();
+		    for (int i = 0; i < 7; i++) {
+		        FoodItem foodorder = new FoodItem();
+		        String foodParam = req.getParameter("foodId" + i);
+		        if (foodParam == null)
+		            break;
+		        Integer foodId = Integer.valueOf(foodParam);
+		        Food food = bookingService.findOneFood(foodId);
+		        foodorder.setFood(food);
+		        int price = food.getFoodPrice();
+		        Integer foodAmount = Integer.valueOf(req.getParameter("foodAmount" + i));
+		        foodorder.setFoodAmount(foodAmount);
+		        int foodSubTotal = foodAmount * price;
+		        foodorder.setFoodSubTotal(foodSubTotal);
+		        foodorder.setBooking(bookingSuccess);
+		        foodItems.add(foodorder);
+		    }
+
+		    if (!foodItems.isEmpty()) {
+		        bookingSuccess.setFoodItem(foodItems);
+		    }
+
+		    Integer newbookingNo = bookingService.createBooking(bookingSuccess);
+
+		    try {
+		        List<OrderItem> seats = bookingService.findSeatByBookingNo(newbookingNo);
+		        for (OrderItem orderItem : seats) {
+		            String currentSeat = orderItem.getSeatNo();
+		            String qrText = String.format("%s?bookingNo=%s&showId=%s&seatNo=%s", BASE_URL, newbookingNo, show.getShowtimeId(), currentSeat);
+		            byte[] qrCodeImage = generateQRCodeImage(qrText, 350, 350);
+		            orderItem.setQrcode(qrCodeImage);
+		            System.out.println("QR Code generated successfully for" + currentSeat);
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+
+		    synchronized (session) {
+		        session.setAttribute("newbookingno", newbookingNo);
+		    }
+		    url = "/back_end/booking/loading.jsp";
+		    successView = req.getRequestDispatcher(url);
+		    successView.forward(req, res);
+		    break;
+
            //=======================================================================
 			  
 			  
