@@ -30,8 +30,12 @@
     <br>
     <h1>你的訂單</h1>
     <br>
-    <div id="cartItems"></div>
-    <div id="subtotal"></div>
+    
+	    <div id="cart-items-container"></div>
+	    <div id="merchTotal"></div>
+
+	
+
     <br>
     <%-- 錯誤表列 --%>
     <c:if test="${not empty errorMsgs}">
@@ -78,7 +82,9 @@
             </tr>
         </table>
         <br>
-        <input type="hidden" id="merchTotal" name="merchTotal" value="">
+
+		<div id="Input"></div>
+		<input type="hidden" id="merchTotalInput" name="merchTotal">
         <input type="hidden" name="action" value="insert">
         <input type="submit" value="結帳">
     </FORM>
@@ -88,59 +94,6 @@
 
 <jsp:include page="/front_end/index/indexFooter.jsp" flush="true" />  
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    var cartInfoString = localStorage.getItem("cartInfo");
-    var cartInfo = JSON.parse(cartInfoString);
-
-    if (cartInfo && cartInfo.length > 0) {
-        var cartItemsDiv = document.getElementById("cartItems");
-        var subtotalDiv = document.getElementById("subtotal");
-        var total = 0;
-
-        cartInfo.forEach(function(item, index) {
-//             console.log("Cart Info:", cartInfo);
-//             console.log(item.merchPrice);
-            var itemElement = document.createElement("div");
-            itemElement.innerHTML = '商品名稱：' + item.merchName + '<br>' +
-            '商品數量：' + item.merchQty + '<br>' +
-            '商品價格：' + item.merchPrice + ' 元<br><br>';
-            cartItemsDiv.appendChild(itemElement);
-
-            // 计算总价格
-            total += item.merchQty * item.merchPrice;
-        });
-
-        // 显示总价格
-        subtotalDiv.textContent = "合計價格：" + total + " 元";
-        document.getElementById("merchTotal").value = total;
-    }
-
-    // 取貨方式選擇事件監聽
-    var pickupOption = document.getElementById("pickupOption");
-    var recipientRow = document.getElementById("recipientRow");
-    var receiptAddrRow = document.getElementById("receiptAddrRow");
-    var receiptMobileRow = document.getElementById("receiptMobileRow");
-
-    pickupOption.addEventListener("change", function() {
-        if (pickupOption.value === "宅配") {
-            recipientRow.style.display = "";
-            receiptAddrRow.style.display = "";
-            receiptMobileRow.style.display = "";
-        } else {
-            recipientRow.style.display = "none";
-            receiptAddrRow.style.display = "none";
-            receiptMobileRow.style.display = "none";
-        }
-    });
-
-    // 初始化頁面
-    if (pickupOption.value !== "宅配") {
-        recipientRow.style.display = "none";
-        receiptAddrRow.style.display = "none";
-        receiptMobileRow.style.display = "none";
-    }
-});
-</script>
+<script src="<%=request.getContextPath()%>/front_end/merch/js/addMerchOrder.js"></script>
 </body>
 </html>

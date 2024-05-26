@@ -236,7 +236,7 @@ img{
   overflow-y: scroll;
 }
 
-#total::before, #subtotal::before, .product-price::before, .cart-product-price::before, .cart-updated-product-price::before, #discountAmt::before {
+#total::before, #merchtotal::before, .product-price::before, .cart-product-price::before, .cart-updated-product-price::before, #discountAmt::before {
   content: '$';
 }
 

@@ -86,9 +86,9 @@
         <div id="cart-amount-wrapper">
             <table>
                 <tbody>
-                    <tr id='subtotal-wrapper'>
-                        <td id="subtotal-label">合計:</td>
-                        <td id="subtotal">${cartTotal}</td>
+                    <tr id='merchtotal-wrapper'>
+                        <td id="merchtotal-label">合計:</td>
+                        <td id="merchtotal">${cartTotal}</td>
                     </tr>
                     <tr id="promo-checkout">
                         <td><button id="checkout">結帳</button></td>
@@ -265,28 +265,48 @@
 	        var cartTableBody = $('#cart-table-body');
 	        cartTableBody.empty();
 
+	        var total = 0;
+	        var subtotals = {};
+	        
 	        cartItems.forEach(function (item) {
 	            var row = $('<tr>');
 	            row.append($('<td>').text(item.merchName));
+	            
 	            var qtyInput = $('<input type="number" min="1" value="' + item.merchQty + '">');
 	            qtyInput.on('input', function () {
 	                updateCartItemQty(item.merchId, parseInt($(this).val()));
 	            });
+	            
 	            row.append($('<td>').css('width', '5px').append(qtyInput));
+	            
 	            row.append($('<td>').text(item.merchPrice));
-	            row.append($('<td>').text(item.merchQty * item.merchPrice));
+	            
+	            var subtotal = item.merchQty * item.merchPrice;
+	            total += subtotal
+	            subtotals[item.merchId] = subtotal; // Store subtotal for each item
+	            
+	            row.append($('<td>').text(subtotal));
+	            
 	            row.append($('<td>').append($('<button>').text('移除').click(function () {
+	            	
 	                removeFromCart(item.merchId);
 	            })));
 
 	            cartTableBody.append(row);
 	        });
 
-	        var subtotal = cartItems.reduce(function (total, item) {
-	            return total + (item.merchQty * item.merchPrice);
-	        }, 0);
+	        
 
-	        $('#subtotal').text(subtotal);
+	        $('#merchtotal').text(total);
+	        
+	        
+	        
+	        var cartInfo = {
+			        cartItems: cartItems,
+			        subtotals: subtotals,
+			        total: total
+			    };
+			    localStorage.setItem('cartInfo', JSON.stringify(cartInfo));
 	    }
 	    
 	    
@@ -308,12 +328,9 @@
 	        .then(cartItems => {
 	            console.log('Cart items:', cartItems);
 	            // 將購物車資訊轉為JSON字符串
-	            var cartInfo = JSON.stringify(cartItems);
-	            // 使用localStorage將購物車資訊存儲，以便在跳轉頁面時使用
-	            localStorage.setItem('cartInfo', cartInfo);
+	            
 	            // 將合計價格也存入localStorage
-	            var subtotal = $('#subtotal').text();
-	            localStorage.setItem('subtotal', subtotal);
+// 	            localStorage.setItem('total', total);
 	            // 跳轉到結帳頁面
 	            window.location.href = '<%=request.getContextPath()%>/front_end/merch/addMerchOrder.jsp'; // 修改為實際的結帳頁面URL
 	        })

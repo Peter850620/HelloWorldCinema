@@ -1,6 +1,7 @@
 package com.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,8 +23,10 @@ public class MerchItemDAOImpl implements MerchItemDAO{
 	}
 //	新增
 	@Override
-	public void insert(MerchItem merchItem) {
-		getSession().save(merchItem);
+	public void insert(Set<MerchItem> merchItems) {
+        for (MerchItem merchItem : merchItems) {
+        	getSession().save(merchItem);
+        }
 	}
 	
 //	修改
