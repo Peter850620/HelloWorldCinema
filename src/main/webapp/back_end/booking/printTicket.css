@@ -54,7 +54,7 @@ div.container_order_item {
 		margin-top: 20px;
 		max-width:915px;
 		max-height:260x;
-		height:260px;
+		height:270px;
 }
 
 .cancel{
@@ -155,7 +155,7 @@ input[type="checkbox"] {
 	font-size: 20px;
 }
 
-.movieNam {
+h3 {
 	font-size: 28px;
 	font-family: "Noto Sans SC", Arial, sans-serif;
 	color: #d83565;
@@ -169,11 +169,18 @@ input[type="checkbox"] {
 	color: #4a437e;
 }
 
-foodName>h6{
-	font-size: 16px;
+.left-foodName{
+	
+	display: flex;
+    flex-wrap: wrap;
+        margin-bottom: 20px;
+}
+.left-foodName h6{
+	font-size: 18px;
 	font-weight: 700;
 	letter-spacing: 0.1em;
-	color: #4a437e;
+	color: #d83565;
+	flex: 0 0 50%;
 	
 }
 
@@ -201,8 +208,9 @@ foodName>h6{
 	justify-content: space-around;
 	align-items: center;
 	width: 100%;
-	padding-top: 8px;
+	padding-top: 18px;
 	border-top: 1px solid gray;
+
 }
 
 .location .separator {
@@ -217,6 +225,7 @@ foodName>h6{
 .right .admit-one {
 	color: darkgray;
 	 position: absolute;
+	 margin-top:12px;
 }
 
 .right .admit-one span:nth-child(2) {

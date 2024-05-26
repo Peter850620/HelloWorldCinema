@@ -132,7 +132,7 @@ public class BookingService {
 	//找到所有食物
 	public List<Food> findFood(){
 		
-		return fooddao.getAll();
+		return fooddao.getAllfoodForbooking();
 	}
 	
 	
