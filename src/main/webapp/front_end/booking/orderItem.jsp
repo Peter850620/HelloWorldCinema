@@ -38,33 +38,6 @@
 
 
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>世界影城 HelloWorld Cinema</title>
-
-<meta name="description"
-	content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
-<meta name="keywords" content="世界、電影、世界影城、HelloWorld Cinema" />
-<meta name="robots" content="Index,follow">
-<meta property="og:title" content="世界影城" />
-<meta property="og:image" content=".img/bk.jpg" />
-<meta property="og:site_name" content="世界影城網站" />
-<meta property="og:url" content="https://www.ambassador.com.tw" />
-<meta property="og:description"
-	content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務" />
-<!-- RWD -->
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-
-<!-- 底部footer -->
-<link rel="stylesheet" type="text/css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
-	rel="stylesheet">
-
 
 </head>
 
@@ -111,7 +84,7 @@
 					<div class="image">
 						<img
 							src="data:image/jpeg;base64,<%=booking.getShowtimeInfo().getMovie().getPicBase64()%>"
-							alt="Movie Image" style="width: 200px; height: 288px;">
+							alt="Movie Image" style="width: 220px; height: 288px;">
 
 
 					</div>
@@ -201,7 +174,7 @@
 				<div class="left">
 					<div class="image">
 						<img src="./images/set1.jpg" alt="Movie Image"
-							style="width: 260px; height: 260px;">
+							style="width: 240px; height: 270px;">
 
 
 					</div>
@@ -210,7 +183,7 @@
 							<span class="day"><%=booking.dayofweek(booking)%></span> 
 							<span class="date"><%=booking.dateformate(booking)%></span> <span>2024</span>
 						</p>
-						<div class="movieName">
+						<div class="left-foodName">
 
 							<%
 							for (FoodItem foodItem : foodItems) {
