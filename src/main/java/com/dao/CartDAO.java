@@ -10,5 +10,6 @@ public interface CartDAO {
 	public void updateCartItemQuantity(Integer memId, Integer merchId, Integer merchQty);
 	public void removeItemFromCart(Integer memId, Integer merchId);
 	public List<Cart> getCart(Integer memId);
+	public void deleteCart(Integer memId);
 	
 }

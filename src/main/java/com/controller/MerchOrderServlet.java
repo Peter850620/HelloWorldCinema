@@ -2,8 +2,10 @@ package com.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,10 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
-
 import com.entity.Mem;
+import com.entity.Merch;
+import com.entity.MerchItem;
 import com.entity.MerchOrder;
+import com.service.CartService;
 import com.service.MerchOrderService;
 
 
@@ -53,7 +56,7 @@ public class MerchOrderServlet extends HttpServlet{
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				
 				
-			
+			try {
 			HttpSession session = req.getSession(false); // 如果不存在會話，則返回 null
 			
 			    Mem mem = (Mem) session.getAttribute("mem");
@@ -65,7 +68,7 @@ public class MerchOrderServlet extends HttpServlet{
 			    Integer memId = null;
 			    if (mem != null) {
 			        memId = mem.getMemId(); // Get the memId
-			        System.out.println("當前用戶的 memId：" + memId);
+//			        System.out.println("當前用戶的 memId：" + memId);
 			    }
 			
 			    //將訂單日期設為當前時間
@@ -107,10 +110,9 @@ public class MerchOrderServlet extends HttpServlet{
 			            errorMsgs.add("收貨人電話: 只能是數字和_ , 且長度必需在2到10之間");
 			        }
 			    }
-				
-
-
-				MerchOrder merchOrder = new MerchOrder();
+			    
+			    
+			    MerchOrder merchOrder = new MerchOrder();
 
 				merchOrder.setMem(mem);
 				merchOrder.setOrderDate(orderDate);
@@ -121,6 +123,39 @@ public class MerchOrderServlet extends HttpServlet{
 				merchOrder.setRecipient(recipient);
 				merchOrder.setReceiptAddr(receiptAddr);
 				merchOrder.setReceiptMobile(receiptMobile);
+				
+			 // 取得商品明細資訊
+	            String[] merchIds = req.getParameterValues("merchId");
+	            String[] merchQtys = req.getParameterValues("merchQty");
+	            String[] merchSubTotals = req.getParameterValues("merchSubTotal");
+	            
+//	            System.out.println("merchIds: " + Arrays.toString(merchIds));
+//	            System.out.println("merchQtys: " + Arrays.toString(merchQtys));
+//	            System.out.println("merchSubTotals: " + Arrays.toString(merchSubTotals));
+
+	            // 取得商品明細資訊
+	            Set<MerchItem> merchItems = new HashSet<>();
+
+	            if (merchIds != null && merchQtys != null && merchSubTotals != null
+	                    && merchIds.length == merchQtys.length && merchIds.length == merchSubTotals.length) {
+	                for (int i = 0; i < merchIds.length; i++) {
+	                    MerchItem merchItem = new MerchItem();
+	                    Merch merch = new Merch();
+	                    merch.setMerchId(Integer.valueOf(merchIds[i]));
+
+	                    merchItem.setMerch(merch);
+	                    merchItem.setMerchQty(Integer.valueOf(merchQtys[i]));
+	                    merchItem.setMerchSubTotal(Integer.valueOf(merchSubTotals[i]));
+	                    merchItem.setMerchOrder(merchOrder);
+	                    merchItems.add(merchItem);
+	                    System.out.println(merchItem);
+	                }
+	            }
+
+	  
+				
+				merchOrder.setMerchItems(merchItems); // 设置商品明细
+//				System.out.println(merchItems);
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("merchOrder", merchOrder);
@@ -129,16 +164,38 @@ public class MerchOrderServlet extends HttpServlet{
 					return; //程式中斷
 				}
 				
+				
+				CartService cartService = new CartService();
+		        cartService.deleteCart(memId);
+				
 				/***************************2.開始修改資料*****************************************/
 				MerchOrderService merchOrderSvc = new MerchOrderService();
-				merchOrder = merchOrderSvc.addMerchOrder(mem, orderDate, pickupOption, paymentType,
-						 receiptStatus, merchTotal, recipient, receiptAddr, receiptMobile);
+				// 執行新增訂單及商品明細
+	            merchOrder = merchOrderService.addMerchOrder(mem, orderDate, pickupOption, paymentType,
+	                    receiptStatus, merchTotal, recipient, receiptAddr, receiptMobile, merchItems);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("merchOrder", merchOrder);
-				String url = "/front_end/merch/merchStore.jsp";
-				RequestDispatcher success = req.getRequestDispatcher(url);
-				success.forward(req, res);
+	         // 檢查是否成功新增訂單及商品明細
+	            if (merchOrder != null) {
+	                // 新增成功，設定轉交資料
+	                req.setAttribute("merchOrder", merchOrder);
+	                req.setAttribute("merchItems", merchItems);
+	                String url = "/front_end/merch/merchStore.jsp";
+	                RequestDispatcher success = req.getRequestDispatcher(url);
+	                success.forward(req, res);
+	            } else {
+	                errorMsgs.add("新增訂單及商品明細失敗");
+	                req.setAttribute("errorMsgs", errorMsgs);
+	                req.setAttribute("merchOrder", merchOrder);
+	                RequestDispatcher failureReq = req.getRequestDispatcher("/front_end/merch/addMerchOrder.jsp");
+	                failureReq.forward(req, res);
+	            }
+	        } catch (Exception e) {
+	            errorMsgs.add("訂單處理失敗：" + e.getMessage());
+	            req.setAttribute("errorMsgs", errorMsgs);
+	            RequestDispatcher failureReq = req.getRequestDispatcher("/front_end/merch/addMerchOrder.jsp");
+	            failureReq.forward(req, res);
+	        }
 		}
 		
 		

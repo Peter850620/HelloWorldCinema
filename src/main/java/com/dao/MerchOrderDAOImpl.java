@@ -1,12 +1,14 @@
 package com.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import com.entity.Mem;
+import com.entity.MerchItem;
 import com.entity.MerchOrder;
 import com.entity.Ticket;
 import com.util.HibernateUtil;
@@ -24,10 +26,19 @@ public class MerchOrderDAOImpl implements MerchOrderDAO {
 	}
 
 	@Override
-	public void insert(MerchOrder merchOrder) {
-		getSession().save(merchOrder);
-	}
+	public void insert(MerchOrder merchOrder, Set<MerchItem> merchItems) {
+	    Session session = getSession();
+	    
+	    // Save the merchandise order
+	    session.save(merchOrder);
 
+	    // Set the merchandise order for each merchandise item and save them
+	    for (MerchItem merchItem : merchItems) {
+	        merchItem.setMerchOrder(merchOrder);
+	        session.save(merchItem);
+	    }
+	}
+	
 //	修改
 	@Override
 	public void update(MerchOrder merchOrder) {

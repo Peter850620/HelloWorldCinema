@@ -16,21 +16,12 @@ public class MerchItemService {
 		dao = new MerchItemDAOImpl();
 	}
 	
-//	新增商品明細
-	public MerchItem addMerchItem(MerchOrder merchNo, Merch merchId, Integer merchQty, Integer merchSubTotal) {
-		
-		MerchItem merchItem = new MerchItem();
-		
-		merchItem.setMerchOrder(merchNo);
-		merchItem.setMerch(merchId);
-		merchItem.setMerchQty(merchQty);
-		merchItem.setMerchSubTotal(merchSubTotal);
-		
-		dao.insert(merchItem);
-		
-		return merchItem;
-		
-	}
+
+//	// 新增多筆商品明細
+//    public void addMerchItems(List<MerchItem> merchItems) {
+//        dao.insert(merchItems);
+//    }
+    
 //	更新商品明細
 	public MerchItem updateMerchItem(Integer merchSeq, MerchOrder merchNo, Merch merchId, Integer merchQty, Integer merchSubTotal) {
 		
