@@ -20,7 +20,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<title>所有餐點資料</title>
+		<title>所有場次資料</title>
 		
 			<script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
 			<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
@@ -67,7 +67,6 @@
 				  background-color: rgb(0 0 0/ 60%);
 	              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	
->>>>>>> refs/heads/master
 				}
 				
 				
@@ -76,8 +75,6 @@
 		<body>
 		<%@ include file="../management.jsp" %>
 		
-		<a href="<%=request.getContextPath()%>/back_end/food/addFood.jsp" class="btn btn-primary">新增場次</a>
-	        
 		<div class="main">
 			<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
 				<div align="center"> <h2>查詢場次資料</h2>
@@ -86,7 +83,7 @@
 			<jsp:useBean id="MovieSvc" scope="page" class="com.service.MovieService" />
 			<jsp:useBean id="ScreenSvc" scope="page" class="com.service.ScreenServicePeter" />
 	        
-			<button type="button" class="custom-button" onclick="window.location.href='<%=request.getContextPath()%>/back_end/showtimeInfo/addMovieInfo.jsp'">新增場次</button>
+			<button type="button" class="custom-button" onclick="window.location.href='<%=request.getContextPath()%>/back_end/showtimeInfo/addShowtimeInfo.jsp'">新增場次</button>
 	        
 			<form method="post" action="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do">
 				<a>播放日期:</a>

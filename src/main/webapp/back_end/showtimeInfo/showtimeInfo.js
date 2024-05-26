@@ -27,6 +27,7 @@ function calculateTotalTime() {
 	var formattedTime = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
 
 	document.getElementById('endtime').value = formattedTime;
+	console.log(formattedTime);
 }
 
 // 使用 textContent 设置值
@@ -41,6 +42,8 @@ function selectMovieId() {
 
 // 在页面加载完成后调用函数
 window.onload = function() {
-	selectMovieId();
+	if (document.getElementByName('action').value === "insert") {
+		selectMovieId();
+	}
 	calculateTotalTime();
 };

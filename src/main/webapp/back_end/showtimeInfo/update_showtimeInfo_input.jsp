@@ -27,10 +27,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>場次資料新增</title>
+<title>場次資料修改</title>
 
 <style type="text/css">
-	.main{
+.main{	
+
 		body {
 			margin: 20px auto;
 			padding: 20px;
@@ -156,50 +157,43 @@
 		  background-color: rgba(87, 87, 89, 0.8);
 		}
 	}
+}
 </style>
 </head>
 <body>
 <%@ include file="../management.jsp" %>
 
-	<div class="main">
-		<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-				 <div align="center"> <h2>場次資料新增</h2>
-				 <h3><a class="navbar-brand" href="<%=request.getContextPath()%>/back_end/showtimeInfo/listAllShowtimeInfo.jsp"><img src="<%=request.getContextPath()%>/images/back1.gif">回查詢頁</a></h3></div>
-		</nav>
-	
-		<div align="center">
-			<h3><b>所有欄位皆為必填欄位</b></h3>
+<div class="main">
+	<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+			 <div align="center"> <h2>場次資料修改</h2>
+			 <h3><a class="navbar-brand" href="<%=request.getContextPath()%>/back_end/showtimeInfo/listAllShowtimeInfo.jsp"><img src="<%=request.getContextPath()%>/resources/images/back1.gif">回查詢頁</a></h3></div>
+	</nav>
+
+	<div align="center">
+		<h3><b>所有欄位皆為必填欄位</b></h3>
 			
 			
 			<jsp:useBean id="MovieSvc" scope="page" class="com.service.MovieService" />
 			<jsp:useBean id="ScreenSvc" scope="page" class="com.service.ScreenServicePeter" />
-			<form action="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do" method="post" enctype="multipart/form-data">
+			<form action="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do" method="post">
 				
 	
 				
 				
-				
-				
 				<div>
-					<label for="movieId">電影名稱:</label>
-					<select size="1" name="movieId" id="movieId" onchange="selectMovieId()">
-					    <c:forEach var="Movie"  items="${MovieSvc.findAllmovies()}">
-					    	<c:if test="${Movie.getMovieStatus()!='已下檔'}">
-					    		<option value="${Movie.getMovieId()}" data-runtime="${Movie.getRuntime()}" >${Movie.getMovieId()}: ${Movie.getMovieName()}  ${Movie.getRuntime()}分鐘</option>
-							</c:if>
-						</c:forEach> 
-					</select>	
+					<label for="showtimeId">場次編號:</label>
+					<input id ="showtimeId" name="showtimeId" type="text" value="${param.showtimeId}" style="border:0px ; font-weight: bold;" readonly />
 				</div>
 				
 				<div>
-			        <label for="runtime">電影時長 (分鐘):</label>
-			        <input type="number" id="runtime" name="runtime" value="0" readonly>
-			    </div>
+					<label for="movieName">電影名稱:</label>
+					<input id ="movieName" name="movieName" type="text" value="${param.movieName}" style="border:0px ; font-weight: bold;" readonly />
+				</div>
 								
 				<div>
-					<label for="playdate">播放日期:</label>
-					<input type="date" value="<%=currentDateForString%>" name="playdate" min="<%=currentDateForString%>" max="<%=onemonthlaterForString%>">
-				</div>
+			        <label for="runtime">電影時長 (分鐘):</label>
+			        <input type="number" id="runtime" name="runtime" value="${param.runtime}" readonly>
+			    </div>
 				
 				<div>
 					<label for="screenId">影廳:</label>
@@ -209,17 +203,22 @@
 						</c:forEach>    
 					</select>
 				</div>
+								
+				<div>
+					<label for="playdate">播放日期:</label>
+					<input type="date" value="<%=currentDateForString%>" name="playdate" min="<%=currentDateForString%>" max="<%=onemonthlaterForString%>">
+				</div>
 				
 				<div>
-					<label for="showtime">选择起始时间：</label>
-					<input type="time" id="showtime" name="showtime" value="" onclick="hideContent('showtime.errors');" onchange="calculateTotalTime()" >
+					<label for="showtime">選擇起始時間：</label>
+					<input type="time" id="showtime" name="showtime" value="${param.showtime}" onclick="hideContent('showtime.errors');" onchange="calculateTotalTime()" >
 					<span  id ="showtime.errors" class="error">${errorMsgs.showtime}</span>
 				
 				</div>
 				
 				<div>
-					<label for="endtime">結束起始时间：</label>
-					<input type="time" id="endtime" name="endtime" value="" onclick="hideContent('endtime.errors');" readonly>
+					<label for="endtime">結束時間：</label>
+					<input type="time" id="endtime" name="endtime" value="${param.endtime}" onclick="hideContent('endtime.errors');" readonly>
 					<span  id ="endtime.errors" class="error">${errorMsgs.endtime}</span>
 				</div>
 				
@@ -231,15 +230,14 @@
 				
 				<div>
 					<div></div>
-					<input  type="hidden" name="action" value="insert">
-					<button type="submit" id="submit"> 送出新增 </button>
+					<input  type="hidden" name="action" value="update">
+					<button type="submit" id="submit"> 送出更新 </button>
 					<div></div>
 				</div>
 				
 			</form>
-
-		</div>
 	</div>
+</div>
 
 <!-- JavaScript part -->
 <script type="text/javascript">
@@ -247,7 +245,52 @@
 function hideContent(d) {
      document.getElementById(d).style.display = "none";
 }
+
+//照片上傳-預覽用
+var filereader_support = typeof FileReader != 'undefined';
+if (!filereader_support) {
+	alert("No FileReader support");
+}
+acceptedTypes = {
+		'image/png' : true,
+		'image/jpeg' : true,
+		'image/gif' : true
+};
+function previewImage() {
+	var upfile1 = document.getElementById("upFiles");
+	upfile1.addEventListener("change", function(event) {
+		var files = event.target.files || event.dataTransfer.files;
+		for (var i = 0; i < files.length; i++) {
+			previewfile(files[i])
+		}
+	}, false);
+}
+function previewfile(file) {
+	if (filereader_support === true && acceptedTypes[file.type] === true) {
+		var reader = new FileReader();
+		reader.onload = function(event) {
+			var image = new Image();
+			image.src = event.target.result;
+			image.width = 100;
+			image.height = 75;
+			image.border = 2;
+			if (blob_holder.hasChildNodes()) {
+				blob_holder.removeChild(blob_holder.childNodes[0]);
+			}
+			blob_holder.appendChild(image);
+		};
+		reader.readAsDataURL(file);
+		document.getElementById('submit').disabled = false;
+	} else {
+		blob_holder.innerHTML = "<div  style='text-align: left;'>" + "● filename: " + file.name
+				+ "<br>" + "● ContentTyp: " + file.type
+				+ "<br>" + "● size: " + file.size + "bytes"
+				+ "<br>" + "● 上傳ContentType限制: <b> <font color=red>image/png、image/jpeg、image/gif </font></b></div>";
+		document.getElementById('submit').disabled = true;
+	}
+}
 </script>
+
 </body>
 <script src="<%=request.getContextPath()%>/back_end/showtimeInfo/showtimeInfo.js"></script>
 </html>

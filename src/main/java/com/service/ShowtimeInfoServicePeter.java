@@ -18,18 +18,37 @@ public class ShowtimeInfoServicePeter {
 		dao = new ShowtimeInfoDAOImpl();
 	}
 
-	public ShowtimeInfo addShowtimeInfo(Screen screenId, Date playdate, Movie movieId, Time showtime, Time endtime, String seatStatus) {
+	public ShowtimeInfo addShowtimeInfo(Screen screen, Date playdate, Movie movie, Time showtime, Time endtime, String seatStatus, String showtimeStatus) {
 		ShowtimeInfo showtimeinfo = new ShowtimeInfo();
 
-		showtimeinfo.setScreen(screenId);
+		showtimeinfo.setScreen(screen);
 		showtimeinfo.setPlaydate(playdate);
-		showtimeinfo.setMovie(movieId);
+		showtimeinfo.setMovie(movie);
 		showtimeinfo.setShowtime(showtime);
 		showtimeinfo.setEndtime(endtime);
 		showtimeinfo.setSeatStatus(seatStatus);
+		showtimeinfo.setShowtimeStatus(showtimeStatus);
 		dao.insert(showtimeinfo);
 		
 		return showtimeinfo;
+	}
+	
+		public ShowtimeInfo updateShowtimeInfo(Integer showtimeId, Screen screenId, Date playdate, Time showtime, Time endtime) {
+			ShowtimeInfo showtimeinfo = dao.getById(showtimeId);
+			
+			showtimeinfo.setScreen(screenId);
+			showtimeinfo.setPlaydate(playdate);
+			showtimeinfo.setShowtime(showtime);
+			showtimeinfo.setEndtime(endtime);
+			dao.update(showtimeinfo);
+			
+			return showtimeinfo;
+	}
+	
+	public ShowtimeInfo getById(Integer showtimeId){
+		ShowtimeInfo showtimeInfo = dao.getshowtimeId(showtimeId);
+		
+		return showtimeInfo; 
 	}
 	
 	public List<ShowtimeInfo> getDate(String screenId, Date playdate, Integer movieId) {

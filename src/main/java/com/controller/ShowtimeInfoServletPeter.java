@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.LinkedHashMap;
@@ -14,9 +15,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.entity.Food;
 import com.entity.Movie;
 import com.entity.Screen;
 import com.entity.ShowtimeInfo;
+import com.service.FoodService;
+import com.service.MovieService;
 import com.service.ScreenServicePeter;
 import com.service.ShowtimeInfoServicePeter;
 
@@ -35,27 +39,40 @@ public class ShowtimeInfoServletPeter extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 **********************/
-			Screen screenId = null;
+			ScreenServicePeter screenServicePeter = new ScreenServicePeter();
+			MovieService movieService = new MovieService();
+
+
 			Date playdate = null;
-			Movie movieId = null;
 			Time showtime = null;
 			Time endtime = null;
-			Screen seatStatus = null;
+			String showtimeStatus = "人數未滿";
 
-			screenId.setScreenId(String.valueOf(req.getParameter("screenId")));
+			String screenId = String.valueOf(req.getParameter("screenId"));
+			Integer movieId = Integer.valueOf(req.getParameter("movieId"));
 			playdate = Date.valueOf(req.getParameter("playdate"));
-			movieId.setMovieId(Integer.valueOf(req.getParameter("movieId")));
-			showtime = Time.valueOf(req.getParameter("showtime"));
-			endtime = Time.valueOf(req.getParameter("endtime"));
 			
-			ScreenServicePeter screenServicePeter = new ScreenServicePeter();
-			seatStatus = screenServicePeter.getSeatNo(Integer.valueOf(req.getParameter("screenId")));
-
+			String showtimecheck = req.getParameter("showtime").trim();
+			if (showtimecheck == null || showtimecheck.trim().length() == 0) {
+				errorMsgs.put("showtime", "【選擇起始時間】請勿空白");
+			}else {
+				showtime = Time.valueOf(showtimecheck + ":00");
+			}
+			String endtimecheck = req.getParameter("endtime").trim();
+			if (endtimecheck == null || endtimecheck.trim().length() == 0) {
+				errorMsgs.put("endtime", "【選擇起始時間】請勿空白");
+			}else {
+				endtime = Time.valueOf(endtimecheck + ":00");
+			}
+			
+			Screen screen = screenServicePeter.getById(screenId);
+			Movie movie = movieService.findMoviebyId(movieId);
+			String screenNO = screen.getSeatNo();
 
 
 			/*************************** 2.開始新增資料 ***************************************/
 			ShowtimeInfoServicePeter showtimeInfoSvc = new ShowtimeInfoServicePeter();
-			ShowtimeInfo showtimeInfo = showtimeInfoSvc.addShowtimeInfo(screenId, playdate, movieId, showtime, endtime, seatStatus.getSeatNo());
+			ShowtimeInfo showtimeInfo = showtimeInfoSvc.addShowtimeInfo(screen, playdate, movie, showtime, endtime, screenNO, showtimeStatus);
 					
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			req.setAttribute("success", "- (新增成功)");
@@ -64,6 +81,75 @@ public class ShowtimeInfoServletPeter extends HttpServlet {
 			successView.forward(req, res);
 		}
 
+		if ("getOne_For_Update".equals(action)) {
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 **********************/
+			Integer showtimeId = Integer.valueOf(req.getParameter("showtimeId"));
+
+			/*************************** 2.開始查詢資料 ****************************************/
+			ShowtimeInfoServicePeter showtimeInfoServicePeter = new ShowtimeInfoServicePeter();
+			ShowtimeInfo showtimeInfo = showtimeInfoServicePeter.getById(showtimeId);
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+			String param = "?showtimeId=" + showtimeInfo.getShowtimeId() + "&movieName=" + showtimeInfo.getMovie().getMovieName()
+					+ "&runtime=" + showtimeInfo.getMovie().getRuntime() + "&screenId=" + showtimeInfo.getScreen().getScreenId() 
+					+ "&playdate=" + showtimeInfo.getPlaydate() + "&showtime=" + showtimeInfo.getShowtime() + "&endtime=" + showtimeInfo.getEndtime();
+			String url = "/back_end/showtimeInfo/update_showtimeInfo_input.jsp" + param;
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_showtimeInfo_input.jsp
+			successView.forward(req, res);
+		}
+
+		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
+
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			Date playdate = null;
+			Time showtime = null;
+			Time endtime = null;
+			Integer showtimeId = Integer.valueOf(req.getParameter("showtimeId").trim());
+			
+			ScreenServicePeter screenServicePeter = new ScreenServicePeter();
+			Screen screen = screenServicePeter.getById(req.getParameter("screenId").trim());
+			
+			playdate = Date.valueOf(req.getParameter("playdate"));
+
+			String showtimecheck = req.getParameter("showtime").trim();
+			if (showtimecheck == null || showtimecheck.trim().length() == 0) {
+				errorMsgs.put("showtime", "【選擇起始時間】請勿空白");
+			}else {
+				showtime = Time.valueOf(showtimecheck + ":00");
+			}
+			String endtimecheck = req.getParameter("endtime").trim();
+			if (endtimecheck == null || endtimecheck.trim().length() == 0) {
+				errorMsgs.put("endtime", "【選擇起始時間】請勿空白");
+			}else {
+				endtime = Time.valueOf(endtimecheck + ":00");
+			}
+
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				errorMsgs.put("Exception", "修改資料失敗:---------------");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/food/update_food_input.jsp");
+				failureView.forward(req, res);
+				return; // 程式中斷
+			}
+
+			/*************************** 2.開始修改資料 *****************************************/
+			ShowtimeInfoServicePeter showtimeInfoSvc = new ShowtimeInfoServicePeter();
+			ShowtimeInfo showtimeInfo = showtimeInfoSvc.updateShowtimeInfo(showtimeId, screen, playdate, showtime, endtime);
+
+			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+			req.setAttribute("success", "- (修改成功)");
+			req.setAttribute("ShowtimeInfo", showtimeInfo); // 資料庫update成功後,正確的的empVO物件,存入req
+			String url = "/back_end/showtimeInfo/listAllShowtimeInfo.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+			successView.forward(req, res);
+		}
+		
 		if ("getDate_For_Display".equals(action)) {
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -74,7 +160,6 @@ public class ShowtimeInfoServletPeter extends HttpServlet {
 			Integer movieId = null;
 
 			String TEST = req.getParameter("playdate");
-			System.out.println(TEST);
 			// 非NULL值
 			if (!("NULL".equals(req.getParameter("screenId")))) {
 				screenId = String.valueOf(req.getParameter("screenId"));
