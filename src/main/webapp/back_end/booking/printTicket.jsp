@@ -64,7 +64,7 @@
 					<div class="image">
 						<img
 							src="data:image/jpeg;base64,<%=booking.getShowtimeInfo().getMovie().getPicBase64()%>"
-							alt="Movie Image" style="width: 200px; height: 288px;">
+							alt="Movie Image" style="width: 220px; height: 288px;">
 
 
 					</div>
@@ -149,7 +149,7 @@
 				<div class="left">
 					<div class="image">
 						<img src="../../images/set1.jpg" alt="Movie Image"
-							style="width: 260px; height: 260px;">
+							style="width: 240px; height: 270px;">
 
 
 					</div>
@@ -158,7 +158,7 @@
 							<span class="day"><%=booking.dayofweek(booking)%></span> 
 							<span class="date"><%=booking.dateformate(booking)%></span> <span>2024</span>
 						</p>
-						<div class="foodName">
+						<div class="left-foodName">
 
 							<%
 							for (FoodItem foodItem : foodItems) {
