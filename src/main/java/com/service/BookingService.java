@@ -129,10 +129,14 @@ public class BookingService {
 		
 	}
 	
-	//找到所有食物
+	//找到所有上架食物
 	public List<Food> findFood(){
 		
 		return fooddao.getAllfoodForbooking();
+	}
+	
+	public List<Food> getAll(){
+		return fooddao.getAll();
 	}
 	
 	
