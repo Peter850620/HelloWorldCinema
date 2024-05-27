@@ -20,9 +20,11 @@ public interface ShowtimeInfoDAO {
     
     public List<ShowtimeInfo> getShowtimeByPlaydate(Integer movieId, Date playdate);
     
-    //	博雅
+    //	博雅 複合查詢
     public List<ShowtimeInfo> getDate(String screenId, Date playdate, Integer movieId);	
     
+    // 博雅 檢查場次開始結束時間是否與其他場次重疊
+    public List<ShowtimeInfo> checkTime(String screenId, Date playdate, Time showtime, Time sendtime);	
 
 	
 	int insert(ShowtimeInfo entity);
