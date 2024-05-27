@@ -16,35 +16,41 @@
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen1/screen1.css">
-<style>
-</style>
 </head>
 
-<jsp:include page="/back_end/orderTicket/index/indexHeader.jsp"
-	flush="true" />
 
 
 <body>
-	<div>
-		<li><form method="post"
-				action="<%=request.getContextPath()%>/food/food.do">
-				選擇食物編號: <select size="1" name="foodId">
-					<c:forEach var="Food" items="${foodSvc.all}">
-						<option value="${Food.foodId}">${Food.foodId}
-					</c:forEach>
-				</select> <input type="hidden" name="action" value="getOne_For_Display">
-				<input type="submit" value="送出">
-			</form>
-			</li>
+	<jsp:include page="/back_end/orderTicket/index/indexHeader.jsp"
+		flush="true" />
+<form id="checkout-form" action="<%=request.getContextPath() %>/memBookingController"  method="post"  >
+	
+	        <% ShowtimeInfo show =(ShowtimeInfo) session.getAttribute("whichShow"); %>
+	
+	
+	<div class="theatre">
+		<div class="screen-side">
+			<div class="screen"></div>
+			<h3 class="select-text">購物清單</h3>
+			<div id="shoppingList"></div>
+		</div>
+		<br>
+		<div class="screen-side" >總共價格: <span id="subtotal" name="subtotal"></span></div>
+
+
+		<div style="text-align: center;">
+			<button id="lastButton">上一步</button>
+			<input type="hidden" id="paymentType" name="paymentType" value="">
+			 <input type="hidden" name="action" value="bookingSuccess">
+			 <input type="hidden" type="submit" name="payment">
+			<button type="submit" id="nextButton">結帳</button>
+		</div>
 	</div>
-
-
-	<script
-		src="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen.js">
-		
-	</script>
+</form>
+	<jsp:include page="/back_end/orderTicket/index/indexFooter.jsp"
+		flush="true" />
+	<script type="text/javascript" src=./checkorder.js></script>
 
 </body>
-<jsp:include page="/back_end/orderTicket/index/indexFooter.jsp"
-	flush="true" />
+
 </html>
