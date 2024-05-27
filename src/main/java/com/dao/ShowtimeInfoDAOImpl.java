@@ -68,12 +68,32 @@ public class ShowtimeInfoDAOImpl implements ShowtimeInfoDAO {
 	@Override
 	public List<ShowtimeInfo> getDate(String screenId, Date playdate, Integer movieId) {
 		Query<ShowtimeInfo> query = getSession().createQuery("FROM ShowtimeInfo "
-				+ "WHERE (screen.screenId = :screenId OR :screenId IS NULL) AND movie.movieId = :movieId AND playdate = :playdate",
+				+ "WHERE (screen.screenId = :screenId OR :screenId IS NULL) AND (movie.movieId = :movieId OR :movieId IS NULL) AND (playdate = :playdate OR :playdate IS NULL)",
 				ShowtimeInfo.class);
 		query.setParameter("screenId", screenId);
 		query.setParameter("playdate", playdate);
 		query.setParameter("movieId", movieId);
 		List<ShowtimeInfo> list = query.list();
+		return list;
+	}
+	//	博雅實作，檢查後台場次【開始、結束】時間是否與其他場次重疊複合查詢(影廳、播放日期、開始時間、結束時間)
+	@Override
+	public List checkTime(String screenId, Date playdate, Time showtime, Time endtime) {
+		Query query = getSession().createQuery("SELECT showtimeId FROM ShowtimeInfo "
+				+ " WHERE playDate = :playDate AND screen.screenId = :screenId"
+				+ " AND ( (showtime<=:showtime AND  endtime>=:showtime)  "
+				+ " OR    (showtime<=:endtime AND  endtime>=:endtime  )  "
+				+ " OR    (showtime>=:showtime AND  endtime<=:endtime ) )"
+				+ " ORDER BY showtime");
+		query.setParameter("playDate", playdate);
+		query.setParameter("screenId", screenId);
+		query.setParameter("showtime", showtime);
+		query.setParameter("endtime", endtime);
+		
+		List<Object> list = query.list();
+		for(Object showtimeId : list) {
+			System.out.println(showtimeId);
+		}
 		return list;
 	}
 	

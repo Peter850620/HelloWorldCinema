@@ -2,32 +2,43 @@ package com.service;
 
 import static com.util.Constants.PAGE_MAX_RESULT;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.hibernate.Session;
-
 import com.entity.HomeAnn;
+import com.entity.Message;
 import com.dao.HomeAnnDAO;
 import com.dao.HomeAnnDAOImpl;
-
-import com.util.HibernateUtil;
+import com.dao.MessageDAO;
+import com.dao.MessageDAOImpl;
+import com.websc.MessageWebSocket;
 
 public class HomeAnnServiceImpl implements HomeAnnService {
 
 
 	// 一個 service 實體對應一個 dao 實體
 	private HomeAnnDAO dao;
+	private MessageDAO msgDao;
 
 	public HomeAnnServiceImpl() {
 		dao = new HomeAnnDAOImpl();
+		msgDao = new MessageDAOImpl();
 	}
 
 	@Override
 	public void addHomeAnn(HomeAnn homeAnn) {
 			dao.insert(homeAnn);
+			
+			Message message = new Message();
+			message.setMsgTitle("最新消息公布囉!!");
+			message.setMsgDetail(homeAnn.getAnnTitle());
+			message.setMsgTime(new Timestamp(System.currentTimeMillis()));
+			message.setMsgStatus("未讀");
+			msgDao.insert(message);
+			MessageWebSocket.broadcastToAll(message);
 	}
 
 	@Override
@@ -38,7 +49,6 @@ public class HomeAnnServiceImpl implements HomeAnnService {
 	// 刪除方法
 	@Override
 	public void deleteHomeAnn(Integer annId) {
-		// TODO Auto-generated method stub
 
 	}
 

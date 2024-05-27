@@ -46,6 +46,9 @@ public class MerchOrderServlet extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
+		
+//		<==============================前台===============================>
+		
 //		生成訂單
 		if ("insert".equals(action)) {
 			
@@ -200,6 +203,46 @@ public class MerchOrderServlet extends HttpServlet{
 		
 		
 		
+//		列出會員訂單
+		if("showById".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+			
+
+			Integer memId = (Integer) req.getAttribute("memId");
+
+//			System.out.println("memId: " + memId);
+		    
+			
+			if(!errorMsgs.isEmpty()) {
+				RequestDispatcher failureReq = req.getRequestDispatcher("/front_end/merchOrder/listMemMerchOrder.jsp");
+				failureReq.forward(req, res);
+				return;
+			}
+			/***************************2.開始查詢資料*****************************************/
+			MerchOrderService merchOrderSvc = new MerchOrderService();
+			List<MerchOrder> merchOrder = merchOrderSvc.showById(memId);
+
+			if(merchOrder == null) {
+				errorMsgs.add("查無訂單紀錄");
+			}
+			
+			if(!errorMsgs.isEmpty()) {
+				RequestDispatcher failureReq = req.getRequestDispatcher("/front_end/merchOrder/listMemMerchOrder.jsp");
+				failureReq.forward(req, res);
+				return;
+			}
+			/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+			req.setAttribute("merchOrder", merchOrder);
+			String url = "/front_end/merchOrder/listMemMerchOrder.jsp";
+			RequestDispatcher success = req.getRequestDispatcher(url);
+			success.forward(req, res);
+		}
+		
+		
+		
+//		<==============================後台===============================>		
 		
 //		查詢訂單編號
 		if("getByNo".equals(action)) {
