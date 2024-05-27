@@ -81,9 +81,8 @@ console.log(cartInfo.cartItems);
     
     
 //    訂單生成後清除localStorage
-    var submitButton = document.querySelector('input[type="submit"][value="結帳"]');
+    var submitButton = document.querySelector('input[type="submit"][value="送出訂單"]');
     submitButton.addEventListener("click", function() {
-        // Clear localStorage
-        localStorage.clear();
+        localStorage.removeItem('cartInfo'); // 修改此行為移除 'cartInfo' 鍵對應的資料
     });
 });

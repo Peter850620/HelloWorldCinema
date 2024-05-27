@@ -15,12 +15,15 @@ public class MerchItemService {
 	public MerchItemService() {
 		dao = new MerchItemDAOImpl();
 	}
-	
 
-//	// 新增多筆商品明細
-//    public void addMerchItems(List<MerchItem> merchItems) {
-//        dao.insert(merchItems);
-//    }
+//	<==============================前台===============================>
+	
+//	列出商品明細
+	public List<MerchItem> showByNo(Integer merchNo) {
+		return dao.getByNo(merchNo);
+	}
+
+//	<==============================後台===============================>
     
 //	更新商品明細
 	public MerchItem updateMerchItem(Integer merchSeq, MerchOrder merchNo, Merch merchId, Integer merchQty, Integer merchSubTotal) {
