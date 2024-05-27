@@ -114,4 +114,18 @@ public class CartService {
             e.printStackTrace();
         }
     }
+    
+    //訂單成立後移除購物車
+    public void deleteCart(Integer memId) {
+        try (Jedis jedis = jedisUtil.getJedisPool().getResource()) {
+            // Assuming cart keys are stored with a specific pattern, e.g., "cart:memId:*"
+            Set<String> cartKeys = jedis.keys("cart:" + memId + ":*");
+            for (String cartKey : cartKeys) {
+                jedis.del(cartKey); // Delete each cart item
+            }
+            System.out.println("Cart deleted for memId: " + memId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

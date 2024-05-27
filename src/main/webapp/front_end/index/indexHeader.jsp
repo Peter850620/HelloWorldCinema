@@ -47,7 +47,7 @@ if (memObject instanceof Mem) {
     <!-- 選單 -->
     <header class="header">
         <div id="box" class="logo">
-            <h1 class="neon"><a href="index.html"><span class="logo_el">H</span>ello<span class="logo_el">W</span>orld <span class="logo_el">C</span>inema</a></h1>
+            <h1 class="neon"><a href="<%=request.getContextPath()%>/front_end/homePage.jsp"><span class="logo_el">H</span>ello<span class="logo_el">W</span>orld <span class="logo_el">C</span>inema</a></h1>
         </div>
         <div id="box">
             <nav class="nav">

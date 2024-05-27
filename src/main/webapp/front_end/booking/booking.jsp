@@ -36,32 +36,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>世界影城 HelloWorld Cinema</title>
-
-<meta name="description"
-	content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
-<meta name="keywords" content="世界、電影、世界影城、HelloWorld Cinema" />
-<meta name="robots" content="Index,follow">
-<meta property="og:title" content="世界影城" />
-<meta property="og:image" content=".img/bk.jpg" />
-<meta property="og:site_name" content="世界影城網站" />
-<meta property="og:url" content="https://www.ambassador.com.tw" />
-<meta property="og:description"
-	content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務" />
-<!-- RWD -->
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
-
-<!-- 底部footer -->
-<link rel="stylesheet" type="text/css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
-	rel="stylesheet">
 
 
 </head>

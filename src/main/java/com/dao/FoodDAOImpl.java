@@ -49,4 +49,15 @@ public class FoodDAOImpl implements FoodDAO {
 		List<Food> list = getSession().createQuery("FROM Food", Food.class).list();
 		return list;
 	}
+	
+
+	@Override
+	public List<Food> getAllfoodForbooking() {
+	List<Food> list = getSession()
+			    .createQuery("FROM Food WHERE foodStatus = :status", Food.class)
+			    .setParameter("status", "上架")
+			    .list();
+	
+	return list;
+	}
 }

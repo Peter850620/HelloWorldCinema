@@ -10,4 +10,5 @@ public interface FoodDAO {
 	public void delete(Integer foodId);
     public Food findByPrimaryKey(Integer foodId);
     public List<Food> getAll();	
+    public List<Food> getAllfoodForbooking();	
 }
