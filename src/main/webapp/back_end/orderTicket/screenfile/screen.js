@@ -172,6 +172,9 @@ if (ticketCart && ticketCart.items) {
     });
 }
 
+
+
+
 // 打印檢查
 console.log(sessionStorage.getItem('全票')); // 應輸出全票的 quantity
 console.log(sessionStorage.getItem('優待票')); // 應輸出優待票的 quantity

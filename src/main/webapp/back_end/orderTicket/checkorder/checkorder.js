@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		let items = ticketCart.items;  // 抽離 items 外層
 		console.log(items);
 
-		let ticketItems = '<h4>選購票券</h4><ul>';
+		let ticketItems = '<h4>選購票券</h4><ul><input type="hidde" id="${screenId}">';
+		
 		items.forEach(item => {
 			const ticketId = item.id;
 			const ticketName = item.name;
@@ -42,6 +43,13 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 			
                 			<span data-id="${ticketId}" style="display: none;" id="tkId${ticketId}" name="tkId${ticketId}">${ticketId}</span>
                             ${ticketName} - ${ticketPrice} 元 x ${ticketQuantity} 張 = ${ticketTotalPrice} 元
+                			<input type="hidden" id="tkId${ticketId}" name="tkId${ticketId}">
+                			<input type="hidden" id="tkId${ticketId}" name="">
+                			
+                			
+                			<input type="hidden" id="merchId" name="merchId" value="${item.merchId}">      
+	 						<input type="hidden" id="merchQty" name="merchQty" value="${item.merchQty}">
+	 						<input type="hidden" id="merchSubTotal" name="merchSubTotal" value="${item.merchQty * item.merchPrice}">
                 			
                         </div>`;
 		});

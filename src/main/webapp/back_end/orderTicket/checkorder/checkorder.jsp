@@ -25,6 +25,9 @@
 		flush="true" />
 <form id="checkout-form" action="<%=request.getContextPath() %>/memBookingController"  method="post"  >
 	
+	        <% ShowtimeInfo show =(ShowtimeInfo) session.getAttribute("whichShow"); %>
+	
+	
 	<div class="theatre">
 		<div class="screen-side">
 			<div class="screen"></div>
