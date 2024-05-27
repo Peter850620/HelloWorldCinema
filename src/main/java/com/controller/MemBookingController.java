@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.io.ByteArrayOutputStream;
+
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -101,41 +102,28 @@ public class MemBookingController extends HttpServlet {
 		String paymentType = req.getParameter("paymentType");
 		String screenId = req.getParameter("screenId");
 		Integer finalshowId = Integer.valueOf(req.getParameter("showId"));
-		Integer total = Integer.valueOf(req.getParameter("total"));
+		Integer total = Integer.valueOf(req.getParameter("subtotal"));
 		String bookingSeats = req.getParameter("seatNo");
 		String[] seatsArray = bookingSeats.split(" ");
 		List<Integer> eachTkId = new ArrayList<>();
 		Integer tkValue;
 		Map<String, Integer> tkIdValues = new HashMap<>();
 
-		for (int i = 1; i < 5; i++) {
-			String tkId = "tkId" + i;
-			tkIdValues.put(tkId, Integer.valueOf(req.getParameter(tkId)));
-			tkValue = tkIdValues.get(tkId);
-			for (int x = 1; x <= tkValue; x++) {
-				switch (tkId) {
-					case "tkId1":
-						eachTkId.add(1);
-						break;
-					case "tkId2":
-						eachTkId.add(2);
-						break;
-					case "tkId3":
-						eachTkId.add(3);
-						break;
-					case "tkId4":
-						eachTkId.add(4);
-						break;
-				}
-			}
-		}
+		for (int i = 1; i <= 4; i++) {
+	        String tkId = "tkId" + i;
+	        tkIdValues.put(tkId, Integer.valueOf(req.getParameter(tkId)));
+	        tkValue = tkIdValues.get(tkId);
+	        for (int x = 1; x <= tkValue; x++) {
+	            eachTkId.add(i);
+	        }
+	    }
 
 		Integer quantity = eachTkId.size();
 		Date today = new Date(System.currentTimeMillis());
 		Booking bookingSuccess = new Booking();
 
 		bookingSuccess.setBookingDate(today);
-		bookingSuccess.setBookingStatus("已取票");
+		bookingSuccess.setBookingStatus("未取票");
 		bookingSuccess.setPaymentType(paymentType);
 		bookingSuccess.setPickupOption("電子票");
 		bookingSuccess.setTotal(total);
@@ -186,27 +174,7 @@ public class MemBookingController extends HttpServlet {
 
 		HttpSession session = req.getSession();
 
-		// Integer newbookingNo = memBookingService.createBooking(bookingSuccess);
 
-		// try {
-		//     List<OrderItem> seats = memBookingService.findSeatByBookingNo(newbookingNo);
-		//     for (OrderItem orderItem : seats) {
-		//         String currentSeat = orderItem.getSeatNo();
-		//         String qrText = String.format("%s?bookingNo=%s&showId=%s&seatNo=%s", BASE_URL, newbookingNo, show.getShowtimeId(), currentSeat);
-		//         byte[] qrCodeImage = generateQRCodeImage(qrText, 350, 350);
-		//         orderItem.setQrcode(qrCodeImage);
-		//         System.out.println("QR Code generated successfully for" + currentSeat);
-		//     }
-		// } catch (Exception e) {
-		//     e.printStackTrace();
-		// }
-
-		// synchronized (session) {
-		//     session.setAttribute("newbookingno", newbookingNo);
-		// }
-		// url = "/back_end/booking/loading.jsp";
-		// successView = req.getRequestDispatcher(url);
-		// successView.forward(req, res);
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

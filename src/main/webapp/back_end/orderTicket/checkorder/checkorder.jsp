@@ -25,13 +25,13 @@
 		flush="true" />
 <form id="checkout-form" action="<%=request.getContextPath() %>/memBookingController"  method="post"  >
 	
-	        <% ShowtimeInfo show =(ShowtimeInfo) session.getAttribute("whichShow"); %>
-	
+	<% ShowtimeInfo show =(ShowtimeInfo) session.getAttribute("whichShow"); %>
 	
 	<div class="theatre">
 		<div class="screen-side">
 			<div class="screen"></div>
 			<h3 class="select-text">購物清單</h3>
+			
 			<div id="shoppingList"></div>
 		</div>
 		<br>
@@ -40,10 +40,9 @@
 
 		<div style="text-align: center;">
 			<button id="lastButton">上一步</button>
+			<input type="hidden" name="action" value="bookingSuccess">
 			<input type="hidden" id="paymentType" name="paymentType" value="">
-			 <input type="hidden" name="action" value="bookingSuccess">
-			 <input type="hidden" type="submit" name="payment">
-			<button type="submit" id="nextButton">結帳</button>
+			<button type="submit" name="payment" id="nextButton">結帳</button>
 		</div>
 	</div>
 </form>
