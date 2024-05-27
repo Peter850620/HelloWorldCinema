@@ -135,7 +135,7 @@ public class ShowtimeInfoDAOImpl implements ShowtimeInfoDAO {
 
 	@Override
 	public ShowtimeInfo getById(Integer showtimeId) {
-		
+		System.out.println("hahahahahahaha我是DAO"+showtimeId);
 		return getSession().get(ShowtimeInfo.class, showtimeId);
 	}
 

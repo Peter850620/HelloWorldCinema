@@ -23,7 +23,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>訂單明細</title>
 
 
 <link rel="stylesheet"
@@ -37,33 +37,6 @@
 	rel="stylesheet">
 
 
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>世界影城 HelloWorld Cinema</title>
-
-<meta name="description"
-	content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
-<meta name="keywords" content="世界、電影、世界影城、HelloWorld Cinema" />
-<meta name="robots" content="Index,follow">
-<meta property="og:title" content="世界影城" />
-<meta property="og:image" content=".img/bk.jpg" />
-<meta property="og:site_name" content="世界影城網站" />
-<meta property="og:url" content="https://www.ambassador.com.tw" />
-<meta property="og:description"
-	content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務" />
-<!-- RWD -->
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-
-<!-- 底部footer -->
-<link rel="stylesheet" type="text/css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
-	rel="stylesheet">
 
 
 </head>
@@ -111,7 +84,7 @@
 					<div class="image">
 						<img
 							src="data:image/jpeg;base64,<%=booking.getShowtimeInfo().getMovie().getPicBase64()%>"
-							alt="Movie Image" style="width: 200px; height: 288px;">
+							alt="Movie Image" style="width: 220px; height: 288px;">
 
 
 					</div>
@@ -126,6 +99,7 @@
 
 						</div>
 						<div class="time">
+					
 							<p>
 								<%=booking.timeformat(booking)%>
 								<span>TO</span>
@@ -151,7 +125,7 @@
 							<h4><%=booking.getShowtimeInfo().getMovie().getMovieName()%></h4>
 						</div>
 						<div class="time">
-							
+								<input type="hidden" class="date" value="<%=booking.getShowtimeInfo().getPlaydate()%>">
 							<p>
 								座位: <span>@</span><%=orderItem.getSeatNo()%>
 							</p>
@@ -164,7 +138,7 @@
 						</div>
 						<div class="barcode">
 							<img
-								src="https://external-preview.redd.it/cg8k976AV52mDvDb5jDVJABPrSZ3tpi1aXhPjgcDTbw.png?auto=webp&s=1c205ba303c1fa0370b813ea83b9e1bddb7215eb"
+								src="data:image/jpeg;base64,<%=orderItem.getPicBase64()%>"
 								alt="QR code">
 						</div>
 						<p class="ticket-number">
@@ -200,7 +174,7 @@
 				<div class="left">
 					<div class="image">
 						<img src="./images/set1.jpg" alt="Movie Image"
-							style="width: 260px; height: 260px;">
+							style="width: 240px; height: 270px;">
 
 
 					</div>
@@ -209,7 +183,7 @@
 							<span class="day"><%=booking.dayofweek(booking)%></span> 
 							<span class="date"><%=booking.dateformate(booking)%></span> <span>2024</span>
 						</p>
-						<div class="movieName">
+						<div class="left-foodName">
 
 							<%
 							for (FoodItem foodItem : foodItems) {
@@ -332,30 +306,42 @@
 
 
 	<!-- 底部footer -->
-<%@ include file="../index/indexFooter.jsp" %>
+
 
   
-    <script src="<%= request.getContextPath() %>/js/index.js"></script>
+  
 
 
 	<script src="./front_end/jq/jq.js"></script>
 
-	<script>
-		$("button.cancelorder").on("click", function() {
-			$("div.cancel").toggleClass("-on");
-			$("button.confirm").toggleClass("-on");
-			$(this).hide();
-		      $("html, body").animate({ scrollTop: 0 }, "slow");
+ <script>
+        $(document).ready(function() {
+            $("button.cancelorder").on("click", function(event) {
+                var dateString = $('input.date').val(); 
+                var currentDate = new Date();
+                var dateParts = dateString.split('-');
+                var startDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
 
-			alert("請勾選您要取消的座位或餐點並點擊確認鍵");
-		});
+           
 
-		$("button.confrim").on("click", function() {
+                if (startDate <= currentDate) {
+                    event.preventDefault(); // 阻止表單提交
+                    console.log("Preventing submission");
+                    alert("訂單已超過取消期效，無法取消。");
+                } else {
+                    $("div.cancel").toggleClass("-on");
+                    $("button.confirm").toggleClass("-on");
+                    $(this).hide();
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                    alert("請勾選您要取消的座位或餐點並點擊確認鍵");
+                }
+            });
 
-			$("button.cancelorder").show();
-
-		});
-	</script>
+            $("button.confirm").on("click", function(event) {
+                $("button.cancelorder").show();
+            });
+        });
+    </script>
 
 
 

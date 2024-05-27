@@ -64,7 +64,7 @@ function initApp() {
             <div class="title">${value.foodName}</div>
             <div class="price">${value.foodPrice.toLocaleString()}</div>
             <input type="hidden" name="foodId" value="${value.foodId}">
-            <button onclick="addToCard(${key})">Add To Card</button>`;
+            <button onclick="addToCard(${ key})">加入購物車</button>`;
 		list.appendChild(newDiv);
 
 	if(storedTotal){
@@ -78,7 +78,7 @@ function initApp() {
 }
 
 
-
+//加入上面紅色數字同時 也要執行 右邊側邊欄reloadCart刷新
 function addToCard(key) {
 	if (listCards[key] == null) {
 		// copy product form list to list card
@@ -152,7 +152,7 @@ function reloadCard() {
 	})
 
 	sessionStorage.setItem("foodAndQuantity", JSON.stringify(foodAndQuantity));
-	console.log("Total Price:", totalPrice);
+	
 	let food=0;
 	if(seatTotal){
    food=totalPrice-seatTotal;

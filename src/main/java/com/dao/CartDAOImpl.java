@@ -30,9 +30,13 @@ public class CartDAOImpl implements CartDAO{
 
 	//更新購物車裡已有商品
 	@Override
-	public void updateCart(Cart updatedCartItem) {
-		getSession().update(updatedCartItem);
-		
+	public void updateCartItemQuantity(Integer memId, Integer merchId, Integer merchQty) {
+		 Cart updateCart = getSession().createQuery("FROM Cart WHERE memId = :memId AND merchId = :merchId AND merchQty = :merchQty", Cart.class)
+                 .setParameter("memId", memId)
+                 .setParameter("merchId", merchId)
+                 .setParameter("merchId", merchQty)
+                 .uniqueResult();
+		 getSession().update(updateCart);
 	}
 
 //	移除商品
@@ -58,5 +62,12 @@ public class CartDAOImpl implements CartDAO{
 	            .setParameter("memId", memId)
 	            .list();
 	    return cart;
+	}
+	
+//	訂單成立後刪除購物車
+	public void deleteCart(Integer memId) {
+	    getSession().createNativeQuery("DELETE FROM cart WHERE memId = :memId")
+	            .setParameter("memId", memId)
+	            .executeUpdate();
 	}
 }

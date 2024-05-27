@@ -7,13 +7,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>評論資料 - listOneReview.jsp</title>
-
-
 <style type="text/css">
 	
 	.main{
 		margin: 20px auto;
-		padding: 20px;
 		width: 100%;
 		border-radius: 25px;
 		justify-content: center;
@@ -27,12 +24,18 @@
 		color:white;
 	}
 	
-	.nav_head{
-		margin-left: 50px;
+	.nav_head {
+		margin: 0px 0px 20px 50px;
 	}
 	
-	a{
-		color:white;
+	.form_footer {
+		margin: 20px 0px 0px 50px;
+	}
+	
+	.form_footer a{
+		background-color: rgb(135, 189, 250);
+       	border: solid white;
+       	color: white;
 	}
 	
 	.container{
@@ -56,31 +59,46 @@
 		font-size: 16px; 
 		width: 500px; 
 		height: 200px; 
-		resize: vertical;
+		resize: none;
 	}
 	
 </style>
 </head>
-<body onload="formatTime()">
+<body>
 <%@ include file="../management.jsp" %>
 <div class="main">
 	<nav class="nav_head">
-		 <div> <h2>單一評論資料</h2>
-		 <h3><a href="<%= request.getContextPath() %>/back/review.do?action=getAll">回查詢頁</a></h3></div>
+	  	<h2>單一評論資料</h2>
 	</nav>
-
 	<div class="container">
 		<span>評論編號:</span><span>${review.reviewId}</span><br/>
 		<span>會員編號:</span><span>${review.mem.memId}</span><br/>
 		<span>電影編號:</span><span>${review.movie.movieId}</span><br/>
-		<span>評論日期:</span><span class="timeItem">${review.reviewDate}</span><br/>
+		<span>評論日期:</span><span id="timeItem" data-time="${review.reviewDate}">${review.reviewDate}</span><br/>
 		<span>狀態:</span><span>${review.reviewStatus}</span><br/>
 		<span>評論內容:</span><br/>
 		<textarea readonly>${review.reviewDetails}</textarea><br/>
 	</div>
+	<div class="form_footer">
+		<h3><a href="<%= request.getContextPath() %>/back/review.do?action=getAll">回查詢頁</a></h3>
+	</div>
 </div>
-
-
-<script src="<%= request.getContextPath() %>/js/timestampFormat.js"></script>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+	    var reviewDateElement = document.getElementById("timeItem");
+	    var reviewDateValue = reviewDateElement.getAttribute("data-time");
+	
+	    if (reviewDateValue) {
+	        var date = new Date(reviewDateValue);
+	        var formattedDate = date.getFullYear() + '-' + 
+	                            String(date.getMonth() + 1).padStart(2, '0') + '-' + 
+	                            String(date.getDate()).padStart(2, '0') + ' ' + 
+	                            String(date.getHours()).padStart(2, '0') + ':' + 
+	                            String(date.getMinutes()).padStart(2, '0') + ':' + 
+	                            String(date.getSeconds()).padStart(2, '0');
+	        reviewDateElement.textContent = formattedDate;
+	    }
+	});
+</script>
 </body>
 </html>

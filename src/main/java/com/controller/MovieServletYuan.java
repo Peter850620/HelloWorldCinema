@@ -12,7 +12,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dao.FoodDAO;
+import com.dao.FoodDAOImpl;
+import com.dao.ShowtimeInfoDAO;
+import com.dao.ShowtimeInfoDAOImpl;
+import com.dao.TicketDAO;
+import com.dao.TicketDAOImpl;
+import com.entity.Food;
 import com.entity.Movie;
+import com.entity.ShowtimeInfo;
+import com.entity.Ticket;
 import com.service.MovieServiceYuan;
 
 @WebServlet("/movie/movie.do")
@@ -79,6 +88,29 @@ public class MovieServletYuan extends HttpServlet{
         RequestDispatcher dispatcher = req.getRequestDispatcher(url);
         dispatcher.forward(req, res);
     }
+	//===========
+	if ("setshowtimeId".equals(action)) {
+		
+        Integer showtimeId = Integer.valueOf(req.getParameter("showId"));
+
+		ShowtimeInfoDAO showdao=new ShowtimeInfoDAOImpl();
+		ShowtimeInfo selectedShow=showdao.getById(showtimeId);
+		req.setAttribute("selectedShow", selectedShow);
+		TicketDAO ticketdao=new TicketDAOImpl();
+		
+		List<Ticket> tickets=ticketdao.getAll();
+		
+		req.setAttribute("tickets", tickets);
+		FoodDAO fooddao=new FoodDAOImpl();
+		
+		List<Food> food=fooddao.getAll();
+		
+		req.setAttribute("food", food);
+		// 轉發到相應的 JSP 文件中顯示結果
+		String url = "/back_end/orderTicket.jsp";
+		RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+		dispatcher.forward(req, res);
+	}
 		
 		
 	

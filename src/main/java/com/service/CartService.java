@@ -81,26 +81,24 @@ public class CartService {
     }
 
 
-    // 修改購物車中的商品
-    public void updateCart(Cart CartItem) {
+ // 修改購物車中的商品數量
+    public void updateCartItemQuantity(Integer memId, Integer merchId, Integer merchQty) {
         try (Jedis jedis = jedisUtil.getJedisPool().getResource()) {
-            String cartKey = CartItem.getRedisKey();
+            String cartKey = "cart:" + memId + ":" + merchId;
             Map<String, String> cartData = jedis.hgetAll(cartKey);
+
             if (cartData != null && !cartData.isEmpty()) {
-                cartData.put("memId", String.valueOf(CartItem.getMemId()));
-                cartData.put("merchId", String.valueOf(CartItem.getMerchId()));
-                cartData.put("merchName", CartItem.getMerchName());
-                cartData.put("merchQty", String.valueOf(CartItem.getMerchQty()));
-                cartData.put("merchPrice", String.valueOf(CartItem.getMerchPrice()));
-                jedis.hmset(cartKey, cartData);
-                System.out.println("Cart updated for memId: " + CartItem.getMemId() + ", merchId: " + CartItem.getMerchId());
+                // 更新商品數量
+                jedis.hset(cartKey, "merchQty", String.valueOf(merchQty));
+                System.out.println("Item quantity updated in cart: " + merchId);
             } else {
-                System.out.println("Cart not found for memId: " + CartItem.getMemId() + ", merchId: " + CartItem.getMerchId());
+                System.out.println("Cart not found for memId: " + memId + ", merchId: " + merchId);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     // 從購物車中移除商品
     public void removeItemFromCart(Integer memId, Integer merchId) {
@@ -112,6 +110,20 @@ public class CartService {
             } else {
                 System.out.println("Cart not found for memId: " + memId + ", merchId: " + merchId);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    //訂單成立後移除購物車
+    public void deleteCart(Integer memId) {
+        try (Jedis jedis = jedisUtil.getJedisPool().getResource()) {
+            // Assuming cart keys are stored with a specific pattern, e.g., "cart:memId:*"
+            Set<String> cartKeys = jedis.keys("cart:" + memId + ":*");
+            for (String cartKey : cartKeys) {
+                jedis.del(cartKey); // Delete each cart item
+            }
+            System.out.println("Cart deleted for memId: " + memId);
         } catch (Exception e) {
             e.printStackTrace();
         }

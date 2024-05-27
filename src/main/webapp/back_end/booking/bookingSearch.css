@@ -3,8 +3,8 @@ body{
 	display:block !important;
 }
   .container-main {
-    max-width: 1050px;
-    min-width:1000px;
+    max-width: 1300px;
+    min-width:1050px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -12,6 +12,17 @@ body{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-left:310px;
     margin-top:30px;
+    
+  }
+  
+  th.moredetails{
+  
+  min-width:140px;
+  }
+  
+    th.startdate{
+  
+  min-width:140px;
   }
   
   h1.booking {
@@ -144,7 +155,7 @@ input[type="checkbox"] {
 /* 標題樣式 */
 .title {
     font-size: 24px;
-    color: #333;
+    color: #fffefe;
     margin-bottom: 20px;
 }
 

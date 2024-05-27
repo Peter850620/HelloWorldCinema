@@ -1,7 +1,9 @@
 package com.service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import com.dao.MerchOrderDAO;
 import com.dao.MerchOrderDAOImpl;
@@ -20,14 +22,14 @@ public class MerchOrderService {
     }
     
 //	新增商品訂單
-	public MerchOrder addMerchOrder(Integer merchNo, Mem mem, Date orderDate, String pickupOption, String paymentType,
-			String receiptStatus, Integer merchTotal, String recipient, String receiptAddr, String receiptMobile) {
+	public MerchOrder addMerchOrder(Mem mem, Date orderDate, String pickupOption, String paymentType,
+			String receiptStatus, Integer merchTotal, String recipient, String receiptAddr, String receiptMobile, Set<MerchItem> merchItems) {
 		
 		MerchOrder merchOrder = new MerchOrder();
 		
-		merchOrder.setMerchNo(merchNo);
+
 		merchOrder.setMem(mem);
-		merchOrder.setOrderDate(orderDate);
+		merchOrder.setOrderDate(new Date());
 		merchOrder.setPickupOption(pickupOption);
 		merchOrder.setPaymentType(paymentType);
 		merchOrder.setReceiptStatus(receiptStatus);
@@ -35,8 +37,22 @@ public class MerchOrderService {
 		merchOrder.setRecipient(recipient);
 		merchOrder.setReceiptAddr(receiptAddr);
 		merchOrder.setReceiptMobile(receiptMobile);
-		
-		dao.insert(merchOrder);
+
+		// Check if merchItems is not empty and contains valid items
+	    if (merchItems != null && !merchItems.isEmpty()) {
+	        // Set merchItems for merchOrder
+	        merchOrder.setMerchItems(merchItems);
+	        for (MerchItem item : merchItems) {
+	            System.out.println("MerchItem: " + item.toString());
+	        }
+ 
+	    } else {
+	        // If merchItems are empty or invalid, return null to indicate failure
+	        return null;
+	    }
+
+	    // Insert merchOrder along with merchItems into the database
+	    dao.insert(merchOrder, merchItems);
 		
 		return merchOrder;
 	}
