@@ -86,7 +86,7 @@
 		<div id="Input"></div>
 		<input type="hidden" id="merchTotalInput" name="merchTotal">
         <input type="hidden" name="action" value="insert">
-        <input type="submit" value="結帳">
+        <input type="submit" value="送出訂單">
     </FORM>
 </div>
 

@@ -82,7 +82,7 @@ public class CartService {
 
 
  // 修改購物車中的商品數量
-    public void updateCartItemQuantity(Integer memId, Integer merchId, Integer merchQty) {
+    public void updateCartItemQty(Integer memId, Integer merchId, Integer merchQty) {
         try (Jedis jedis = jedisUtil.getJedisPool().getResource()) {
             String cartKey = "cart:" + memId + ":" + merchId;
             Map<String, String> cartData = jedis.hgetAll(cartKey);
