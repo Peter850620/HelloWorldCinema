@@ -76,6 +76,26 @@ public class ShowtimeInfoDAOImpl implements ShowtimeInfoDAO {
 		List<ShowtimeInfo> list = query.list();
 		return list;
 	}
+	//	博雅實作，檢查後台場次【開始、結束】時間是否與其他場次重疊複合查詢(影廳、播放日期、開始時間、結束時間)
+	@Override
+	public List checkTime(String screenId, Date playdate, Time showtime, Time endtime) {
+		Query query = getSession().createQuery("SELECT showtimeId FROM ShowtimeInfo "
+				+ " WHERE playDate = :playDate AND screen.screenId = :screenId"
+				+ " AND ( (showtime<=:showtime AND  endtime>=:showtime)  "
+				+ " OR    (showtime<=:endtime AND  endtime>=:endtime  )  "
+				+ " OR    (showtime>=:showtime AND  endtime<=:endtime ) )"
+				+ " ORDER BY showtime");
+		query.setParameter("playDate", playdate);
+		query.setParameter("screenId", screenId);
+		query.setParameter("showtime", showtime);
+		query.setParameter("endtime", endtime);
+		
+		List<Object> list = query.list();
+		for(Object showtimeId : list) {
+			System.out.println(showtimeId);
+		}
+		return list;
+	}
 	
 	
 	//=============智方實作====================

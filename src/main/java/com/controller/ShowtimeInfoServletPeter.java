@@ -52,6 +52,7 @@ public class ShowtimeInfoServletPeter extends HttpServlet {
 			Integer movieId = Integer.valueOf(req.getParameter("movieId"));
 			playdate = Date.valueOf(req.getParameter("playdate"));
 			
+			// showtime、endtime是否空白
 			String showtimecheck = req.getParameter("showtime").trim();
 			if (showtimecheck == null || showtimecheck.trim().length() == 0) {
 				errorMsgs.put("showtime", "【選擇起始時間】請勿空白");
@@ -69,9 +70,23 @@ public class ShowtimeInfoServletPeter extends HttpServlet {
 			Movie movie = movieService.findMoviebyId(movieId);
 			String screenNO = screen.getSeatNo();
 
+			// 檢查showtime、endtime，是否與現有場次時間重疊
+			ShowtimeInfoServicePeter showtimeInfoSvc = new ShowtimeInfoServicePeter();
+			List<ShowtimeInfo> result = showtimeInfoSvc.checkShowtimeInfoTime(screenId, playdate, showtime, endtime);
+			if(!result.isEmpty()) {
+				errorMsgs.put("endtime", "場次編號:" + result.toString() + "，【場次時間】出現重複");
+				System.out.println(result);
+			}
+			
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back_end/showtimeInfo/addShowtimeInfo.jsp");
+				failureView.forward(req, res);
+				return;
+			}
 
 			/*************************** 2.開始新增資料 ***************************************/
-			ShowtimeInfoServicePeter showtimeInfoSvc = new ShowtimeInfoServicePeter();
 			ShowtimeInfo showtimeInfo = showtimeInfoSvc.addShowtimeInfo(screen, playdate, movie, showtime, endtime, screenNO, showtimeStatus);
 					
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
@@ -130,16 +145,23 @@ public class ShowtimeInfoServletPeter extends HttpServlet {
 				endtime = Time.valueOf(endtimecheck + ":00");
 			}
 
+			// 檢查showtime、endtime，是否與現有場次時間重疊
+			ShowtimeInfoServicePeter showtimeInfoSvc = new ShowtimeInfoServicePeter();
+			List<ShowtimeInfo> result = showtimeInfoSvc.checkShowtimeInfoTime(screen.getScreenId(), playdate, showtime, endtime);
+			if(!result.isEmpty()) {
+				errorMsgs.put("endtime", "場次編號:" + result.toString() + "，【場次時間】出現重複");
+				System.out.println(result);
+			}
+
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				errorMsgs.put("Exception", "修改資料失敗:---------------");
-				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/food/update_food_input.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/food/update_showtomeInfo_input.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
 
 			/*************************** 2.開始修改資料 *****************************************/
-			ShowtimeInfoServicePeter showtimeInfoSvc = new ShowtimeInfoServicePeter();
 			ShowtimeInfo showtimeInfo = showtimeInfoSvc.updateShowtimeInfo(showtimeId, screen, playdate, showtime, endtime);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/

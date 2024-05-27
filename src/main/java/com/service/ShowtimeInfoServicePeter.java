@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.dao.ShowtimeInfoDAO;
 import com.dao.ShowtimeInfoDAOImpl;
-import com.entity.Food;
 import com.entity.Movie;
 import com.entity.Screen;
 import com.entity.ShowtimeInfo;
@@ -53,6 +52,11 @@ public class ShowtimeInfoServicePeter {
 	
 	public List<ShowtimeInfo> getDate(String screenId, Date playdate, Integer movieId) {
 		return dao.getDate(screenId, playdate, movieId);
+	}
+	
+	public List<ShowtimeInfo> checkShowtimeInfoTime(String screenId, Date playdate, Time showtime, Time endtime){
+		return dao.checkTime(screenId, playdate, showtime, endtime);
+		
 	}
 	
 	public List<ShowtimeInfo> getAll() {

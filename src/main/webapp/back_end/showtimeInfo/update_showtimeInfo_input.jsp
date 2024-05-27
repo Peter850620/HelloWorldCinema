@@ -199,7 +199,7 @@
 					<label for="screenId">影廳:</label>
 					<select size="1" name="screenId">
 					    <c:forEach var="Screen"  items="${ScreenSvc.screenId}">
-					    		<option value="${Screen.getScreenId()}">${Screen.getScreenId()}</option>
+					    	<option value="${Screen.getScreenId()}" <c:if test="${Screen.getScreenId() eq param.screenId}">selected</c:if>>${Screen.getScreenId()}</option>
 						</c:forEach>    
 					</select>
 				</div>

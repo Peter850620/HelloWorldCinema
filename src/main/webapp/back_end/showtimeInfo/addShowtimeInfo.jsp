@@ -219,7 +219,7 @@
 				
 				<div>
 					<label for="endtime">結束時間：</label>
-					<input type="time" id="endtime" name="endtime" value="" onclick="hideContent('endtime.errors');" readonly>
+					<input type="time" id="endtime" name="endtime" value="" onclick="hideContent('endtime.errors');" readonly><br>
 					<span  id ="endtime.errors" class="error">${errorMsgs.endtime}</span>
 				</div>
 				
