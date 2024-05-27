@@ -51,7 +51,8 @@ public class ReportServiceImpl implements ReportService {
 					message2.setMsgTime(new Timestamp(System.currentTimeMillis()));
 					message2.setMsgStatus("未讀");
 					msgDao.insert(message2);
-					MessageWebSocket.broadcast(message2);
+					Integer userId = report.getReview().getMem().getMemId();
+					MessageWebSocket.broadcast(userId, message2);
 				}else {
 					message.setMsgTitle("留言檢舉未通過");
 					message.setMsgDetail("檢舉通過，不當評論已隱藏");
@@ -59,8 +60,8 @@ public class ReportServiceImpl implements ReportService {
 				message.setMsgTime(new Timestamp(System.currentTimeMillis()));
 				message.setMsgStatus("未讀");
 				msgDao.insert(message);
-				
-				MessageWebSocket.broadcast(message);
+				Integer userId = report.getMem().getMemId();
+				MessageWebSocket.broadcast(userId, message);
 			}
 			
 	}

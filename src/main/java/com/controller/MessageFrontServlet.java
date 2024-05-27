@@ -93,14 +93,15 @@ public class MessageFrontServlet extends HttpServlet {
 					messageService.updateMessage(message);
 				}
 				
-				String param = "?msgId="  +message.getMsgId()+
-					       "&mem="  +message.getMem().getMemId()+
-					       "&msgTitle="    +message.getMsgTitle()+
-					       "&msgDetail="+message.getMsgDetail()+
-					       "&msgTime="    +message.getMsgTime()+
-					       "&msgStatus="   +message.getMsgStatus();
+//				String param = "?msgId="  +message.getMsgId()+
+//					       "&mem="  +message.getMem().getMemId()+
+//					       "&msgTitle="    +message.getMsgTitle()+
+//					       "&msgDetail="+message.getMsgDetail()+
+//					       "&msgTime="    +message.getMsgTime()+
+//					       "&msgStatus="   +message.getMsgStatus();
 
-				String url = "/front_end/message/messageFrontCheck.jsp"+param;
+				req.setAttribute("message", message);
+				String url = "/front_end/message/messageFrontCheck.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}
