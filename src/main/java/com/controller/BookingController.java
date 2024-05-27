@@ -149,7 +149,8 @@ public class BookingController extends HttpServlet {
 			    ObjectMapper mapper = new ObjectMapper();
 			    mapper.writeValue(res.getWriter(), allOfFood);
 			    break;
-			    
+		
+			    //選擇日期列出所有Show
 		case "formShowTime":
 			
 		        String showDate=req.getParameter("showDate");
@@ -159,7 +160,8 @@ public class BookingController extends HttpServlet {
 				successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				break;
-		
+				
+		//選擇要看哪場秀
 		case "bookWhichShow":
 			
 			 Integer showId=Integer.valueOf( req.getParameter("selectedTime"));
@@ -173,7 +175,7 @@ public class BookingController extends HttpServlet {
 	         successView.forward(req, res);
 	         break;
 	          
-	          
+	        //訂位成功產生訂單  
 		case "bookingSuccess":
 
 		    String paymentType = req.getParameter("paymentType");
@@ -241,7 +243,10 @@ public class BookingController extends HttpServlet {
 		    bookingSuccess.setOrderItem(orderItems);
 
 		    Set<FoodItem> foodItems = new HashSet<>();
-		    for (int i = 0; i < 7; i++) {
+		    List<Food> foodexist=bookingService.getAll();
+		    
+		    
+		    for (int i = 0; i < foodexist.size(); i++) {
 		        FoodItem foodorder = new FoodItem();
 		        String foodParam = req.getParameter("foodId" + i);
 		        if (foodParam == null)
