@@ -4,7 +4,6 @@
 <html lang="en">
 <head>
 	<style>
-
 		body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -98,8 +97,8 @@
     	<h1>個人評論</h1>
     	<br>
         <div class="review_head">
-            <a href="<%= request.getContextPath() %>/front_end/review/reviewFront.jsp">回會員中心</a>
-            <a href="<%= request.getContextPath() %>/front/review.do?action=getMem&mem=240001">所有評論</a>
+            <a href="<%= request.getContextPath() %>/front/review.do?action=loadMovie">回主頁</a>
+            <a href="<%= request.getContextPath() %>/front/review.do?action=getMem">所有評論</a>
         </div>
 		
 		<div class="review_container">
@@ -132,16 +131,16 @@
 	            </tbody>
 	        </table>
 	        <c:if test="${currentPage > 1}">
-				<a href="<%= request.getContextPath() %>/front/review.do?action=getMem&page=1" style="color: blue;">至第一頁</a>&nbsp;
+				<a href="<%= request.getContextPath() %>/front/review.do?action=getMem&page=1">至第一頁</a>&nbsp;
 			</c:if>
 			<c:if test="${currentPage - 1 != 0}">
-				<a href="<%= request.getContextPath() %>/front/review.do?action=getMem&page=${currentPage - 1}" style="color: blue;">上一頁</a>&nbsp;
+				<a href="<%= request.getContextPath() %>/front/review.do?action=getMem&page=${currentPage - 1}">上一頁</a>&nbsp;
 			</c:if>
 			<c:if test="${currentPage + 1 <= reviewPageQty}">
-				<a href="<%= request.getContextPath() %>/front/review.do?action=getMem&page=${currentPage + 1}" style="color: blue;">下一頁</a>&nbsp;
+				<a href="<%= request.getContextPath() %>/front/review.do?action=getMem&page=${currentPage + 1}">下一頁</a>&nbsp;
 			</c:if>
 			<c:if test="${currentPage != reviewPageQty}">
-				<a href="<%= request.getContextPath() %>/front/review.do?action=getMem&page=${reviewPageQty}" style="color: blue;">至最後一頁</a>&nbsp;
+				<a href="<%= request.getContextPath() %>/front/review.do?action=getMem&page=${reviewPageQty}">至最後一頁</a>&nbsp;
 			</c:if>
 	       
     	</div>

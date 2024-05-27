@@ -19,10 +19,10 @@
                 <div class="footer-col">
                     <h4 class="neon2">關於我們</h4>
                     <ul>
-                        <li><a href="#">影城簡介</a></li>
-                        <li><a href="#">影城交通</a></li>
+                        <li><a href="<%=request.getContextPath()%>/front_end/aboutPage/cinemaInfo.jsp">影城簡介</a></li>
+                        <li><a href="<%=request.getContextPath()%>/front_end/aboutPage/transportation.jsp">影城交通</a></li>
                         <li><a href="#">影城設備</a></li>
-                        <li><a href="#">注意事項</a></li>
+                        <li><a href="<%=request.getContextPath()%>/front_end/aboutPage/cinemaNote.jsp">注意事項</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -36,7 +36,7 @@
                 <div class="footer-col">
                     <h4 class="neon2">客服中心</h4>
                     <ul>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="<%=request.getContextPath()%>/front_end/aboutPage/FAQpage.jsp">FAQ</a></li>
                         <li><a href="#">真人聊天室</a></li>
                     </ul>
                 </div>

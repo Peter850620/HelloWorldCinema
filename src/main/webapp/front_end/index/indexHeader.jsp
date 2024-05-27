@@ -88,7 +88,7 @@ if (memObject instanceof Mem) {
                                 <a href="<%=request.getContextPath()%>/front/homeAnn.do?action=getAll">最新資訊</a>
                             </li>
                             <li class="nav__submenu-item">
-                                <a href="">票價說明</a>
+                                <a href="<%=request.getContextPath()%>/front_end/aboutPage/ticketDetail.jsp">票價說明</a>
                             </li>
                             <li class="nav__submenu-item">
                                 <a href="<%=request.getContextPath()%>/front_end/movie/movieCommingSoon.jsp">即將上映</a>
@@ -149,6 +149,9 @@ if (memObject instanceof Mem) {
                             <li class="nav__submenu-item">
                                 <a href="">周邊訂單</a>
                             </li>
+                            <li class="nav__submenu-item">
+                                <a href="<%=request.getContextPath()%>/front/review.do?action=getMem">個人評論</a>
+                            </li>
                             
                              <li class="nav__submenu-item">
                                 <a href="javascript:void(0);" onclick="logout()">登出</a>
@@ -169,7 +172,7 @@ if (memObject instanceof Mem) {
                 </ul>
             </nav>
             <div class="notice">
-            	<a href=""><h4 class="neon2">通知</h4></a>
+            	<a href=""><h4 class="neon2"><i class="far fa-bell"></i></h4></a>
             	<div class="notice-list" id="notice-list">
             		<!-- 通知項目會動態插入 -->
             		<ul class="msg_list" id="msg_list">

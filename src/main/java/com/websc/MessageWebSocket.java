@@ -15,12 +15,19 @@ import javax.websocket.server.ServerEndpoint;
 
 import com.entity.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @ServerEndpoint("/socket/message")
 public class MessageWebSocket {
 	
 	 private static Map<String, Set<Session>> userSessions = new ConcurrentHashMap<>();
+	 private static final ObjectMapper objectMapper;
 
+	    static {
+	        objectMapper = new ObjectMapper();
+	        objectMapper.registerModule(new JavaTimeModule());
+	    }
+	    
 	    @OnOpen
 	    public void onOpen(Session session) {
 	    	 String userId = String.valueOf(getUserIdFromQueryString(session));
@@ -68,7 +75,7 @@ public class MessageWebSocket {
 	    	 if (sessions != null) {
 	             String messageJson;
 	             try {
-	                 messageJson = new ObjectMapper().writeValueAsString(message);
+	                 messageJson = objectMapper.writeValueAsString(message);
 	             } catch (IOException e) {
 	                 e.printStackTrace();
 	                 return;
@@ -84,6 +91,27 @@ public class MessageWebSocket {
 	                 }
 	             }
 	         }
+	    }
+	    
+	    public static void broadcastToAll(Message message) {
+	        for (Set<Session> sessions : userSessions.values()) {
+	            String messageJson;
+	            try {
+	                messageJson = objectMapper.writeValueAsString(message);
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	                continue;
+	            }
+	            synchronized (sessions) {
+	                for (Session userSession : sessions) {
+	                    try {
+	                        userSession.getBasicRemote().sendText(messageJson);
+	                    } catch (IOException e) {
+	                        e.printStackTrace();
+	                    }
+	                }
+	            }
+	        }
 	    }
 	    
 	    private Integer getUserIdFromQueryString(Session session) { 

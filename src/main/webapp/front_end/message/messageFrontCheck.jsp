@@ -75,7 +75,7 @@
 <!-- ========================以下區域可放置其他內容======================== -->
 <div id="xxx">
 		<div class="main" id="main">
-			<a href="<%= request.getContextPath() %>/front/message.do?action=getMem&mem=240001">回主頁</a>
+			<a href="<%= request.getContextPath() %>/front/message.do?action=getMem">回主頁</a>
 			<div class="title">
 				<label for="msgId">通知編號:</label>
 				<input id ="msgId" name="msgId" type="text" value="${message.msgId}" readonly />

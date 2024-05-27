@@ -31,18 +31,27 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public void addReport(Report report) {
 			dao.insert(report);
+			
+			Message message = new Message();
+			message.setMem(report.getMem());
+			message.setMsgTitle("留言檢舉");
+			message.setMsgDetail("檢舉成功，請靜待審核結果。");
+			message.setMsgTime(new Timestamp(System.currentTimeMillis()));
+			message.setMsgStatus("未讀");
+			msgDao.insert(message);
+			Integer userId = report.getMem().getMemId();
+			MessageWebSocket.broadcast(userId, message);
 	}
 
 	@Override
 	public void updateReport(Report report) {
 			dao.update(report);
-			
 			if(report.getRptStatus().equals("通過") || report.getRptStatus().equals("未通過")) {
 				Message message = new Message();
 				message.setMem(report.getMem());
 				if(report.getRptStatus().equals("通過")) {
 					message.setMsgTitle("留言檢舉通過");
-					message.setMsgDetail("檢舉通過，不當評論已隱藏");
+					message.setMsgDetail("檢舉通過，已處分留言不當會員。");
 					//檢舉通過需寄通知給被檢舉人
 					Message message2 = new Message();
 					message2.setMem(report.getReview().getMem());
@@ -55,7 +64,7 @@ public class ReportServiceImpl implements ReportService {
 					MessageWebSocket.broadcast(userId, message2);
 				}else {
 					message.setMsgTitle("留言檢舉未通過");
-					message.setMsgDetail("檢舉通過，不當評論已隱藏");
+					message.setMsgDetail("檢舉通過，審核後未發現不當之處。");
 				}
 				message.setMsgTime(new Timestamp(System.currentTimeMillis()));
 				message.setMsgStatus("未讀");

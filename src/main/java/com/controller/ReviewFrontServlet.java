@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.entity.Mem;
 import com.entity.Movie;
@@ -67,12 +68,9 @@ public class ReviewFrontServlet extends HttpServlet {
 			}
 			
 			if ("getMem".equals(action)) { 
-				Integer memId = Integer.parseInt(req.getParameter("mem"));
-//					HttpSession session = req.getSession();
-//					Integer memId = (Integer) session.getAttribute("mem");
-				
-				Mem mem = new Mem();
-				mem.setMemId(memId);
+				HttpSession session = req.getSession();
+				Mem mem = (Mem) session.getAttribute("mem");
+
 				String page = req.getParameter("page");
 				int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 				List<Review> reviewList = reviewService.getByMem(mem, currentPage);
@@ -123,16 +121,15 @@ public class ReviewFrontServlet extends HttpServlet {
 				String reviewDetails = req.getParameter("reviewDetails");
 				String reviewDetailsReg = "^.{2,500}$";
 				if (reviewDetails == null || reviewDetails.trim().length() == 0) {
-					errorMsgs.put("reviewDetails","評論內容: 請勿空白");
+					errorMsgs.put("reviewDetails","評論內容，請勿空白");
 				} else if(!reviewDetails.trim().matches(reviewDetailsReg)) { 
-					errorMsgs.put("reviewDetails","評論內容: 只能是中、英文字母、數字和標點符號 , 且長度必需在2到500之間");
+					errorMsgs.put("reviewDetails","評論內容，只能是中、英文字母、數字和標點符號 , 且長度必需在2到500之間");
 	            }
 				String reviewStatus = req.getParameter("reviewStatus").trim();
 				
 				if (!errorMsgs.isEmpty()) {
 					errorMsgs.put("Exception","修改資料失敗:---------------");
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front_end/review/reviewFrontCheck.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front_end/review/reviewFrontCheck.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -144,7 +141,7 @@ public class ReviewFrontServlet extends HttpServlet {
 
 				req.setAttribute("success", "- (修改成功)");
 				req.setAttribute("review", review); 
-				String url = "/front_end/review/personalReview.jsp";
+				String url = "/front_end/review/reviewFrontCheck.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}
@@ -153,9 +150,8 @@ public class ReviewFrontServlet extends HttpServlet {
 				Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 				req.setAttribute("errorMsgs", errorMsgs);
 
-//					HttpSession session = req.getSession();
-//					Integer memId = (Integer) session.getAttribute("mem");
-//					Integer memId = Integer.valueOf(req.getParameter("mem"));
+				HttpSession session = req.getSession();
+				Mem mem = (Mem) session.getAttribute("mem");
 				Integer movieId = Integer.parseInt(req.getParameter("movie"));
 				String reviewDetails = req.getParameter("reviewDetails").trim();
 				String reviewDetailsReg = "^.{2,500}$";
@@ -170,16 +166,13 @@ public class ReviewFrontServlet extends HttpServlet {
 	                res.setCharacterEncoding("UTF-8");
 	                Map<String, Object> response = new LinkedHashMap<>();
 	                response.put("success", false);
-	                response.put("errorMessage", "留言失敗: " + String.join(", ", errorMsgs.values()));
+	                response.put("errorMessage", String.join(", ", errorMsgs.values()));
 	                ObjectMapper mapper = new ObjectMapper();
 	                res.getWriter().write(mapper.writeValueAsString(response));
 	                return; // 程式中斷
 				}
 
 				Review review = new Review();
-				
-				Mem mem = new Mem();
-				mem.setMemId(240002);
 				review.setMem(mem);
 				
 				Movie movie = new Movie();
