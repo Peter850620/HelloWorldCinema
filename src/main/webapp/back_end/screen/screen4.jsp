@@ -219,7 +219,7 @@ liElement.appendChild(preElement);
 
   <script type="text/javascript">
         var ws;
-        var seats = new Set();  // 当前用户选择的座位
+        var seats = new Set();  // 當前用戶存取選的座位
         var showid=document.getElementById("myshowtimeInfo").value;
  
 

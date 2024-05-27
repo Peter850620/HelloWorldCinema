@@ -148,6 +148,7 @@ public class BookingService {
 	
 	//找出今日上映電影
 	public List<Movie> findMoviesShowingToday(String playDate) {
+		  
 		Date date=Date.valueOf(playDate);
 		
 		return moviedao.findMoviesShowingToday(date);
