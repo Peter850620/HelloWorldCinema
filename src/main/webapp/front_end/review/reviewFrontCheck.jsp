@@ -103,7 +103,7 @@
 <!-- ========================以下區域可放置其他內容======================== -->
 <div class="xxx" id="xxx">
 	<form action="<%= request.getContextPath() %>/front/review.do" method="post" id="myForm">
-		<a href="<%= request.getContextPath() %>/front/review.do?action=getMem&mem=1">回主頁</a>
+		<a href="<%= request.getContextPath() %>/front/review.do?action=getMem">回主頁</a>
 		<div class="title">
 			<label for="reviewId">評論編號:</label>
 			<input id ="reviewId" name="reviewId" type="text" value="${param.reviewId}" readonly />

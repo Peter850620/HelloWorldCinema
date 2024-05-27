@@ -32,7 +32,36 @@
     
     <!-- 主要css -->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front_end/index/css/index.css" />
-    
+    <style>
+        .notice {
+            position: relative;
+            display: inline-block;
+            margin-left: 350px;
+        }
+        .notice-list {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 250px; 
+            max-height: 250px; 
+            overflow-y: auto;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .notice-list.show {
+            display: block;
+        }
+        .notice-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .notice-item:last-child {
+            border-bottom: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -59,7 +88,7 @@ if (memObject instanceof Mem) {
                                 <a href="<%=request.getContextPath()%>/front/homeAnn.do?action=getAll">最新資訊</a>
                             </li>
                             <li class="nav__submenu-item">
-                                <a href="">票價說明</a>
+                                <a href="<%=request.getContextPath()%>/front_end/aboutPage/ticketDetail.jsp">票價說明</a>
                             </li>
                             <li class="nav__submenu-item">
                                 <a href="<%=request.getContextPath()%>/front_end/movie/movieCommingSoon.jsp">即將上映</a>
@@ -102,7 +131,7 @@ if (memObject instanceof Mem) {
                             </li>
                         </ul>
                     </li>
-                    
+
                      <% if (mem != null) { %>
                     <li class="nav__menu-item">
                         <a href="#">
@@ -115,10 +144,13 @@ if (memObject instanceof Mem) {
                                 <a href="<%=request.getContextPath()%>/front_end/booking/booking.jsp">電影訂單</a>
                             </li>
                             <li class="nav__submenu-item">
-                                <a href="<%=request.getContextPath()%>/front/message.do?action=getMem">個人訊息</a>
+                                <a href="<%=request.getContextPath()%>/front/message.do?action=getMem">個人通知</a>
                             </li>
                             <li class="nav__submenu-item">
                                 <a href="<%=request.getContextPath()%>/merchOrder/merchOrder.do?action=showById&memId=${memId}">周邊訂單</a>
+                            </li>
+                            <li class="nav__submenu-item">
+                                <a href="<%=request.getContextPath()%>/front/review.do?action=getMem">個人評論</a>
                             </li>
                             
                              <li class="nav__submenu-item">
@@ -139,6 +171,14 @@ if (memObject instanceof Mem) {
                     </li>
                 </ul>
             </nav>
+            <div class="notice">
+            	<a href=""><h4 class="neon2"><i class="far fa-bell"></i></h4></a>
+            	<div class="notice-list" id="notice-list">
+            		<!-- 通知項目會動態插入 -->
+            		<ul class="msg_list" id="msg_list">
+            		</ul>
+                </div>
+            </div>
         </div>
         
     </header>
@@ -154,5 +194,85 @@ if (memObject instanceof Mem) {
             };
             xhr.send();
         }
+        
+        const userId = "<%= mem != null ? mem.getMemId() : "" %>";
+        console.log("userId: ", userId);
+        const wsUrl = `${pageContext.request.contextPath}/socket/message?userId=\${userId}`;
+        console.log("WebSocket URL: ", wsUrl);
+        const socket = new WebSocket(wsUrl);
+        socket.onopen = function(event) {
+            console.log('WebSocket is connected.');
+            socket.send(userId);
+        };
+
+        socket.onmessage = function(event) {
+        	console.log('Received message from server:', event.data);
+        	try{
+        		const message = JSON.parse(event.data);
+                console.log('解析後的通知:', message);
+                displayNotification(message);
+        	} catch (error) {
+                console.error('解析有問題:', error);
+            }
+            
+        };
+		
+        socket.onclose = function(event) {
+            console.log('WebSocket is closed now.');
+        };
+        
+        socket.onerror = function(error) {
+            console.log('WebSocket Error: ' + error);
+        };
+
+        function displayNotification(message) {
+            console.log("displayNotification called with message:", message);
+            if (message == null) {
+                console.log("message in js is null");
+            } else {
+                console.log("message in js is correct");
+
+                // 確認資料
+                const msgId = message.msgId;
+		        const msgTitle = message.msgTitle;
+		        const msgTime = message.msgTime;
+		
+		        console.log("message.msgId:", msgId);
+		        console.log("message.msgTitle:", msgTitle);
+		        console.log("message.msgTime:", msgTime);
+
+                // 轉換時間格式
+                const date = new Date(msgTime);
+                const formattedDate = date.toLocaleString();
+
+                const msg_list = document.getElementById('msg_list');
+                if (msg_list) {
+                    console.log("'msg_list' element found");
+
+                    const listItem = document.createElement('li');
+                    const dynamicContent = `<a href="${pageContext.request.contextPath}/front/message.do?action=getMessage&msgId=\${msgId}">\${msgTitle}</a><span>\${formattedDate}</span>`;
+                    console.log("Dynamic content to be inserted:", dynamicContent);
+                    
+                    listItem.innerHTML = dynamicContent;
+                    msg_list.appendChild(listItem);
+                } else {
+                    console.error("'msg_list' element not found in the DOM");
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const noticeElement = document.querySelector('.notice');
+            const noticeList = document.querySelector('.notice-list');
+
+            noticeElement.addEventListener('mouseenter', function() {
+                noticeList.classList.add('show');
+            });
+
+            noticeElement.addEventListener('mouseleave', function() {
+                noticeList.classList.remove('show');
+            });
+        });
+        
     </script>
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.entity.Report;
+import com.entity.Review;
 
 public interface ReportService {
 
@@ -24,4 +25,6 @@ public interface ReportService {
 	List<Report> getByCompositeQuery(Map<String, String[]> map, int currentPage);
 	
 	int getCompositeQueryTotal(Map<String, String[]> map);
+	
+	void updateRelatedReport(Review review, String rptStatus);
 }
