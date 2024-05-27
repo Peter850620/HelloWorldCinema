@@ -112,7 +112,7 @@
     <!-- 添加jQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	
-	<!-- 商品資料加到購物車 -->
+<!-- 商品資料加到購物車 -->
 	<script>
 	$(document).ready(function () {
 		// 從 session 中獲取 memId
@@ -348,6 +348,7 @@
 	    });
 	});
 
+	
 	</script>
 
 	<jsp:include page="/front_end/index/indexFooter.jsp" flush="true" /> 
