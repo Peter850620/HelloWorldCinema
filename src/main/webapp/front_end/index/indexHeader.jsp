@@ -147,7 +147,7 @@ if (memObject instanceof Mem) {
                                 <a href="<%=request.getContextPath()%>/front/message.do?action=getMem">個人通知</a>
                             </li>
                             <li class="nav__submenu-item">
-                                <a href="">周邊訂單</a>
+                                <a href="<%=request.getContextPath()%>/merchOrder/merchOrder.do?action=showById&memId=${memId}">周邊訂單</a>
                             </li>
                             <li class="nav__submenu-item">
                                 <a href="<%=request.getContextPath()%>/front/review.do?action=getMem">個人評論</a>

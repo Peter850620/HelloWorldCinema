@@ -16,4 +16,8 @@ public class ScreenServicePeter {
 	public List<Screen> getScreenId() {
 		return dao.getAll();
 	}
+	
+	public Screen getById(String screenId) {
+		return dao.getById(screenId);
+	}
 }

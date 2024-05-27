@@ -54,7 +54,7 @@ if(storetkId4){
 
 // 從 sessionStorage 中取得 foodAndQuantity 陣列
 const foodAndQuantity = JSON.parse(sessionStorage.getItem("foodAndQuantity"));
-console.log(foodAndQuantity);
+
 
 const targetLabel = document.querySelector('label[for="foodTotal"]');
 // 確認 foodAndQuantity 不是空的並且是陣列

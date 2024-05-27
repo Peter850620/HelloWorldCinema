@@ -20,6 +20,8 @@ public class MerchOrderService {
     public MerchOrderService() {
         dao = new MerchOrderDAOImpl();
     }
+
+//	<==============================前台===============================>
     
 //	新增商品訂單
 	public MerchOrder addMerchOrder(Mem mem, Date orderDate, String pickupOption, String paymentType,
@@ -56,6 +58,17 @@ public class MerchOrderService {
 		
 		return merchOrder;
 	}
+	
+	
+    // 列出會員編號
+    public List<MerchOrder> showById(Integer memId) {
+        return dao.getById(memId);
+    }
+	
+	
+	
+//	<==============================後台===============================>	
+	
     
   //修改單一訂單
   	public MerchOrder getOneMerchOrder(Integer merchNo) {

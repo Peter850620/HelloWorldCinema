@@ -25,10 +25,19 @@ public class CartServlet {
 
     @Autowired
     private CartService cartService;
+    
+    
+ // 檢查會員是否登入
+    private boolean isUserLoggedIn(Integer memId) {
+        // 假設從 session 中獲取會員登入狀態
+        return memId != null && memId > 0;
+    }
 
+//    將商品加入購物車
     @PostMapping("/insert")
     @ResponseBody
     public String insert(@Valid @RequestBody Cart cart) {
+    	
         try {
             cartService.addCart(cart);
             return "Success: Added to cart";
@@ -43,7 +52,7 @@ public class CartServlet {
     public Map<String, String> updateQuantity(@RequestParam("memId") Integer memId,@RequestParam("merchId") Integer merchId,@RequestParam("newQty") Integer merchQty) {
     	Map<String, String> response = new HashMap<>();
         try {
-            cartService.updateCartItemQuantity(memId, merchId, merchQty);
+            cartService.updateCartItemQty(memId, merchId, merchQty);
             response.put("status", "Success");
             response.put("message", "update from cart");
         } catch (Exception e) {

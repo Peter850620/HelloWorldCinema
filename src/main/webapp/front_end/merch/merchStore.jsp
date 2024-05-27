@@ -76,9 +76,9 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
         <div id="cart-amount-wrapper">
             <table>
                 <tbody>
-                    <tr id='subtotal-wrapper'>
-                        <td id="subtotal-label">合計:</td>
-                        <td id="subtotal">${cartTotal}</td>
+                    <tr id='merchtotal-wrapper'>
+                        <td id="merchtotal-label">合計:</td>
+                        <td id="merchtotal">${cartTotal}</td>
                     </tr>
                     <tr id="promo-checkout">
                         <td><button id="checkout">結帳</button></td>
@@ -103,19 +103,20 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 	<!-- 商品資料加到購物車 -->
 	<script>
 	$(document).ready(function () {
-		
-		var memberId = "240001";
+		// 從 session 中獲取 memId
+
+		var memberId = "${memId}";
         var productId = "${merch.merchId}";
         var productName = "${merch.merchName}";
         var productPrice = parseInt($('#merchPrice').text());
         
-		
+// 		展開購物車
 	    $('#cart-button').click(function (e) {
 	        e.preventDefault(); // 防止預設行為
 	        $('#cart-wrapper').toggleClass('close');
 
 	        // 在點擊購物車按鈕時，重新載入購物車內容
-	        fetchCartItems(); // 假設這是一個獲取購物車內容的函數
+	        fetchCartItems();
 
 	    });
 
@@ -186,40 +187,43 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 	    
 	    
 	    
-	 // 設置購物車項目數量變動的監聽器
-	    setupCartItemQuantityListeners();  
+
 	 
 
 	    
-			 // 更新購物車項目的數量
-		function updateCartItemQty(memId, merchId, newQty) {
-		    fetch("cart/updateQty?memId=" + memberId + "&merchId=" + productId + "&merchQty=" + quantity, {
-		        method: 'POST'
-		    })
-		    .then(response => {
-		        if (!response.ok) {
-		            throw new Error('Network response was not ok');
-		        }
-		        return response.text();
-		    })
-		    .then(data => {
-		        console.log('Response from server:', data);
-		        fetchCartItems();
-		    })
-		    .catch(error => console.error('Error updating cart item quantity:', error));
-		}
+
+			// 更新購物車商品項目的數量
+	function updateCartItemQty(memId, merchId, quantity) {
+	    fetch("cart/updateQty?memId=" + memId + "&merchId=" + merchId + "&newQty=" + quantity, {
+	        method: 'POST'
+	    })
+	    .then(response => {
+	        if (!response.ok) {
+	            throw new Error('Network response was not ok');
+	        }
+	        return response.text();
+	    })
+	    .then(data => {
+	        console.log('Response from server:', data);
+	        fetchCartItems();
+	    })
+	    .catch(error => console.error('Error updating cart item quantity:', error));
+	}
+
 
 
 			 // 設置購物車項目數量變動的監聽器
 			    function setupCartItemQuantityListeners() {
 			        $(document).on('input', '.cart-item-qty-input', function () {
+			    		var memId = '<%= session.getAttribute("memId") %>';
 			            var merchId = $(this).data('merch-id'); // 使用商品ID
-			            var newQty = parseInt($(this).val());
-			            updateCartItemQty(memId, merchId, merchQty); // 更新購物車項目數量
+			            var quantity = parseInt($(this).val());
+			            console.log(quantity);
+			            updateCartItemQty(memId, merchId, quantity); // 更新購物車項目數量
 			        });
 			    }
 
-
+			    setupCartItemQuantityListeners();
 	    
 	    
 	    
@@ -228,7 +232,7 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 	    
 	    
 
-// 	    查看購物車
+// 	    查看購物車，將資料庫內容炫染至購物車畫面上
 	    function fetchCartItems() {
 		    fetch("cart/cartItems?memId=" + memberId, {
 		        method: 'GET'
@@ -255,35 +259,52 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 	        var cartTableBody = $('#cart-table-body');
 	        cartTableBody.empty();
 
+	        var total = 0;
+	        var subtotals = {};
+	        
 	        cartItems.forEach(function (item) {
 	            var row = $('<tr>');
 	            row.append($('<td>').text(item.merchName));
-	            var qtyInput = $('<input type="number" min="1" value="' + item.merchQty + '">');
-	            qtyInput.on('input', function () {
-	                updateCartItemQty(item.merchId, parseInt($(this).val()));
-	            });
-	            row.append($('<td>').append(qtyInput));
+	            
+	            var qtyInput = $('<input type="number" min="1" class="cart-item-qty-input" value="' + item.merchQty + '" data-merch-id="' + item.merchId + '">');
+	            
+	            row.append($('<td>').css('width', '5px').append(qtyInput));
+	            
 	            row.append($('<td>').text(item.merchPrice));
-	            row.append($('<td>').text(item.merchQty * item.merchPrice));
+	            
+	            var subtotal = item.merchQty * item.merchPrice;
+	            total += subtotal
+	            subtotals[item.merchId] = subtotal;
+	            
+	            row.append($('<td>').text(subtotal));
+	            
 	            row.append($('<td>').append($('<button>').text('移除').click(function () {
+	            	
 	                removeFromCart(item.merchId);
 	            })));
 
 	            cartTableBody.append(row);
 	        });
 
-	        var subtotal = cartItems.reduce(function (total, item) {
-	            return total + (item.merchQty * item.merchPrice);
-	        }, 0);
+	        
 
-	        $('#subtotal').text(subtotal);
+	        $('#merchtotal').text(total);
+	        
+	        
+	        
+	        var cartInfo = {
+			        cartItems: cartItems,
+			        subtotals: subtotals,
+			        total: total
+			    };
+			    localStorage.setItem('cartInfo', JSON.stringify(cartInfo));
 	    }
 	    
 	    
 	   
 	    
 	    
-
+// 		結帳
 	    $('#checkout').click(function () {
 	        // 獲取購物車資訊
 	        fetch('cart/cartItems?memId=' + memberId, {
@@ -298,12 +319,8 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 	        .then(cartItems => {
 	            console.log('Cart items:', cartItems);
 	            // 將購物車資訊轉為JSON字符串
-	            var cartInfo = JSON.stringify(cartItems);
-	            // 使用localStorage將購物車資訊存儲，以便在跳轉頁面時使用
-	            localStorage.setItem('cartInfo', cartInfo);
-	            // 將合計價格也存入localStorage
-	            var subtotal = $('#subtotal').text();
-	            localStorage.setItem('subtotal', subtotal);
+	            
+
 	            // 跳轉到結帳頁面
 	            window.location.href = '<%=request.getContextPath()%>/front_end/merch/addMerchOrder.jsp'; // 修改為實際的結帳頁面URL
 	        })
@@ -313,17 +330,15 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 	    });
 
 
-
+// 		繼續購物
 	    $('#ks').click(function () {
 	        $('.slider').toggleClass('close');
 	    });
 	});
 
 	
-	
-	
-	   
 	</script>
+	
 	<jsp:include page="/front_end/index/indexFooter.jsp" flush="true" /> 
 </body>
 </html>
