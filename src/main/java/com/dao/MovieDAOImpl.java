@@ -219,7 +219,7 @@ public class MovieDAOImpl implements MovieDAO {
 	                                    .setParameter("currentDate", currentDate)
 	                                    .list();
 	        for (Movie movie : movies) {
-	           
+	        	movie.setMovieStatus("熱映中");
 	            session.update(movie);
 	        }
 	        
@@ -252,12 +252,6 @@ public class MovieDAOImpl implements MovieDAO {
 	}
 
 
-
-	public static void main(String[] args) {
-		MovieDAOImpl movieDAO = new MovieDAOImpl();
-		List<Movie> movieList = movieDAO.getAll();
-		System.out.println(movieList);
-	}
 	
 	
 	

@@ -325,7 +325,7 @@ div.container_order_item {
 		margin-top: 20px;
 		max-width:915px;
 		max-height:260x;
-		height:260px;
+		height:270px;
 }
 
 .cancel{
@@ -383,7 +383,6 @@ input[type="checkbox"] {
 	display: flex;
 	justify-content: flex-end;
 	align-items: flex-end;
-
 	margin-left: 235px;
 	padding: 0px;
 }
@@ -431,6 +430,21 @@ input[type="checkbox"] {
 	font-family: "Noto Sans SC", Arial, sans-serif;
 	color: #d83565;
 
+}
+
+.left-foodName{
+	
+	display: flex;
+    flex-wrap: wrap;
+        margin-bottom: 20px;
+}
+.left-foodName h6{
+	font-size: 18px;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	color: #d83565;
+	flex: 0 0 50%;
+	
 }
 
 .movieName>h4 {
@@ -510,7 +524,7 @@ input[type="checkbox"] {
 }
 
 .right .movieName h1 {
-	font-size: 18px;
+	font-size: 14px;
 }
 
 .barcode {

@@ -161,14 +161,14 @@ public class MerchOrder {
 	
 	
 	
-	public Set<MerchItem> getMeritems() {
+	public Set<MerchItem> getMerchItems() {
 		return merchItems;
 	}
 
 
 
-	public void setMeritems(Set<MerchItem> meritems) {
-		this.merchItems = meritems;
+	public void setMerchItems(Set<MerchItem> merchItems) {
+		this.merchItems = merchItems;
 	}
 
 

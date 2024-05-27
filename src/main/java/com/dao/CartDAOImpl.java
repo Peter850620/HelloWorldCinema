@@ -63,4 +63,11 @@ public class CartDAOImpl implements CartDAO{
 	            .list();
 	    return cart;
 	}
+	
+//	訂單成立後刪除購物車
+	public void deleteCart(Integer memId) {
+	    getSession().createNativeQuery("DELETE FROM cart WHERE memId = :memId")
+	            .setParameter("memId", memId)
+	            .executeUpdate();
+	}
 }
