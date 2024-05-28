@@ -107,8 +107,8 @@ public class MemBookingController extends HttpServlet {
 
 		RequestDispatcher successView;
 		
-		Integer mem = Integer.valueOf(req.getParameter("mem"));
-		System.out.println("mem" + mem);
+//		Integer mem = Integer.valueOf(req.getParameter("mem"));
+//		System.out.println("mem" + mem);
 		
 		String paymentType = req.getParameter("paymentType");
 		System.out.println("Payment Type: " + paymentType);
