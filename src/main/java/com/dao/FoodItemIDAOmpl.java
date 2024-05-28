@@ -95,8 +95,7 @@ public class FoodItemIDAOmpl implements FoodItemDAO {
 			} else {
 				return "已取餐";
 			}
-			return "ok";
 		}
-		return null;
+		return "未取餐";
 	}
 }
