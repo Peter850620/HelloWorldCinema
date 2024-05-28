@@ -118,11 +118,11 @@
 	<div id="xxx">
 		<div class="compositequery">
 			<form method="post" action="<%= request.getContextPath() %>/back/message.do" class="formSearch">
-				<input type="text" name="msgId" id="msgIdInput" placeholder="通知編號" value="${msgId}">
+				<input type="text" name="msgId" id="msgIdInput" placeholder="通知編號">
 	
-				<input type="text" name="mem" id="memIdInput" placeholder="會員編號" value="${mem.memId}">
+				<input type="text" name="mem" id="memIdInput" placeholder="會員編號">
 				
-				<input type="text" name="msgTitle" id="msgTitleInput" placeholder="通知標題" value="${msgTitle}">
+				<input type="text" name="msgTitle" id="msgTitleInput" placeholder="通知標題">
 	
 				<select name="msgStatus" id="msgStatusSelect">
 					<option value="未讀">未讀</option>
