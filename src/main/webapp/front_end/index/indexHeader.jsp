@@ -101,7 +101,7 @@ if (memObject instanceof Mem) {
                         </ul>
                     </li>
                     <li class="nav__menu-item">
-                        <a href=""><h4 class="neon2">線上訂票</h4></a>
+                        <a href="<%=request.getContextPath()%>/front_end/movie/movieNowShowing.jsp"><h4 class="neon2">線上訂票</h4></a>
                         <ul class="nav__submenu">
                             <li class="nav__submenu-item">
                                 <a href=""></a>
