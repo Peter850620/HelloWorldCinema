@@ -10,7 +10,7 @@
 ShowtimeInfo show = (ShowtimeInfo) request.getAttribute("selectedShow");
 List<Ticket> ticket = (List<Ticket>) request.getAttribute("tickets");
 List<Food> food = (List<Food>) request.getAttribute("food");
-Mem mem = (Mem)request.getAttribute("mem");
+Mem mem = (Mem)request.getAttribute("memId");
 %>
 <!DOCTYPE html>
 <html>
@@ -19,16 +19,6 @@ Mem mem = (Mem)request.getAttribute("mem");
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>世界影城 HelloWorld Cinema</title>
 
-<meta name="description"
-	content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務">
-<meta name="keywords" content="世界、電影、世界影城、HelloWorld Cinema" />
-<meta name="robots" content="Index,follow">
-<meta property="og:title" content="世界影城" />
-<meta property="og:image" content=".img/bk.jpg" />
-<meta property="og:site_name" content="世界影城網站" />
-<meta property="og:url" content="https://www.ambassador.com.tw" />
-<meta property="og:description"
-	content="世界影城、提供電影介紹、場次時刻表、購票資訊、會員網路訂票服務、電影周邊商品販售、影廳場地租借服務" />
 <!-- RWD -->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=yes">

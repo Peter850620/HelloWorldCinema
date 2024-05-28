@@ -17,7 +17,12 @@ public class MemDAOImpl  implements MemDAO{
 	private Session getSession() {
 		return factory.getCurrentSession();
 	}
-
+	
+	@Override
+	public Mem findMem(Integer memId) {
+		return getSession().get(Mem.class,memId);
+	}
+	
 	@Override
 	public Mem getByEmail(String memEmail) {
 
