@@ -117,8 +117,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 不進行跳轉，僅顯示警告信息
             } else {
                 // 跳轉到檢查訂單頁面
-                window.location.href = 'http://helloworldcinema.ddns.net:8081/HelloWorldCinema/back_end/orderTicket/checkorder/checkorder.jsp';
- //               window.location.href = 'http://localhost:8081/HelloWorldCinema/back_end/orderTicket/checkorder/checkorder.jsp';
+ //               window.location.href = 'http://helloworldcinema.ddns.net:8081/HelloWorldCinema/front_end/orderTicket/checkorder/checkorder.jsp';
+                window.location.href = 'http://localhost:8081/HelloWorldCinema/front_end/orderTicket/checkorder/checkorder.jsp';
             }
         });
     } else {

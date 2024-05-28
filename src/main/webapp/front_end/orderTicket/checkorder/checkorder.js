@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			const foodTotalPrice = item.totalPrice;
 			cartItems += `<li>
                             ${foodName} - ${foodPrice} 元 x ${foodQuantity} 份 = ${foodTotalPrice} 元
-                            
+                            <input type="hidden" id="foodId${foodId}" name="foodId${foodId}" value="${foodTotalPrice}">
                         </li>`;
 		});
 		cartItems += '</ul>';
