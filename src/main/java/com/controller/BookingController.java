@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dao.BookingDAOImpl;
+import com.dao.FoodItemDAO;
 import com.dao.FoodItemIDAOmpl;
 import com.entity.Booking;
 import com.entity.Food;
@@ -59,6 +60,7 @@ public class BookingController extends HttpServlet {
 	}
 	
 	private static final String BASE_URL = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeServlet";
+	private static final String BASE_URL2 = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeFoodServlet";
    
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -282,6 +284,40 @@ public class BookingController extends HttpServlet {
 		        e.printStackTrace();
 		    }
 
+
+	        
+	        //==================for food qr====================
+            BookingService bs = new BookingService();
+            List<FoodItem> foodItemdata = bs.getFoodbyBookingNo(newbookingNo);
+            StringBuilder foodInfoBuilder = new StringBuilder();
+	        try {
+		        for (FoodItem foodItem : foodItemdata) {
+                    String foodName = foodItem.getFood().getFoodName();
+                    System.out.println("餐點名稱: " + foodName);
+					
+                    Integer foodAmount = foodItem.getFoodAmount();
+                    System.out.println("餐點數量: " + foodAmount);
+                    
+                    // 将每个食品信息添加到字符串中
+                    foodInfoBuilder.append(String.format("%s - %d, ", foodName, foodAmount));
+                }    
+                // 删除最后一个逗号
+                foodInfoBuilder.deleteCharAt(foodInfoBuilder.length() - 2);
+                
+                // 生成 QR Code 要导到的路径
+                String qrText = String.format("%s?bookingNo=%s&foodInfo=%s", BASE_URL2, newbookingNo, foodInfoBuilder.toString());
+                System.out.println(qrText);
+                byte[] qrCodeImage = generateQRCodeImage(qrText, 350, 350); 
+                FoodItemDAO dao = new FoodItemIDAOmpl();
+                for (FoodItem foodItem : foodItemdata) {
+                    foodItem.setQrcode(qrCodeImage);
+                    dao.update(foodItem); // Save the updated orderItem to the database
+                }
+
+                System.out.println("QR Codes generated successfully for all foodItem.");
+	        }catch (Exception e) {
+		        e.printStackTrace();
+		    }
 		    synchronized (session) {
 		        session.setAttribute("newbookingno", newbookingNo);
 		    }
@@ -294,7 +330,7 @@ public class BookingController extends HttpServlet {
 			  
 			  
 
-		}
+		    }
 		
 	
 	}
