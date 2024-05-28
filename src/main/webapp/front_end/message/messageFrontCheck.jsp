@@ -46,7 +46,7 @@
 
         .title textarea {
             height: 150px;
-            resize: none; /* 禁止 textarea 调整大小 */
+            resize: none; 
         }
 
         .title .error {
@@ -75,28 +75,28 @@
 <!-- ========================以下區域可放置其他內容======================== -->
 <div id="xxx">
 		<div class="main" id="main">
-			<a href="<%= request.getContextPath() %>/front/message.do?action=getMem&mem=240001">回主頁</a>
+			<a href="<%= request.getContextPath() %>/front/message.do?action=getMem">回主頁</a>
 			<div class="title">
 				<label for="msgId">通知編號:</label>
-				<input id ="msgId" name="msgId" type="text" value="${param.msgId}" readonly />
+				<input id ="msgId" name="msgId" type="text" value="${message.msgId}" readonly />
 			</div>
 			<div class="title">
 				<label for="msgTime">通知日期:</label>
-				<input id ="msgTime" name="msgTime" type="text" value="${param.msgTime}" readonly />
+				<input id ="msgTime" name="msgTime" type="text" value="${message.msgTime}" readonly />
 			</div>
             <div class="title">
 				<label for="msgStatus" class="statusLabel">通知狀態:</label>
-				<input id ="msgStatus" name="msgStatus" type="text" value="${param.msgStatus}" readonly />
+				<input id ="msgStatus" name="msgStatus" type="text" value="${message.msgStatus}" readonly />
 				<span  id ="msgStatus.errors" class="error">${errorMsgs.msgStatus}</span>
 			</div>
 			<div class="title">
 				<label for="msgTitle">通知標題:</label>
-				<textarea id ="msgTitle" name="msgTitle" readonly>${param.msgTitle}</textarea>
+				<textarea id ="msgTitle" name="msgTitle" readonly>${message.msgTitle}</textarea>
 				<span  id ="msgTitle.errors" class="error">${errorMsgs.msgTitle}</span>
 			</div>
 			<div class="title">
 				<label for="msgDetail">通知內容:</label>
-				<textarea id ="msgDetail" name="msgDetail" readonly>${param.msgDetail}</textarea>
+				<textarea id ="msgDetail" name="msgDetail" readonly>${message.msgDetail}</textarea>
 				<span  id ="msgDetail.errors" class="error">${errorMsgs.msgDetail}</span>
 			</div>
 		</div>

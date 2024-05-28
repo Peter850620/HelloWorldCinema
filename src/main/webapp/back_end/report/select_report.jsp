@@ -2,7 +2,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<style>
         .xxx{
@@ -180,14 +179,14 @@
 								<td>
 									<c:choose>
 										<c:when test="${report.rptStatus.equals('未審核')}">
-										<form method="post" action="<%= request.getContextPath() %>/back/report.do" class="formPost" style="margin-bottom: 0px;">
+										<form method="post" action="<%= request.getContextPath() %>/back/report.do" class="formPost">
 										     <input type="submit" value="審核">
 										     <input type="hidden" name="rptId" value="${report.rptId}">
 										     <input type="hidden" name="action"	value="getUpdate">
 									     </form>
 										</c:when>
 										<c:otherwise>
-											<form method="post" action="<%= request.getContextPath() %>/back/report.do" class="formPost" style="margin-bottom: 0px;">
+											<form method="post" action="<%= request.getContextPath() %>/back/report.do" class="formPost">
 											     <input type="submit" value="查看">
 											     <input type="hidden" name="rptId" value="${report.rptId}">
 											     <input type="hidden" name="action"	value="getUpdate">
@@ -201,16 +200,16 @@
 		        </table>
 		        <div class="pageChange">
 		        	<c:if test="${currentPage > 1}">
-						<a href="<%= request.getContextPath() %>/back/report.do?action=getAll&page=1">至第一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/report.do?action=${action}&page=1&rptId=${convertedMap.rptId}&mem=${convertedMap.mem}&reviewId=${convertedMap.reviewId}&rptStatus=${convertedMap.rptStatus}">至第一頁</a>&nbsp;
 					</c:if>
 					<c:if test="${currentPage - 1 != 0}">
-						<a href="<%= request.getContextPath() %>/back/report.do?action=getAll&page=${currentPage - 1}">上一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/report.do?action=${action}&page=${currentPage - 1}&rptId=${convertedMap.rptId}&mem=${convertedMap.mem}&reviewId=${convertedMap.reviewId}&rptStatus=${convertedMap.rptStatus}">上一頁</a>&nbsp;
 					</c:if>
 					<c:if test="${currentPage + 1 <= reportPageQty}">
-						<a href="<%= request.getContextPath() %>/back/report.do?action=getAll&page=${currentPage + 1}">下一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/report.do?action=${action}&page=${currentPage + 1}&rptId=${convertedMap.rptId}&mem=${convertedMap.mem}&reviewId=${convertedMap.reviewId}&rptStatus=${convertedMap.rptStatus}">下一頁</a>&nbsp;
 					</c:if>
 					<c:if test="${currentPage != reportPageQty}">
-						<a href="<%= request.getContextPath() %>/back/report.do?action=getAll&page=${reportPageQty}">至最後一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/report.do?action=${action}&page=${reportPageQty}&rptId=${convertedMap.rptId}&mem=${convertedMap.mem}&reviewId=${convertedMap.reviewId}&rptStatus=${convertedMap.rptStatus}">至最後一頁</a>&nbsp;
 					</c:if>
 		        </div>
 	    	</div>

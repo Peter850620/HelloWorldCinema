@@ -206,7 +206,7 @@ public class Movie implements java.io.Serializable {
 		if (poster != null) {
 			return Base64.getEncoder().encodeToString(poster);
 		} else {
-			return ""; // 或者其他默认值，视情况而定
+			return ""; // 或者其他默認值，視情况而定
 		}
 	}
 

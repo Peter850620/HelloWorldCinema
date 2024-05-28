@@ -148,7 +148,7 @@
 			<div class="ticket-food created-by-anniedotexe">
 				<div class="left">
 					<div class="image">
-						<img src="../../images/set1.jpg" alt="Movie Image"
+						<img src="<%=request.getContextPath() %>/images/set1.jpg" alt="Movie Image"
 							style="width: 240px; height: 270px;">
 
 
@@ -222,19 +222,28 @@
 		</div>
 		
 		<button type="button" onclick="printPage()" class="btn">列印票卷</button>
+		<button type="button" class="btn" id="back" onclick="redirectToSearch()">返回</button>
 		<%
 	} else {
 
 		%>
 			
 			<button type="button" onclick="printPage()" class="btn">列印票卷</button>
-			
+			<button type="button" class="btn" id="back" onclick="redirectToSearch()">返回</button>
 			<%} %>
 			
 			
 			  <script type="text/javascript">
         function printPage() {
             window.print();
+        }
+        
+        
+
+        function redirectToSearch(){
+        	
+        	
+        	window.location.href="<%=request.getContextPath()%>/back_end/booking/bookingSearch.jsp"
         }
     </script>
 

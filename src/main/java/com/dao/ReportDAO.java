@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.entity.Report;
+import com.entity.Review;
 
 public interface ReportDAO {
 
@@ -22,6 +23,8 @@ public interface ReportDAO {
 	int getMapTotal(Map<String, String>map);
 	
 	List<Report> getAll(int currentPage);
+	
+	List<Report> getByReview(Review reviewId);
 	
 	long getTotal();
 }

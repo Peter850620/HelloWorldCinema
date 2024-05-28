@@ -45,19 +45,19 @@ img{
     margin: 1.5rem 0;
     font-size: 1.5rem;
     font-weight: 700;
-    color: white;
+    color: #c1a57b;
 }
 .product-price span{
     font-weight: 400;
 }
 .price span{
-    color: #f64749;
+    color:white;
     
 }
 
 .product-detail h2{
     text-transform: capitalize;
-    color: white;
+    color:#c1a57b;
     padding-bottom: 0.6rem;
 }
 .product-detail p{
@@ -65,7 +65,7 @@ img{
     padding: 0.3rem;
     opacity: 0.8;
     color: white;
-    height: 200px
+    height: 150px
 }
 .product-detail ul{
     margin: 1rem 0;
@@ -137,7 +137,6 @@ img{
 
 .add-to-cart {
     display: block;
-    margin: 1% auto;
     border-style: none;
     width: 10em;
     height: 3em;
@@ -236,9 +235,6 @@ img{
   overflow-y: scroll;
 }
 
-#total::before, #merchtotal::before, .product-price::before, .cart-product-price::before, .cart-updated-product-price::before, #discountAmt::before {
-  content: '$';
-}
 
 #cart #quantity-value {
   width: 45%;
@@ -326,7 +322,5 @@ width: 5%;
   transition: background .5s;
   border-radius: 4px;
 }
-
-
 
 

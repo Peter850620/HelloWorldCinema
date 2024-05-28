@@ -224,20 +224,20 @@ public class MessageDAOImpl implements MessageDAO {
 						message.setMsgTime(new Timestamp(System.currentTimeMillis()));
 						message.setMsgStatus("未讀");
 						session.save(message);
-					} else if (report.getRptStatus().equals("通過")) {
-						message.setMem(report.getMem());
-						message.setMsgTitle("留言檢舉");
-						message.setMsgDetail("檢舉通過，已處分留言不當會員。");
-						message.setMsgTime(new Timestamp(System.currentTimeMillis()));
-						message.setMsgStatus("未讀");
-						session.save(message);
-					} else if (report.getRptStatus().equals("未通過")) {
-						message.setMem(report.getMem());
-						message.setMsgTitle("留言檢舉");
-						message.setMsgDetail("檢舉未通過，審核後未發現不當之處。");
-						message.setMsgTime(new Timestamp(System.currentTimeMillis()));
-						message.setMsgStatus("未讀");
-						session.save(message);
+//					} else if (report.getRptStatus().equals("通過")) {
+//						message.setMem(report.getMem());
+//						message.setMsgTitle("留言檢舉");
+//						message.setMsgDetail("檢舉通過，已處分留言不當會員。");
+//						message.setMsgTime(new Timestamp(System.currentTimeMillis()));
+//						message.setMsgStatus("未讀");
+//						session.save(message);
+//					} else if (report.getRptStatus().equals("未通過")) {
+//						message.setMem(report.getMem());
+//						message.setMsgTitle("留言檢舉");
+//						message.setMsgDetail("檢舉未通過，審核後未發現不當之處。");
+//						message.setMsgTime(new Timestamp(System.currentTimeMillis()));
+//						message.setMsgStatus("未讀");
+//						session.save(message);
 					}
 				}
 				System.out.println("通知建立vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");

@@ -2,6 +2,8 @@ package com.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.entity.Mem;
 import com.entity.Movie;
 import com.entity.Review;
-import com.service.MovieService;
 import com.service.ReviewService;
 import com.service.ReviewServiceImpl;
 
@@ -43,8 +44,6 @@ public class ReviewController extends HttpServlet {
 		System.out.print(action);
 
 		if ("getAll".equals(action)) {
-			// HttpSession session = req.getSession();
-			// Integer reviewId = (Integer) session.getAttribute("reviewId");
 			String page = req.getParameter("page");
 			int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 			List<Review> reviewList = reviewService.getAllReviews(currentPage);
@@ -56,6 +55,7 @@ public class ReviewController extends HttpServlet {
 
 			req.setAttribute("reviewList", reviewList);
 			req.setAttribute("currentPage", currentPage);
+			req.setAttribute("action", action);
 			String url = "/back_end/review/select_page.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -66,15 +66,28 @@ public class ReviewController extends HttpServlet {
 			String page = req.getParameter("page");
 			int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 			List<Review> reviewList = reviewService.getByCompositeQuery(map, currentPage);
-
 			int reviewPageQty = 1;
+			
+			Map<String, Object> convertedMap = new HashMap<>();
+	        for (Map.Entry<String, String[]> entry : map.entrySet()) {
+	            String key = entry.getKey();
+	            String[] values = entry.getValue();
+
+	            if (values.length == 1) {
+	                convertedMap.put(key, values[0]);
+	            } else {
+	                convertedMap.put(key, Arrays.asList(values));
+	            }
+	        }    
 			if (map != null) {
 				reviewPageQty = reviewService.getCompositeQueryTotal(map);
 			}
-
+			
 			req.getSession().setAttribute("reviewPageQty", reviewPageQty);
 			req.setAttribute("currentPage", currentPage);
 			req.setAttribute("reviewList", reviewList);
+			req.setAttribute("convertedMap", convertedMap);
+			req.setAttribute("action", action);
 			String url = "/back_end/review/select_page.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -83,9 +96,12 @@ public class ReviewController extends HttpServlet {
 		if ("getUpdate".equals(action)) {
 			Integer reviewId = Integer.parseInt(req.getParameter("reviewId"));
 			Review review = reviewService.getOneReview(reviewId);
-			String param = "?reviewId=" + review.getReviewId() + "&mem=" + review.getMem().getMemId() + "&movie="
-					+ review.getMovie().getMovieId() + "&reviewDetails=" + review.getReviewDetails() + "&reviewDate="
-					+ review.getReviewDate() + "&reviewStatus=" + review.getReviewStatus();
+			String param = "?reviewId=" + review.getReviewId() + 
+							"&mem=" + review.getMem().getMemId() + 
+							"&movie="+ review.getMovie().getMovieId() +
+							"&reviewDetails=" + review.getReviewDetails() + 
+							"&reviewDate="+ review.getReviewDate() + 
+							"&reviewStatus=" + review.getReviewStatus();
 
 			String url = "/back_end/review/update_review.jsp" + param;
 			RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -93,18 +109,11 @@ public class ReviewController extends HttpServlet {
 		}
 
 		if ("update".equals(action)) {
-
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			Integer reviewId = Integer.parseInt(req.getParameter("reviewId").trim());
 			String reviewDetails = req.getParameter("reviewDetails").trim();
-			String reviewDetailsReg = "^.{2,500}$";
-			if (reviewDetails == null || reviewDetails.trim().length() == 0) {
-				errorMsgs.put("reviewDetails", "評論內容: 請勿空白");
-			} else if (!reviewDetails.trim().matches(reviewDetailsReg)) {
-				errorMsgs.put("reviewDetails", "評論內容: 只能是中、英文字母、數字和標點符號 , 且長度必需在2到500之間");
-			}
 			String reviewStatus = req.getParameter("reviewStatus").trim();
 
 			if (!errorMsgs.isEmpty()) {

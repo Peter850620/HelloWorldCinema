@@ -9,8 +9,10 @@ import java.util.Set;
 
 import com.dao.MessageDAO;
 import com.dao.MessageDAOImpl;
+import com.dto.MessageDTO;
 import com.entity.Mem;
 import com.entity.Message;
+import com.websc.MessageWebSocket;
 
 public class MessageServiceImpl implements MessageService {
 
@@ -21,11 +23,24 @@ public class MessageServiceImpl implements MessageService {
 		dao = new MessageDAOImpl();
 	}
 	
+	private MessageDTO convertToDTO(Message message) {
+	    MessageDTO dto = new MessageDTO();
+	    dto.setMsgId(message.getMsgId());
+	    dto.setMemId(message.getMem().getMemId());
+	    dto.setMsgTitle(message.getMsgTitle());
+	    dto.setMsgDetail(message.getMsgDetail());
+	    dto.setMsgTime(message.getMsgTime());
+	    dto.setMsgStatus(message.getMsgStatus());
+	    return dto;
+	}
 	
-
 	@Override
 	public void addMessage(Message message) {
 			dao.insert(message);
+			MessageDTO messageDTO = convertToDTO(message);
+			Integer userId = message.getMem().getMemId();
+			System.out.println("Broadcasting message to user: " + userId);
+			MessageWebSocket.broadcast(userId, messageDTO);
 	}
 
 	@Override
@@ -35,7 +50,6 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	public void deleteMessage(Integer msgId) {
-		// TODO Auto-generated method stub
 
 	}
 

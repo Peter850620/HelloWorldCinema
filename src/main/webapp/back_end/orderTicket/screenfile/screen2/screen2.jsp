@@ -34,74 +34,74 @@
 
 
 
-					<li class="seat"><input type="checkbox" id="A01"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="A01"
 						data-status="Y" /> <label for="A01">A01</label></li>
-					<li class="seat"><input type="checkbox" id="A02"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="A02"
 						data-status="Y" /> <label for="A02">A02</label></li>
-					<li class="seat"><input type="checkbox" id="A03"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="A03"
 						data-status="Y" /> <label for="A03">A03</label></li>
 
-					<li class="seat"><input type="checkbox" id="A04"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="A04"
 						data-status="Y" /> <label for="A04">A04</label></li>
 
-					<li class="seat"><input type="checkbox" id="A05"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="A05"
 						data-status="Y" /> <label for="A05">A05</label></li>
 				</ol>
 			</li>
 
 			<li class="row row--2">
 				<ol class="seats" type="B">
-					<li class="seat"><input type="checkbox" id="B01"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="B01"
 						data-status="Y" /> <label for="B01">B01</label></li>
-					<li class="seat"><input type="checkbox" id="B02"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="B02"
 						data-status="Y" /> <label for="B02">B02</label></li>
-					<li class="seat"><input type="checkbox" id="B03"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="B03"
 						data-status="Y" /> <label for="B03">B03</label></li>
-					<li class="seat"><input type="checkbox" id="B04"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="B04"
 						data-status="Y" /> <label for="B04">B04</label></li>
-					<li class="seat"><input type="checkbox" id="B05"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="B05"
 						data-status="Y" /> <label for="B05">B05</label></li>
 				</ol>
 			</li>
 			<li class="row row--3">
 				<ol class="seats" type="C">
-					<li class="seat"><input type="checkbox" id="C01"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="C01"
 						data-status="Y" /> <label for="C01">C01</label></li>
-					<li class="seat"><input type="checkbox" id="C02"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="C02"
 						data-status="Y" /> <label for="C02">C02</label></li>
-					<li class="seat"><input type="checkbox" id="C03"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="C03"
 						data-status="Y" /> <label for="C03">C03</label></li>
-					<li class="seat"><input type="checkbox" id="C04"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="C04"
 						data-status="Y" /> <label for="C04">C04</label></li>
-					<li class="seat"><input type="checkbox" id="C05"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="C05"
 						data-status="Y" /> <label for="C05">C05</label></li>
 				</ol>
 			</li>
 			<li class="row row--4">
 				<ol class="seats" type="D">
-					<li class="seat"><input type="checkbox" id="D01"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="D01"
 						data-status="Y" /> <label for="D01">D01</label></li>
-					<li class="seat"><input type="checkbox" id="D02"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="D02"
 						data-status="Y" /> <label for="D02">D02</label></li>
-					<li class="seat"><input type="checkbox" id="D03"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="D03"
 						data-status="Y" /> <label for="D03">D03</label></li>
-					<li class="seat"><input type="checkbox" id="D04"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="D04"
 						data-status="Y" /> <label for="D04">D04</label></li>
-					<li class="seat"><input type="checkbox" id="D05"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="D05"
 						data-status="Y" /> <label for="D05">D05</label></li>
 				</ol>
 			</li>
 			<li class="row row--5">
 				<ol class="seats" type="E">
-					<li class="seat"><input type="checkbox" id="E01"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="E01"
 						data-status="Y" /> <label for="E01">E01</label></li>
-					<li class="seat"><input type="checkbox" id="E02"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="E02"
 						data-status="Y" /> <label for="E02">E02</label></li>
-					<li class="seat"><input type="checkbox" id="E03"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="E03"
 						data-status="Y" /> <label for="E03">E03</label></li>
-					<li class="seat"><input type="checkbox" id="E04"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="E04"
 						data-status="Y" /> <label for="E04">E04</label></li>
-					<li class="seat"><input type="checkbox" id="E05"
+					<li class="seat"><input type="checkbox" name="seatStatus" id="E05"
 						data-status="Y" /> <label for="E05">E05</label></li>
 				</ol>
 			</li>

@@ -1,7 +1,8 @@
 package com.controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,15 +18,19 @@ import com.entity.Report;
 import com.entity.Review;
 import com.service.ReportService;
 import com.service.ReportServiceImpl;
+import com.service.ReviewService;
+import com.service.ReviewServiceImpl;
 
 @WebServlet("/back/report.do")
 public class ReportServlet extends HttpServlet {
 	
 	private ReportService reportService;
+	private ReviewService reviewService;
 
 	@Override
 	public void init() throws ServletException {
 		reportService = new ReportServiceImpl();
+		reviewService = new ReviewServiceImpl();
 	}
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -54,6 +59,7 @@ public class ReportServlet extends HttpServlet {
 
 			req.setAttribute("reportList", reportList);
 			req.setAttribute("currentPage", currentPage);
+			req.setAttribute("action", action);
 			
 			String url = "/back_end/report/select_report.jsp";   
 			RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -65,8 +71,19 @@ public class ReportServlet extends HttpServlet {
 			String page = req.getParameter("page");
 			int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 			List<Report> reportList = reportService.getByCompositeQuery(map, currentPage);
-
 			int reportPageQty = 1;
+			
+			Map<String, Object> convertedMap = new HashMap<>();
+	        for (Map.Entry<String, String[]> entry : map.entrySet()) {
+	            String key = entry.getKey();
+	            String[] values = entry.getValue();
+
+	            if (values.length == 1) {
+	                convertedMap.put(key, values[0]);
+	            } else {
+	                convertedMap.put(key, Arrays.asList(values));
+	            }
+	        }
 			if (map != null) {
 				reportPageQty = reportService.getCompositeQueryTotal(map);
 			}
@@ -74,6 +91,8 @@ public class ReportServlet extends HttpServlet {
 			req.getSession().setAttribute("reportPageQty", reportPageQty);
 			req.setAttribute("currentPage", currentPage);
 			req.setAttribute("reportList", reportList);
+			req.setAttribute("convertedMap", convertedMap);
+			req.setAttribute("action", action);
 			String url = "/back_end/report/select_report.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -106,9 +125,17 @@ public class ReportServlet extends HttpServlet {
 		req.setAttribute("errorMsgs", errorMsgs);
 		
 		Integer rptId = Integer.valueOf(req.getParameter("rptId").trim());
+		Integer reviewId = Integer.valueOf(req.getParameter("review").trim());
 		String rptStatus = req.getParameter("rptStatus").trim();
 		if(rptStatus.equals("未審核")) {
 			errorMsgs.put("rptStatus", "已審核要修改檢舉狀態");
+		}
+		
+		Review review = reviewService.getOneReview(reviewId);
+		if(rptStatus.equals("通過")) {
+			review.setReviewStatus("隱藏");
+			reviewService.updateReview(review);
+			reportService.updateRelatedReport(review, rptStatus);
 		}
 		
 		if (!errorMsgs.isEmpty()) {

@@ -2,6 +2,8 @@ package com.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,9 +46,6 @@ public class MessageServlet extends HttpServlet {
 		System.out.print(action);
 
 		if ("getAll".equals(action)) {
-
-			// HttpSession session = req.getSession();
-			// Integer reviewId = (Integer) session.getAttribute("reviewId");
 			String page = req.getParameter("page");
 			int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 			List<Message> messageList = messageService.getAllMessages(currentPage);
@@ -57,6 +56,7 @@ public class MessageServlet extends HttpServlet {
 			}
 			req.setAttribute("messageList", messageList);
 			req.setAttribute("currentPage", currentPage);
+			req.setAttribute("action", action);
 
 			String url = "/back_end/message/select_message.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -68,8 +68,19 @@ public class MessageServlet extends HttpServlet {
 			String page = req.getParameter("page");
 			int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 			List<Message> messageList = messageService.getByCompositeQuery(map, currentPage);
-			
 			int messagePageQty = 1;
+			
+			Map<String, Object> convertedMap = new HashMap<>();
+	        for (Map.Entry<String, String[]> entry : map.entrySet()) {
+	            String key = entry.getKey();
+	            String[] values = entry.getValue();
+
+	            if (values.length == 1) {
+	                convertedMap.put(key, values[0]);
+	            } else {
+	                convertedMap.put(key, Arrays.asList(values));
+	            }
+	        }
 			if (map != null) {
 				messagePageQty = messageService.getCompositeQueryTotal(map);
 			}
@@ -77,6 +88,8 @@ public class MessageServlet extends HttpServlet {
 			req.getSession().setAttribute("messagePageQty", messagePageQty);
 			req.setAttribute("currentPage", currentPage);
 			req.setAttribute("messageList", messageList);
+			req.setAttribute("convertedMap", convertedMap);
+			req.setAttribute("action", action);
 			String url = "/back_end/message/select_message.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);

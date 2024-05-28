@@ -169,10 +169,10 @@
             }
             
             window.onload = function() {
-                var selectedDate = sessionStorage.getItem("selectedDate");//畫面載入時去storage查看有沒有站存的日期
+                var selectedDate = sessionStorage.getItem("selectedDate");//畫面載入時去storage查看有沒有暫存的日期
                 if (selectedDate) {
                 	selectDate.value=selectedDate;
-                    
+                	  showDate.value = selectedDate;
                 }
             }
             
@@ -182,7 +182,7 @@
             for(var i=0;i<lis.length;i++){
             	var button = lis[i].querySelector('input[type="submit"]');
          
-            	console.log(button);
+           
             	
             }
             
@@ -195,6 +195,18 @@
                     eachSelectedTime.value = value;
                 });
             }
+            
+            
+            sessionStorage.removeItem("total");
+            sessionStorage.removeItem("foodAndQuantity");
+            sessionStorage.removeItem("quantity");
+            sessionStorage.removeItem("selectedSeats");
+            sessionStorage.removeItem("foodTotal");
+            sessionStorage.removeItem("優待票");
+            sessionStorage.removeItem("全票");
+            sessionStorage.removeItem("愛心票");
+            sessionStorage.removeItem("敬老票");
+            
 
         </script>
          

@@ -174,16 +174,16 @@
 		        </table>
 		        <div class="pageChange">
 		        	<c:if test="${currentPage > 1}">
-						<a href="<%= request.getContextPath() %>/back/message.do?action=getAll&page=1">至第一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/message.do?action=${action}&page=1&msgId=${convertedMap.msgId}&mem=${convertedMap.mem}&msgTitle=${convertedMap.msgTitle}&msgStatus=${convertedMap.msgStatus}">至第一頁</a>&nbsp;
 					</c:if>
 					<c:if test="${currentPage - 1 != 0}">
-						<a href="<%= request.getContextPath() %>/back/message.do?action=getAll&page=${currentPage - 1}">上一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/message.do?action=${action}&page=${currentPage - 1}&msgId=${convertedMap.msgId}&mem=${convertedMap.mem}&msgTitle=${convertedMap.msgTitle}&msgStatus=${convertedMap.msgStatus}">上一頁</a>&nbsp;
 					</c:if>
 					<c:if test="${currentPage + 1 <= messagePageQty}">
-						<a href="<%= request.getContextPath() %>/back/message.do?action=getAll&page=${currentPage + 1}">下一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/message.do?action=${action}&page=${currentPage + 1}&msgId=${convertedMap.msgId}&mem=${convertedMap.mem}&msgTitle=${convertedMap.msgTitle}&msgStatus=${convertedMap.msgStatus}">下一頁</a>&nbsp;
 					</c:if>
 					<c:if test="${currentPage != messagePageQty}">
-						<a href="<%= request.getContextPath() %>/back/message.do?action=getAll&page=${messagePageQty}">至最後一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/message.do?action=${action}&page=${messagePageQty}&msgId=${convertedMap.msgId}&mem=${convertedMap.mem}&msgTitle=${convertedMap.msgTitle}&msgStatus=${convertedMap.msgStatus}">至最後一頁</a>&nbsp;
 					</c:if>
 		        </div>
 	    	</div>	

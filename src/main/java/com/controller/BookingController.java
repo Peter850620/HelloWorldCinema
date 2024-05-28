@@ -156,6 +156,7 @@ public class BookingController extends HttpServlet {
 		case "formShowTime":
 			
 		        String showDate=req.getParameter("showDate");
+		        System.out.println("我是日期:"+showDate );
 		        List<Movie> movies =bookingService.findMoviesShowingToday(showDate);
 		        req.setAttribute("movies", movies);
 		        url = "/back_end/booking/bookingMovie.jsp";
@@ -179,7 +180,7 @@ public class BookingController extends HttpServlet {
 	          
 	        //訂位成功產生訂單  
 		case "bookingSuccess":
-
+			session.removeAttribute("newbookingno");
 		    String paymentType = req.getParameter("paymentType");
 		    String screenId = req.getParameter("screenId");
 		    Integer finalshowId = Integer.valueOf(req.getParameter("showId"));
@@ -328,7 +329,14 @@ public class BookingController extends HttpServlet {
 
            //=======================================================================
 			  
-			  
+		case "getprintTickets":
+			session.removeAttribute("newbookingno");
+               newbookingNo =Integer.valueOf(req.getParameter("bookingNo"));
+			session.setAttribute("newbookingno", newbookingNo);
+		    url = "/back_end/booking/printTicket.jsp";
+		    successView = req.getRequestDispatcher(url);
+		    successView.forward(req, res);
+		    break;
 
 		    }
 		

@@ -10,6 +10,7 @@
 ShowtimeInfo show = (ShowtimeInfo) request.getAttribute("selectedShow");
 List<Ticket> ticket = (List<Ticket>) request.getAttribute("tickets");
 List<Food> food = (List<Food>) request.getAttribute("food");
+Mem mem = (Mem)request.getAttribute("mem");
 %>
 <!DOCTYPE html>
 <html>
@@ -67,9 +68,9 @@ List<Food> food = (List<Food>) request.getAttribute("food");
 							style="pointer-events: none;"
 							src="data:image/jpeg;base64,<%=show.getMovie().getPicBase64()%>"></a>
 						<br> <br>
-						<p Align="Center"><%=show.getPlaydate()%></p>
-						<p Align="Center"><%=show.getShowtime()%></p>
-						<p Align="Center"><%=show.getScreen().getScreenId()%></p>
+						<p Align="Center" id="playDate"><%=show.getPlaydate()%></p>
+						<p Align="Center" id="showTime"><%=show.getShowtime()%></p>
+						<p Align="Center" id="screenId"><%=show.getScreen().getScreenId()%></p>
 						<p style="display: none;" id="seatStatus"><%=show.getSeatStatus()%></p>
 					</div>
 				</div>
@@ -169,19 +170,28 @@ List<Food> food = (List<Food>) request.getAttribute("food");
 
 	<!-- ========================以上區域可放置其他內容======================== -->
 	<br>
-
+	
 	<jsp:include page="/front_end/index/indexFooter.jsp" flush="true" />
 
 	<script type="text/javascript">
 		// 取得座位狀態
 		var seatStatus = document.getElementById("seatStatus").textContent;
+		var playDate = document.getElementById("playDate").textContent;
+		var showTime = document.getElementById("showTime").textContent;
+		var screenId = document.getElementById("screenId").textContent;
 
 		// 將座位狀態存儲到 localStorage
 		localStorage.setItem("seatStatus", seatStatus);
+		sessionStorage.setItem("playDate", playDate);
+		sessionStorage.setItem("showTime", showTime);
+		sessionStorage.setItem("screenId", screenId);
 
 		// 測試打印出來確認已經存儲
 		console.log("Seat status stored in localStorage:");
 		console.log(localStorage.getItem("seatStatus"));
+		console.log(sessionStorage.getItem("playDate"));
+		console.log(sessionStorage.getItem("showTime"));
+		console.log(sessionStorage.getItem("screenId"));
 	</script>
 
 	<script

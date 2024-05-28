@@ -101,18 +101,17 @@ h2 {
 /* 查看購物車 */
 .slider {
     position: fixed;
-    width: 100vw;
+    width: 450px; /* 侧边栏的宽度 */
     height: 100vh;
+	left: 0; /* 打开时从左侧显示 */
     top: 0;
-    overflow: hidden;
     background: white;
-    transition: all 1s;
+    transition: left 0.3s ease; /* 添加过渡效果 */
     z-index: 10;
 }
-
 .slider.close {
-    top: 100vh;
-    height: 0;
+	 left: -450px; /* 初始状态左侧隐藏 */
+	 overflow-y: hidden; /* 隱藏內容 */
 }
 
 #amount-controls {
@@ -248,7 +247,8 @@ p{
 }
 
 .product-name{
-    height: 60px;
+	width: 250px;
+    height: 90px;
     padding-top: 30px;;
 }
 

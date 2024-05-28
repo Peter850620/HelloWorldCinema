@@ -1,16 +1,17 @@
 package com.dao;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
-
 
 import com.entity.Movie;
 import com.util.HibernateUtil;
@@ -49,21 +50,54 @@ public class MovieDAOImpl implements MovieDAO {
 	}
 	
 	
+
+	    @Override
+	    public List<Movie> findMoviesShowingToday(Date playDate) {
+	        LocalDate currentDate = LocalDate.now(); // 取得當前日期
+	        LocalTime currentTime = LocalTime.now(); // 取得當前時間
+	        
+	        // 定義日期和時間的格式
+	        Date nowDate = Date.valueOf(currentDate);
+	   
+	        Time formattedTime = Time.valueOf(currentTime);  //把時間轉成sql time
+
+//	         檢查是否為當前日期
+	        if (nowDate.equals(playDate)) {
+	            LocalDate date = playDate.toLocalDate(); // 轉型成Localdate才能加一天
+	            date = date.plusDays(1);
+	            Date nextDay = Date.valueOf(date);
+
+	            String hql = "SELECT DISTINCT m FROM Movie m " +
+	                         "JOIN FETCH m.showtime s " +
+	                         "WHERE (m.movieStatus = '熱映中' OR m.movieStatus = '即將上映') " +
+	                         "AND (s.playdate = :today AND s.showtime BETWEEN :startTime AND '23:59:00' " +
+	                         "OR (s.playdate = :tomorrow AND s.showtime BETWEEN '00:00:00' AND '02:00:00')) " +
+	                         "ORDER BY m.movieStatus";
+
+	            return getSession().createQuery(hql, Movie.class)
+	                                .setParameter("today", playDate)
+	                                .setParameter("startTime", formattedTime)
+	                                .setParameter("tomorrow", nextDay)
+	                                .getResultList();
+	        } else {
+	            LocalDate date = playDate.toLocalDate(); // 轉型成Localdate才能加一天
+	            date = date.plusDays(1); // 加一天
+	            Date nextDay = Date.valueOf(date); // 轉回為SQL DATE
+
+	            String hql = "SELECT DISTINCT m FROM Movie m " +
+	                         "JOIN FETCH m.showtime s " +
+	                         "WHERE (m.movieStatus = '熱映中' OR m.movieStatus = '即將上映') " +
+	                         "AND (s.playdate = :today AND s.showtime BETWEEN '08:00:00' AND '23:59:00' " +
+	                         "OR (s.playdate = :tomorrow AND s.showtime BETWEEN '00:00:00' AND '02:00:00')) " +
+	                         "ORDER BY m.movieStatus";
+
+	            return getSession().createQuery(hql, Movie.class)
+	                                .setParameter("today", playDate)
+	                                .setParameter("tomorrow", nextDay)
+	                                .getResultList();
+	        }
+	    }
 	
-	public List<Movie> findMoviesShowingToday(Date playDate) {
-
-		String hql = "SELECT DISTINCT m FROM Movie m " + "JOIN FETCH m.showtime s "
-				+ "WHERE (m.movieStatus = '熱映中' OR m.movieStatus = '即將上映') "
-				+ "AND (s.playdate = :today AND s.showtime BETWEEN '08:00:00' AND '23:59:00' OR (s.playdate = :tomorrow AND s.showtime BETWEEN '00:00:00' AND '02:00:00')) "
-				+ "ORDER BY m.movieStatus";
-
-		LocalDate date = playDate.toLocalDate(); // 轉型成Localdate才能加一天
-		date = date.plusDays(1); // 加一天
-		Date nextDay = Date.valueOf(date); // 轉回為SQL DATE
-		return getSession().createQuery(hql, Movie.class).setParameter("today", playDate)
-				.setParameter("tomorrow", nextDay).getResultList();
-
-	}
 
 	@Override
 	public int insert(Movie entity) {

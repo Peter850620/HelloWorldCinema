@@ -81,8 +81,8 @@
     <div class="main" id="main">
     	<h1>個人通知</h1>
         <div class="message_head">
-        	<a href="<%= request.getContextPath() %>/front_end/review/reviewFront.jsp">回會員中心</a>	<!-- 路徑要改 -->
-            <a href="<%= request.getContextPath() %>/front/message.do?action=getMem&mem=240001">所有通知</a>
+        	<a href="<%= request.getContextPath() %>/front/review.do?action=loadMovie">回主頁</a>
+            <a href="<%= request.getContextPath() %>/front/message.do?action=getMem">所有通知</a>
         </div>
 		
 		<div class="message_container">
@@ -107,20 +107,18 @@
 	            </tbody>
 	        </table>
 	        <c:if test="${currentPage > 1}">
-				<a href="<%= request.getContextPath() %>/front/message.do?action=getMem&page=1" style="color: blue;">至第一頁</a>&nbsp;
+				<a href="<%= request.getContextPath() %>/front/message.do?action=getMem&page=1">至第一頁</a>&nbsp;
 			</c:if>
 			<c:if test="${currentPage - 1 != 0}">
-				<a href="<%= request.getContextPath() %>/front/message.do?action=getMem&page=${currentPage - 1}" style="color: blue;">上一頁</a>&nbsp;
+				<a href="<%= request.getContextPath() %>/front/message.do?action=getMem&page=${currentPage - 1}">上一頁</a>&nbsp;
 			</c:if>
 			<c:if test="${currentPage + 1 <= messagePageQty}">
-				<a href="<%= request.getContextPath() %>/front/message.do?action=getMem&page=${currentPage + 1}" style="color: blue;">下一頁</a>&nbsp;
+				<a href="<%= request.getContextPath() %>/front/message.do?action=getMem&page=${currentPage + 1}">下一頁</a>&nbsp;
 			</c:if>
 			<c:if test="${currentPage != messagePageQty}">
-				<a href="<%= request.getContextPath() %>/front/message.do?action=getMem&page=${messagePageQty}" style="color: blue;">至最後一頁</a>&nbsp;
+				<a href="<%= request.getContextPath() %>/front/message.do?action=getMem&page=${messagePageQty}">至最後一頁</a>&nbsp;
 			</c:if>
-	       
     	</div>
-
 	</div>
 </div>
 
@@ -134,6 +132,12 @@
     <!-- 主要js -->
     <script src="<%= request.getContextPath() %>/js/index.js"></script>
     <script>
+	    function clearSearch(event) {
+	    	event.preventDefault();
+	    	
+	    	document.getElementById('msgTitleInput').value = '';
+	    	document.getElementById('msgStatusSelect').value = '未讀';
+	    }
 	    document.addEventListener('DOMContentLoaded', () => {
 	        const messageBody = document.getElementById('messageBody');
 	        const rows = Array.from(messageBody.getElementsByTagName('tr'));
