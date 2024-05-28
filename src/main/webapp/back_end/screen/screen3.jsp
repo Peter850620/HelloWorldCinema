@@ -148,7 +148,7 @@
 			char dimClass = '`'; 
 			TicketDAOImpl ticketdao=new TicketDAOImpl();
 			
-			List<Ticket> tickets=ticketdao.getAll();
+			List<Ticket> tickets=ticketdao.getAllforbooking();
 			for(Ticket ticket:tickets){
 				
 				dimClass++;
