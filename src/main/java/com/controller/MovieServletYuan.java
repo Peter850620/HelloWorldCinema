@@ -126,7 +126,7 @@ public class MovieServletYuan extends HttpServlet{
 		
 		req.setAttribute("food", food);
 		// 轉發到相應的 JSP 文件中顯示結果
-		String url = "/back_end/orderTicket.jsp";
+		String url = "/front_end/orderTicket.jsp";
 		RequestDispatcher dispatcher = req.getRequestDispatcher(url);
 		dispatcher.forward(req, res);
 	}

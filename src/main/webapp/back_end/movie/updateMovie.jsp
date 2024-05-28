@@ -100,10 +100,16 @@ input[type="text"], input[type="date"], select {
 
 	<label for="movieId">電影編號：</label><br> 
 	 <input type="text" disabled id="movieId" name="movieId" value="<%=movie.getMovieId()%>"><br>
-	 <label for="movieName">電影：</label><br> 
+	 <label for="movieName">電影名稱：</label><br> 
+	 <% if (errorMsgs != null && errorMsgs.containsKey("movieName")) { %> 
+		<span style="color: red;"><%= errorMsgs.get("movieName") %></span> <% } %>
 	 <input type="text" id="movieName" name="movieName" value="<%=movie.getMovieName()%>"><br>
 
-		<label for="runtime">電影時長(分)：</label><br> <input type="text" id="runtime" name="runtime" value="<%=movie.getRuntime()%>"><br>
+		<label for="runtime">電影時長(分)：</label><br>
+		<% if (errorMsgs != null && errorMsgs.containsKey("runtime")) { %> 
+		<span  style="color: red;"><%= errorMsgs.get("runtime") %>" </span>    
+    <% } %>
+		 <input type="text" id="runtime" name="runtime" value="<%=movie.getRuntime()%>"><br>
 		<label for="genre">電影類型：</label><br>
 		 <select id="genre" name="genre">
 
@@ -129,9 +135,13 @@ input[type="text"], input[type="date"], select {
 		</select> 
 		
 		<label for="releaseDate">上映日期</label><br> 
+		<% if (errorMsgs != null && errorMsgs.containsKey("releaseDate")) { %>
+		<span style="color: red;"><%=  errorMsgs.get("releaseDate") %></span>  <% } %>
 		<input type="date" id="releaseDate" name="releaseDate" value="<%=movie.getReleaseDate()%>"><br> 
 		
 		<label for="offDate">下檔日期：</label><br> 
+		<% if (errorMsgs != null && errorMsgs.containsKey("offDate")) { %>
+		<span style="color: red;"><%=  errorMsgs.get("offDate") %></span>  <% } %>
 		<input type="date" id="offeDate" name="offDate" value="<%=movie.getOffDate()%>"><br> 
 		
 		<label for="language">語言：</label><br> 
@@ -166,6 +176,8 @@ input[type="text"], input[type="date"], select {
 			  
 			    </select>
 		
+		<% if (errorMsgs != null && errorMsgs.containsKey("poster")) { %> 
+		<span style="color:red;"><%=errorMsgs.get("poster") %></span><%} %>
 	    <input type="file" id="pic" name="poster" value="<%=movie.getPoster()%>"><br>
 		<br>	 
 	     <img src="data:image/jpeg;base64,${movie.picBase64}"	style="width: 100px; height: auto;">

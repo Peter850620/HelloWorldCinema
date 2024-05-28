@@ -262,6 +262,7 @@ public class BookingController extends HttpServlet {
 		        foodorder.setFoodAmount(foodAmount);
 		        int foodSubTotal = foodAmount * price;
 		        foodorder.setFoodSubTotal(foodSubTotal);
+		        foodorder.setPickStatus("未取餐");
 		        foodorder.setBooking(bookingSuccess);
 		        foodItems.add(foodorder);
 		    }
@@ -281,6 +282,15 @@ public class BookingController extends HttpServlet {
 		            orderItem.setQrcode(qrCodeImage);
 		            System.out.println("QR Code generated successfully for" + currentSeat);
 		        }
+		            String qrcodeText = String.format("%s?bookingNo=%s", BASE_URL2, newbookingNo);
+		            
+	                byte[] qrcodeCodeImage = generateQRCodeImage(qrcodeText, 350, 350); 
+	            
+	                BookingService bs = new BookingService();
+	                List<FoodItem> foodItemdata = bs.getFoodbyBookingNo(newbookingNo);
+	                for (FoodItem foodItem : foodItemdata) {
+	                    foodItem.setQrcode(qrcodeCodeImage);
+		               }
 		    } catch (Exception e) {
 		        e.printStackTrace();
 		    }
@@ -288,37 +298,8 @@ public class BookingController extends HttpServlet {
 
 	        
 	        //==================for food qr====================
-            BookingService bs = new BookingService();
-            List<FoodItem> foodItemdata = bs.getFoodbyBookingNo(newbookingNo);
-            StringBuilder foodInfoBuilder = new StringBuilder();
-	        try {
-		        for (FoodItem foodItem : foodItemdata) {
-                    String foodName = foodItem.getFood().getFoodName();
-                    System.out.println("餐點名稱: " + foodName);
-					
-                    Integer foodAmount = foodItem.getFoodAmount();
-                    System.out.println("餐點數量: " + foodAmount);
-                    
-                    // 将每个食品信息添加到字符串中
-                    foodInfoBuilder.append(String.format("%s - %d, ", foodName, foodAmount));
-                }    
-                // 删除最后一个逗号
-                foodInfoBuilder.deleteCharAt(foodInfoBuilder.length() - 2);
-                
-                // 生成 QR Code 要导到的路径
-                String qrText = String.format("%s?bookingNo=%s&foodInfo=%s", BASE_URL2, newbookingNo, foodInfoBuilder.toString());
-                System.out.println(qrText);
-                byte[] qrCodeImage = generateQRCodeImage(qrText, 350, 350); 
-                FoodItemDAO dao = new FoodItemIDAOmpl();
-                for (FoodItem foodItem : foodItemdata) {
-                    foodItem.setQrcode(qrCodeImage);
-                    dao.update(foodItem); // Save the updated orderItem to the database
-                }
-
-                System.out.println("QR Codes generated successfully for all foodItem.");
-	        }catch (Exception e) {
-		        e.printStackTrace();
-		    }
+  
+    
 		    synchronized (session) {
 		        session.setAttribute("newbookingno", newbookingNo);
 		    }

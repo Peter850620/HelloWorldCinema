@@ -172,22 +172,22 @@ public class MemBookingService {
 		String url = "";
 		switch (screenId) {
 		case "A廳":
-			url = "/back_end/orderTicket/screenfile/screen1/screen1.jsp";
+			url = "/front_end/orderTicket/screenfile/screen1/screen1.jsp";
 			break;
 
 		case "B廳":
 
-			url = "/back_end/orderTicket/screenfile/screen2/screen2.jsp";
+			url = "/front_end/orderTicket/screenfile/screen2/screen2.jsp";
 			break;
 
 		case "C廳":
 
-			url = "/back_end/orderTicket/screenfile/screen3/screen3.jsp";
+			url = "/front_end/orderTicket/screenfile/screen3/screen3.jsp";
 			break;
 
 		case "D廳":
 
-			url = "/back_end/orderTicket/screenfile/screen4/screen4.jsp";
+			url = "/front_end/orderTicket/screenfile/screen4/screen4.jsp";
 			break;
 
 		}
