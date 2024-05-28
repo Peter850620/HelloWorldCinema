@@ -69,7 +69,7 @@ public class QRCodeGeneratorFood {
                     foodInfoBuilder.deleteCharAt(foodInfoBuilder.length() - 2);
                     
                     // 生成 QR Code 要导到的路径
-                    String qrText = String.format("%s?bookingNo=%s&foodInfo=%s", BASE_URL, bookingNo, foodInfoBuilder.toString());
+                    String qrText = String.format("%s?bookingNo=%s", BASE_URL, bookingNo);
                     System.out.println(qrText);
                     byte[] qrCodeImage = generateQRCodeImage(qrText, 350, 350);
                     
