@@ -168,12 +168,12 @@
 	<script>
 		function redirectToPage() {
 			// 使用 window.location.href 属性来设置新页面的 URL
-			window.location.href = "./back_end/movie/addMovie.jsp";
+			window.location.href = "<%=request.getContextPath()%>/back_end/movie/addMovie.jsp"
 		}
 		
 		function backToListAll() {
 			// 使用 window.location.href 属性来设置新页面的 URL
-			window.location.href = "./back_end/movie/listAllMovie.jsp";
+			window.location.href = "<%=request.getContextPath()%>/back_end/movie/listAllMovie.jsp"
 		}
 		</script>
 
