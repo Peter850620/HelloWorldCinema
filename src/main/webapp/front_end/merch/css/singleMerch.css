@@ -194,7 +194,11 @@ img{
     color: white;
 }
 
-
+.fas fa-shopping-cart{
+position: fixed;
+    top: 90px;
+    right: 0;	
+}
 
 
 
