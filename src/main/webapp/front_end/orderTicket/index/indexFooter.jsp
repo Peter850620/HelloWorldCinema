@@ -15,7 +15,7 @@
             </h1>
         </div>
         <div class="container">
-            <div class="row">
+            <div class="row1">
                 <div class="footer-col">
                     <h4 class="neon2">關於我們</h4>
                     <ul>
