@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>世界影城 HelloWorld Cinema</title>
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen1/screen1.css">
+	href="<%=request.getContextPath()%>/front_end/orderTicket/screenfile/screen1/screen1.css">
 </head>
 <body>
 	<jsp:include page="/front_end/index/indexHeader.jsp"
@@ -42,6 +42,8 @@
 			<input type="hidden" id="tkId2" name="tkId2" value="tkId2">
 			<input type="hidden" id="tkId3" name="tkId3" value="tkId3">
 			<input type="hidden" id="tkId4" name="tkId4" value="tkId4">
+			
+			
 			<input type="hidden" name="seatSelection" value="">
 			<input type="hidden" name="memId" value="<%=mem.getMemId()%>">
 			<input type="hidden" name="showId" value="showId">
@@ -54,8 +56,8 @@
 		</div>
 	</form>
 
-	<script type="text/javascript" src="<%=request.getContextPath()%>/back_end/orderTicket/checkorder/checkorder.js"></script>
-	<jsp:include page="/back_end/orderTicket/index/indexFooter.jsp"
+	<script type="text/javascript" src="<%=request.getContextPath()%>/front_end/orderTicket/checkorder/checkorder.js"></script>
+	<jsp:include page="/front_end/orderTicket/index/indexFooter.jsp"
 		flush="true" />
 
 </body>

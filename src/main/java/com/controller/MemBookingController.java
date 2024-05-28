@@ -202,12 +202,12 @@ public class MemBookingController extends HttpServlet {
 			if (foodParam == null)
 				break;
 			Integer foodId = Integer.valueOf(foodParam);
-			System.out.println();
+			System.out.println(foodId);
 			Food food = memBookingService.findOneFood(foodId);
-			System.out.println();
+			System.out.println(food);
 			FoodItem foodorder = new FoodItem();
 			foodorder.setFood(food);
-			int price = food.getFoodPrice();
+//			int price = food.getFoodPrice();
 			Integer foodAmount = Integer.valueOf(req.getParameter("foodAmount" + i));
 			foodorder.setFoodAmount(foodAmount);
 //			int foodSubTotal = foodAmount * price;
@@ -240,7 +240,7 @@ public class MemBookingController extends HttpServlet {
 		synchronized (session) {
 			session.setAttribute("newbookingno", newbookingNo);
 		}
-		url = "/back_end/orderTicket/finalticket/loading.jsp";
+		url = "/front_end/orderTicket/finalticket/loading.jsp";
 		successView = req.getRequestDispatcher(url);
 		successView.forward(req, res);
 

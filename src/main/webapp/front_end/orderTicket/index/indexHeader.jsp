@@ -31,7 +31,7 @@
     
     
     <!-- 主要css -->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/back_end/orderTicket/index/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front_end/orderTicket/index/css/index.css" />
     <style>
         .notice {
             position: relative;
