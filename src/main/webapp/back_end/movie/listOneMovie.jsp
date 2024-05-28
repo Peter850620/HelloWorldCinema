@@ -95,6 +95,7 @@
 	<h3>電影資料 -新增成功囉!</h3>
 
 
+
 	
 	
 	<div class="movie-container">
@@ -112,6 +113,7 @@
 		</div>
 		<div class="movie">
 			<div class="movie-label">上映日期</div>
+		
 			<div class="movie-value">${movie.releaseDate}</div>
 		</div>
 		<div class="movie">
