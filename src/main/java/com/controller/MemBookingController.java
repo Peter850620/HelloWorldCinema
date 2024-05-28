@@ -207,11 +207,11 @@ public class MemBookingController extends HttpServlet {
 			System.out.println(food);
 			FoodItem foodorder = new FoodItem();
 			foodorder.setFood(food);
-//			int price = food.getFoodPrice();
+			int price = food.getFoodPrice();
 			Integer foodAmount = Integer.valueOf(req.getParameter("foodAmount" + i));
 			foodorder.setFoodAmount(foodAmount);
-//			int foodSubTotal = foodAmount * price;
-//			foodorder.setFoodSubTotal(foodSubTotal);
+			int foodSubTotal = foodAmount * price;
+			foodorder.setFoodSubTotal(foodSubTotal);
 			foodorder.setBooking(bookingSuccess);
 			foodItems.add(foodorder);
 		}
