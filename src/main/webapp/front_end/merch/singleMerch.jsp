@@ -19,7 +19,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     
     <!-- 主要css -->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front_end/merch/css/singleMerch.css" />
@@ -27,7 +27,7 @@
 <body>
 <jsp:include page="/front_end/index/indexHeader.jsp" flush="true" />  
 <!-- ========================以下區域可放置其他內容======================== -->
-
+<i class="fas fa-shopping-cart"></i>
 <button id='cart-button' class="trigger cart-button-style" name="action" value="getById">查看購物車</button>
 
 <div class="card-wrapper">
