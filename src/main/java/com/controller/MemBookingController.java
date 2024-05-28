@@ -26,6 +26,7 @@ import com.dao.ShowtimeInfoDAOImpl;
 import com.entity.Booking;
 import com.entity.Food;
 import com.entity.FoodItem;
+import com.entity.Mem;
 import com.entity.OrderItem;
 import com.entity.Screen;
 import com.entity.ShowtimeInfo;
@@ -35,6 +36,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.service.MemBookingService;
+import com.service.ShowtimeInfoServicebohan;
 
 @WebServlet("/MemBookingController")
 public class MemBookingController extends HttpServlet {
@@ -44,17 +46,19 @@ public class MemBookingController extends HttpServlet {
 		super();
 	}
 
-	private BookingDAOImpl dao;
-	private FoodItemIDAOmpl daoFoodItem;
 	private MemBookingService memBookingService;
 	private ShowtimeInfoDAOImpl show;
+	MemBookingService memService;
+	ShowtimeInfoServicebohan bohanshow;
 
 	@Override
 	public void init() throws ServletException {
-		dao = new BookingDAOImpl();
-		daoFoodItem = new FoodItemIDAOmpl();
+
 		memBookingService = new MemBookingService();
 		show = new ShowtimeInfoDAOImpl();
+		memService = new MemBookingService();
+		bohanshow = new ShowtimeInfoServicebohan();
+
 	}
 
 	private static final String BASE_URL = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeServlet";
@@ -106,27 +110,22 @@ public class MemBookingController extends HttpServlet {
 		String url = "";
 
 		RequestDispatcher successView;
-		
-//		Integer mem = Integer.valueOf(req.getParameter("mem"));
-//		System.out.println("mem" + mem);
-		
-		String paymentType = req.getParameter("paymentType");
-		System.out.println("Payment Type: " + paymentType);
+
+		Integer mem = Integer.valueOf(req.getParameter("memId"));
+		System.out.println("mem" + mem);
+
+//		String paymentType = req.getParameter("paymentType");
+//		System.out.println("Payment Type: " + paymentType);
 
 		String screenId = req.getParameter("screenId");
-		System.out.println("Screen ID: " + screenId);
 
 		Integer finalshowId = Integer.valueOf(req.getParameter("showId"));
-		System.out.println("Show ID: " + finalshowId);
 
 		Integer total = Integer.valueOf(req.getParameter("subtotal"));
-		System.out.println("Total: " + total);
 
 		String bookingSeats = req.getParameter("seatNo");
-		System.out.println("Booking Seats: " + bookingSeats);
 
 		String seatSelection = req.getParameter("seatSelection");
-		System.out.println("seatSelection: " + seatSelection);
 
 		String[] seatsArray = bookingSeats.split(" ");
 		List<Integer> eachTkId = new ArrayList<>();
@@ -165,19 +164,21 @@ public class MemBookingController extends HttpServlet {
 
 		bookingSuccess.setBookingDate(today);
 		bookingSuccess.setBookingStatus("已取票");
-		bookingSuccess.setPaymentType(paymentType);
+		bookingSuccess.setPaymentType("信用卡");
 		bookingSuccess.setPickupOption("電子票");
 		bookingSuccess.setTotal(total);
 		bookingSuccess.setQuantity(quantity);
-		bookingSuccess.setMem(null);
+		Mem member = memService.findMem(mem);
+		bookingSuccess.setMem(member);
 
 		Screen screen = memBookingService.findScreen(screenId);
 		System.out.println("screen: " + screen);
 
 		bookingSuccess.setScreen(screen);
 		ShowtimeInfo show = memBookingService.findRightShow(finalshowId);
+		show.setSeatStatus(seatSelection);
 		System.out.println("show: " + show);
-		
+
 		bookingSuccess.setShowtimeInfo(show);
 
 		Set<OrderItem> orderItems = new HashSet<>();
@@ -186,12 +187,9 @@ public class MemBookingController extends HttpServlet {
 				int ticketId = eachTkId.remove(0);
 				OrderItem item = new OrderItem();
 				item.setSeatNo(seatNo);
-				System.out.println("seatNo: " + seatNo);
 				item.setEntryStatus("未使用");
 				item.setTicket(memBookingService.findTicket(ticketId));
-				System.out.println("ticketId1111111111111: " + ticketId);
 				item.setBooking(bookingSuccess);
-				System.out.println("bookingSuccess1111111111111: " + bookingSuccess);
 				orderItems.add(item);
 			}
 		}
@@ -240,7 +238,7 @@ public class MemBookingController extends HttpServlet {
 		synchronized (session) {
 			session.setAttribute("newbookingno", newbookingNo);
 		}
-		url = "/back_end/booking/loading.jsp";
+		url = "/back_end/orderTicket/finalticket/loading.jsp";
 		successView = req.getRequestDispatcher(url);
 		successView.forward(req, res);
 
@@ -269,7 +267,7 @@ public class MemBookingController extends HttpServlet {
 		// 將 showtimeId 設置到 session
 		HttpSession session = req.getSession();
 		session.setAttribute("showtimeId", showtimeId);
-		System.out.println("showtimeId 設置到 session: " + showtimeId);
+		
 
 		// 回應客戶端
 		res.setContentType("application/json");
@@ -307,7 +305,6 @@ public class MemBookingController extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		Integer showId = (Integer) session.getAttribute("showtimeId");
-		System.out.println("showtimeId:" + showId);
 
 		ShowtimeInfo show = null;
 		if (showId != null) {

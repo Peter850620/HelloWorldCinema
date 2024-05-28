@@ -67,13 +67,12 @@ function applySeatStatusFromLocalStorage() {
     updateSelectedCount(); // 更新已選座位數量
 }
 
-// 計算總票數並顯示在 HTML 中的函數，並將其存儲到 sessionStorage 中
+// 計算總票數並顯示在 HTML 中的函數
 function calculateTotalCount() {
     const ticketCart = JSON.parse(sessionStorage.getItem('ticketcart')) || {};
     const ticketsData = ticketCart.items || [];
     const totalCount = ticketsData.reduce((acc, item) => acc + item.quantity, 0);
     document.getElementById('totalCount').textContent = totalCount;
-    sessionStorage.setItem('quantity', totalCount); // 將總票數存儲到 sessionStorage 中，key 名稱為 quantity
     return totalCount;
 }
 
@@ -120,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 saveToSessionStorage(); // 點擊時保存座位狀態
                 console.log('Context path:', '<%=request.getContextPath()%>');
                 // 跳轉到檢查訂單頁面
-                window.location.href = '<%=request.getContextPath()%>/back_end/orderTicket/checkorder/checkorder.jsp';
+                window.location.href = 'http://localhost:8081/HelloWorldCinema/back_end/orderTicket/checkorder/checkorder.jsp';
             }
         });
     } else {
@@ -132,33 +131,34 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
    // 从 sessionStorage 获取已选取的座位
-    var selectedSeatsString = sessionStorage.getItem("selectedSeats");
-    var selectedSeats = selectedSeatsString ? JSON.parse(selectedSeatsString) : [];
+var selectedSeatsString = sessionStorage.getItem("selectedSeats");
+var selectedSeats = selectedSeatsString ? JSON.parse(selectedSeatsString) : [];
 
-    // 初始化复选框状态
-    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach(function(checkbox) {
-        if (selectedSeats.includes(checkbox.id)) {
-            checkbox.checked = true;
-        }
+// 初始化复选框状态
+var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+checkboxes.forEach(function(checkbox) {
+    if (selectedSeats.includes(checkbox.id)) {
+        checkbox.checked = true;
+    }
 
-        // 添加事件监听器来处理复选框状态变化
-        checkbox.addEventListener('change', function() {
-            if (this.checked) {
-                selectedSeats.push(this.id);
-            } else {
-                // 如果座位被取消从数组中移除
-                var index = selectedSeats.indexOf(this.id);
-                if (index !== -1) {
-                    selectedSeats.splice(index, 1);
-                }
+    // 添加事件监听器来处理复选框状态变化
+    checkbox.addEventListener('change', function() {
+        if (this.checked) {
+            selectedSeats.push(this.id);
+        } else {
+            // 如果座位被取消从数组中移除
+            var index = selectedSeats.indexOf(this.id);
+            if (index !== -1) {
+                selectedSeats.splice(index, 1);
             }
-            // 将更新后的选取的座位数组存储到 sessionStorage 中
-            sessionStorage.setItem("selectedSeats", JSON.stringify(selectedSeats));
-        });
+        }
+        // 将更新后的选取的座位数组存储到 sessionStorage 中
+        sessionStorage.setItem("selectedSeats", JSON.stringify(selectedSeats));
     });
+});
 
 });
+
 
 // 從 sessionStorage 取出 ticketcart 的資料
 let ticketCart = JSON.parse(sessionStorage.getItem('ticketcart'));
@@ -171,6 +171,9 @@ if (ticketCart && ticketCart.items) {
         sessionStorage.setItem(item.name, item.quantity);
     });
 }
+
+
+
 
 // 打印檢查
 console.log(sessionStorage.getItem('全票')); // 應輸出全票的 quantity
