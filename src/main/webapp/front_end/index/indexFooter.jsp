@@ -21,7 +21,7 @@
                     <ul>
                         <li><a href="<%=request.getContextPath()%>/front_end/aboutPage/cinemaInfo.jsp">影城簡介</a></li>
                         <li><a href="<%=request.getContextPath()%>/front_end/aboutPage/transportation.jsp">影城交通</a></li>
-                        <li><a href="#">影城設備</a></li>
+                        <li><a href="<%=request.getContextPath()%>/front_end/aboutPage/cinemaRoom.jsp">影城設備</a></li>
                         <li><a href="<%=request.getContextPath()%>/front_end/aboutPage/cinemaNote.jsp">注意事項</a></li>
                     </ul>
                 </div>

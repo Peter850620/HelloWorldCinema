@@ -61,6 +61,8 @@
         .notice-item:last-child {
             border-bottom: none;
         }
+        
+
     </style>
 </head>
 <body>

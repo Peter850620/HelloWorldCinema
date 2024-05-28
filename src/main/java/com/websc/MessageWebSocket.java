@@ -13,20 +13,16 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import com.dto.MessageDTO;
 import com.entity.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @ServerEndpoint("/socket/message")
 public class MessageWebSocket {
 	
 	 private static Map<String, Set<Session>> userSessions = new ConcurrentHashMap<>();
-	 private static final ObjectMapper objectMapper;
-
-	    static {
-	        objectMapper = new ObjectMapper();
-	        objectMapper.registerModule(new JavaTimeModule());
-	    }
 	    
 	    @OnOpen
 	    public void onOpen(Session session) {
@@ -66,7 +62,7 @@ public class MessageWebSocket {
 
 	    }
 
-	    public static void broadcast(Integer userId, Message message) {
+	    public static void broadcast(Integer userId, MessageDTO messageDTO) {
 	    	 Set<Session> sessions = userSessions.get(String.valueOf(userId));
 	         if(sessions == null) {
 	        	 System.out.println("sessions為空值");
@@ -75,7 +71,7 @@ public class MessageWebSocket {
 	    	 if (sessions != null) {
 	             String messageJson;
 	             try {
-	                 messageJson = objectMapper.writeValueAsString(message);
+	                 messageJson = new ObjectMapper().writeValueAsString(messageDTO);
 	             } catch (IOException e) {
 	                 e.printStackTrace();
 	                 return;
@@ -93,11 +89,11 @@ public class MessageWebSocket {
 	         }
 	    }
 	    
-	    public static void broadcastToAll(Message message) {
+	    public static void broadcastToAll(MessageDTO messageDTO) {
 	        for (Set<Session> sessions : userSessions.values()) {
 	            String messageJson;
 	            try {
-	                messageJson = objectMapper.writeValueAsString(message);
+	                messageJson = new ObjectMapper().writeValueAsString(messageDTO);
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	                continue;

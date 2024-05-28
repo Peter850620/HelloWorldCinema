@@ -245,29 +245,29 @@
         </div>
     </div>
     <hr>
-
-	
 	<div class="main" id="main">
-		<a href="<%= request.getContextPath() %>/front_end/review/reviewFront.jsp">回主頁</a>
+		<a href="<%= request.getContextPath() %>/front/review.do?action=loadMovie">回主頁</a>
 		<a href="<%= request.getContextPath() %>/front/review.do?action=getMovie&movie=${oneMovie.movieId}">所有評論</a>
 		<div class="container">
 			<c:set var="sessionMem" value="${sessionScope.mem}" />
         	<div class="reviewlist" id="reviewlist">
         		<c:forEach var="review" items="${reviewList}">
-       				<div class="reviewItem">
-		               <span class="content_mem">${review.mem.memId}</span>
-		               <article class="content_article">
-		                   <span class="content_detail">${review.reviewDetails}</span>
-		               </article>
-		               <div class="content_footer">
-		                   <div class="timeItem">${review.reviewDate}</div>
-		                   <div class="content_report">
-		                   	<c:if test="${review.mem.memId != sessionScope.mem.memId}">
-		                   		<button type="button" onclick="showReportModal(${review.reviewId})">檢舉</button>
-		                   	</c:if>
-		                   </div>
+        			<c:if test="${review.reviewStatus.equals('顯示')}">
+        				<div class="reviewItem">
+			               <span class="content_mem">${review.mem.memId}</span>
+			               <article class="content_article">
+			                   <span class="content_detail">${review.reviewDetails}</span>
+			               </article>
+			               <div class="content_footer">
+			                   <div class="timeItem">${review.reviewDate}</div>
+			                   <div class="content_report">
+			                   	<c:if test="${review.mem.memId != sessionScope.mem.memId}">
+			                   		<button type="button" onclick="showReportModal(${review.reviewId})">檢舉</button>
+			                   	</c:if>
+			                   </div>
+			               </div>
 		               </div>
-	               </div>
+        			</c:if>
        			</c:forEach>
        			<div class="comment">
 		            <form method="post" action="<%= request.getContextPath() %>/front/review.do" id="reviewForm">
@@ -343,7 +343,6 @@
 		
 		    hideItemsBeyondLimit();
 		    if (numItems > numItemsToShow) {
-		      //itemlist.parentNode.appendChild(showMoreBtn);
 		      showMoreBtn.style.display = 'block'; 
 		    } else {
 		        showMoreBtn.style.display = 'none'; 
@@ -363,6 +362,7 @@
 	        .then(data => {
 	            if (data.success) {
 	                alert('檢舉成功');
+	                document.getElementById("rptDetail").value = '';
 	                document.getElementById("reportModal").style.display = "none";
 	            } else {
 	                alert('檢舉失敗: ' + data.errorMessage);

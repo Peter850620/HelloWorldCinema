@@ -1,6 +1,8 @@
 package com.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +54,7 @@ public class HomeAnnFrontServlet extends HttpServlet {
 
 			req.setAttribute("homeAnnList", homeAnnList);
 			req.setAttribute("currentPage", currentPage);
+			req.setAttribute("action", action);
 			String url = "/front_end/homeAnn/homeAnnFront.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -62,8 +65,19 @@ public class HomeAnnFrontServlet extends HttpServlet {
 			String page = req.getParameter("page");
 			int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 			List<HomeAnn> homeAnnList = homeAnnService.getByCompositeQuery(map, currentPage);
-
 			int homeAnnPageQty = 1;
+			
+			Map<String, Object> convertedMap = new HashMap<>();
+	        for (Map.Entry<String, String[]> entry : map.entrySet()) {
+	            String key = entry.getKey();
+	            String[] values = entry.getValue();
+
+	            if (values.length == 1) {
+	                convertedMap.put(key, values[0]);
+	            } else {
+	                convertedMap.put(key, Arrays.asList(values));
+	            }
+	        }
 			if (map != null) {
 				homeAnnPageQty = homeAnnService.getCompositeQueryTotal(map);
 			}
@@ -71,6 +85,8 @@ public class HomeAnnFrontServlet extends HttpServlet {
 			req.getSession().setAttribute("homeAnnPageQty", homeAnnPageQty);
 			req.setAttribute("currentPage", currentPage);
 			req.setAttribute("homeAnnList", homeAnnList);
+			req.setAttribute("convertedMap", convertedMap);
+			req.setAttribute("action", action);
 			String url = "/front_end/homeAnn/homeAnnFront.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);

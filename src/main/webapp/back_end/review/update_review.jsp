@@ -121,7 +121,6 @@
 				<div class="title">
 					<label for="reviewDetails">評論內容:</label>
 					<textarea id ="reviewDetails" name="reviewDetails" readonly>${param.reviewDetails}</textarea>
-					<span  id ="reviewDetails.errors" class="error">${errorMsgs.reviewDetails}</span>
 				</div>
 				<div class="title">
 					<input  type="hidden" name="action" value="update">
