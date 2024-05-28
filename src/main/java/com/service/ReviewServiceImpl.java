@@ -35,7 +35,6 @@ public class ReviewServiceImpl implements ReviewService {
 	// 刪除方法
 	@Override
 	public void deleteReview(Integer reviewId) {
-		// TODO Auto-generated method stub
 
 	}
 

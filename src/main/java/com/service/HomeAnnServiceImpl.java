@@ -14,6 +14,7 @@ import com.dao.HomeAnnDAO;
 import com.dao.HomeAnnDAOImpl;
 import com.dao.MessageDAO;
 import com.dao.MessageDAOImpl;
+import com.dto.MessageDTO;
 import com.websc.MessageWebSocket;
 
 public class HomeAnnServiceImpl implements HomeAnnService {
@@ -38,7 +39,18 @@ public class HomeAnnServiceImpl implements HomeAnnService {
 			message.setMsgTime(new Timestamp(System.currentTimeMillis()));
 			message.setMsgStatus("未讀");
 			msgDao.insert(message);
-			MessageWebSocket.broadcastToAll(message);
+			MessageDTO messageDTO = convertToDTO(message);
+			MessageWebSocket.broadcastToAll(messageDTO);
+	}
+	
+	private MessageDTO convertToDTO(Message message) {
+	    MessageDTO dto = new MessageDTO();
+	    dto.setMsgId(message.getMsgId());
+	    dto.setMsgTitle(message.getMsgTitle());
+	    dto.setMsgDetail(message.getMsgDetail());
+	    dto.setMsgTime(message.getMsgTime());
+	    dto.setMsgStatus(message.getMsgStatus());
+	    return dto;
 	}
 
 	@Override

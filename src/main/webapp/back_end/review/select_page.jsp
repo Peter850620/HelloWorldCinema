@@ -185,16 +185,16 @@
 		        </table>
 		        <div class="pageChange">
 		        	<c:if test="${currentPage > 1}">
-						<a href="<%= request.getContextPath() %>/back/review.do?action=getAll&page=1">至第一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/review.do?action=${action}&page=1&reviewId=${convertedMap.reviewId}&mem=${convertedMap.mem}&movieId=${convertedMap.movieId}&reviewStatus=${convertedMap.reviewStatus}">至第一頁</a>&nbsp;
 					</c:if>
 					<c:if test="${currentPage - 1 != 0}">
-						<a href="<%= request.getContextPath() %>/back/review.do?action=getAll&page=${currentPage - 1}">上一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/review.do?action=${action}&page=${currentPage - 1}&reviewId=${convertedMap.reviewId}&mem=${convertedMap.mem}&movieId=${convertedMap.movieId}&reviewStatus=${convertedMap.reviewStatus}">上一頁</a>&nbsp;
 					</c:if>
 					<c:if test="${currentPage + 1 <= reviewPageQty}">
-						<a href="<%= request.getContextPath() %>/back/review.do?action=getAll&page=${currentPage + 1}">下一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/review.do?action=${action}&page=${currentPage + 1}&reviewId=${convertedMap.reviewId}&mem=${convertedMap.mem}&movieId=${convertedMap.movieId}&reviewStatus=${convertedMap.reviewStatus}">下一頁</a>&nbsp;
 					</c:if>
 					<c:if test="${currentPage != reviewPageQty}">
-						<a href="<%= request.getContextPath() %>/back/review.do?action=getAll&page=${reviewPageQty}">至最後一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/review.do?action=${action}&page=${reviewPageQty}&reviewId=${convertedMap.reviewId}&mem=${convertedMap.mem}&movieId=${convertedMap.movieId}&reviewStatus=${convertedMap.reviewStatus}">至最後一頁</a>&nbsp;
 					</c:if>
 		        </div>
 	    	</div>

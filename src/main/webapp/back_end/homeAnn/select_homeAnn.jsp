@@ -156,16 +156,16 @@
 		        </table>
 		        <div class="pageChange">
 		        	<c:if test="${currentPage > 1}">
-						<a href="<%= request.getContextPath() %>/back/homeAnn.do?action=getAll&page=1">至第一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/homeAnn.do?action=${action}&page=1&annId=${convertedMap.annId}&annTitle=${convertedMap.annTitle}">至第一頁</a>&nbsp;
 					</c:if>
 					<c:if test="${currentPage - 1 != 0}">
-						<a href="<%= request.getContextPath() %>/back/homeAnn.do?action=getAll&page=${currentPage - 1}">上一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/homeAnn.do?action=${action}&page=${currentPage - 1}&annId=${convertedMap.annId}&annTitle=${convertedMap.annTitle}">上一頁</a>&nbsp;
 					</c:if>
 					<c:if test="${currentPage + 1 <= homeAnnPageQty}">
-						<a href="<%= request.getContextPath() %>/back/homeAnn.do?action=getAll&page=${currentPage + 1}">下一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/homeAnn.do?action=${action}&page=${currentPage + 1}&annId=${convertedMap.annId}&annTitle=${convertedMap.annTitle}">下一頁</a>&nbsp;
 					</c:if>
 					<c:if test="${currentPage != homeAnnPageQty}">
-						<a href="<%= request.getContextPath() %>/back/homeAnn.do?action=getAll&page=${homeAnnPageQty}">至最後一頁</a>&nbsp;
+						<a href="<%= request.getContextPath() %>/back/homeAnn.do?action=${action}&page=${homeAnnPageQty}&annId=${convertedMap.annId}&annTitle=${convertedMap.annTitle}">至最後一頁</a>&nbsp;
 					</c:if>
 		        </div>
 	    	</div>
