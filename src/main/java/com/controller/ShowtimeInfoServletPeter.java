@@ -156,7 +156,7 @@ public class ShowtimeInfoServletPeter extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				errorMsgs.put("Exception", "修改資料失敗:---------------");
-				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/food/update_showtomeInfo_input.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/showtimeInfo/update_showtimeInfo_input.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
