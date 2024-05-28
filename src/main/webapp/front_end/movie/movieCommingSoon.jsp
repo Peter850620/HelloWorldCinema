@@ -31,8 +31,18 @@ MovieServiceYuan movieSvc = new MovieServiceYuan();
 <br>
 <!-- ========================以下區域可放置其他內容======================== -->
 
+<div class="link-container">
+    <h4 class="link"><a href="<%=request.getContextPath()%>/front_end/homePage.jsp">首頁</a></h4>
+    <span>/</span>
+    <h4 class="link"><a href="<%=request.getContextPath()%>/front_end/movie/movieNowShowing.jsp">熱映中</a></h4>
+</div>
+<br>
+
 <h1 class="movie_list" style="display: block; color: #c1a57b; margin-left: 640px;">即將上映</h1>
 <br>
+
+
+
 <main id="main">
         <c:forEach var="movie" items="${list}">
         <a href="<%=request.getContextPath()%>/movie/movie.do?action=getOne_For_Info&movieId=${movie.movieId}">
