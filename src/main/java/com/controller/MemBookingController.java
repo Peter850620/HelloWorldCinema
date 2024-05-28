@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
-
+import com.dao.FoodItemDAO;
 import com.dao.BookingDAOImpl;
 import com.dao.FoodItemIDAOmpl;
 import com.dao.ShowtimeInfoDAOImpl;
@@ -214,6 +215,7 @@ public class MemBookingController extends HttpServlet {
 			foodorder.setFoodAmount(foodAmount);
 			int foodSubTotal = foodAmount * price;
 			foodorder.setFoodSubTotal(foodSubTotal);
+			foodorder.setPickStatus("未取餐");
 			foodorder.setBooking(bookingSuccess);
 			foodItems.add(foodorder);
 		}
@@ -248,6 +250,12 @@ public class MemBookingController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		synchronized (session) {
+			session.setAttribute("newbookingno", newbookingNo);
+		}
+		url = "/back_end/booking/loading.jsp";
+		successView = req.getRequestDispatcher(url);
+		successView.forward(req, res);
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
