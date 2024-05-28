@@ -1,4 +1,5 @@
 package com.websc;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +17,7 @@ public class SeatWebSocketB {
     // 儲存用戶ID  跟用戶座位集合
     private static Map<String, Set<String>> userSeatsMap = new ConcurrentHashMap<>();  //執行續安全
     private static Set<Session> sessions = new HashSet<>();
+    private static Map<String, String> userShow= new HashMap();
 
     @OnOpen
     public void onOpen(Session session) {
@@ -23,6 +25,7 @@ public class SeatWebSocketB {
      
         userSeatsMap.put(session.getId(), new HashSet<>());//有新用戶時把用戶ID加入 userSeatsMap的KEY 值是座位的SET
         sessions.add(session);  
+        sendAllSeatsStatus(session);
     }
 
     @OnMessage
@@ -35,6 +38,7 @@ public class SeatWebSocketB {
 
         String userId = session.getId();
         Set<String> seats = userSeatsMap.get(userId);  //取得用戶對應的座位Set
+       	userShow.put(userId, showid);
       
       
         switch (action) {
@@ -68,6 +72,27 @@ public class SeatWebSocketB {
         for (Session session : sessions) {
             if (session.isOpen()) {                             
                 session.getAsyncRemote().sendText(message);
+            }
+        }
+    }
+    
+    //當有新的工作人員預選同個場次時,要推播其他用戶的座位
+    private synchronized void sendAllSeatsStatus(Session session) {
+        for (Map.Entry<String, Set<String>> entry : userSeatsMap.entrySet()) {
+            Set<String> seats = entry.getValue();
+        	String show=userShow.get(entry.getKey());
+  
+            for (String seatId : seats) {
+            
+                String message = seatId + ",selected," +show; // 假设所有座位都属于相同的 showid
+              
+                sendToSession(session, message);
+                
+                try {
+                    Thread.sleep(50); // 避免快速發送訊息給新用戶造成
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

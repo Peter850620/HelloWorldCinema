@@ -214,7 +214,10 @@
         };
 
         function connectWebSocket() {
-            ws = new WebSocket("ws://localhost:8081/HelloWorldCinema/seatSyncb");
+         	var wsPath = "${pageContext.request.contextPath}/seatSyncb";
+
+        	// 創建 WebSocket 對象
+        	 ws = new WebSocket(wsPath);
 
             ws.onmessage = function(event) {
                 var message = event.data;

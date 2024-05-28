@@ -77,7 +77,7 @@ public class BookingService {
 		long total = bookingdao.getTotal(memId);
 	
 		int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
-		System.out.println(pageQty);
+		
 		return pageQty;
 	}
 	

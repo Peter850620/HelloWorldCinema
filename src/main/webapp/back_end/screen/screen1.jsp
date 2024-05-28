@@ -217,7 +217,9 @@
         };
 
         function connectWebSocket() {
-            ws = new WebSocket("ws://localhost:8081/HelloWorldCinema/seatSynca");
+        	
+        	var wsPath = "${pageContext.request.contextPath}/seatSynca";
+            ws = new WebSocket(wsPath);
 
             ws.onmessage = function(event) {
                 var message = event.data;

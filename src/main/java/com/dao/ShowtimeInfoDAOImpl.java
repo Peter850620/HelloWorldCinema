@@ -52,7 +52,7 @@ public class ShowtimeInfoDAOImpl implements ShowtimeInfoDAO {
 		return playdates;
 	}
 
-//	showtime
+
 	@Override
 	public List<ShowtimeInfo> getShowtimeByPlaydate(Integer movieId, Date playdate) {
 	    // 修改查詢語句，返回整個 ShowtimeInfo 對象，而不是 playdate
@@ -115,7 +115,7 @@ public class ShowtimeInfoDAOImpl implements ShowtimeInfoDAO {
 
 	@Override
 	public ShowtimeInfo getById(Integer showtimeId) {
-		System.out.println("hahahahahahaha我是DAO"+showtimeId);
+
 		return getSession().get(ShowtimeInfo.class, showtimeId);
 	}
 
@@ -171,7 +171,7 @@ public class ShowtimeInfoDAOImpl implements ShowtimeInfoDAO {
 		List<ShowtimeInfo> ShowtimeInfoList = ShowtimeInfoDAO.getAll();
 		for (ShowtimeInfo show : ShowtimeInfoList) {
 //		System.out.println(show.getMovie().getMovieName());
-			System.out.println(show);
+//			System.out.println(show);
 
 		}
 	}

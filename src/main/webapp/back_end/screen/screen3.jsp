@@ -203,7 +203,7 @@
 <script src="./back_end/screen/screen.js"></script>
 
 
-  <script type="text/javascript">
+    <script type="text/javascript">
         var ws;
         var seats = new Set();  // 當前用戶存取選的座位
         var showid=document.getElementById("myshowtimeInfo").value;
@@ -216,14 +216,21 @@
         };
 
         function connectWebSocket() {
-            ws = new WebSocket("ws://localhost:8081/HelloWorldCinema/seatSyncc");
+        	
+        	var wsPath = "${pageContext.request.contextPath}/seatSyncc";
+
+        	// 創建 WebSocket 對象
+        	 ws = new WebSocket(wsPath);
+      
 
             ws.onmessage = function(event) {
                 var message = event.data;
+                
+                console.log("Received message:", message); 
                 var seatInfo = message.split(',');
-                var seatId = seatInfo[0];
-                var seatStatus =seatInfo[1].trim();
-                var sentedShowId=seatInfo[2];
+                var seatId = seatInfo[0];   //取得座位號碼
+                var seatStatus =seatInfo[1].trim();   //取得狀態
+                var sentedShowId=seatInfo[2];   //取得場次
              
                 if(sentedShowId!==showid){
                 	
@@ -253,8 +260,8 @@
                 console.log('WebSocket 連接已開啟。');
             };
 
-            ws.onclose = function() {
-                console.log('WebSocket 連接已關閉。');
+            ws.onclose = function(event) {
+                console.log('WebSocket 連接已關閉。關閉碼：', event.code);
             };
 
             ws.onerror = function(err) {
