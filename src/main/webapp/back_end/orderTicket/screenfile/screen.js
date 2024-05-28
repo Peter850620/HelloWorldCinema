@@ -116,10 +116,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert(`超過 ${selectedCount - totalCount} 張票`);
                 // 不進行跳轉，僅顯示警告信息
             } else {
-                saveToSessionStorage(); // 點擊時保存座位狀態
-                console.log('Context path:', '<%=request.getContextPath()%>');
                 // 跳轉到檢查訂單頁面
-                window.location.href = 'http://localhost:8081/HelloWorldCinema/back_end/orderTicket/checkorder/checkorder.jsp';
+                window.location.href = '<%=request.getContextPath()%>/back_end/orderTicket/checkorder/checkorder.jsp';
             }
         });
     } else {
