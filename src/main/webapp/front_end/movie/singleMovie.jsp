@@ -89,7 +89,8 @@ if (showtimeIdParam != null) {
 
 		<!-- .tabs -->
 		<div id="tab${playdate.time}">
-
+		<br><br><br>
+		<div class="showtime_btn_container">
 			<c:forEach items="${showtimes}" var="showtime" varStatus="status">
 				<form action="<%=request.getContextPath()%>/movie/movie.do"
 					id="form${status.index}" method="post">
@@ -97,6 +98,7 @@ if (showtimeIdParam != null) {
 						<input type="hidden" name="action" value="setshowtimeId">
 						<input type="hidden" id="myshowId" name="showId"
 							value="${showtime.showtimeId}">
+							
 						<!-- 在這裡處理符合條件的 showtime 資料 -->
 						<a href="#" class="showtime_btn"
 							onclick="submitForm('form${status.index}'); return false;"> <c:out
