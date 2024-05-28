@@ -61,7 +61,7 @@ public class TicketDAOImpl implements TicketDAO {
 	
 	@Override
 	public List<Ticket> getAllforbooking() {
-	    List<Ticket> list = getSession().createQuery("FROM Ticket WHERE ticketStatus = :status", Ticket.class)
+	    List<Ticket> list = getSession().createQuery("FROM Ticket WHERE tkStatus = :status", Ticket.class)
 	                                    .setParameter("status", "上架")
 	                                    .list();
 	    return list;
