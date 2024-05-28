@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			const item = event.target.closest('.products, .ticket');
 			if (item) {
 				addToCart(item);
+				alert("已加入購物車");
 			} else {
 				console.error('未找到產品或票務元素！');
 			}
