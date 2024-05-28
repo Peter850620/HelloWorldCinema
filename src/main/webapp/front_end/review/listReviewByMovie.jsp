@@ -4,7 +4,6 @@
 <html lang="en">
 <head>
     <style>
-	    
 	    body {
             font-family: Arial, sans-serif;
             background-color: #f0f2f5;
@@ -249,11 +248,10 @@
 
 	
 	<div class="main" id="main">
-		<a href="<%= request.getContextPath() %>/front/message.do?action=getMem&mem=240001">進入個人通知</a>
-		<a href="<%= request.getContextPath() %>/front/review.do?action=getMem&mem=240001">進入個人評論</a>
 		<a href="<%= request.getContextPath() %>/front_end/review/reviewFront.jsp">回主頁</a>
 		<a href="<%= request.getContextPath() %>/front/review.do?action=getMovie&movie=${oneMovie.movieId}">所有評論</a>
 		<div class="container">
+			<c:set var="sessionMem" value="${sessionScope.mem}" />
         	<div class="reviewlist" id="reviewlist">
         		<c:forEach var="review" items="${reviewList}">
        				<div class="reviewItem">
@@ -264,7 +262,9 @@
 		               <div class="content_footer">
 		                   <div class="timeItem">${review.reviewDate}</div>
 		                   <div class="content_report">
-		                   	<button type="button" onclick="showReportModal(${review.reviewId})">檢舉</button>
+		                   	<c:if test="${review.mem.memId != sessionScope.mem.memId}">
+		                   		<button type="button" onclick="showReportModal(${review.reviewId})">檢舉</button>
+		                   	</c:if>
 		                   </div>
 		               </div>
 	               </div>
@@ -343,7 +343,10 @@
 		
 		    hideItemsBeyondLimit();
 		    if (numItems > numItemsToShow) {
-		      itemlist.parentNode.appendChild(showMoreBtn);
+		      //itemlist.parentNode.appendChild(showMoreBtn);
+		      showMoreBtn.style.display = 'block'; 
+		    } else {
+		        showMoreBtn.style.display = 'none'; 
 		    }
 	  	});
 

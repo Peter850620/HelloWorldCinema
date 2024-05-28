@@ -43,8 +43,6 @@ public class ReviewController extends HttpServlet {
 		System.out.print(action);
 
 		if ("getAll".equals(action)) {
-			// HttpSession session = req.getSession();
-			// Integer reviewId = (Integer) session.getAttribute("reviewId");
 			String page = req.getParameter("page");
 			int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 			List<Review> reviewList = reviewService.getAllReviews(currentPage);

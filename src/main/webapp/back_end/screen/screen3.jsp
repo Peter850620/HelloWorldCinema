@@ -42,6 +42,7 @@
 			%>
 			<h3 class="select-text">請選擇座位</h3>
 			<h3 class="select-text">電影:<%=show.getMovie().getMovieName() %></h3>
+			<input type="hidden" id="myshowtimeInfo"value="<%=show.getShowtimeId()%>">
 		</div>
 		<div class="exit exit--front"></div>
 		<ol class="cabin">
@@ -94,7 +95,7 @@
 
 					<li class="seat"><input type="checkbox"
 						id="<%=firstThreeLetter%>" name="seatStatus"
-						value="<%=eachSeat%>"  /> <label
+						value="<%=eachSeat%>"  onclick="toggleSeat(this.id, this.checked);"/> <label
 						for="<%=firstThreeLetter%>"><%=firstThreeLetter%></label></li>
 
 
@@ -201,12 +202,111 @@
 
 <script src="./back_end/screen/screen.js"></script>
 
-<script>
+
+    <script type="text/javascript">
+        var ws;
+        var seats = new Set();  // 當前用戶存取選的座位
+        var showid=document.getElementById("myshowtimeInfo").value;
+ 
+
+        window.onload = function() {
+            connectWebSocket();
+            updateSelectedCount();
+          
+        };
+
+        function connectWebSocket() {
+        	
+        	var wsPath = "${pageContext.request.contextPath}/seatSyncc";
+
+        	// 創建 WebSocket 對象
+        	 ws = new WebSocket(wsPath);
+      
+
+            ws.onmessage = function(event) {
+                var message = event.data;
+                
+                console.log("Received message:", message); 
+                var seatInfo = message.split(',');
+                var seatId = seatInfo[0];   //取得座位號碼
+                var seatStatus =seatInfo[1].trim();   //取得狀態
+                var sentedShowId=seatInfo[2];   //取得場次
+             
+                if(sentedShowId!==showid){
+                	
+                	return;
+                }
+                
+                if (seatStatus.startsWith("Error")) {    //如果用戶取消非自己的座位時會傳送ERROR回來
+                    alert(seatStatus);
+                    var checkbox = document.getElementById(seatId);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                        seats.delete(seatId);
+                        console.log( "我是選到別人"+selectedSeats);
+                    }
+                    
+                } else {
+                    var checkbox = document.getElementById(seatId);
+                    if (checkbox) {
+                        checkbox.checked = (seatStatus === 'selected');
+                    } else {
+                        console.error('找不到ID為', seatId, '的座位元素');
+                    }
+                }
+            };
+
+            ws.onopen = function() {
+                console.log('WebSocket 連接已開啟。');
+            };
+
+            ws.onclose = function(event) {
+                console.log('WebSocket 連接已關閉。關閉碼：', event.code);
+            };
+
+            ws.onerror = function(err) {
+                console.error('WebSocket 錯誤：', err);
+            };
+        }
+
+        function toggleSeat(seatId, isChecked) {
+       
+
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                var message = seatId + "," + (isChecked ? 'selected' : 'cancelled')+","+showid;
+                ws.send(message);  //發送給服務器
+               
+                
+                if (isChecked) {
+                    seats.add(seatId);
+                  
+                  
+                } else {
+                    seats.delete(seatId);
+                  
+                }
+                updateSelectedCount();
+                
+                
+            } else {
+                console.error("WebSocket 未連接或關閉。");
+            }
+        }
+        
 
 
-	
 
-</script>
+        //更新P標籤的功能
+            function updateSelectedCount() {
+            let howmanyseat = seats.size;
+            	document.getElementById('selectedCount').textContent = howmanyseat;
+            	sessionStorage.setItem("quantity", howmanyseat);
+
+
+            }
+
+        
+    </script>
 </body>
 </html>
 	

@@ -3,20 +3,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 	<style>
-
 		 body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
         }
+        
+        .compositequery {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .compositequery a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #007BFF;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .compositequery a:hover {
+            background-color: #007BFF;
+            color: #fff;
+        }
 
         .item-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: flex-start;
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
@@ -55,7 +77,7 @@
         }
 
         button#showBtn {
-            display: block;
+            display: none;
             width: 200px;
             margin: 20px auto;
             padding: 15px;
@@ -82,39 +104,26 @@
 <%@ include file="../index/indexHeader.jsp" %>
 <!-- ========================以下區域可放置其他內容======================== -->
  	<div id="xxx">
+ 		<div class="compositequery">
+			<a href="<%= request.getContextPath() %>/front/review.do?action=compositeQuery&movieStatus=即將上映">即將上映</a>
+			<a href="<%= request.getContextPath() %>/front/review.do?action=compositeQuery&movieStatus=熱映中">熱映中</a>
+			<a href="<%= request.getContextPath() %>/front/review.do?action=compositeQuery&movieStatus=已下檔">已下檔</a>
+			<a href="<%= request.getContextPath() %>/front/review.do?action=loadMovie">所有電影</a>
+		</div>
  		<div class="item-container">
 	 		<c:forEach var="movie" items="${movieList}">
 				<div class="item">
 			        <a href="<%= request.getContextPath() %>/front/review.do?action=getMovie&movie=${movie.movieId}">
-			          <div class="item-flip">
-			            <div class="item-inner">
-			              <img src="<%=request.getContextPath()%>/movie/MovieGifReader?movieId=${movie.movieId}"  alt="Image">
-			            </div>
+		              	<img src="<%=request.getContextPath()%>/movie/MovieGifReader?movieId=${movie.movieId}"  alt="Image">
 			            <div class="item-details">
 		                	<h2 class="movie-title">${movie.movieName}</h2>
 			          	</div>
-			          </div>
 			        </a>
 			      </div>
 	      	</c:forEach>
-		      <div class="item">
-		          <div class="item-flip">
-		            <div class="item-inner">
-		              <img src="<%=request.getContextPath()%>/images/hakunamatata.jpg"  alt="Image">
-		            </div>
-		            <div class="item-details">
-	                	<h2 class="movie-title">冰鳥國棟</h2>
-		          	</div>
-		          </div>
-		      
-		      </div>
-	      
-	      
 	      <button id="showBtn">顯示更多</button>
  		</div>
 	</div>
-
-
 
 <!-- ========================以上區域可放置其他內容======================== -->
 <%@ include file="../index/indexFooter.jsp" %>
@@ -126,8 +135,6 @@
       document.addEventListener("DOMContentLoaded", function() {
       var itemContainer = document.querySelector('.item-container');
       var items = document.querySelectorAll('.item');
-      // var showMoreBtn = document.createElement('button');
-      // showMoreBtn.textContent = '顯示更多';
       var numItemsToShow = 15;
       var numItems = items.length;
       var currentIndex = 0;
@@ -160,7 +167,7 @@
       // 載入，隱藏剩三行
       hideItemsBeyondLimit();
       if (numItems > numItemsToShow) {
-        itemContainer.parentNode.appendChild(showMoreBtn);
+        showMoreBtn.style.display = 'block';
       }
     });
 

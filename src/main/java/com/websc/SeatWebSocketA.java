@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
+import java.util.concurrent.CopyOnWriteArraySet;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -12,10 +12,8 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import io.lettuce.core.output.SocketAddressOutput;
-
-@ServerEndpoint("/seatSync")
-public class SeatWebSocket {
+@ServerEndpoint("/seatSynca")
+public class SeatWebSocketA {
     // 儲存用戶ID  跟用戶座位集合
     private static Map<String, Set<String>> userSeatsMap = new ConcurrentHashMap<>();  //執行續安全
     private static Map<String, String> userShow= new HashMap();
@@ -24,10 +22,9 @@ public class SeatWebSocket {
     @OnOpen
     public void onOpen(Session session) {
 
-
+     
         userSeatsMap.put(session.getId(), new HashSet<>());//有新用戶時把用戶ID加入 userSeatsMap的KEY 值是座位的SET
         sessions.add(session);  
-        
         sendAllSeatsStatus(session);
     }
 
@@ -42,7 +39,6 @@ public class SeatWebSocket {
         String userId = session.getId();
         Set<String> seats = userSeatsMap.get(userId);  //取得用戶對應的座位Set
        	userShow.put(userId, showid);
- 
       
         switch (action) {
             case "selected":
@@ -62,25 +58,13 @@ public class SeatWebSocket {
         }
         broadcast(seatId, action,showid);
     }
-    
-    
-    private void broadcast(String seatId, String status,String showid) {  //推播地方
-        String message = seatId + "," + status+","+showid;
-        for (Session session : sessions) {
-            if (session.isOpen()) {                             
-                session.getAsyncRemote().sendText(message);
-            }
-        }
-    }
 
-
-    private synchronized void sendToSession(Session session, String message) {
+    private void sendToSession(Session session, String message) {
         if (session.isOpen()) {
     
             session.getAsyncRemote().sendText(message);   //發送訊息給前端
         }
     }
-
     
     //當有新的工作人員預選同個場次時,要推播其他用戶的座位
     private synchronized void sendAllSeatsStatus(Session session) {
@@ -103,8 +87,15 @@ public class SeatWebSocket {
         }
     }
     
-    
-   
+
+    private void broadcast(String seatId, String status,String showid) {  //推播地方
+        String message = seatId + "," + status+","+showid;
+        for (Session session : sessions) {
+            if (session.isOpen()) {                             
+                session.getAsyncRemote().sendText(message);
+            }
+        }
+    }
 
     @OnClose
     public void onClose(Session session) {

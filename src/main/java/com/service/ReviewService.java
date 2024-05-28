@@ -14,7 +14,7 @@ public interface ReviewService {
 	void updateReview(Review review);
 	
 	void deleteReview(Integer reviewId);
-	//X
+
 	Review getOneReview(Integer reviewId);
 	
 	List<Review> getByMovie(Movie movie);

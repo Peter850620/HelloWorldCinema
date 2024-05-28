@@ -154,6 +154,7 @@ public class BookingController extends HttpServlet {
 		case "formShowTime":
 			
 		        String showDate=req.getParameter("showDate");
+		        System.out.println("我是日期:"+showDate );
 		        List<Movie> movies =bookingService.findMoviesShowingToday(showDate);
 		        req.setAttribute("movies", movies);
 		        url = "/back_end/booking/bookingMovie.jsp";

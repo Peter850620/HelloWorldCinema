@@ -81,8 +81,8 @@
     <div class="main" id="main">
     	<h1>個人通知</h1>
         <div class="message_head">
-        	<a href="<%= request.getContextPath() %>/front_end/review/reviewFront.jsp">回會員中心</a>	<!-- 路徑要改 -->
-            <a href="<%= request.getContextPath() %>/front/message.do?action=getMem&mem=240001">所有通知</a>
+        	<a href="<%= request.getContextPath() %>/front/review.do?action=loadMovie">回主頁</a>
+            <a href="<%= request.getContextPath() %>/front/message.do?action=getMem">所有通知</a>
         </div>
 		
 		<div class="message_container">

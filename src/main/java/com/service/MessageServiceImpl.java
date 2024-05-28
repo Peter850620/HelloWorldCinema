@@ -11,6 +11,7 @@ import com.dao.MessageDAO;
 import com.dao.MessageDAOImpl;
 import com.entity.Mem;
 import com.entity.Message;
+import com.websc.MessageWebSocket;
 
 public class MessageServiceImpl implements MessageService {
 
@@ -20,12 +21,13 @@ public class MessageServiceImpl implements MessageService {
 	public MessageServiceImpl() {
 		dao = new MessageDAOImpl();
 	}
-	
-	
 
 	@Override
 	public void addMessage(Message message) {
 			dao.insert(message);
+			Integer userId = message.getMem().getMemId();
+			System.out.println("Broadcasting message to user: " + userId);
+			MessageWebSocket.broadcast(userId, message);
 	}
 
 	@Override
@@ -35,7 +37,6 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	public void deleteMessage(Integer msgId) {
-		// TODO Auto-generated method stub
 
 	}
 

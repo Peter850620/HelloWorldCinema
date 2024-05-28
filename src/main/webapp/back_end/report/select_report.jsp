@@ -180,14 +180,14 @@
 								<td>
 									<c:choose>
 										<c:when test="${report.rptStatus.equals('未審核')}">
-										<form method="post" action="<%= request.getContextPath() %>/back/report.do" class="formPost" style="margin-bottom: 0px;">
+										<form method="post" action="<%= request.getContextPath() %>/back/report.do" class="formPost">
 										     <input type="submit" value="審核">
 										     <input type="hidden" name="rptId" value="${report.rptId}">
 										     <input type="hidden" name="action"	value="getUpdate">
 									     </form>
 										</c:when>
 										<c:otherwise>
-											<form method="post" action="<%= request.getContextPath() %>/back/report.do" class="formPost" style="margin-bottom: 0px;">
+											<form method="post" action="<%= request.getContextPath() %>/back/report.do" class="formPost">
 											     <input type="submit" value="查看">
 											     <input type="hidden" name="rptId" value="${report.rptId}">
 											     <input type="hidden" name="action"	value="getUpdate">
