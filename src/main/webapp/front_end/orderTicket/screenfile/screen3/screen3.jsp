@@ -11,12 +11,12 @@
 <title>世界影城 HelloWorld Cinema</title>
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen3/screen3.css">
+	href="<%=request.getContextPath()%>/front_end/orderTicket/screenfile/screen3/screen3.css">
 <style>
 </style>
 </head>
 
-<jsp:include page="/back_end/orderTicket/index/indexHeader.jsp"
+<jsp:include page="/front_end/orderTicket/index/indexHeader.jsp"
 	flush="true" />
 
 
@@ -226,11 +226,11 @@
 
 
 	<script
-		src="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen.js">
+		src="<%=request.getContextPath()%>/front_end/orderTicket/screenfile/screen.js">
 		
 	</script>
 
 </body>
-<jsp:include page="/back_end/orderTicket/index/indexFooter.jsp"
+<jsp:include page="/front_end/orderTicket/index/indexFooter.jsp"
 	flush="true" />
 </html>

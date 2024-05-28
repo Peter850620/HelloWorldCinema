@@ -271,10 +271,10 @@ public class MovieController extends HttpServlet {
 				try {
 					off = LocalDate.parse(offParam);
 				} catch (IllegalArgumentException e) {
-					errorMsgs.put("offDate", "請選擇上映日期");
+					errorMsgs.put("offDate", "請選擇下檔日期");
 				}
 			} else {
-				errorMsgs.put("offDate", "請選擇上映日期");
+				errorMsgs.put("offDate", "請選擇下檔日期");
 			}
 
 			String lan = req.getParameter("language");
@@ -318,6 +318,16 @@ public class MovieController extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
+			
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("movie", movieUpdate); // 原本錯誤的電影資訊也一起存在REQUEST
+				req.setAttribute("errorMsgs", errorMsgs);
+				url = "/back_end/movie/updateMovie.jsp";
+				System.out.println(errorMsgs);
+				RequestDispatcher fail = req.getRequestDispatcher(url);
+				fail.forward(req, res);
+				return; // 程式中斷
+			}
 
 			movieUpdate.setMovieName(name);
 			movieUpdate.setRuntime(time);
@@ -332,15 +342,7 @@ public class MovieController extends HttpServlet {
 			movieUpdate.setTrailer(trailers);
 
 //		
-			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("movie", movieUpdate); // 原本錯誤的電影資訊也一起存在REQUEST
-				req.setAttribute("errorMsgs", errorMsgs);
-				url = "/back_end/movie/updateMovie.jsp";
-				System.out.println(errorMsgs);
-				RequestDispatcher fail = req.getRequestDispatcher(url);
-				fail.forward(req, res);
-				return; // 程式中斷
-			}
+		
 
 			// =====================2.開始新增資料================================
 			movieSvc.updateMovie(movieUpdate);
