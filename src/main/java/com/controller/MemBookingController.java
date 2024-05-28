@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.io.ByteArrayOutputStream;
+
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -56,11 +57,12 @@ public class MemBookingController extends HttpServlet {
 		show = new ShowtimeInfoDAOImpl();
 	}
 
+	private static final String BASE_URL = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeServlet";
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		HttpSession session = req.getSession(true);
-		
+
 		switch (action) {
 		case "findScreen":
 			handleFindScreen(req, res);
@@ -81,6 +83,7 @@ public class MemBookingController extends HttpServlet {
 			res.sendRedirect("defaultPage.jsp");
 			break;
 		}
+
 	}
 
 	private void bookWhichShow(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -88,7 +91,7 @@ public class MemBookingController extends HttpServlet {
 		ShowtimeInfo whichShow = memBookingService.findRightShow(showId);
 		String screenUrl = memBookingService.findRightScreenId(showId);
 
-		HttpSession session = req.getSession();  // 添加這一行來取得 session
+		HttpSession session = req.getSession(); // 添加這一行來取得 session
 		session.removeAttribute("whichShow");
 		session.setAttribute("whichShow", whichShow);
 
@@ -97,12 +100,34 @@ public class MemBookingController extends HttpServlet {
 		successView.forward(req, res);
 	}
 
-	private void handleGetBookingSuccess(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	private void handleGetBookingSuccess(HttpServletRequest req, HttpServletResponse res)
+			throws ServletException, IOException {
+
+		String url = "";
+
+		RequestDispatcher successView;
+		
+//		Integer mem = Integer.valueOf(req.getParameter("mem"));
+//		System.out.println("mem" + mem);
+		
 		String paymentType = req.getParameter("paymentType");
+		System.out.println("Payment Type: " + paymentType);
+
 		String screenId = req.getParameter("screenId");
+		System.out.println("Screen ID: " + screenId);
+
 		Integer finalshowId = Integer.valueOf(req.getParameter("showId"));
-		Integer total = Integer.valueOf(req.getParameter("total"));
+		System.out.println("Show ID: " + finalshowId);
+
+		Integer total = Integer.valueOf(req.getParameter("subtotal"));
+		System.out.println("Total: " + total);
+
 		String bookingSeats = req.getParameter("seatNo");
+		System.out.println("Booking Seats: " + bookingSeats);
+
+		String seatSelection = req.getParameter("seatSelection");
+		System.out.println("seatSelection: " + seatSelection);
+
 		String[] seatsArray = bookingSeats.split(" ");
 		List<Integer> eachTkId = new ArrayList<>();
 		Integer tkValue;
@@ -114,24 +139,28 @@ public class MemBookingController extends HttpServlet {
 			tkValue = tkIdValues.get(tkId);
 			for (int x = 1; x <= tkValue; x++) {
 				switch (tkId) {
-					case "tkId1":
-						eachTkId.add(1);
-						break;
-					case "tkId2":
-						eachTkId.add(2);
-						break;
-					case "tkId3":
-						eachTkId.add(3);
-						break;
-					case "tkId4":
-						eachTkId.add(4);
-						break;
+				case "tkId1":
+					eachTkId.add(1);
+					break;
+				case "tkId2":
+					eachTkId.add(2);
+					break;
+				case "tkId3":
+					eachTkId.add(3);
+					break;
+				case "tkId4":
+					eachTkId.add(4);
+					break;
 				}
 			}
 		}
 
 		Integer quantity = eachTkId.size();
+		System.out.println("quantity: " + quantity);
+
 		Date today = new Date(System.currentTimeMillis());
+		System.out.println("today: " + today);
+
 		Booking bookingSuccess = new Booking();
 
 		bookingSuccess.setBookingDate(today);
@@ -140,10 +169,15 @@ public class MemBookingController extends HttpServlet {
 		bookingSuccess.setPickupOption("電子票");
 		bookingSuccess.setTotal(total);
 		bookingSuccess.setQuantity(quantity);
+		bookingSuccess.setMem(null);
 
 		Screen screen = memBookingService.findScreen(screenId);
+		System.out.println("screen: " + screen);
+
 		bookingSuccess.setScreen(screen);
 		ShowtimeInfo show = memBookingService.findRightShow(finalshowId);
+		System.out.println("show: " + show);
+		
 		bookingSuccess.setShowtimeInfo(show);
 
 		Set<OrderItem> orderItems = new HashSet<>();
@@ -152,11 +186,13 @@ public class MemBookingController extends HttpServlet {
 				int ticketId = eachTkId.remove(0);
 				OrderItem item = new OrderItem();
 				item.setSeatNo(seatNo);
+				System.out.println("seatNo: " + seatNo);
 				item.setEntryStatus("未使用");
 				item.setTicket(memBookingService.findTicket(ticketId));
+				System.out.println("ticketId1111111111111: " + ticketId);
 				item.setBooking(bookingSuccess);
+				System.out.println("bookingSuccess1111111111111: " + bookingSuccess);
 				orderItems.add(item);
-				memBookingService.bookSeats(finalshowId, seatNo);
 			}
 		}
 
@@ -164,12 +200,12 @@ public class MemBookingController extends HttpServlet {
 
 		Set<FoodItem> foodItems = new HashSet<>();
 		for (int i = 0; i < 7; i++) {
-			FoodItem foodorder = new FoodItem();
 			String foodParam = req.getParameter("foodId" + i);
 			if (foodParam == null)
 				break;
 			Integer foodId = Integer.valueOf(foodParam);
 			Food food = memBookingService.findOneFood(foodId);
+			FoodItem foodorder = new FoodItem();
 			foodorder.setFood(food);
 			int price = food.getFoodPrice();
 			Integer foodAmount = Integer.valueOf(req.getParameter("foodAmount" + i));
@@ -184,29 +220,30 @@ public class MemBookingController extends HttpServlet {
 			bookingSuccess.setFoodItem(foodItems);
 		}
 
-		HttpSession session = req.getSession();
+		HttpSession session = req.getSession(true);
 
-		// Integer newbookingNo = memBookingService.createBooking(bookingSuccess);
+		Integer newbookingNo = memBookingService.createBooking(bookingSuccess);
 
-		// try {
-		//     List<OrderItem> seats = memBookingService.findSeatByBookingNo(newbookingNo);
-		//     for (OrderItem orderItem : seats) {
-		//         String currentSeat = orderItem.getSeatNo();
-		//         String qrText = String.format("%s?bookingNo=%s&showId=%s&seatNo=%s", BASE_URL, newbookingNo, show.getShowtimeId(), currentSeat);
-		//         byte[] qrCodeImage = generateQRCodeImage(qrText, 350, 350);
-		//         orderItem.setQrcode(qrCodeImage);
-		//         System.out.println("QR Code generated successfully for" + currentSeat);
-		//     }
-		// } catch (Exception e) {
-		//     e.printStackTrace();
-		// }
+		try {
+			List<OrderItem> seats = memBookingService.findSeatByBookingNo(newbookingNo);
+			for (OrderItem orderItem : seats) {
+				String currentSeat = orderItem.getSeatNo();
+				String qrText = String.format("%s?bookingNo=%s&showId=%s&seatNo=%s", BASE_URL, newbookingNo,
+						show.getShowtimeId(), currentSeat);
+				byte[] qrCodeImage = generateQRCodeImage(qrText, 350, 350);
+				orderItem.setQrcode(qrCodeImage);
+				System.out.println("QR Code generated successfully for" + currentSeat);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		synchronized (session) {
+			session.setAttribute("newbookingno", newbookingNo);
+		}
+		url = "/back_end/booking/loading.jsp";
+		successView = req.getRequestDispatcher(url);
+		successView.forward(req, res);
 
-		// synchronized (session) {
-		//     session.setAttribute("newbookingno", newbookingNo);
-		// }
-		// url = "/back_end/booking/loading.jsp";
-		// successView = req.getRequestDispatcher(url);
-		// successView.forward(req, res);
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -242,6 +279,7 @@ public class MemBookingController extends HttpServlet {
 	private void handleFindScreen(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		String screenId = req.getParameter("screenId");
+
 		String url = memBookingService.findRightScreenId(Integer.parseInt(screenId));
 
 		if (url != null) {
@@ -269,7 +307,7 @@ public class MemBookingController extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		Integer showId = (Integer) session.getAttribute("showtimeId");
-		System.out.println("showtimeId=========:" + showId);
+		System.out.println("showtimeId:" + showId);
 
 		ShowtimeInfo show = null;
 		if (showId != null) {

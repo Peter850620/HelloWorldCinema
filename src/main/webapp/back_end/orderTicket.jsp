@@ -10,6 +10,7 @@
 ShowtimeInfo show = (ShowtimeInfo) request.getAttribute("selectedShow");
 List<Ticket> ticket = (List<Ticket>) request.getAttribute("tickets");
 List<Food> food = (List<Food>) request.getAttribute("food");
+Mem mem = (Mem)request.getAttribute("mem");
 %>
 <!DOCTYPE html>
 <html>

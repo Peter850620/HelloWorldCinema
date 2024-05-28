@@ -211,7 +211,7 @@
 						</div>
 						<div class="barcode">
 							<img
-								src="https://external-preview.redd.it/cg8k976AV52mDvDb5jDVJABPrSZ3tpi1aXhPjgcDTbw.png?auto=webp&s=1c205ba303c1fa0370b813ea83b9e1bddb7215eb"
+								src="<%=request.getContextPath()%>/food/FoodGifReader?bookingNo=<%=booking.getBookingNo()%>"
 								alt="QR code">
 						</div>
 
@@ -243,7 +243,7 @@
         function redirectToSearch(){
         	
         	
-        	window.location.href="back_end/booking/bookingSearch.jsp"
+        	window.location.href="<%=request.getContextPath()%>/back_end/booking/bookingSearch.jsp"
         }
     </script>
 
