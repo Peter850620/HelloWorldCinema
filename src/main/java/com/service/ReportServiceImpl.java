@@ -12,6 +12,7 @@ import com.dao.MessageDAO;
 import com.dao.MessageDAOImpl;
 import com.dao.ReportDAO;
 import com.dao.ReportDAOImpl;
+import com.dto.MessageDTO;
 import com.entity.Message;
 import com.entity.Report;
 import com.entity.Review;
@@ -28,6 +29,17 @@ public class ReportServiceImpl implements ReportService {
 		msgDao = new MessageDAOImpl();
 	}
 
+	private MessageDTO convertToDTO(Message message) {
+	    MessageDTO dto = new MessageDTO();
+	    dto.setMsgId(message.getMsgId());
+	    dto.setMemId(message.getMem().getMemId());
+	    dto.setMsgTitle(message.getMsgTitle());
+	    dto.setMsgDetail(message.getMsgDetail());
+	    dto.setMsgTime(message.getMsgTime());
+	    dto.setMsgStatus(message.getMsgStatus());
+	    return dto;
+	}
+	
 	@Override
 	public void addReport(Report report) {
 			dao.insert(report);
@@ -39,8 +51,9 @@ public class ReportServiceImpl implements ReportService {
 			message.setMsgTime(new Timestamp(System.currentTimeMillis()));
 			message.setMsgStatus("未讀");
 			msgDao.insert(message);
+			MessageDTO messageDTO = convertToDTO(message);
 			Integer userId = report.getMem().getMemId();
-			MessageWebSocket.broadcast(userId, message);
+			MessageWebSocket.broadcast(userId, messageDTO);
 	}
 
 	@Override
@@ -60,8 +73,9 @@ public class ReportServiceImpl implements ReportService {
 					message2.setMsgTime(new Timestamp(System.currentTimeMillis()));
 					message2.setMsgStatus("未讀");
 					msgDao.insert(message2);
+					MessageDTO messageDTO = convertToDTO(message);
 					Integer userId = report.getReview().getMem().getMemId();
-					MessageWebSocket.broadcast(userId, message2);
+					MessageWebSocket.broadcast(userId, messageDTO);
 				}else {
 					message.setMsgTitle("留言檢舉未通過");
 					message.setMsgDetail("檢舉通過，審核後未發現不當之處。");
@@ -69,15 +83,15 @@ public class ReportServiceImpl implements ReportService {
 				message.setMsgTime(new Timestamp(System.currentTimeMillis()));
 				message.setMsgStatus("未讀");
 				msgDao.insert(message);
+				MessageDTO messageDTO = convertToDTO(message);
 				Integer userId = report.getMem().getMemId();
-				MessageWebSocket.broadcast(userId, message);
+				MessageWebSocket.broadcast(userId, messageDTO);
 			}
 			
 	}
 
 	@Override
 	public void deleteReport(Integer rptId) {
-		
 
 	}
 

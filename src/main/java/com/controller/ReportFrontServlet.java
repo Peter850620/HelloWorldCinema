@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.entity.Mem;
 import com.entity.Report;
@@ -63,12 +64,10 @@ public class ReportFrontServlet extends HttpServlet {
 		if ("insert".equals(action)) {
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			
-//			HttpSession session = req.getSession();
-//			Integer reviewId = (Integer) session.getAttribute("review");
+
 			Integer reviewId = Integer.valueOf(req.getParameter("reviewId"));	
-//			Integer memId = (Integer) session.getAttribute("mem");
-//			Integer memId = Integer.valueOf(req.getParameter("mem"));
+			HttpSession session = req.getSession();
+			Mem mem = (Mem) session.getAttribute("mem");
 			
 			String rptType = req.getParameter("rptType").trim();
 			String rptTypeReg = "^.{2,20}$";
@@ -102,11 +101,7 @@ public class ReportFrontServlet extends HttpServlet {
 			Review review = new Review();
 			review.setReviewId(reviewId);
 			report.setReview(review);
-			
-			Mem mem = new Mem();
-			mem.setMemId(240001);
 			report.setMem(mem);
-
 			report.setRptType(rptType);
 			report.setRptDetail(rptDetail);
 			Timestamp rptDate = new Timestamp(System.currentTimeMillis());

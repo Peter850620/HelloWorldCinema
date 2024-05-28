@@ -1,6 +1,8 @@
 package com.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +59,7 @@ public class ReportServlet extends HttpServlet {
 
 			req.setAttribute("reportList", reportList);
 			req.setAttribute("currentPage", currentPage);
+			req.setAttribute("action", action);
 			
 			String url = "/back_end/report/select_report.jsp";   
 			RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -68,8 +71,19 @@ public class ReportServlet extends HttpServlet {
 			String page = req.getParameter("page");
 			int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 			List<Report> reportList = reportService.getByCompositeQuery(map, currentPage);
-
 			int reportPageQty = 1;
+			
+			Map<String, Object> convertedMap = new HashMap<>();
+	        for (Map.Entry<String, String[]> entry : map.entrySet()) {
+	            String key = entry.getKey();
+	            String[] values = entry.getValue();
+
+	            if (values.length == 1) {
+	                convertedMap.put(key, values[0]);
+	            } else {
+	                convertedMap.put(key, Arrays.asList(values));
+	            }
+	        }
 			if (map != null) {
 				reportPageQty = reportService.getCompositeQueryTotal(map);
 			}
@@ -77,6 +91,8 @@ public class ReportServlet extends HttpServlet {
 			req.getSession().setAttribute("reportPageQty", reportPageQty);
 			req.setAttribute("currentPage", currentPage);
 			req.setAttribute("reportList", reportList);
+			req.setAttribute("convertedMap", convertedMap);
+			req.setAttribute("action", action);
 			String url = "/back_end/report/select_report.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
