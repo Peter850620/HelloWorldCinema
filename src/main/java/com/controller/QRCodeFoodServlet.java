@@ -53,9 +53,9 @@ public class QRCodeFoodServlet extends HttpServlet {
 
 		    out.println("<div class=\"center\">"); 
 		    out.println("訂單編號: " + bookingNoParam + "<br>");
-//		    for(FoodItem foodItem : foodItems) {
-//		    out.write("餐點明細: " + foodInfo + "<br>");
-//		    }
+		    for(FoodItem foodItem : foodItems) {
+			    out.write("餐點名稱: " + foodItem.getFood().getFoodName() + "  餐點名稱: " + foodItem.getFoodAmount() +"<br>");
+		    }
 		   
 		    out.write("<span class=\"red-text\">入場許可: " + ableToEnter + "</span>");
 		    out.println("</div>");
