@@ -282,14 +282,14 @@
 		
 		
 		
-	 // 監聽購物車內容的變化並計算商品總數量
-	    function calculateTotalQuantity(cartItems) {
-	        var totalQuantity = 0;
-	        cartItems.forEach(function(item) {
-	            totalQuantity += item.merchQty; // 假設 cartItems 中每個元素包含 merchQty 屬性表示商品數量
-	        });
-	        return totalQuantity;
-	    }
+// 	 // 監聽購物車內容的變化並計算商品總數量
+// 	    function calculateTotalQuantity(cartItems) {
+// 	        var totalQuantity = 0;
+// 	        cartItems.forEach(function(item) {
+// 	            totalQuantity += item.merchQty; // 假設 cartItems 中每個元素包含 merchQty 屬性表示商品數量
+// 	        });
+// 	        return totalQuantity;
+// 	    }
 
 
 
@@ -339,9 +339,9 @@
 			    localStorage.setItem('cartInfo', JSON.stringify(cartInfo));
 	    }
 	    
-	 // 計算商品總數量並更新界面
-	    var totalQuantity = calculateTotalQuantity(cartItems);
-	    $('#total-quantity').text(totalQuantity);
+// 	 // 計算商品總數量並更新界面
+// 	    var totalQuantity = calculateTotalQuantity(cartItems);
+// 	    $('#total-quantity').text(totalQuantity);
 	
 	   
 	    

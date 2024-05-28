@@ -44,8 +44,8 @@
             <tr>
                 <td>取貨方式:</td>
                 <td><select id="pickupOption" name="pickupOption" required>
-                        <option value="現場取貨">現場取貨</option>
-                        <option value="宅配">宅配</option>
+                        <option value="現場取貨" <%= "現場取貨".equals(merchOrder.getPickupOption()) ? "selected" : "" %>>現場取貨</option>
+                        <option value="宅配" <%= "宅配".equals(merchOrder.getPickupOption()) ? "selected" : "" %>>宅配</option>
                     </select>
                 </td>
             </tr>
@@ -53,8 +53,8 @@
             <tr>
                 <td>付款方式:</td>
                 <td><select name="paymentType" required>
-                        <option value="線上付款">線上付款</option>
-                        <option value="匯款">匯款</option>
+                       <option value="線上付款" <%= "線上付款".equals(merchOrder.getPaymentType()) ? "selected" : "" %>>線上付款</option>
+                        <option value="匯款" <%= "匯款".equals(merchOrder.getPaymentType()) ? "selected" : "" %>>匯款</option>
                     </select>
                 </td>
             </tr>
@@ -62,9 +62,9 @@
             <tr>
                 <td>出貨狀態:</td>
                 <td><select name="receiptStatus" required>
-                        <option value="未出貨">未出貨</option>
-                        <option value="已出貨">已出貨</option>
-                        <option value="已取消">已取消</option>
+                         <option value="未出貨" <%= "未出貨".equals(merchOrder.getReceiptStatus()) ? "selected" : "" %>>未出貨</option>
+                        <option value="已出貨" <%= "已出貨".equals(merchOrder.getReceiptStatus()) ? "selected" : "" %>>已出貨</option>
+                        <option value="已取消" <%= "已取消".equals(merchOrder.getReceiptStatus()) ? "selected" : "" %>>已取消</option>
                     </select>
                 </td>
             </tr>
@@ -97,6 +97,10 @@ var receiptAddrRow = document.getElementById("receiptAddrRow");
 var receiptMobileRow = document.getElementById("receiptMobileRow");
 
 pickupOption.addEventListener("change", function() {
+    toggleRecipientInfo();
+});
+
+function toggleRecipientInfo() {
     if (pickupOption.value === "宅配") {
         recipientRow.style.display = "";
         receiptAddrRow.style.display = "";
@@ -106,13 +110,10 @@ pickupOption.addEventListener("change", function() {
         receiptAddrRow.style.display = "none";
         receiptMobileRow.style.display = "none";
     }
-});
-
-if (pickupOption.value !== "宅配") {
-    recipientRow.style.display = "none";
-    receiptAddrRow.style.display = "none";
-    receiptMobileRow.style.display = "none";
 }
+
+// Initial check when page loads
+toggleRecipientInfo();
 </script>  
 
 </body>
