@@ -38,6 +38,9 @@ public class FoodItem {
 
 	@Column(name = "pick_status", nullable = false, insertable = false)
 	private String pickStatus;
+	
+	@Column(name = "qrcode",columnDefinition = "MEDIUMBLOB")
+	private byte[] qrcode;
 
 	public Integer getFoodSeq() {
 		return foodSeq;
@@ -87,6 +90,14 @@ public class FoodItem {
 		this.pickStatus = pickStatus;
 	}
 	
+	public byte[] getQrcode() {
+		return qrcode;
+	}
+
+	public void setQrcode(byte[] qrcode) {
+		this.qrcode = qrcode;
+	}
+
 	@Override
 	public String toString() {
 		return "FoodItem [food_seq=" + foodSeq + ", food_id=" + food + ", food_amount=" + foodAmount + ", food_sub_total=" + foodSubTotal + ", pick_status=" + pickStatus

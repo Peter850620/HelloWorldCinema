@@ -23,7 +23,7 @@ public interface FoodItemDAO  {
 	
 	
 	 List<FoodItem> getFoodbyBookingNo(Integer bookingNo);
-
-
-
+	 
+	 // 餐點QRCODE
+	 String qrUpdateStatus(Integer bookingNo);
 }
