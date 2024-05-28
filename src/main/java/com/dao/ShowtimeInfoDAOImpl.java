@@ -3,6 +3,8 @@ package com.dao;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -57,17 +59,33 @@ public class ShowtimeInfoDAOImpl implements ShowtimeInfoDAO {
 //	showtime
 	@Override
 	public List<ShowtimeInfo> getShowtimeByPlaydate(Integer movieId, Date playdate) {
-		
-//		Timestamp now = new Timestamp(System.currentTimeMillis());
-
-	    List<ShowtimeInfo> showtimes = getSession()
-	            .createQuery("FROM ShowtimeInfo WHERE movie.movieId = :movieId AND playdate = :playdate", ShowtimeInfo.class)
-	            .setParameter("movieId", movieId)
-	            .setParameter("playdate", playdate)
-//	            .setParameter("now", now)    AND showtime > :now
-	            .list();
-	    return showtimes;
+	    
+//	    // Check if the playdate is today
+//	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//	    String playdateStr = sdf.format(playdate);
+//	    String todayStr = sdf.format(new Date());
+//
+//	    boolean isToday = playdateStr.equals(todayStr);
+//
+//	    if (isToday) {
+//	    	Timestamp now = new Timestamp(System.currentTimeMillis());
+//	        List<ShowtimeInfo> showtime = getSession()
+//	                .createQuery("FROM ShowtimeInfo WHERE movie.movieId = :movieId AND playdate = :playdate AND showtime > :now", ShowtimeInfo.class)
+//	                .setParameter("movieId", movieId)
+//	                .setParameter("playdate", playdate)
+//	                .setParameter("now", now)
+//	                .list();
+//	        return showtime;
+//	    } else {
+	        List<ShowtimeInfo> showtimes = getSession()
+	                .createQuery("FROM ShowtimeInfo WHERE movie.movieId = :movieId AND playdate = :playdate", ShowtimeInfo.class)
+	                .setParameter("movieId", movieId)
+	                .setParameter("playdate", playdate)
+	                .list();
+	        return showtimes;
+//	    }
 	}
+
 	
 	//	博雅實作，後台場次複合查詢(影廳、播放日期、電影)
 	@Override
