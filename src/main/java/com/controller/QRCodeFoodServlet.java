@@ -33,7 +33,7 @@ public class QRCodeFoodServlet extends HttpServlet {
 
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		if (bookingNoParam != null && foodInfo != null) {
+		if (bookingNoParam != null/* && foodInfo != null*/) {
 		    Integer bookingNo = Integer.valueOf(bookingNoParam);
 		    String ableToEnter = foodItemSvc.updateStatus(bookingNo);
 		    List<FoodItem> foodItems = foodItemSvc.getFoodItems(bookingNo);
@@ -53,9 +53,9 @@ public class QRCodeFoodServlet extends HttpServlet {
 
 		    out.println("<div class=\"center\">"); 
 		    out.println("訂單編號: " + bookingNoParam + "<br>");
-		    for(FoodItem foodItem : foodItems) {
-		    out.write("餐點明細: " + foodInfo + "<br>");
-		    }
+//		    for(FoodItem foodItem : foodItems) {
+//		    out.write("餐點明細: " + foodInfo + "<br>");
+//		    }
 		   
 		    out.write("<span class=\"red-text\">入場許可: " + ableToEnter + "</span>");
 		    out.println("</div>");
