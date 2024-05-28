@@ -77,7 +77,7 @@ public class BookingService {
 		long total = bookingdao.getTotal(memId);
 	
 		int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
-		System.out.println(pageQty);
+		
 		return pageQty;
 	}
 	
@@ -148,6 +148,7 @@ public class BookingService {
 	
 	//找出今日上映電影
 	public List<Movie> findMoviesShowingToday(String playDate) {
+		  
 		Date date=Date.valueOf(playDate);
 		
 		return moviedao.findMoviesShowingToday(date);
