@@ -167,10 +167,10 @@ public class MemBookingController extends HttpServlet {
 		
 		bookingSuccess.setScreen(screen);
 		ShowtimeInfo show = memBookingService.findRightShow(finalshowId);
-		
 		System.out.println("show: " + show);
+		
 		bookingSuccess.setShowtimeInfo(show);
-
+		
 		Set<OrderItem> orderItems = new HashSet<>();
 		for (String seatNo : seatsArray) {
 			if (!eachTkId.isEmpty()) {
