@@ -253,6 +253,7 @@ h3 {
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
+	padding-left:65px;
 }
 
 
@@ -301,10 +302,16 @@ button.btn {
 	border-radius: 5px;
 	cursor: pointer;
 	transition: background-color 0.3s;
-	width:200px;
-	margin-left:100px;
+
+	margin-left:50px;
 	margin-bottom:100px;
 }
+
+#back{
+	
+	margin-left:10px !important;
+}
+
 
 button.btn:hover {
 	background-color: #0056b3;

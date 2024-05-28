@@ -35,6 +35,25 @@ public class MovieServletYuan extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
+//<=============================================首頁=========================================>
+		
+//		現正熱映輪播
+		if ("showNowMovies".equals(action)) {
+	        // 調用 getNowMovies 方法獲取狀態為「熱映中」的電影列表
+	        String movieStatus = "熱映中";
+	        MovieServiceYuan movieSvc = new MovieServiceYuan();
+	        List<Movie> nowShowingMovies = movieSvc.getNowMovies(movieStatus);
+
+	        // 將狀態為「熱映中」的電影列表設置到 request 的屬性中
+	        req.setAttribute("nowShowingMovies", nowShowingMovies);
+
+	        // 轉發到相應的 JSP 文件中顯示結果
+	        String url = "/front_end/homePage.jsp";
+	        RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+	        dispatcher.forward(req, res);
+	    }
+		
+//<============================================瀏覽電影資訊=========================================>
 		
 //	單一電影
 	if("getOne_For_Info".equals(action)) {

@@ -66,7 +66,15 @@ input[type="checkbox"]:checked {
 	
 	background-color:#0b0b6d;
 }
+.button-container {
+    display: flex;
+    justify-content: space-between; /* 将按钮平均分布在容器中 */
+    margin-bottom: 10px; /* 可以调整按钮与表单之间的间距 */
+}
 
+#back {
+    margin-left: auto; /* 将该按钮推到右边 */
+}
 
 
 .btn {

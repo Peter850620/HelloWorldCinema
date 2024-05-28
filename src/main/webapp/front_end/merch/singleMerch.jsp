@@ -45,12 +45,12 @@
                 <h2>商品介紹: </h2>
                 <p><span>${merch.merchInfo}</span></p>
                 <ul>
-                    <li>宅配配送區域: <span>台澎金馬</span></li>
+                    <li>宅配配送區域: <span>台灣本島</span></li>
                     <li>宅配運費: <span>視距離而定，貨到付款</span></li>
                 </ul>
             </div>
             <div class="product-price">
-                <p class="price">Price: <span id="merchPrice">${merch.merchPrice}</span></p>
+                <p class="price">$NT: <span id="merchPrice">${merch.merchPrice}</span></p>
             </div>
             <!-- 加入購物車按鈕 -->
 			<div class="page-wrapper">
@@ -64,6 +64,8 @@
         </div>
     </div>
 </div>
+
+<jsp:include page="/front_end/index/indexFooter.jsp" flush="true" /> 	
 
 <!-- 查看購物車 -->
 <div id='cart-wrapper' class="slider close">
@@ -133,12 +135,22 @@
 	    });
 
 // 	    加入商品至購物車
-	    $('.add-to-cart').click(function () {
-	        
-	    	var quantity = parseInt($('#quantityInput').val());
-	       
-	        addToCart(memberId, productId, productName, productPrice, quantity);
-	    });
+
+	    	$('.add-to-cart').click(function (e) {
+	            e.preventDefault(); // 防止默认行为
+	            // 判断是否已登录
+	            if (!memberId) {
+	                // 跳转到登录页面
+	                window.location.href = '<%=request.getContextPath()%>/front_end/mem/mem.jsp';
+	            } else {
+	                // 获取数量并添加到购物车
+	                var quantity = parseInt($('#quantityInput').val());
+	                addToCart(memberId, productId, productName, productPrice, quantity);
+	            }
+	        });
+	    
+	    
+	  
 
 
 
@@ -351,6 +363,7 @@
 	
 	</script>
 
-	<jsp:include page="/front_end/index/indexFooter.jsp" flush="true" /> 
+
 </body>
+
 </html>
