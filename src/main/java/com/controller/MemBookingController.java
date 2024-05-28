@@ -202,12 +202,12 @@ public class MemBookingController extends HttpServlet {
 			if (foodParam == null)
 				break;
 			Integer foodId = Integer.valueOf(foodParam);
-			System.out.println();
+			System.out.println(foodId);
 			Food food = memBookingService.findOneFood(foodId);
-			System.out.println();
+			System.out.println(food);
 			FoodItem foodorder = new FoodItem();
 			foodorder.setFood(food);
-			int price = food.getFoodPrice();
+//			int price = food.getFoodPrice();
 			Integer foodAmount = Integer.valueOf(req.getParameter("foodAmount" + i));
 			foodorder.setFoodAmount(foodAmount);
 //			int foodSubTotal = foodAmount * price;

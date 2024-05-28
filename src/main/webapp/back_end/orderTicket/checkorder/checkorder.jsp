@@ -42,6 +42,8 @@
 			<input type="hidden" id="tkId2" name="tkId2" value="tkId2">
 			<input type="hidden" id="tkId3" name="tkId3" value="tkId3">
 			<input type="hidden" id="tkId4" name="tkId4" value="tkId4">
+			
+			
 			<input type="hidden" name="seatSelection" value="">
 			<input type="hidden" name="memId" value="<%=mem.getMemId()%>">
 			<input type="hidden" name="showId" value="showId">
