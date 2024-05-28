@@ -58,13 +58,13 @@ public class ShowtimeInfoDAOImpl implements ShowtimeInfoDAO {
 	@Override
 	public List<ShowtimeInfo> getShowtimeByPlaydate(Integer movieId, Date playdate) {
 		
-		Timestamp now = new Timestamp(System.currentTimeMillis());
+//		Timestamp now = new Timestamp(System.currentTimeMillis());
 
 	    List<ShowtimeInfo> showtimes = getSession()
-	            .createQuery("FROM ShowtimeInfo WHERE movie.movieId = :movieId AND playdate = :playdate AND showtime > :now", ShowtimeInfo.class)
+	            .createQuery("FROM ShowtimeInfo WHERE movie.movieId = :movieId AND playdate = :playdate", ShowtimeInfo.class)
 	            .setParameter("movieId", movieId)
 	            .setParameter("playdate", playdate)
-	            .setParameter("now", now)
+//	            .setParameter("now", now)    AND showtime > :now
 	            .list();
 	    return showtimes;
 	}
