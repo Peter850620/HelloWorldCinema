@@ -21,7 +21,7 @@ public class QRCodeGeneratorFood {
 
 	
 	//屆時要改專案名
-	private static final String BASE_URL = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeServlet"; 
+	private static final String BASE_URL = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeFoodServlet"; 
 //	private static final String BASE_URL = "http://localhost:8081/HelloWorldCinema/QRCodeFoodServlet";  
     BookingService bs=new BookingService();
     
