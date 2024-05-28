@@ -24,4 +24,8 @@ public class ShowtimeInfoServicebohan {
         
         return dao.getShowtimeByPlaydate(movieId, playdate);
     }
+    
+    public ShowtimeInfo findmyshow(Integer showId) {
+    	return dao.getmyshow(showId);
+    }
 }

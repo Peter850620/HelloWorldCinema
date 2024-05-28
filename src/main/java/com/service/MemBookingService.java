@@ -16,6 +16,8 @@ import com.dao.FoodDAO;
 import com.dao.FoodDAOImpl;
 import com.dao.FoodItemDAO;
 import com.dao.FoodItemIDAOmpl;
+import com.dao.MemDAO;
+import com.dao.MemDAOImpl;
 import com.dao.MovieDAO;
 import com.dao.MovieDAOImpl;
 import com.dao.OrderItemDAO;
@@ -29,6 +31,7 @@ import com.dao.TicketDAOImpl;
 import com.entity.Booking;
 import com.entity.Food;
 import com.entity.FoodItem;
+import com.entity.Mem;
 import com.entity.Movie;
 import com.entity.OrderItem;
 import com.entity.Screen;
@@ -45,6 +48,8 @@ public class MemBookingService {
 	private MovieDAO moviedao;
 	private ScreenDAO screendao;
 	private TicketDAO ticketao;
+	private MemDAO memdao;
+	
 
 	public MemBookingService() {
 
@@ -56,6 +61,7 @@ public class MemBookingService {
 		moviedao = new MovieDAOImpl();
 		screendao = new ScreenDAOImpl();
 		ticketao = new TicketDAOImpl();
+		memdao = new MemDAOImpl();
 	}
 
 //	public List<Booking> getMemBookings(Integer memId,Integer currentPage){
@@ -143,6 +149,11 @@ public class MemBookingService {
 	public ShowtimeInfo findRightShow(Integer showId) {
 
 		return showtimedao.getById(showId);
+	}
+	
+	public Mem findMem(Integer memId) {
+		
+		return memdao.findMem(memId);
 	}
 	
 	public void changeSeatStatus(Integer showId,String seatStatus) {

@@ -16,13 +16,16 @@
 	href="<%=request.getContextPath()%>/back_end/orderTicket/screenfile/screen1/screen1.css">
 </head>
 <body>
-	<jsp:include page="/back_end/orderTicket/index/indexHeader.jsp"
+	<jsp:include page="/front_end/index/indexHeader.jsp"
 		flush="true" />
 	<form id="checkout-form"
 		action="<%=request.getContextPath()%>/MemBookingController"
 		method="post">
 		<%
 		ShowtimeInfo show = (ShowtimeInfo) session.getAttribute("whichShow");
+		
+		Mem mem=(Mem)session.getAttribute("mem");
+		Integer memId=mem.getMemId();
 		%>
 		<div class="theatre">
 			<div class="screen-side">
@@ -40,6 +43,7 @@
 			<input type="hidden" id="tkId3" name="tkId3" value="tkId3">
 			<input type="hidden" id="tkId4" name="tkId4" value="tkId4">
 			<input type="hidden" name="seatSelection" value="">
+			<input type="hidden" name="memId" value="<%=mem.getMemId()%>">
 			<input type="hidden" name="showId" value="showId">
 			<div style="text-align: center;">
 				<button type="button" id="lastButton">上一步</button>
