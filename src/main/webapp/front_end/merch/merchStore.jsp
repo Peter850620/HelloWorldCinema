@@ -51,7 +51,7 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
             </c:forEach>
         </div>
     </div>
-
+<jsp:include page="/front_end/index/indexFooter.jsp" flush="true" /> 	
 
 <!-- 查看購物車 -->
 <div id='cart-wrapper' class="slider close">
@@ -131,7 +131,7 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 
 
 	    function addToCart(memberId, productId, productName, productPrice, quantity) {
-	        fetch('cart/insert',{
+	        fetch('/merch/cart/insert',{
 	            method: 'POST',
 	            headers: {
 	                'Content-Type': 'application/json'
@@ -171,7 +171,7 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 	 // 從購物車移除商品
 	    function removeFromCart(productId) {
 	    	
-	        fetch("cart/removeCart?memId=" + memberId + "&merchId=" + productId, {
+	        fetch("/merch/cart/removeCart?memId=" + memberId + "&merchId=" + productId, {
 	            method: 'Post'
 	        })
 	        .then(response => response.json())
@@ -194,7 +194,7 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 
 			// 更新購物車商品項目的數量
 	function updateCartItemQty(memId, merchId, quantity) {
-	    fetch("cart/updateQty?memId=" + memId + "&merchId=" + merchId + "&newQty=" + quantity, {
+	    fetch("/merch/cart/updateQty?memId=" + memId + "&merchId=" + merchId + "&newQty=" + quantity, {
 	        method: 'POST'
 	    })
 	    .then(response => {
@@ -234,7 +234,8 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 
 // 	    查看購物車，將資料庫內容炫染至購物車畫面上
 	    function fetchCartItems() {
-		    fetch("cart/cartItems?memId=" + memberId, {
+	console.log(memberId)
+		    fetch("/merch/cart/cartItems?memId=" + memberId, {
 		        method: 'GET'
 		    })
 		    .then(response => {
@@ -307,7 +308,7 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 // 		結帳
 	    $('#checkout').click(function () {
 	        // 獲取購物車資訊
-	        fetch('cart/cartItems?memId=' + memberId, {
+	        fetch('/merch/cart/cartItems?memId=' + memberId, {
 	            method: 'GET'
 	        })
 	        .then(response => {
@@ -339,6 +340,7 @@ MerchServiceYuan merchSvc = new MerchServiceYuan();
 	
 	</script>
 	
-	<jsp:include page="/front_end/index/indexFooter.jsp" flush="true" /> 
+
 </body>
+
 </html>
