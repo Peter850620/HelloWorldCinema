@@ -253,7 +253,7 @@ public class MemBookingController extends HttpServlet {
 		synchronized (session) {
 			session.setAttribute("newbookingno", newbookingNo);
 		}
-		url = "/back_end/booking/loading.jsp";
+		url = "/front_end/orderTicket/finalticket/loading.jsp";
 		successView = req.getRequestDispatcher(url);
 		successView.forward(req, res);
 	}
