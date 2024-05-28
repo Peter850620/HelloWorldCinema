@@ -1,21 +1,17 @@
 package com.dao;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-
 import java.util.Locale;
 import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import com.entity.Movie;
-import com.entity.Screen;
 import com.entity.ShowtimeInfo;
 import com.util.HibernateUtil;
 
@@ -46,20 +42,29 @@ public class ShowtimeInfoDAOImpl implements ShowtimeInfoDAO {
 	// playdate，根據movieId取得>=今天的所有playdate並去除重複值
 	@Override
 	public List<Date> getPlaydatesById(Integer movieId) {
+
+		
 		List<Date> playdates = getSession().createQuery(
-				"SELECT DISTINCT playdate FROM ShowtimeInfo WHERE movie.movieId = :movieId AND playdate >= :today",
-				Date.class).setParameter("movieId", movieId).setParameter("today", new Date()).list();
+				"SELECT DISTINCT playdate FROM ShowtimeInfo WHERE movie.movieId = :movieId AND playdate >= :today ORDER BY playdate",
+			Date.class)
+				.setParameter("movieId", movieId)
+				.setParameter("today", new Date())
+				.setMaxResults(7)
+				.list();
 		return playdates;
 	}
 
 //	showtime
 	@Override
 	public List<ShowtimeInfo> getShowtimeByPlaydate(Integer movieId, Date playdate) {
-	    // 修改查詢語句，返回整個 ShowtimeInfo 對象，而不是 playdate
+		
+		Timestamp now = new Timestamp(System.currentTimeMillis());
+
 	    List<ShowtimeInfo> showtimes = getSession()
-	            .createQuery("FROM ShowtimeInfo WHERE movie.movieId = :movieId AND playdate >= :playdate", ShowtimeInfo.class)
+	            .createQuery("FROM ShowtimeInfo WHERE movie.movieId = :movieId AND playdate = :playdate AND showtime > :now", ShowtimeInfo.class)
 	            .setParameter("movieId", movieId)
 	            .setParameter("playdate", playdate)
+	            .setParameter("now", now)
 	            .list();
 	    return showtimes;
 	}

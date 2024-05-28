@@ -31,7 +31,7 @@ MovieServiceYuan movieSvc = new MovieServiceYuan();
 <br>
 <!-- ========================以下區域可放置其他內容======================== -->
 
-<h1 class="movie_list" style="display: block; color: #c1a57b; margin-left: 565px;">即將上映</h1>
+<h1 class="movie_list" style="display: block; color: #c1a57b; margin-left: 640px;">即將上映</h1>
 <br>
 <main id="main">
         <c:forEach var="movie" items="${list}">

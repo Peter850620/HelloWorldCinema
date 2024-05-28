@@ -13,6 +13,14 @@ public class MovieServiceYuan {
 	public MovieServiceYuan() {
 		dao = new MovieDAOImpl();
 	}
+	//<=============================================首頁=========================================>
+	
+//	現正熱映輪播
+	public List<Movie> showNowMovies(String movieStatus) {
+	    return (List<Movie>) dao.getByStatus(movieStatus);
+	}
+	
+	//<=============================================瀏覽電影資訊=========================================>
 	
 //	單一電影
 	public Movie getOneMovie(Integer movieId) {

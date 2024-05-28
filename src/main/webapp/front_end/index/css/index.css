@@ -148,7 +148,7 @@ h1 span {
   header{
     position: sticky;
     top: 0;
-
+background-color: black;
     z-index: 7;
   }
 
@@ -212,6 +212,8 @@ ul{
 .footer{
   height: 350;
   padding: 10px 0;
+  position: fixed;
+  bottom: 0;
 }
 .footer-col{
   height: 350px ;

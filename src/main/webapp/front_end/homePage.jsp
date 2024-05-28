@@ -10,7 +10,7 @@
 
 <%
 MovieServiceYuan movieSvc = new MovieServiceYuan();
-List<Movie> list = movieSvc.getNowMovies("熱映中");
+List<Movie> list = movieSvc.showNowMovies("熱映中");
 pageContext.setAttribute("list", list);
 %>
 
@@ -49,11 +49,11 @@ pageContext.setAttribute("list", list);
 	<!-- 消息輪播 -->
 
     <div class="your-class">
-        <div><image src="https://picsum.photos/id/238/1400/600"></div>
-        <div><image src="https://picsum.photos/id/239/1400/600"></div>
-        <div><image src="https://picsum.photos/id/240/1400/600"></div>
-        <div><image src="https://picsum.photos/id/241/1400/600"></div>
-        <div><image src="https://picsum.photos/id/242/1400/600"></div>
+        <div><image src="<%=request.getContextPath()%>/images/movie6.jpg"></div>
+        <div><image src="<%=request.getContextPath()%>/images/movie7.jpg"></div>
+        <div><image src="<%=request.getContextPath()%>/images/movie8.jpg"></div>
+        <div><image src="<%=request.getContextPath()%>/images/movie9.jpg"></div>
+        <div><image src="<%=request.getContextPath()%>/images/movie10.jpg"></div>
     </div>
 
 
@@ -61,7 +61,7 @@ pageContext.setAttribute("list", list);
 
     <!-- 現正熱映連結 -->
     <div class="container1">
-        <a class="btn" href="/movieNowShowing.html">現正熱映</a>
+        <a class="btn" href="<%=request.getContextPath()%>/front_end/movie/movieNowShowing.jsp">現正熱映</a>
     </div>
 
     
@@ -74,71 +74,19 @@ pageContext.setAttribute("list", list);
                 <div class="swiper-container">
                 
                     <div class="solution-cardlist swiper-wrapper">
-                        <div class="col-sm-4 swiper-slide">
-                            <div class="solution-card">
-                                <img src="./img/moviePV1.jpg" width="100%">
-                                <h3>功夫熊貓4</h3>
-                                <!-- <p></p> -->
-                                <span><a  href="#"><span class="arrow-more">場次時刻</span><span class="arrow-f"></span></a>
-                                </a>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 swiper-slide">
-                            <div class="solution-card">
-                                <img src="./img/moviePV2.jpg" width="100%">
-                                <h3>可憐的東西</h3>
-                                <!-- <p></p> -->
-                                <span><a  href="#"><span class="arrow-more">場次時刻</span><span class="arrow-f"></span></a>
-                                </a>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 swiper-slide">
-                            <div class="solution-card">
-                                <img src="./img/moviePV3.jpg" width="100%">
-                                <h3>沙丘2</h3>
-                                <!-- <p></p> -->
-                                <span><a  href="#"><span class="arrow-more">場次時刻</span><span class="arrow-f"></span></a>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 swiper-slide">
-                            <div class="solution-card">
-                                <img src="./img/moviePV4.jpg" width="100%">
-                                <h3>芭比</h3>
-                                <!-- <p></p> -->
-                                <span><a  href="#"><span class="arrow-more">場次時刻</span><span class="arrow-f"></span></a>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 swiper-slide">
-                            <div class="solution-card">
-                                <img src="./img/moviePV5.jpg" width="100%">
-                                <h3>奧本海默</h3>
-                                <!-- <p></p> -->
-                                <span><a  href="#"><span class="arrow-more">場次時刻</span><span class="arrow-f"></span></a>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 swiper-slide">
-                            <div class="solution-card">
-                                <img src="./img/moviePV6.jpg" width="100%">
-                                <h3>刻在你心裡的名字</h3>
-                                <!-- <p></p> -->
-                                <span><a  href="#"><span class="arrow-more">場次時刻</span><span class="arrow-f"></span></a>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 swiper-slide">
-                            <div class="solution-card">
-                                <img src="./img/moviePV7.jpg" width="100%">
-                                <h3>月老</h3>
-                                <!-- <p></p> -->
-                                <span><a  href="#"><span class="arrow-more">場次時刻</span><span class="arrow-f"></span></a>
-                                </span>
-                            </div>
-                        </div>
+                    	<c:forEach var="movie" items="${list}">
+	                        <div class="col-sm-4 swiper-slide">
+	                            <div class="solution-card">
+	                                <img src="<%=request.getContextPath()%>/movie/MovieGifReader?movieId=${movie.movieId}" alt="Image" width="100%">
+	                                <h3>${movie.movieName}</h3>
+	                                <!-- <p></p> -->
+	                                <span><a  href="<%=request.getContextPath()%>/movie/movie.do?action=getOne_For_Info&movieId=${movie.movieId}"><span class="arrow-more">場次時刻</span><span class="arrow-f"></span></a>
+	                                </a>
+	                                </span>
+	                            </div>
+	                        </div>
+                        </c:forEach>
+                      
                     </div>
                     <!-- <div class="swiper-pagination solution-pagination"></div> -->
                 </div>
