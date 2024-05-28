@@ -2,9 +2,11 @@ package com.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -180,7 +182,9 @@ public class ReviewFrontServlet extends HttpServlet {
 				review.setMovie(movie);
 				
 				Timestamp reviewDate = new Timestamp(System.currentTimeMillis());
-				System.out.println("=====================================" + reviewDate);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd''HH:mm:ss");
+				sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+				String formattedDate = sdf.format(reviewDate);
 				review.setReviewDate(reviewDate);
 				review.setReviewDetails(reviewDetails);
 				review.setReviewStatus("顯示");
@@ -189,6 +193,7 @@ public class ReviewFrontServlet extends HttpServlet {
 				res.setContentType("application/json");
 	            res.setCharacterEncoding("UTF-8");
 	            Map<String, Object> response = new LinkedHashMap<>();
+	            response.put("reviewDate", formattedDate);
 	            response.put("success", true);
 	            response.put("message", "留言成功");
 	            ObjectMapper mapper = new ObjectMapper();
