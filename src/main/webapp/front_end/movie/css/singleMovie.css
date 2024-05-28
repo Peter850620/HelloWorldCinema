@@ -149,7 +149,7 @@ ul.tabs {
     display: flex;
     flex-direction: row; /* 默认为row，可以省略 */
 
-    gap: 5px; /* 设置按钮之间的间距 */
+    gap: 10px; /* 设置按钮之间的间距 */
 }
 
 

@@ -43,9 +43,9 @@
             
             <tr>
                 <td>取貨方式:</td>
-                <td><select name="pickupOption" required>
-                        <option value="現場取貨">現場取貨</option>
-                        <option value="宅配">宅配</option>
+                <td><select id="pickupOption" name="pickupOption" required>
+                        <option value="現場取貨" <%= "現場取貨".equals(merchOrder.getPickupOption()) ? "selected" : "" %>>現場取貨</option>
+                        <option value="宅配" <%= "宅配".equals(merchOrder.getPickupOption()) ? "selected" : "" %>>宅配</option>
                     </select>
                 </td>
             </tr>
@@ -53,8 +53,8 @@
             <tr>
                 <td>付款方式:</td>
                 <td><select name="paymentType" required>
-                        <option value="線上付款">線上付款</option>
-                        <option value="匯款">匯款</option>
+                       <option value="線上付款" <%= "線上付款".equals(merchOrder.getPaymentType()) ? "selected" : "" %>>線上付款</option>
+                        <option value="匯款" <%= "匯款".equals(merchOrder.getPaymentType()) ? "selected" : "" %>>匯款</option>
                     </select>
                 </td>
             </tr>
@@ -62,24 +62,24 @@
             <tr>
                 <td>出貨狀態:</td>
                 <td><select name="receiptStatus" required>
-                        <option value="未出貨">未出貨</option>
-                        <option value="已出貨">已出貨</option>
-                        <option value="已取消">已取消</option>
+                         <option value="未出貨" <%= "未出貨".equals(merchOrder.getReceiptStatus()) ? "selected" : "" %>>未出貨</option>
+                        <option value="已出貨" <%= "已出貨".equals(merchOrder.getReceiptStatus()) ? "selected" : "" %>>已出貨</option>
+                        <option value="已取消" <%= "已取消".equals(merchOrder.getReceiptStatus()) ? "selected" : "" %>>已取消</option>
                     </select>
                 </td>
             </tr>
             
             <tr>
                 <td>收貨人:</td>
-                <td><input type="TEXT" name="recipient" value="<%= (merchOrder==null)? "" : merchOrder.getRecipient()%>" size="35"/></td>
+                <td><input type="TEXT" id="recipientRow" name="recipient" value="<%= (merchOrder==null)? "" : merchOrder.getRecipient()%>" size="35"/></td>
             </tr>
             <tr>
                 <td>收貨地址:</td>
-                <td><input type="TEXT" name="receiptAddr" value="<%= (merchOrder==null)? "" : merchOrder.getReceiptAddr()%>" size="60"/></td>
+                <td><input type="TEXT" id="receiptAddrRow" name="receiptAddr" value="<%= (merchOrder==null)? "" : merchOrder.getReceiptAddr()%>" size="60"/></td>
             </tr>
             <tr>
                 <td>收貨人電話:</td>
-                <td><input type="TEXT" name="receiptMobile" value="<%= (merchOrder==null)? "" : merchOrder.getReceiptMobile()%>" size="35"/></td>
+                <td><input type="TEXT" id="receiptMobileRow" name="receiptMobile" value="<%= (merchOrder==null)? "" : merchOrder.getReceiptMobile()%>" size="35"/></td>
             </tr>
 
         
@@ -90,7 +90,31 @@
         <input type="hidden" name="action" value="update">
         <input type="submit" value="送出修改"></FORM>
   </div>
-  
+<script type="text/javascript">
+var pickupOption = document.getElementById("pickupOption");
+var recipientRow = document.getElementById("recipientRow");
+var receiptAddrRow = document.getElementById("receiptAddrRow");
+var receiptMobileRow = document.getElementById("receiptMobileRow");
+
+pickupOption.addEventListener("change", function() {
+    toggleRecipientInfo();
+});
+
+function toggleRecipientInfo() {
+    if (pickupOption.value === "宅配") {
+        recipientRow.style.display = "";
+        receiptAddrRow.style.display = "";
+        receiptMobileRow.style.display = "";
+    } else {
+        recipientRow.style.display = "none";
+        receiptAddrRow.style.display = "none";
+        receiptMobileRow.style.display = "none";
+    }
+}
+
+// Initial check when page loads
+toggleRecipientInfo();
+</script>  
 
 </body>
 </html>
