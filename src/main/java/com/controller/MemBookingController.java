@@ -84,6 +84,8 @@ public class MemBookingController extends HttpServlet {
 		}
 	}
 
+	
+
 	private void bookWhichShow(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Integer showId = Integer.valueOf(req.getParameter("selectedTime"));
 		ShowtimeInfo whichShow = memBookingService.findRightShow(showId);
@@ -101,22 +103,22 @@ public class MemBookingController extends HttpServlet {
 	private void handleGetBookingSuccess(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		String paymentType = req.getParameter("paymentType");
-		System.out.println("Payment Type111111111111: " + paymentType);
+		System.out.println("Payment Type: " + paymentType);
 
 		String screenId = req.getParameter("screenId");
-		System.out.println("Screen ID11111111111: " + screenId);
+		System.out.println("Screen ID: " + screenId);
 
 		Integer finalshowId = Integer.valueOf(req.getParameter("showId"));
-		System.out.println("Show ID11111111111: " + finalshowId);
+		System.out.println("Show ID: " + finalshowId);
 
 		Integer total = Integer.valueOf(req.getParameter("subtotal"));
-		System.out.println("Total111111111111: " + total);
+		System.out.println("Total: " + total);
 
 		String bookingSeats = req.getParameter("seatNo");
-		System.out.println("Booking Seats1111111111111: " + bookingSeats);
+		System.out.println("Booking Seats: " + bookingSeats);
 		
 		String seatSelection = req.getParameter("seatSelection");
-		System.out.println("seatSelection1111111111111: " + seatSelection);
+		System.out.println("seatSelection: " + seatSelection);
 
 		String[] seatsArray = bookingSeats.split(" ");
 		List<Integer> eachTkId = new ArrayList<>();
@@ -146,27 +148,27 @@ public class MemBookingController extends HttpServlet {
 		}
 
 		Integer quantity = eachTkId.size();
-		System.out.println("quantity1111111111111: " + quantity);
+		System.out.println("quantity: " + quantity);
 		
 		Date today = new Date(System.currentTimeMillis());
-		System.out.println("today1111111111111: " + today);
+		System.out.println("today: " + today);
 		
 		Booking bookingSuccess = new Booking();
 
 		bookingSuccess.setBookingDate(today);
-		bookingSuccess.setBookingStatus("未取票");
+		bookingSuccess.setBookingStatus("已取票");
 		bookingSuccess.setPaymentType(paymentType);
 		bookingSuccess.setPickupOption("電子票");
 		bookingSuccess.setTotal(total);
 		bookingSuccess.setQuantity(quantity);
 
 		Screen screen = memBookingService.findScreen(screenId);
-		System.out.println("screen1111111111111: " + screen);
+		System.out.println("screen: " + screen);
 		
 		bookingSuccess.setScreen(screen);
 		ShowtimeInfo show = memBookingService.findRightShow(finalshowId);
-		System.out.println("show1111111111111: " + show);
 		
+		System.out.println("show: " + show);
 		bookingSuccess.setShowtimeInfo(show);
 
 		Set<OrderItem> orderItems = new HashSet<>();
@@ -175,7 +177,7 @@ public class MemBookingController extends HttpServlet {
 				int ticketId = eachTkId.remove(0);
 				OrderItem item = new OrderItem();
 				item.setSeatNo(seatNo);
-				System.out.println("seatNo1111111111111: " + seatNo);
+				System.out.println("seatNo: " + seatNo);
 				item.setEntryStatus("未使用");
 				item.setTicket(memBookingService.findTicket(ticketId));
 				System.out.println("ticketId1111111111111: " + ticketId);
@@ -296,7 +298,7 @@ public class MemBookingController extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		Integer showId = (Integer) session.getAttribute("showtimeId");
-		System.out.println("showtimeId=========:" + showId);
+		System.out.println("showtimeId:" + showId);
 
 		ShowtimeInfo show = null;
 		if (showId != null) {

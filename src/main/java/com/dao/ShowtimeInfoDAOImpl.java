@@ -183,6 +183,14 @@ public class ShowtimeInfoDAOImpl implements ShowtimeInfoDAO {
 	    }
 	    return seatStatus;
 	}
+	
+	//=============bohan=====================
+	
+	
+	public ShowtimeInfo getmyshow(Integer showtimeId) {
+		return getSession().get(ShowtimeInfo.class, showtimeId);		
+	}
+	
 
 
 

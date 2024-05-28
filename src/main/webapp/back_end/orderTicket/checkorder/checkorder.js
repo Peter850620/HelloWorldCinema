@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		nextButton.addEventListener('click', function(event) {
 			event.preventDefault();  // 阻止默認提交行為
 			console.log('Default form submission prevented.');
-			//sessionStorage.clear();
+			sessionStorage.clear();
 			// 手動提交表單
 			document.getElementById('checkout-form').submit();
 		});
