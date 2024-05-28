@@ -57,10 +57,11 @@ public class MemBookingController extends HttpServlet {
 		show = new ShowtimeInfoDAOImpl();
 	}
 
+	private static final String BASE_URL = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeServlet";
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		HttpSession session = req.getSession(true);
 
 		switch (action) {
 		case "findScreen":
@@ -82,9 +83,8 @@ public class MemBookingController extends HttpServlet {
 			res.sendRedirect("defaultPage.jsp");
 			break;
 		}
-	}
 
-	
+	}
 
 	private void bookWhichShow(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Integer showId = Integer.valueOf(req.getParameter("selectedTime"));
@@ -102,6 +102,14 @@ public class MemBookingController extends HttpServlet {
 
 	private void handleGetBookingSuccess(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
+
+		String url = "";
+
+		RequestDispatcher successView;
+		
+		Integer mem = Integer.valueOf(req.getParameter("mem"));
+		System.out.println("mem" + mem);
+		
 		String paymentType = req.getParameter("paymentType");
 		System.out.println("Payment Type: " + paymentType);
 
@@ -116,7 +124,7 @@ public class MemBookingController extends HttpServlet {
 
 		String bookingSeats = req.getParameter("seatNo");
 		System.out.println("Booking Seats: " + bookingSeats);
-		
+
 		String seatSelection = req.getParameter("seatSelection");
 		System.out.println("seatSelection: " + seatSelection);
 
@@ -149,10 +157,10 @@ public class MemBookingController extends HttpServlet {
 
 		Integer quantity = eachTkId.size();
 		System.out.println("quantity: " + quantity);
-		
+
 		Date today = new Date(System.currentTimeMillis());
 		System.out.println("today: " + today);
-		
+
 		Booking bookingSuccess = new Booking();
 
 		bookingSuccess.setBookingDate(today);
@@ -161,16 +169,17 @@ public class MemBookingController extends HttpServlet {
 		bookingSuccess.setPickupOption("電子票");
 		bookingSuccess.setTotal(total);
 		bookingSuccess.setQuantity(quantity);
+		bookingSuccess.setMem(null);
 
 		Screen screen = memBookingService.findScreen(screenId);
 		System.out.println("screen: " + screen);
-		
+
 		bookingSuccess.setScreen(screen);
 		ShowtimeInfo show = memBookingService.findRightShow(finalshowId);
 		System.out.println("show: " + show);
 		
 		bookingSuccess.setShowtimeInfo(show);
-		
+
 		Set<OrderItem> orderItems = new HashSet<>();
 		for (String seatNo : seatsArray) {
 			if (!eachTkId.isEmpty()) {
@@ -211,30 +220,30 @@ public class MemBookingController extends HttpServlet {
 			bookingSuccess.setFoodItem(foodItems);
 		}
 
-		HttpSession session = req.getSession();
+		HttpSession session = req.getSession(true);
 
-		// Integer newbookingNo = memBookingService.createBooking(bookingSuccess);
+		Integer newbookingNo = memBookingService.createBooking(bookingSuccess);
 
-		// try {
-		// List<OrderItem> seats = memBookingService.findSeatByBookingNo(newbookingNo);
-		// for (OrderItem orderItem : seats) {
-		// String currentSeat = orderItem.getSeatNo();
-		// String qrText = String.format("%s?bookingNo=%s&showId=%s&seatNo=%s",
-		// BASE_URL, newbookingNo, show.getShowtimeId(), currentSeat);
-		// byte[] qrCodeImage = generateQRCodeImage(qrText, 350, 350);
-		// orderItem.setQrcode(qrCodeImage);
-		// System.out.println("QR Code generated successfully for" + currentSeat);
-		// }
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
+		try {
+			List<OrderItem> seats = memBookingService.findSeatByBookingNo(newbookingNo);
+			for (OrderItem orderItem : seats) {
+				String currentSeat = orderItem.getSeatNo();
+				String qrText = String.format("%s?bookingNo=%s&showId=%s&seatNo=%s", BASE_URL, newbookingNo,
+						show.getShowtimeId(), currentSeat);
+				byte[] qrCodeImage = generateQRCodeImage(qrText, 350, 350);
+				orderItem.setQrcode(qrCodeImage);
+				System.out.println("QR Code generated successfully for" + currentSeat);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		synchronized (session) {
+			session.setAttribute("newbookingno", newbookingNo);
+		}
+		url = "/back_end/booking/loading.jsp";
+		successView = req.getRequestDispatcher(url);
+		successView.forward(req, res);
 
-		// synchronized (session) {
-		// session.setAttribute("newbookingno", newbookingNo);
-		// }
-		// url = "/back_end/booking/loading.jsp";
-		// successView = req.getRequestDispatcher(url);
-		// successView.forward(req, res);
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -270,7 +279,7 @@ public class MemBookingController extends HttpServlet {
 	private void handleFindScreen(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		String screenId = req.getParameter("screenId");
-		
+
 		String url = memBookingService.findRightScreenId(Integer.parseInt(screenId));
 
 		if (url != null) {

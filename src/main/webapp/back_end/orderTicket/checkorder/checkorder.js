@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	// 處理座位資料
 	let selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeats'));
 	if (selectedSeats) {
-		let seatNos = selectedSeats.join(',');
+		let seatNos = selectedSeats.join(' ');
 		let seatInput = document.createElement('input');
 		seatInput.type = 'hidden';
 		seatInput.id = 'seatNo';
