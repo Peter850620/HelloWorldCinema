@@ -243,7 +243,7 @@
         function redirectToSearch(){
         	
         	
-        	window.location.href="back_end/booking/bookingSearch.jsp"
+        	window.location.href="<%=request.getContextPath()%>/back_end/booking/bookingSearch.jsp"
         }
     </script>
 
