@@ -130,11 +130,11 @@
 	<div class="xxx" id="xxx">
 		<div class="compositequery">
 			<form method="post" action="<%= request.getContextPath() %>/back/report.do" class="formSearch">
-				<input type="text" name="rptId" id="rptIdInput" placeholder="檢舉編號" value="${rptId}">
+				<input type="text" name="rptId" id="rptIdInput" placeholder="檢舉編號">
 				
-				<input type="text" name="mem" id="memIdInput" placeholder="會員編號" value="${mem}">
+				<input type="text" name="mem" id="memIdInput" placeholder="會員編號">
 	
-				<input type="text" name="review" id="reviewIdInput" placeholder="評論編號" value="${review}">
+				<input type="text" name="review" id="reviewIdInput" placeholder="評論編號">
 				
 				<select name="rptStatus" id="rptStatusSelect">
 					<option value="未審核">未審核</option>

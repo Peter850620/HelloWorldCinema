@@ -180,6 +180,7 @@ public class ReviewFrontServlet extends HttpServlet {
 				review.setMovie(movie);
 				
 				Timestamp reviewDate = new Timestamp(System.currentTimeMillis());
+				System.out.println("=====================================" + reviewDate);
 				review.setReviewDate(reviewDate);
 				review.setReviewDetails(reviewDetails);
 				review.setReviewStatus("顯示");

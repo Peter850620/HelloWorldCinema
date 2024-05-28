@@ -383,8 +383,9 @@
 	        .then(response => response.json())
 	        .then(data => {
 	            if (data.success) {
-	                alert('留言成功');
+	                alert('留言成功' + data.reviewDate);
             		document.getElementById("reviewDetails").value = '';
+            		console.log()
 	            } else {
 	                alert('留言失敗: ' + data.errorMessage);
 	            }

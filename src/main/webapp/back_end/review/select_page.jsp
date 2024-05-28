@@ -128,11 +128,11 @@
 	<div id="xxx">
 		<div class="compositequery">
 			<form method="post" action="<%= request.getContextPath() %>/back/review.do" class="formSearch">
-				<input type="text" name="reviewId" id="reviewIdInput" placeholder="評論編號" value="${reviewId}">
+				<input type="text" name="reviewId" id="reviewIdInput" placeholder="評論編號">
 				
-				<input type="text" name="mem" id="memIdInput" placeholder="會員編號" value="${mem.memId}">
+				<input type="text" name="mem" id="memIdInput" placeholder="會員編號">
 	
-				<input type="text" name="movie" id="movieIdInput" placeholder="電影編號" value="${movie.movieId}">
+				<input type="text" name="movie" id="movieIdInput" placeholder="電影編號">
 				
 				<select name="reviewStatus" id="reviewStatusSelect">
 					<option value="顯示">顯示</option>
