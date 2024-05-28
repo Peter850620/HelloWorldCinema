@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function(event) {
+document.addEventListener('DOMContentLoaded', function() {
 	let cart, ticketCart;
 	try {
 		let cartData = sessionStorage.getItem('cart');
@@ -23,24 +23,24 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	}
 
 	// 處理座位資料
-    let selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeats'));
-    if (selectedSeats) {
-        let seatNos = selectedSeats.join(',');
-        let seatInput = document.createElement('input');
-        seatInput.type = 'hidden';
-        seatInput.id = 'seatNo';
-        seatInput.name = 'seatNo';
-        seatInput.value = seatNos;
-        document.getElementById('shoppingList').appendChild(seatInput);
-    }
-	
+	let selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeats'));
+	if (selectedSeats) {
+		let seatNos = selectedSeats.join(',');
+		let seatInput = document.createElement('input');
+		seatInput.type = 'hidden';
+		seatInput.id = 'seatNo';
+		seatInput.name = 'seatNo';
+		seatInput.value = seatNos;
+		shoppingList.appendChild(seatInput);
+	}
+
 	// 處理票券購物車
 	if (ticketCart && ticketCart.items && ticketCart.items.length > 0) {
-		let items = ticketCart.items;  
+		let items = ticketCart.items;
 		console.log(items);
-		
+
 		let ticketItems = '<h4>選購票券</h4><ul>';
-		
+
 		items.forEach(item => {
 			const ticketId = item.id;
 			const ticketName = item.name;
@@ -48,11 +48,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
 			const ticketQuantity = item.quantity;
 			const ticketTotalPrice = item.totalPrice;
 			ticketItems += `<div>
-                			<span data-id="${ticketId}" style="display: none;" id="tkId${ticketId}" name="tkId${ticketId}" value="">${ticketId}</span>
-                            ${ticketName} - ${ticketPrice} 元 x ${ticketQuantity} 張 = ${ticketTotalPrice} 元
-                			<input type="hidden" id="tkId${ticketId}" name="tkId${ticketId}" value="${ticketId}">
-                			<input type="hidden" id="ticketId" name="ticketId" value="${ticketId}">      
-                        </div>`;
+                                ${ticketName} - ${ticketPrice} 元 x ${ticketQuantity} 張 = ${ticketTotalPrice} 元
+                                <input type="hidden" id="tkId${ticketId}" name="tkId${ticketId}" value="${ticketQuantity}">
+                            </div>`;
 		});
 		ticketItems += '<br></ul>';
 		console.log(ticketItems);
@@ -71,7 +69,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
 			const foodQuantity = item.quantity;
 			const foodTotalPrice = item.totalPrice;
 			cartItems += `<li>
-                            <span data-id="${foodId}" style="display: none;">${foodId}</span>
                             ${foodName} - ${foodPrice} 元 x ${foodQuantity} 份 = ${foodTotalPrice} 元
                         </li>`;
 		});
@@ -80,49 +77,121 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	} else {
 		shoppingList.innerHTML += '<p>沒有選購食物</p>';
 	}
+
+	// 設定影廳
+	var screenId = sessionStorage.getItem("screenId");
+	if (screenId) {
+		let screenIdField = document.getElementById("screenIdField");
+		if (screenIdField) {
+			screenIdField.value = screenId;
+		} else {
+			let screenIdInput = document.createElement('input');
+			screenIdInput.type = 'hidden';
+			screenIdInput.id = 'screenIdField';
+			screenIdInput.name = 'screenId';
+			screenIdInput.value = screenId;
+			shoppingList.appendChild(screenIdInput);
+		}
+	}
+
+	// 設定場次
+	var showId = sessionStorage.getItem("showId");
+	if (showId) {
+		let showIdField = document.getElementById("showIdField");
+		if (showIdField) {
+			showIdField.value = showId;
+		} else {
+			let showIdInput = document.createElement('input');
+			showIdInput.type = 'hidden';
+			showIdInput.id = 'showIdField';
+			showIdInput.name = 'showId';
+			showIdInput.value = showId;
+			shoppingList.appendChild(showIdInput);
+		}
+	}
+
+	var seatSelection = sessionStorage.getItem('seatSelection');
+	console.log(seatSelection)
+	document.querySelector('input[name="seatSelection"]').value = seatSelection;
+
+	// 讀取 sessionStorage 的 subtotal 值
+	var subtotal = sessionStorage.getItem('subtotal');
+
+	// 如果 sessionStorage 中沒有 subtotal，設置為 0
+	if (!subtotal) {
+		subtotal = 0;
+	} else {
+		subtotal = parseFloat(subtotal); // 確保 subtotal 是數字
+	}
+
+	// 更新 sessionStorage 中的 subtotal 值
+	sessionStorage.setItem('subtotal', subtotal);
+
+	// 顯示 subtotal 值
+	let subtotalDisplay = document.getElementById("subtotalDisplay");
+	if (subtotalDisplay) {
+		subtotalDisplay.textContent = subtotal + ' 元';
+	}
+
+	// 同時更新隱藏的 input 元素
+	let subtotalHidden = document.getElementById("subtotalHidden");
+	if (subtotalHidden) {
+		subtotalHidden.value = subtotal;
+	}
+
+	// 設定票種名稱
+	let storetkId1 = sessionStorage.getItem("全票");
+	let storetkId2 = sessionStorage.getItem("優待票");
+	let storetkId3 = sessionStorage.getItem("愛心票");
+	let storetkId4 = sessionStorage.getItem("敬老票");
+
+	let tkId1 = document.getElementById("tkId1");
+	let tkId2 = document.getElementById("tkId2");
+	let tkId3 = document.getElementById("tkId3");
+	let tkId4 = document.getElementById("tkId4");
+
+	if (storetkId1) {
+		tkId1.value = storetkId1;
+
+	} else {
+		tkId1.value = 0;
+	}
+
+	if (storetkId2) {
+		tkId2.value = storetkId2;
+
+	} else {
+		tkId2.value = 0;
+	}
+
+	if (storetkId3) {
+		tkId3.value = storetkId3;
+
+	} else {
+		tkId3.value = 0;
+	}
+
+	if (storetkId4) {
+		tkId4.value = storetkId4;
+
+	} else {
+		tkId4.value = 0;
+	}
 });
 
 document.getElementById('lastButton').addEventListener('click', function() {
 	window.history.back();
 });
 
-// 讀取 sessionStorage 的 subtotal 值
-var subtotal = sessionStorage.getItem('subtotal');
-let total = document.getElementById("subtotal");
-if (total) {
-	total.textContent = subtotal;
-}
-
-// 如果 subtotal 不為 null，將其顯示在頁面上
-if (subtotal !== null) {
-	document.querySelector('.screen-side span').textContent = subtotal + ' 元';
-}
-
-var paymentType = document.getElementById("paymentType");
-
-// 獲取所有 type 為 submit 的 input 元素
-var submitButtons = document.querySelectorAll("button[type='submit']");
-
-// 遍歷所有 submit 按鈕元素
-submitButtons.forEach(function(button) {
-	// 將處理函數設置為按鈕的 onclick 事件處理函數
-	button.onclick = function() {
-		paymentType.value = button.value;
-	};
+document.addEventListener('DOMContentLoaded', function() {
+	var nextButton = document.getElementById('nextButton');
+	if (nextButton) {
+		nextButton.addEventListener('click', function(event) {
+			event.preventDefault();  // 阻止默認提交行為
+			console.log('Default form submission prevented.');
+			//sessionStorage.clear();
+			// 手動提交表單
+			document.getElementById('checkout-form').submit();
+		});
+	}
 });
-
-// 設定票種名稱
-let storetkId1 = sessionStorage.getItem("全票");
-let storetkId2 = sessionStorage.getItem("優待票");
-let storetkId3 = sessionStorage.getItem("愛心票");
-let storetkId4 = sessionStorage.getItem("敬老票");
-
-let tkId1 = document.getElementById("tkId1");
-let tkId2 = document.getElementById("tkId2");
-let tkId3 = document.getElementById("tkId3");
-let tkId4 = document.getElementById("tkId4");
-
-if (tkId1) tkId1.value = storetkId1 ? storetkId1 : 0;
-if (tkId2) tkId2.value = storetkId2 ? storetkId2 : 0;
-if (tkId3) tkId3.value = storetkId3 ? storetkId3 : 0;
-if (tkId4) tkId4.value = storetkId4 ? storetkId4 : 0;
