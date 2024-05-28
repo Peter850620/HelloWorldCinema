@@ -35,6 +35,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.service.BookingService;
 import com.service.MemBookingService;
 import com.service.ShowtimeInfoServicebohan;
 
@@ -62,6 +63,7 @@ public class MemBookingController extends HttpServlet {
 	}
 
 	private static final String BASE_URL = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeServlet";
+	private static final String BASE_URL2 = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeFoodServlet";
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -234,16 +236,18 @@ public class MemBookingController extends HttpServlet {
 				orderItem.setQrcode(qrCodeImage);
 				System.out.println("QR Code generated successfully for" + currentSeat);
 			}
+			String qrcodeText = String.format("%s?bookingNo=%s", BASE_URL2, newbookingNo);
+
+			byte[] qrcodeCodeImage = generateQRCodeImage(qrcodeText, 350, 350);
+
+			BookingService bs = new BookingService();
+			List<FoodItem> foodItemdata = bs.getFoodbyBookingNo(newbookingNo);
+			for (FoodItem foodItem : foodItemdata) {
+				foodItem.setQrcode(qrcodeCodeImage);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		synchronized (session) {
-			session.setAttribute("newbookingno", newbookingNo);
-		}
-		url = "/front_end/orderTicket/finalticket/loading.jsp";
-		successView = req.getRequestDispatcher(url);
-		successView.forward(req, res);
-
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -269,7 +273,6 @@ public class MemBookingController extends HttpServlet {
 		// 將 showtimeId 設置到 session
 		HttpSession session = req.getSession();
 		session.setAttribute("showtimeId", showtimeId);
-		
 
 		// 回應客戶端
 		res.setContentType("application/json");
