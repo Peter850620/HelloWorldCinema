@@ -49,7 +49,7 @@
 <%@ include file="../index/indexHeader.jsp" %>
 	<!-- ========================以下區域可放置其他內容======================== -->
 
-	<form action="BookingController" method="post" style="display: inline;">
+	<form action="<%= request.getContextPath() %>/BookingController" method="post" style="display: inline;">
 
 
 
