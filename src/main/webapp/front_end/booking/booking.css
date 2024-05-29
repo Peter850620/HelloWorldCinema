@@ -452,7 +452,7 @@ button.btn_search:hover {
     background-color: darkred; /* 鼠标悬停时背景颜色 */
 }
 
-.startdate, .date{
+th.startdate, th.date{
 	
 	min-width:150px;
 }
