@@ -61,7 +61,7 @@ if (showtimeIdParam != null) {
     <span>/</span>
     <h4 class="link"><a href="<%=request.getContextPath()%>/front_end/movie/movieCommingSoon.jsp">即將上映</a></h4>
     <span>/</span>
-    <h4 class="link"><a href="<%=request.getContextPath()%>/front_end/movie/movieNowShowing.jsp">熱映中</a></h4>
+    <h4 class="link"><a href="<%=request.getContextPath()%>/front_end/movie/movieNowShowing.jsp">現正熱映</a></h4>
 
 </div>
 
