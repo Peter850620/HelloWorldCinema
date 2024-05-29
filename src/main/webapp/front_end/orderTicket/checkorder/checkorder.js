@@ -60,24 +60,33 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	// 處理食物購物車
-	if (cart && cart.items && cart.items.length > 0) {
-		let cartItems = '<h4>選購食物</h4><ul>';
-		cart.items.forEach(item => {
-			const foodId = item.id;
-			const foodName = item.name;
-			const foodPrice = item.price;
-			const foodQuantity = item.quantity;
-			const foodTotalPrice = item.totalPrice;
-			cartItems += `<li>
-                            ${foodName} - ${foodPrice} 元 x ${foodQuantity} 份 = ${foodTotalPrice} 元
-                            <input type="hidden" id="foodId${foodId}" name="foodId${foodId}" value="${foodTotalPrice}">
-                        </li>`;
-		});
-		cartItems += '</ul>';
-		shoppingList.innerHTML += cartItems;
-	} else {
-		shoppingList.innerHTML += '<p>沒有選購食物</p>';
-	}
+if (cart && cart.items && cart.items.length > 0) {
+    let cartItems = '<h4>選購食物</h4><ul>';
+    let subfoodTotalPrice = 0; // 初始化總價格
+    cart.items.forEach((item, index) => {
+        const foodId = item.id;
+        const foodName = item.name;
+        const foodPrice = item.price;
+        const foodQuantity = item.quantity;
+        const foodTotalPrice = item.totalPrice;
+
+        // 累加總價格
+        subfoodTotalPrice += foodTotalPrice;
+
+        cartItems += `<li>
+                        ${foodName} - ${foodPrice} 元 x ${foodQuantity} 份 = ${foodTotalPrice} 元
+                        <input type="hidden" name="foodId${index}" value="${foodId}">
+                        <input type="hidden" id="food-name${index}" name="foodName${index}" value="${foodName}">
+                        <input type="hidden" id="foodAmount${index}" name="foodAmount${index}" value="${foodQuantity}">
+                      </li>`;
+    });
+    cartItems += `</ul><input type="hidden" id="foodTotal" name="foodTotal" value="${subfoodTotalPrice}">`; // 顯示總價格
+    shoppingList.innerHTML += cartItems;
+} else {
+    shoppingList.innerHTML += '<p>沒有選購食物</p>';
+}
+
+
 
 	// 設定影廳
 	var screenId = sessionStorage.getItem("screenId");

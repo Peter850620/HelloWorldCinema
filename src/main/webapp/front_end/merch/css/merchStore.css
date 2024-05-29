@@ -259,3 +259,23 @@ p{
 
 
 
+i.bx-cart{
+	font-size: 3rem;
+	color:white;
+	z-index:1;
+	position: fixed;
+	top: 100px;
+	left: 95%;
+}
+
+.shopping span{
+    background: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 9px 15px;
+    position: fixed;
+    right: 0;
+}

@@ -56,6 +56,16 @@ if (showtimeIdParam != null) {
 	<jsp:include page="/front_end/index/indexHeader.jsp" flush="true" />
 	<!-- ========================以下區域可放置其他內容======================== -->
 
+<div class="link-container">
+    <h4 class="link"><a href="<%=request.getContextPath()%>/front_end/homePage.jsp">首頁</a></h4>
+    <span>/</span>
+    <h4 class="link"><a href="<%=request.getContextPath()%>/front_end/movie/movieNowShowing.jsp">即將上映</a></h4>
+    <span>/</span>
+    <h4 class="link"><a href="<%=request.getContextPath()%>/front_end/movie/movieCommingSoon.jsp">熱映中</a></h4>
+
+</div>
+
+
 	<div class="single_movie">
 		<img class="movie_pic"
 			src="<%=request.getContextPath()%>/movie/MovieGifReader?movieId=${movie.movieId}"
