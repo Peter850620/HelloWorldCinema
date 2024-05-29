@@ -134,7 +134,7 @@
         var productName = "${merch.merchName}";
         var productPrice = parseInt($('#merchPrice').text());
         
-         fetchCartItems();
+
         
 // 		展開購物車
 	    $('#cart-button').click(function (e) {
