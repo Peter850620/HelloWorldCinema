@@ -81,7 +81,7 @@ public class MovieController extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			String moviename = req.getParameter("movieName");
-			String movienameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)\u0020]{2,30}$";
+			String movienameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)\u0020:]{2,30}$";
 			if (moviename == null || moviename.trim().length() == 0) {
 				errorMsgs.put("movieName", "電影名稱: 請勿空白");
 			} else if (!moviename.trim().matches(movienameReg)) {
@@ -236,7 +236,7 @@ public class MovieController extends HttpServlet {
 			Integer existingId = Integer.valueOf(req.getParameter("movieId"));
 			Movie movieUpdate = movieSvc.findMoviebyId(existingId);
 			String name = req.getParameter("movieName");
-			String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)\u0020:]{2,30}$";
+			String nameReg = "^[\u4e00-\u9fa5a-zA-Z0-9_ :]{2,30}$";
 			if (name == null || name.trim().length() == 0) {
 				errorMsgs.put("movieName", "電影名稱: 請勿空白");
 			} else if (!name.trim().matches(nameReg)) {

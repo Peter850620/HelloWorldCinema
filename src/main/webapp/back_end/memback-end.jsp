@@ -19,7 +19,7 @@
 
 
 <body>
-
+<jsp:include page="./management.jsp" />
 	<div class="sidebar-container" id="sidebar-container">
 		<div class="sidebar">
 			<div class="top">
@@ -156,9 +156,7 @@
 	</div>
 
 	 <div class="mainIndex" id="mainIndex">
-        <a>歡迎進入 HelloWorldCinema 員工後台首頁</a>
-        <br>
-        <a>你好方方姐</a>
+        <font size="4">歡迎進入 HelloWorldCinema 員工後台首頁</font>
     </div>
 
 </body>

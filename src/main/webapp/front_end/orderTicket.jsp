@@ -18,9 +18,6 @@ List<Food> food = fooddao.getAllfoodForbooking();
 request.setAttribute("food", food);
 
 Mem mem = (Mem) request.getAttribute("memId");
-String userStatus = (String) request.getAttribute("userStatus");
-if (mem == null || mem.getMemId() == null || !userStatus.startsWith("User connected:")) {
-	// memId為空，顯示警告並可能導向登入頁面
 %>
 <!DOCTYPE html>
 <html>
@@ -170,13 +167,6 @@ if (mem == null || mem.getMemId() == null || !userStatus.startsWith("User connec
 
 	<!-- ========================以上區域可放置其他內容======================== -->
 	<br>
-	<script>
-		alert('請登入會員!!');
-		window.location.href = '<%=request.getContextPath()%>/front_end/mem/mem.jsp'; // 導向登入頁面
-	</script>
-	<%
-	}
-	%>
 	<jsp:include page="/front_end/index/indexFooter.jsp" flush="true" />
 
 	<script type="text/javascript">
