@@ -66,7 +66,7 @@
 			<tr>
 			    <th>會員編號</th>
 				<th>訂單編號</th>
-				<th>訂單成立日期</th>
+				<th class="esdate">訂單成立日期</th>
 				<th>電影名稱</th>
 				<th class="startdate">開演日期</th>
 				<th>時間</th>
