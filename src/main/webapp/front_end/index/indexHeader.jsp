@@ -84,7 +84,7 @@ if (memObject instanceof Mem) {
             <nav class="nav">
                 <ul class="nav_menu">
                     <li class="nav__menu-item">
-                        <a href=""><h4 class="neon2">影城資訊</h4></a>
+                        <a href="<%=request.getContextPath()%>/front_end/homePage.jsp"><h4 class="neon2">影城資訊</h4></a>
                         <ul class="nav__submenu">
                             <li class="nav__submenu-item">
                                 <a href="<%=request.getContextPath()%>/front/homeAnn.do?action=getAll">最新資訊</a>

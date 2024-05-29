@@ -70,4 +70,22 @@ main{
 
 
 
+.link-container{
+	margin-left: 150px;
+	margin-top: 50px;
 
+}
+.link, .link a, .link-container span {
+    color: #c1a57b; /* 设置链接颜色为#c1a57b */
+    text-decoration: none; /* 去掉链接下划线 */
+}
+
+.link-container {
+    display: flex; /* 使用flex布局将元素排在同一行 */
+    align-items: center; /* 垂直居中对齐 */
+}
+
+.link-container h4, .link-container span {
+    margin: 0; /* 去掉默认的margin */
+    padding: 0 5px; /* 增加左右padding */
+}
