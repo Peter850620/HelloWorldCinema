@@ -31,6 +31,14 @@
                 <i class='bx bx-cart' id='cart-button' class="trigger cart-button-style" name="action" value="getById"></i>
 <!--                 <span class="quantity">0</span> -->
             </div>
+            
+<div class="link-container">
+    <h4 class="link"><a href="<%=request.getContextPath()%>/front_end/homePage.jsp">首頁</a></h4>
+    <span>/</span>
+    <h4 class="link"><a href="<%=request.getContextPath()%>/front_end/merch/merchStore.jsp">周邊商城</a></h4>
+
+</div>
+
 
 <div class="card-wrapper">
     <div class="card">
