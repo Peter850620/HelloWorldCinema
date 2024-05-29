@@ -85,10 +85,18 @@
     <script src="<%= request.getContextPath() %>/js/index.js"></script>
     <script>
 	    document.addEventListener('DOMContentLoaded', () => {
-	        const annTimeElement = document.getElementById('timeItem');
-	        const annTimeValue = annTimeElement.textContent;
-	        const formattedTime = new Date(annTimeValue).toISOString().slice(0, 19).replace('T', ' ');
-	        annTimeElement.textContent = formattedTime;
+	        const dateCell = document.getElementById('timeItem');
+	        const date = new Date(dateCell.textContent.trim());
+            const options = {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+            };
+            dateCell.textContent = date.toLocaleString('zh-TW', options);
 	    });
     </script>
 </body>

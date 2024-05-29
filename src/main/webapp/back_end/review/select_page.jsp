@@ -217,8 +217,16 @@
 	    rows.forEach(row => {
 	        const dateCell = row.querySelector('.timeItem');
 	        const date = new Date(dateCell.textContent.trim());
-	        dateCell.textContent = date.toISOString().slice(0, 19).replace('T', ' '); 
-	        row.reviewDateValue = date.getTime(); 
+	        const options = {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+            };
+            dateCell.textContent = date.toLocaleString('zh-TW', options);
 	    });
 	    rows.sort((a, b) => b.reviewDateValue - a.reviewDateValue); 
 	    rows.forEach(row => reviewBody.appendChild(row));
