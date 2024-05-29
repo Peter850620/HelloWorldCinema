@@ -152,7 +152,16 @@
 	        
 	        if (reviewDateValue) {
 	            var date = new Date(reviewDateValue);
-	            var formattedDate = date.toISOString().slice(0, 19).replace('T', ' ');
+	            const options = {
+	                    year: 'numeric',
+	                    month: '2-digit',
+	                    day: '2-digit',
+	                    hour: '2-digit',
+	                    minute: '2-digit',
+	                    second: '2-digit',
+	                    hour12: false
+                };
+	            var formattedDate = date.toLocaleString('zh-TW', options).slice(0, 19).replace('T', ' ');
 	            reviewDateInput.value = formattedDate;
 	        }
 	    });

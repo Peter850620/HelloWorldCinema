@@ -62,4 +62,8 @@ public class ShowtimeInfoServicePeter {
 	public List<ShowtimeInfo> getAll() {
 		return dao.getAll();
 	}
+	
+	public int delete(Integer showtimeId) {
+		return dao.delete(showtimeId);
+	}
 }
