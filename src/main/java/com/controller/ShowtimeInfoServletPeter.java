@@ -156,7 +156,7 @@ public class ShowtimeInfoServletPeter extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				errorMsgs.put("Exception", "修改資料失敗:---------------");
-				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/food/update_showtomeInfo_input.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/showtimeInfo/update_showtimeInfo_input.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
@@ -214,5 +214,24 @@ public class ShowtimeInfoServletPeter extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
+		
+		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+	
+				/***************************1.接收請求參數***************************************/
+				Integer showtimeId = Integer.valueOf(req.getParameter("showtimeId"));
+				
+				/***************************2.開始刪除資料***************************************/
+				ShowtimeInfoServicePeter showtimeInfo = new ShowtimeInfoServicePeter();
+				showtimeInfo.delete(showtimeId);
+				
+				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
+				req.setAttribute("success", "- (刪除成功)");
+				String url = "/back_end/showtimeInfo/listAllShowtimeInfo.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+		}	
 	}
 }

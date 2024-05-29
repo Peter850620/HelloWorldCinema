@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
-
+import com.dao.FoodItemDAO;
 import com.dao.BookingDAOImpl;
 import com.dao.FoodItemIDAOmpl;
 import com.dao.ShowtimeInfoDAOImpl;
@@ -35,6 +36,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.service.BookingService;
 import com.service.MemBookingService;
 import com.service.ShowtimeInfoServicebohan;
 
@@ -62,6 +64,7 @@ public class MemBookingController extends HttpServlet {
 	}
 
 	private static final String BASE_URL = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeServlet";
+	private static final String BASE_URL2 = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeFoodServlet";
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -202,16 +205,17 @@ public class MemBookingController extends HttpServlet {
 			if (foodParam == null)
 				break;
 			Integer foodId = Integer.valueOf(foodParam);
-			System.out.println();
+			System.out.println(foodId);
 			Food food = memBookingService.findOneFood(foodId);
-			System.out.println();
+			System.out.println(food);
 			FoodItem foodorder = new FoodItem();
 			foodorder.setFood(food);
 			int price = food.getFoodPrice();
 			Integer foodAmount = Integer.valueOf(req.getParameter("foodAmount" + i));
 			foodorder.setFoodAmount(foodAmount);
-//			int foodSubTotal = foodAmount * price;
-//			foodorder.setFoodSubTotal(foodSubTotal);
+			int foodSubTotal = foodAmount * price;
+			foodorder.setFoodSubTotal(foodSubTotal);
+			foodorder.setPickStatus("未取餐");
 			foodorder.setBooking(bookingSuccess);
 			foodItems.add(foodorder);
 		}
@@ -234,16 +238,24 @@ public class MemBookingController extends HttpServlet {
 				orderItem.setQrcode(qrCodeImage);
 				System.out.println("QR Code generated successfully for" + currentSeat);
 			}
+			String qrcodeText = String.format("%s?bookingNo=%s", BASE_URL2, newbookingNo);
+
+			byte[] qrcodeCodeImage = generateQRCodeImage(qrcodeText, 350, 350);
+
+			BookingService bs = new BookingService();
+			List<FoodItem> foodItemdata = bs.getFoodbyBookingNo(newbookingNo);
+			for (FoodItem foodItem : foodItemdata) {
+				foodItem.setQrcode(qrcodeCodeImage);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		synchronized (session) {
 			session.setAttribute("newbookingno", newbookingNo);
 		}
-		url = "/back_end/orderTicket/finalticket/loading.jsp";
+		url = "/front_end/orderTicket/finalticket/loading.jsp";
 		successView = req.getRequestDispatcher(url);
 		successView.forward(req, res);
-
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -269,7 +281,6 @@ public class MemBookingController extends HttpServlet {
 		// 將 showtimeId 設置到 session
 		HttpSession session = req.getSession();
 		session.setAttribute("showtimeId", showtimeId);
-		
 
 		// 回應客戶端
 		res.setContentType("application/json");

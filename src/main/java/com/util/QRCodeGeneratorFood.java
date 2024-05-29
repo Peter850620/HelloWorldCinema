@@ -21,7 +21,7 @@ public class QRCodeGeneratorFood {
 
 	
 	//屆時要改專案名
-	private static final String BASE_URL = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeServlet"; 
+	private static final String BASE_URL = "http://helloworldcinema.ddns.net:8081/HelloWorldCinema/QRCodeFoodServlet"; 
 //	private static final String BASE_URL = "http://localhost:8081/HelloWorldCinema/QRCodeFoodServlet";  
     BookingService bs=new BookingService();
     
@@ -69,7 +69,7 @@ public class QRCodeGeneratorFood {
                     foodInfoBuilder.deleteCharAt(foodInfoBuilder.length() - 2);
                     
                     // 生成 QR Code 要导到的路径
-                    String qrText = String.format("%s?bookingNo=%s&foodInfo=%s", BASE_URL, bookingNo, foodInfoBuilder.toString());
+                    String qrText = String.format("%s?bookingNo=%s", BASE_URL, bookingNo);
                     System.out.println(qrText);
                     byte[] qrCodeImage = generateQRCodeImage(qrText, 350, 350);
                     

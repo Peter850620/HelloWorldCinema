@@ -92,11 +92,10 @@ public class FoodItemIDAOmpl implements FoodItemDAO {
 			if (pickStatus.equals("未取餐")) {
 				foodItem.setPickStatus("已取餐");
 				getSession().update(foodItem);
-				return "ok";
 			} else {
-				return "Declined! Please check with the counter.";
+				return "已取餐";
 			}
 		}
-		return null;
+		return "未取餐";
 	}
 }

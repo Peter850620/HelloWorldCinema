@@ -10,6 +10,7 @@ function toggleSeatStatus(checkbox) {
     } else if (status === 'F') {
         checkbox.disabled = true; // 維修中的座位不可選
     }
+    saveToSessionStorage(); // 儲存最新的座位狀態
 }
 
 // 生成座位狀態字串的函數
@@ -26,7 +27,9 @@ function generateSeatString() {
 function saveToSessionStorage() {
     const seatString = generateSeatString();
     sessionStorage.setItem('seatSelection', seatString); // 存儲到 SessionStorage
-    console.log('Saved seats: ', seatString);
+    console.log('Saved seats: ', seatString);  // 確認存儲的字串
+    // 調試：檢查 sessionStorage 中的值
+    console.log('Check sessionStorage:', sessionStorage.getItem('seatSelection'));
 }
 
 // 更新並顯示已選座位數量的函數
@@ -117,7 +120,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 不進行跳轉，僅顯示警告信息
             } else {
                 // 跳轉到檢查訂單頁面
-                window.location.href = 'http://helloworldcinema.ddns.net:8081/HelloWorldCinema/back_end/orderTicket/checkorder/checkorder.jsp';
+ //               window.location.href = 'http://helloworldcinema.ddns.net:8081/HelloWorldCinema/front_end/orderTicket/checkorder/checkorder.jsp';
+                window.location.href = 'http://localhost:8081/HelloWorldCinema/front_end/orderTicket/checkorder/checkorder.jsp';
             }
         });
     } else {

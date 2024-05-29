@@ -19,7 +19,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
     <!-- 主要css -->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front_end/merch/css/singleMerch.css" />
@@ -27,8 +27,18 @@
 <body>
 <jsp:include page="/front_end/index/indexHeader.jsp" flush="true" />  
 <!-- ========================以下區域可放置其他內容======================== -->
-<i class="far fa-shopping-cart"></i>
-<button id='cart-button' class="trigger cart-button-style" name="action" value="getById">查看購物車</button>
+<div class="shopping">
+                <i class='bx bx-cart' id='cart-button' class="trigger cart-button-style" name="action" value="getById"></i>
+<!--                 <span class="quantity">0</span> -->
+            </div>
+            
+<div class="link-container">
+    <h4 class="link"><a href="<%=request.getContextPath()%>/front_end/homePage.jsp">首頁</a></h4>
+    <span>/</span>
+    <h4 class="link"><a href="<%=request.getContextPath()%>/front_end/merch/merchStore.jsp">周邊商城</a></h4>
+
+</div>
+
 
 <div class="card-wrapper">
     <div class="card">
@@ -123,6 +133,8 @@
         var productId = "${merch.merchId}";
         var productName = "${merch.merchName}";
         var productPrice = parseInt($('#merchPrice').text());
+        
+         fetchCartItems();
         
 // 		展開購物車
 	    $('#cart-button').click(function (e) {
@@ -275,6 +287,17 @@
 		        console.error('Error fetching cart items:', error);
 		    });
 		}
+		
+		
+		
+// 	 // 監聽購物車內容的變化並計算商品總數量
+// 	    function calculateTotalQuantity(cartItems) {
+// 	        var totalQuantity = 0;
+// 	        cartItems.forEach(function(item) {
+// 	            totalQuantity += item.merchQty; // 假設 cartItems 中每個元素包含 merchQty 屬性表示商品數量
+// 	        });
+// 	        return totalQuantity;
+// 	    }
 
 
 
@@ -292,7 +315,7 @@
 	            
 	            var qtyInput = $('<input type="number" min="1" class="cart-item-qty-input" value="' + item.merchQty + '" data-merch-id="' + item.merchId + '">');
 	            
-	            row.append($('<td>').css('width', '5px').append(qtyInput));
+	            row.append($('<td>').append(qtyInput));
 	            
 	            row.append($('<td>').text(item.merchPrice));
 	            
@@ -324,7 +347,10 @@
 			    localStorage.setItem('cartInfo', JSON.stringify(cartInfo));
 	    }
 	    
-	    
+// 	 // 計算商品總數量並更新界面
+// 	    var totalQuantity = calculateTotalQuantity(cartItems);
+// 	    $('#total-quantity').text(totalQuantity);
+	
 	   
 	    
 	    

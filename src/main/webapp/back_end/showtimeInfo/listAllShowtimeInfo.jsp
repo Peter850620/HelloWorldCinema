@@ -145,7 +145,7 @@
 						</td>
 						<td>
 						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do" style="margin-bottom: 0px;">
-						     <input type="submit" value="刪除" disabled>
+						     <input type="submit" value="刪除">
 						     <input type="hidden" name="showtimeId" value="${ShowtimeInfo.showtimeId}">
 						     <input type="hidden" name="action" value="delete"></FORM>
 						</td>
@@ -170,7 +170,7 @@
 						</td>
 						<td>
 						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/showtimeInfo/showtimeInfoPeter.do" style="margin-bottom: 0px;">
-						     <input type="submit" value="刪除" disabled>
+						     <input type="submit" value="刪除">
 						     <input type="hidden" name="showtimeId" value="${ShowtimeInfo.showtimeId}">
 						     <input type="hidden" name="action" value="delete"></FORM>
 						</td>

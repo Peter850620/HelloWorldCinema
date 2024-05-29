@@ -8,9 +8,19 @@
 <%@page import="com.service.*"%>
 <%
 ShowtimeInfo show = (ShowtimeInfo) request.getAttribute("selectedShow");
-List<Ticket> ticket = (List<Ticket>) request.getAttribute("tickets");
-List<Food> food = (List<Food>) request.getAttribute("food");
-Mem mem = (Mem)request.getAttribute("memId");
+
+TicketDAOImpl ticketdao = new TicketDAOImpl();
+List<Ticket> ticket = ticketdao.getAllforbooking();
+request.setAttribute("ticket", ticket);
+
+FoodDAOImpl fooddao = new FoodDAOImpl();
+List<Food> food = fooddao.getAllfoodForbooking();
+request.setAttribute("food", food);
+
+Mem mem = (Mem) request.getAttribute("memId");
+String userStatus = (String) request.getAttribute("userStatus");
+if (mem == null || mem.getMemId() == null || !userStatus.startsWith("User connected:")) {
+	// memId為空，顯示警告並可能導向登入頁面
 %>
 <!DOCTYPE html>
 <html>
@@ -29,9 +39,9 @@ Mem mem = (Mem)request.getAttribute("memId");
 
 <!-- 主要css -->
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/back_end/orderTicket/css/orderStore.css" />
+	href="<%=request.getContextPath()%>/front_end/orderTicket/css/orderStore.css" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/back_end/orderTicket/css/order.css" />
+	href="<%=request.getContextPath()%>/front_end/orderTicket/css/order.css" />
 </head>
 
 <body>
@@ -79,10 +89,10 @@ Mem mem = (Mem)request.getAttribute("memId");
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="Ticket" items="${tickets}" varStatus="s">
-										<tr class="ticket" id="${Ticket.tkId}">
-											<td class="ticket-name">${Ticket.tkName}</td>
-											<td class="ticket-price" value='${Ticket.tkPrice}'>${Ticket.tkPrice}</td>
+									<c:forEach var="ticket" items="${ticket}" varStatus="s">
+										<tr class="ticket" id="${ticket.tkId}">
+											<td class="ticket-name">${ticket.tkName}</td>
+											<td class="ticket-price" value='${ticket.tkPrice}'>${ticket.tkPrice}</td>
 											<td><button class="add-to-cart" id='test1'>加入購物車</button>
 											</td>
 										</tr>
@@ -160,7 +170,13 @@ Mem mem = (Mem)request.getAttribute("memId");
 
 	<!-- ========================以上區域可放置其他內容======================== -->
 	<br>
-	
+	<script>
+		alert('請登入會員!!');
+		window.location.href = '<%=request.getContextPath()%>/front_end/mem/mem.jsp'; // 導向登入頁面
+	</script>
+	<%
+	}
+	%>
 	<jsp:include page="/front_end/index/indexFooter.jsp" flush="true" />
 
 	<script type="text/javascript">
@@ -185,11 +201,11 @@ Mem mem = (Mem)request.getAttribute("memId");
 	</script>
 
 	<script
-		src="<%=request.getContextPath()%>/back_end/orderTicket/js/index.js"></script>
+		src="<%=request.getContextPath()%>/front_end/orderTicket/js/index.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/back_end/orderTicket/js/orderStore.js"></script>
+		src="<%=request.getContextPath()%>/front_end/orderTicket/js/orderStore.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/back_end/orderTicket/js/order.js"></script>
+		src="<%=request.getContextPath()%>/front_end/orderTicket/js/order.js"></script>
 </body>
 
 
