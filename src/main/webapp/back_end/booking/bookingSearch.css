@@ -25,6 +25,11 @@ body{
   min-width:140px;
   }
   
+  th.esdate{
+  min-width:120px;
+  
+  }
+  
   h1.booking {
     text-align: center;
     color:black;
