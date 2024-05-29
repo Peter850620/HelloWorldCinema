@@ -103,9 +103,9 @@ if(request.getAttribute("currentPage") == null){
 		<table>
 			<tr>
 				<th>訂單編號</th>
-				<th>訂單成立日期</th>
+				<th class="date">訂單成立日期</th>
 				<th>電影名稱</th>
-				<th>開演日期</th>
+				<th class="startdate">開演日期 </th>
 				<th>時間</th>
 				<th>廳位</th>
 				<th>張數</th>
