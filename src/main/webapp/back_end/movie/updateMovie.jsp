@@ -96,7 +96,7 @@ input[type="text"], input[type="date"], select {
 
 
 
-	<form action="<%=request.getContextPath()%>/MovieController" method="post"  enctype="multipart/form-data">
+	<form action="<%=request.getContextPath()%>/MovieController" method="post"  enctype="multipart/form-data"   onsubmit="return validateForm();">
 
 	<label for="movieId">電影編號：</label><br> 
 	 <input type="text" disabled id="movieId" name="movieId" value="<%=movie.getMovieId()%>"><br>
@@ -137,7 +137,7 @@ input[type="text"], input[type="date"], select {
 		<label for="releaseDate">上映日期</label><br> 
 		<% if (errorMsgs != null && errorMsgs.containsKey("releaseDate")) { %>
 		<span style="color: red;"><%=  errorMsgs.get("releaseDate") %></span>  <% } %>
-		<input type="date" id="releaseDate" name="releaseDate" value="<%=movie.getReleaseDate()%>"><br> 
+		<input type="date" id="releaseDate" class="releaseDate" name="releaseDate" value="<%=movie.getReleaseDate()%>"><br> 
 		
 		<label for="offDate">下檔日期：</label><br> 
 		<% if (errorMsgs != null && errorMsgs.containsKey("offDate")) { %>
@@ -210,6 +210,19 @@ input[type="text"], input[type="date"], select {
 		    	
 		    	 action.value = update.getAttribute("data-chinese");
 		    });
+		    
+		    
+		    
+		    function validateForm() {
+		         var releaseDate = document.getElementsByName("releaseDate")[0].value;
+		         var offDate = document.getElementsByName("offDate")[0].value;
+
+		         if (releaseDate && offDate && releaseDate > offDate) {
+		             alert("上映日期不能晚於下檔日期");
+		             return false; // 阻止表單提交
+		         }
+		         return true; // 允許表單提交
+		     }
 		</script>
 
 </body>

@@ -319,16 +319,6 @@ public class MovieController extends HttpServlet {
 				}
 			}
 			
-			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("movie", movieUpdate); // 原本錯誤的電影資訊也一起存在REQUEST
-				req.setAttribute("errorMsgs", errorMsgs);
-				url = "/back_end/movie/updateMovie.jsp";
-				System.out.println(errorMsgs);
-				RequestDispatcher fail = req.getRequestDispatcher(url);
-				fail.forward(req, res);
-				return; // 程式中斷
-			}
-
 			movieUpdate.setMovieName(name);
 			movieUpdate.setRuntime(time);
 			movieUpdate.setGenre(gen);
@@ -340,6 +330,18 @@ public class MovieController extends HttpServlet {
 			movieUpdate.setMovieStatus(status);
 			movieUpdate.setPoster(data);
 			movieUpdate.setTrailer(trailers);
+
+			
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("movie", movieUpdate); // 原本錯誤的電影資訊也一起存在REQUEST
+				req.setAttribute("errorMsgs", errorMsgs);
+				url = "/back_end/movie/updateMovie.jsp";
+				System.out.println(errorMsgs);
+				RequestDispatcher fail = req.getRequestDispatcher(url);
+				fail.forward(req, res);
+				return; // 程式中斷
+			}
+
 
 //		
 		
