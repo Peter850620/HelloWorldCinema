@@ -116,6 +116,7 @@
 			  <thead >
 				<tr style="background-color:#CCCCFF">
 					<th>計數</th>
+					<th>場次編號</th>
 					<th>電影名稱</th>
 					<th>影廳</th>
 					<th>播放日期</th>
@@ -131,6 +132,7 @@
 				<c:forEach var="ShowtimeInfo" items="${showtimeInfoListData}" varStatus="s">
 					<tr class="showtimeInfoStatusRow">
 			            <td>${s.count}</td>
+			            <td>[${ShowtimeInfo.getShowtimeId()}]</td>
 						<td>${ShowtimeInfo.movie.getMovieName()}</td>
 						<td>${ShowtimeInfo.playdate}</td>
 						<td>${ShowtimeInfo.screen.getScreenId()}</td>
@@ -156,6 +158,7 @@
 				<c:forEach var="ShowtimeInfo" items="${showtimeInfoListDataPart}" varStatus="s">
 					<tr class="showtimeInfoStatusRow">
 			            <td>${s.count}</td>
+			            <td>[${ShowtimeInfo.getShowtimeId()}]</td>
 						<td>${ShowtimeInfo.movie.getMovieName()}</td>
 						<td>${ShowtimeInfo.playdate}</td>
 						<td>${ShowtimeInfo.screen.getScreenId()}</td>
