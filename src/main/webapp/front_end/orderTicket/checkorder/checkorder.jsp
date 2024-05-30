@@ -57,7 +57,7 @@
 	</form>
 
 	<script type="text/javascript" src="<%=request.getContextPath()%>/front_end/orderTicket/checkorder/checkorder.js"></script></script>
-	<jsp:include page="/front_end/orderTicket/index/indexFooter.jsp"
+	<jsp:include page="/front_end/orderTicket/checkorder/index/indexFooter.jsp"
 		flush="true" />
 
 </body>
