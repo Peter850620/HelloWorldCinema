@@ -17,7 +17,6 @@ FoodDAOImpl fooddao = new FoodDAOImpl();
 List<Food> food = fooddao.getAllfoodForbooking();
 request.setAttribute("food", food);
 
-Mem mem = (Mem) request.getAttribute("memId");
 %>
 <!DOCTYPE html>
 <html>
@@ -167,6 +166,8 @@ Mem mem = (Mem) request.getAttribute("memId");
 
 	<!-- ========================以上區域可放置其他內容======================== -->
 	<br>
+
+
 	<jsp:include page="/front_end/index/indexFooter.jsp" flush="true" />
 
 	<script type="text/javascript">
