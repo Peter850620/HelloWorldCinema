@@ -25,7 +25,7 @@
 		ShowtimeInfo show = (ShowtimeInfo) session.getAttribute("whichShow");
 		
 		Mem mem=(Mem)session.getAttribute("mem");
-		Integer memId=mem.getMemId();
+		
 		%>
 		<div class="theatre">
 			<div class="screen-side">
