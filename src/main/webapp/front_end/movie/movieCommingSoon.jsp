@@ -34,7 +34,7 @@ MovieServiceYuan movieSvc = new MovieServiceYuan();
 <div class="link-container">
     <h4 class="link"><a href="<%=request.getContextPath()%>/front_end/homePage.jsp">首頁</a></h4>
     <span>/</span>
-    <h4 class="link"><a href="<%=request.getContextPath()%>/front_end/movie/movieNowShowing.jsp">熱映中</a></h4>
+    <h4 class="link"><a href="<%=request.getContextPath()%>/front_end/movie/movieNowShowing.jsp">現正熱映</a></h4>
 </div>
 <br>
 

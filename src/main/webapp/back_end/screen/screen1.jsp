@@ -233,7 +233,7 @@
                 	return;
                 }
                 
-                if (seatStatus.startsWith("Error")) {    //如果用戶取消非自己的座位時會傳送ERROR回來
+                if (seatStatus.startsWith("錯誤")) {    //如果用戶取消非自己的座位時會傳送ERROR回來
                     alert(seatStatus);
                     var checkbox = document.getElementById(seatId);
                     if (checkbox) {

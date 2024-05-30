@@ -51,7 +51,7 @@ public class SeatWebSocketB {
                   
                 } else {
                 	
-                    sendToSession(session, seatId+","+"Error:您不具有權力取消該座位"+","+showid);
+                    sendToSession(session, seatId+","+"錯誤:您不具有權力取消該座位"+","+showid);
                     //沒有的話則發送錯誤訊息給前端
                     return;
                 }
